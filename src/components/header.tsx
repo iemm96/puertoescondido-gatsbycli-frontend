@@ -8,7 +8,6 @@ import {defaultTheme} from "../theme/Theme";
 import { useTheme } from '@mui/material/styles';
 import Image from '../components/common/Image';
 import { WhatsApp } from "@mui/icons-material"
-import { useEffect, useState } from "react";
 
 const pages = [
   {
@@ -45,28 +44,8 @@ interface ElevationScrollProps {
   oldProps?: object;
   newProps?:object;
 }
-const Header = props => {
 
-  const getMenuButtons = () => {
-    return pages.map(({ label, href }) => {
-      return (
-        <Button
-          {...{
-            key: label,
-            color: "inherit",
-            to: href,
-            component: Link,
-          }}
-          sx={{
-            textTransform: "none",
-            mr: "1rem"
-          }}
-        >
-          {label}
-        </Button>
-      );
-    });
-  };
+const Header = () => {
 
   function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
     const trigger = useScrollTrigger({
@@ -97,7 +76,12 @@ const Header = props => {
     return React.cloneElement(children, getProps);
   }
 
-  // @ts-ignore
+  const stylesLink = {
+    marginRight: '1rem',
+    fontFamily: 'Roboto',
+    textDecoration: 'none',
+  }
+  
   return(
     <header>
       <ElevationScroll shadow={8} background="white">
@@ -126,7 +110,13 @@ const Header = props => {
                   <MenuIcon />
                 </IconButton>
               </Box>
-              
+              <Box sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
+                {pages.map(({label,href}) => (
+                  <ScrollTrigger oldProps={{style:{color:"white",...stylesLink},activeStyle:{textDecoration:"underline", ...stylesLink}}} newProps={{style:{...stylesLink},activeStyle:{color:defaultTheme.palette.primary.main, ...stylesLink}}}>
+                    <Link key={label} to={href}>{label}</Link>
+                  </ScrollTrigger>
+                ))}
+              </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <ThemeProvider theme={defaultTheme}>
                   <ScrollTrigger oldProps={{color:"neutral"}} newProps={{color:"primary"}}>
