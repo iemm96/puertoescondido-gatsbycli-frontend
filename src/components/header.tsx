@@ -110,9 +110,9 @@ const Header = props => {
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <ScrollTrigger oldProps={{filename:"logo_white.png"}} newProps={{filename:"logo_color.png"}}>
+              <ElevationScroll filename="logo_color.png">
                 <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
-              </ScrollTrigger>
+              </ElevationScroll>
 
               <Box sx={{flexGrow: 1,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
@@ -126,22 +126,7 @@ const Header = props => {
                   <MenuIcon />
                 </IconButton>
               </Box>
-              <Box sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map(({label,href}) => (
-                  <ElevationScroll>
-                    <Button
-                      {...{
-                        key:label,
-                        to:href,
-                        component: 'Link'
-                      }}
-                      sx={{my: 2, color: 'white', display: 'block', textTransform: 'none'}}
-                    >
-                      {label}
-                    </Button>
-                  </ElevationScroll>
-                ))}
-              </Box>
+              
               <Box sx={{ flexGrow: 0 }}>
                 <ThemeProvider theme={defaultTheme}>
                   <ScrollTrigger oldProps={{color:"neutral"}} newProps={{color:"primary"}}>

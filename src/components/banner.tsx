@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css"
 import Slide from "./banner/Slide"
 import { Container, Grid, Typography } from "@mui/material"
 
-
 const Banner = () => {
 
   const {backgroundImage} = useStaticQuery(graphql`
@@ -23,8 +22,6 @@ const Banner = () => {
       }
     }
   `);
-
-  const pluginImage = getImage(backgroundImage);
 
   const settings = {
     dots: false,
