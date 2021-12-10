@@ -94,9 +94,9 @@ const Header = () => {
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <ElevationScroll filename="logo_color.png">
+              <ScrollTrigger oldProps={{filename:"logo_white.png",width:175}} newProps={{filename:"logo_color.png",width:160}}>
                 <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
-              </ElevationScroll>
+              </ScrollTrigger>
 
               <Box sx={{flexGrow: 1,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
@@ -113,7 +113,9 @@ const Header = () => {
               <Box sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map(({label,href}) => (
                   <ScrollTrigger oldProps={{style:{color:"white",...stylesLink},activeStyle:{textDecoration:"underline", ...stylesLink}}} newProps={{style:{...stylesLink},activeStyle:{color:defaultTheme.palette.primary.main, ...stylesLink}}}>
-                    <Link key={label} to={href}>{label}</Link>
+                    <Link key={label} to={href}>
+                      {label}
+                    </Link>
                   </ScrollTrigger>
                 ))}
               </Box>
