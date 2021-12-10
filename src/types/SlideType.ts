@@ -1,5 +1,6 @@
 type SlideType = {
-  child: any
+  child: any,
+  imageName:string
 }
 
 export default SlideType;

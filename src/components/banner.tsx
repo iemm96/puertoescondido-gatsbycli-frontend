@@ -1,11 +1,16 @@
 import * as React from "react"
-import { getImage } from "gatsby-plugin-image"
 import { graphql,useStaticQuery } from "gatsby"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slide from "./banner/Slide"
-import { Container, Grid, Typography } from "@mui/material"
+import { Container, Grid, styled, Typography } from "@mui/material"
+
+const StyledDiv = styled("div")(() => ({
+  background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
+  width: "100%",
+  height: "100%"
+}));
 
 const Banner = () => {
 
@@ -27,45 +32,48 @@ const Banner = () => {
     dots: false,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3500,
     fade:true
-  }
+  };
 
   const childSlide = () => {
     return(
-      <Container sx={{
-        padding: "10rem 0"
-      }}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <Typography variant="h2" color="white">
-              Somos la inmobiliaria en la que puedes confiar.
-            </Typography>
+      <StyledDiv>
+        <Container sx={{
+          padding: "12rem 0"
+        }}>
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <Typography variant="h2" color="white">
+                Somos la inmobiliaria en la que puedes confiar.
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <Typography color="white">
-              Sin costos ocultos
-            </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <Typography color="white">
+                Sin costos ocultos
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography color="white">
+                Encuentra tu hogar fácil y rápido
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography color="white">
+                Asesoría durante todo el proceso
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <Typography color="white">
-              Encuentra tu hogar fácil y rápido
-            </Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Typography color="white">
-              Asesoría durante todo el proceso
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </StyledDiv>
     )
-  }
+  };
+
   return (
     <Slider {...settings} className="overflow-hidden">
-      <Slide child={childSlide()}/>
+      <Slide child={childSlide()} imageName="banner-1.png"/>
     </Slider>
   )
 };
