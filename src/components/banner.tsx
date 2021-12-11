@@ -1,32 +1,41 @@
-import * as React from "react"
-import { graphql,useStaticQuery } from "gatsby"
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-import Slide from "./banner/Slide"
-import { Container, Grid, styled, Typography } from "@mui/material"
+import * as React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slide from "./banner/Slide";
+import { Container, Grid, styled, Typography } from "@mui/material";
+// @ts-ignore
+import IconHouseConst from "./../images/icons/icon-house-cost.svg";
+// @ts-ignore
+import IconFindHouse from "./../images/icons/icon-find-house.svg";
+// @ts-ignore
+import IconSupportHouse from "./../images/icons/icon-support-house.svg";
 
-const StyledDiv = styled("div")(() => ({
+const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
   width: "100%",
   height: "100%"
 }));
 
-const Banner = () => {
+const StyledIconTypographyDiv = styled("div")(() => ({
+  display: 'flex',
+  justifyContent: 'left',
+  alignContent: 'center'
+}));
 
-  const {backgroundImage} = useStaticQuery(graphql`
-    query {
-      backgroundImage: file(relativePath: {eq: "banner-1.jpg"}) {
-        id
-        childImageSharp {
-          gatsbyImageData(
-          width: 2000, 
-          quality: 90, 
-          webpOptions: {quality: 90})
-        }
-      }
-    }
-  `);
+const StyledH2 = styled(Typography)(() => ({
+  '&::after': {
+    content: '""',
+    background: 'white',
+    width: '20%',
+    margin: '8px 0',
+    height: 1,
+    position:'relative',
+    display: 'inherit',
+  }
+}));
+
+const Banner = () => {
 
   const settings = {
     dots: false,
@@ -38,42 +47,61 @@ const Banner = () => {
 
   const childSlide = () => {
     return(
-      <StyledDiv>
+      <StyledLinearBackgroundDiv>
         <Container sx={{
           padding: "12rem 0"
         }}>
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <Typography variant="h2" color="white">
-                Somos la inmobiliaria en la que puedes confiar.
-              </Typography>
+          <div
+            data-sal="slide-up"
+            data-sal-delay="1200"
+            data-sal-duration="600"
+            data-sal-easing="ease"
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={8}>
+                <StyledH2 variant="h2" color="white">
+                  Somos la inmobiliaria en la que puedes confiar.
+                </StyledH2>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <Typography color="white">
-                Sin costos ocultos
-              </Typography>
+          </div>
+          <Grid container maxWidth="lg" spacing={0}>
+            <Grid item xs={2}>
+              <StyledIconTypographyDiv>
+                <IconHouseConst width={40}/>
+                <Typography sx={{ml:2}} color="white">
+                  Sin costos {<br/>} ocultos
+                </Typography>
+              </StyledIconTypographyDiv>
             </Grid>
             <Grid item xs={3}>
-              <Typography color="white">
-                Encuentra tu hogar fácil y rápido
-              </Typography>
+              <StyledIconTypographyDiv>
+                <IconFindHouse size={48}/>
+                <Typography color="white" sx={{ml:2}}>
+                  Encuentra propiedades fácilmente
+                </Typography>
+              </StyledIconTypographyDiv>
+
             </Grid>
             <Grid item xs={3}>
-              <Typography color="white">
-                Asesoría durante todo el proceso
-              </Typography>
+              <StyledIconTypographyDiv>
+                <IconSupportHouse size={48}/>
+                <Typography color="white" sx={{ml:2}}>
+                  Asesoría durante todo el proceso
+                </Typography>
+              </StyledIconTypographyDiv>
             </Grid>
           </Grid>
         </Container>
-      </StyledDiv>
+      </StyledLinearBackgroundDiv>
     )
   };
 
   return (
     <Slider {...settings} className="overflow-hidden">
-      <Slide child={childSlide()} imageName="banner-1.png"/>
+      <Slide child={childSlide()} imageName="banner-1.jpg"/>
+      <Slide child={childSlide()} imageName="banner-2.jpg"/>
+      <Slide child={childSlide()} imageName="banner-3.jpg"/>
     </Slider>
   )
 };
