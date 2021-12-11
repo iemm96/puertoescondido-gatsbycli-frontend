@@ -10,6 +10,14 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-material-ui`,
     {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /images/ // See below to configure properly
+        }
+      }
+    },
+    {
       resolve: `gatsby-plugin-scroll-reveal`,
       options: {
         threshold: 1, // Percentage of an element's area that needs to be visible to launch animation
