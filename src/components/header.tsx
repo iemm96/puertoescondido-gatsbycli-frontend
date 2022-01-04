@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { AppBar, Box, Button, Container, IconButton, Toolbar, useScrollTrigger } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeProvider } from '@mui/material/styles';
-import {StyledButton} from "../styled/StyledButton";
+import {StyledButton} from "../styled/";
 import {defaultTheme} from "../theme/Theme";
 import { useTheme } from '@mui/material/styles';
 import Image from '../components/common/Image';

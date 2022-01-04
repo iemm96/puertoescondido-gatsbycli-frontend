@@ -34,9 +34,7 @@ const BackgroundImage = props => (
       }
 
       return (
-        <BgImage image={getImage(image.node)}>
-          {props.child}
-        </BgImage>);
+        <BgImage style={{height:700}} image={getImage(image.node)}/>);
     }}
   />
 );

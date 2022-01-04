@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "./banner/Slide";
-import { Container, Grid, styled, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material"
 // @ts-ignore
 import IconHouseConst from "./../images/icons/icon-house-cost.svg";
 // @ts-ignore
@@ -48,9 +48,12 @@ const Banner = () => {
   const childSlide = () => {
     return(
       <StyledLinearBackgroundDiv>
-        <Container sx={{
-          padding: "12rem 0"
-        }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            padding: "12rem 0"
+          }}
+        >
           <div
             data-sal="slide-up"
             data-sal-delay="1200"
@@ -92,20 +95,104 @@ const Banner = () => {
               </StyledIconTypographyDiv>
             </Grid>
           </Grid>
+          <Grid container>
+            <Grid item>
+              <TextField sx={{
+
+              }}
+              variant="filled"
+              placeholder="¿Qué tipo de propiedad estás buscando?"
+             title="¿Qué tipo de propiedad estás buscando?"/>
+            </Grid>
+          </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
     )
   };
 
+  const searchField = () => {
+    return(
+      <TextField title="¿Qué tipo de propiedad estás buscando?"/>
+    )
+  }
+
   return (
-    <Slider {...settings} className="overflow-hidden">
-      <Slide child={childSlide()} imageName="banner-1.jpg"/>
-      <Slide child={childSlide()} imageName="banner-2.jpg"/>
-      <Slide child={childSlide()} imageName="banner-3.jpg"/>
-    </Slider>
+    <>
+      <StyledLinearBackgroundDiv>
+        <Container
+          maxWidth="xl"
+          sx={{
+            padding: "12rem 0"
+          }}
+        >
+          <div
+            data-sal="slide-up"
+            data-sal-delay="1200"
+            data-sal-duration="600"
+            data-sal-easing="ease"
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={8}>
+                <StyledH2 variant="h2" color="white">
+                  Somos la inmobiliaria en la que puedes confiar.
+                </StyledH2>
+              </Grid>
+            </Grid>
+          </div>
+          <Grid container maxWidth="lg" spacing={0}>
+            <Grid item xs={2}>
+              <StyledIconTypographyDiv>
+                <IconHouseConst width={40}/>
+                <Typography sx={{ml:2}} color="white">
+                  Sin costos {<br/>} ocultos
+                </Typography>
+              </StyledIconTypographyDiv>
+            </Grid>
+            <Grid item xs={3}>
+              <StyledIconTypographyDiv>
+                <IconFindHouse size={48}/>
+                <Typography color="white" sx={{ml:2}}>
+                  Encuentra propiedades fácilmente
+                </Typography>
+              </StyledIconTypographyDiv>
+
+            </Grid>
+            <Grid item xs={3}>
+              <StyledIconTypographyDiv>
+                <IconSupportHouse size={48}/>
+                <Typography color="white" sx={{ml:2}}>
+                  Asesoría durante todo el proceso
+                </Typography>
+              </StyledIconTypographyDiv>
+            </Grid>
+          </Grid>
+          <Grid container mt={2}>
+            <Grid item sm={12}>
+              <TextField sx={{
+                width: 600,
+                '& .MuiFilledInput-root': {
+                  backgroundColor: '#EBF2FF',
+                  borderRadius: 3.5,
+                }
+              }}
+               variant="filled"
+               InputProps={{
+                 disableUnderline: true,
+                 endAdornment: <Button color="primary" variant="contained">Buscar</Button>
+               }}
+               label="¿Qué tipo de propiedad estás buscando?"
+               />
+            </Grid>
+          </Grid>
+        </Container>
+      </StyledLinearBackgroundDiv>
+      <Slider {...settings} style={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}>
+        <Slide imageName="banner-1.jpg"/>
+        <Slide imageName="banner-2.jpg"/>
+        <Slide imageName="banner-3.jpg"/>
+      </Slider>
+    </>
   )
 };
 
 export default Banner;
-
-//https://www.youtube.com/watch?v=d5i00ZN2Tuw
