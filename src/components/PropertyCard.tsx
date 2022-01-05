@@ -2,13 +2,16 @@ import * as React from 'react';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material"
 import { StaticImage } from "gatsby-plugin-image";
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 
 const PropertyCard = () => {
   return(
+    <Box sx={{
+      margin: 1
+    }}>
       <StyledCard>
         <StaticImage
           src="../images/properties/la-isla.jpg"
@@ -41,6 +44,8 @@ const PropertyCard = () => {
           </Button>
         </CardActions>
       </StyledCard>
+    </Box>
+
   )
 }
 

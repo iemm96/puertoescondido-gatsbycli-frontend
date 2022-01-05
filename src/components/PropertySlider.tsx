@@ -3,63 +3,45 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PropertyCard from "./PropertyCard"
-import { styled } from "@mui/material"
-import { ChevronLeft } from "@mui/icons-material"
-
-const StyledArrowDiv = styled('div')(() => ({
-  width: 40,
-  height: 40,
-  backgroundColor: "red"
-}));
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    >
-      <ChevronLeft color="primary"/>
-    </div>
-  );
-}
+import { Grid, IconButton, Typography } from "@mui/material"
+import { ChevronLeft, ChevronRight } from "@mui/icons-material"
 
 const settings = {
   dots: false,
   slidesToShow: 4,
   slidesToScroll: 1,
-  nextArrow: (<StyledArrowDiv><ChevronLeft fontSize="medium"/></StyledArrowDiv>),
-  prevArrow: <SamplePrevArrow />
 };
 
 const PropertySlider = () => {
+  const sliderRef = React.useRef();
+
   return(
-    <Slider {...settings}>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-      <PropertyCard/>
-    </Slider>
+    <>
+      <Typography variant="h6">¡Tu mejor opción!</Typography>
+      <Grid container justifyContent="space-between">
+        <Grid item>
+          <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">Propiedades destacadas</Typography>
+        </Grid>
+        <Grid item>
+          <IconButton onClick={() => sliderRef?.current?.slickPrev()} component={ChevronLeft}/>
+          <IconButton onClick={() => sliderRef?.current?.slickNext()} component={ChevronRight}/>
+        </Grid>
+      </Grid>
+      <Slider ref={sliderRef} {...settings}>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+      </Slider>
+    </>
   )
 }
 
-export default PropertySlider;
+export default React.forwardRef(PropertySlider);
