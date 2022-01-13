@@ -3,13 +3,15 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "./banner/Slide";
-import { Container, Grid, styled, Typography } from "@mui/material";
-// @ts-ignore
-import IconHouseConst from "./../images/icons/icon-house-cost.svg";
-// @ts-ignore
-import IconFindHouse from "./../images/icons/icon-find-house.svg";
-// @ts-ignore
-import IconSupportHouse from "./../images/icons/icon-support-house.svg";
+import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material";
+
+const IconHouseConst = require('./../images/icons/icon-house-cost.svg') as string;
+const IconFindHouse = require('./../images/icons/icon-find-house.svg') as string;
+const IconSupportHouse = require('./../images/icons/icon-support-house.svg') as string;
+const IconResidential = require('./../images/icons/residential.svg') as string;
+const IconCultivation = require('./../images/icons/cultivation.svg') as string;
+const IconClimate = require('./../images/icons/climate.svg') as string;
+const IconBluePrint = require('./../images/icons/blueprint.svg') as string;
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -35,6 +37,12 @@ const StyledH2 = styled(Typography)(() => ({
   }
 }));
 
+const StyledTypesButton = styled(Button)(() => ({
+  borderRadius: 0,
+  boxShadow: 'none',
+  flex:1
+}));
+
 const Banner = () => {
 
   const settings = {
@@ -45,12 +53,15 @@ const Banner = () => {
     fade:true
   };
 
-  const childSlide = () => {
-    return(
+  return (
+    <>
       <StyledLinearBackgroundDiv>
-        <Container sx={{
-          padding: "12rem 0"
-        }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            padding: "12rem 0"
+          }}
+        >
           <div
             data-sal="slide-up"
             data-sal-delay="1200"
@@ -92,20 +103,74 @@ const Banner = () => {
               </StyledIconTypographyDiv>
             </Grid>
           </Grid>
+          <Grid container mt={2}>
+            <Grid item sm={12}>
+              <TextField sx={{
+                width: 600,
+                '& .MuiFilledInput-root': {
+                  backgroundColor: '#EBF2FF',
+                  borderRadius: 3.5,
+                }
+              }}
+               variant="filled"
+               InputProps={{
+                 disableUnderline: true,
+                 endAdornment: <Button color="primary" variant="contained">Buscar</Button>
+               }}
+               label="¿Qué tipo de propiedad estás buscando?"
+               />
+            </Grid>
+          </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
-    )
-  };
-
-  return (
-    <Slider {...settings} className="overflow-hidden">
-      <Slide child={childSlide()} imageName="banner-1.jpg"/>
-      <Slide child={childSlide()} imageName="banner-2.jpg"/>
-      <Slide child={childSlide()} imageName="banner-3.jpg"/>
-    </Slider>
+      <Box sx={{
+        display:'flex',
+      }}>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconResidential width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Fraccionamientos
+        </StyledTypesButton>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconCultivation width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Ranchos
+        </StyledTypesButton>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconClimate width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Terrenos
+        </StyledTypesButton>
+        <StyledTypesButton
+          startIcon={<IconBluePrint width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Lotificaciones
+        </StyledTypesButton>
+      </Box>
+      <Slider {...settings} style={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}>
+        <Slide imageName="banner-1.jpg"/>
+        <Slide imageName="banner-2.jpg"/>
+        <Slide imageName="banner-3.jpg"/>
+      </Slider>
+    </>
   )
 };
 
 export default Banner;
-
-//https://www.youtube.com/watch?v=d5i00ZN2Tuw

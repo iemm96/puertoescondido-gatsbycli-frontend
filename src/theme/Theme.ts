@@ -9,6 +9,15 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     neutral?: PaletteOptions['primary'];
   }
+
+  interface TypographyVariants {
+    cardTitle: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    cardTitle?: React.CSSProperties;
+  }
 }
 
 // Update the Button's color prop options
@@ -18,7 +27,25 @@ declare module '@mui/material/Button' {
   }
 }
 
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    cardTitle: true;
+  }
+}
+
 export const defaultTheme = createTheme({
+  typography: {
+    fontFamily: [
+      'Poppins',
+    ].join(','),
+    cardTitle: {
+      color: '#023859',
+      fontFamily: 'Poppins',
+      fontSize: "1rem",
+      fontWeight: 500
+    }
+  },
   palette: {
     neutral: {
       main: '#fff',
