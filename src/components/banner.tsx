@@ -3,13 +3,15 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "./banner/Slide";
-import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material"
-// @ts-ignore
-import IconHouseConst from "./../images/icons/icon-house-cost.svg";
-// @ts-ignore
-import IconFindHouse from "./../images/icons/icon-find-house.svg";
-// @ts-ignore
-import IconSupportHouse from "./../images/icons/icon-support-house.svg";
+import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material";
+
+const IconHouseConst = require('./../images/icons/icon-house-cost.svg') as string;
+const IconFindHouse = require('./../images/icons/icon-find-house.svg') as string;
+const IconSupportHouse = require('./../images/icons/icon-support-house.svg') as string;
+const IconResidential = require('./../images/icons/residential.svg') as string;
+const IconCultivation = require('./../images/icons/cultivation.svg') as string;
+const IconClimate = require('./../images/icons/climate.svg') as string;
+const IconBluePrint = require('./../images/icons/blueprint.svg') as string;
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -33,6 +35,12 @@ const StyledH2 = styled(Typography)(() => ({
     position:'relative',
     display: 'inherit',
   }
+}));
+
+const StyledTypesButton = styled(Button)(() => ({
+  borderRadius: 0,
+  boxShadow: 'none',
+  flex:1
 }));
 
 const Banner = () => {
@@ -115,6 +123,47 @@ const Banner = () => {
           </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
+      <Box sx={{
+        display:'flex',
+      }}>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconResidential width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Fraccionamientos
+        </StyledTypesButton>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconCultivation width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Ranchos
+        </StyledTypesButton>
+        <StyledTypesButton
+          sx={{
+            borderRight: '1px solid white'
+          }}
+          startIcon={<IconClimate width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Terrenos
+        </StyledTypesButton>
+        <StyledTypesButton
+          startIcon={<IconBluePrint width={40}/>}
+          color="primary"
+          variant="contained"
+        >
+          Lotificaciones
+        </StyledTypesButton>
+      </Box>
       <Slider {...settings} style={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}>
         <Slide imageName="banner-1.jpg"/>
         <Slide imageName="banner-2.jpg"/>

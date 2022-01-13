@@ -11,7 +11,7 @@ import Img from "gatsby-image";
 import { graphql, useStaticQuery } from "gatsby"
 
 // @ts-ignore
-import IconGastronomy from "./../images/icons/gastronomy.svg";
+import IconGastronomy from './../images/icons/gastronomy.svg';
 
 // @ts-ignore
 import IconBeach from "./../images/icons/Beach.svg";
@@ -24,6 +24,9 @@ import IconTurtle from "./../images/icons/turtle.svg";
 
 // @ts-ignore
 import IconFolclore from "./../images/icons/Folklore.svg";
+
+import PostCard from "../components/PostCard"
+import TestimonialsSlider from "../components/TestimonialsSlider"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -129,6 +132,42 @@ const IndexPage = () => {
               </Grid>
             </Container>
           </Box>
+          <Container maxWidth="xl">
+            <Typography variant="h6">Últimas entradas</Typography>
+            <Typography sx={{fontWeight: 600}} variant="h5">De nuestro blog</Typography>
+            <Grid container>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+            </Grid>
+          </Container>
+          <Box sx={{
+            justifyContent: 'center',
+            display: 'flex'
+          }}>
+            <Button
+              color="primary"
+              variant="contained"
+            >
+              Ver más entradas
+            </Button>
+          </Box>
+          <Container maxWidth="xl">
+            <TestimonialsSlider/>
+          </Container>
+          <Typography align="center">
+            “NO ESPERE A INVERTIR EN BIENES RAICES,
+            INVIERTA EN BIENES RAICES Y ESPERE”
+          </Typography>
         </Layout>
       </ThemeProvider>
     </>
