@@ -2,7 +2,8 @@ import * as React from 'react';
 import './../styles/wave-animation.scss';
 import { Box, Container, Grid, Typography } from "@mui/material"
 import Image from '../components/common/Image';
-const Waves = require('./../images/waves.svg') as string;
+// @ts-ignore
+import Waves from './../images/waves.svg';
 
 const Footer = () => {
   return(
@@ -16,7 +17,8 @@ const Footer = () => {
         backgroundColor: '#023859'
       }}>
         <Container sx={{
-          padding: '2rem 0'
+          padding: '2rem 0',
+          marginTop: -1
         }} maxWidth="xl">
           <Grid sx={{
             mb:3
