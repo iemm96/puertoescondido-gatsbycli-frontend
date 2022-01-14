@@ -32,6 +32,10 @@ const pages = [
   },
 ];
 
+type HeaderPropsType = {
+  scrollTrigger?: boolean;
+}
+
 interface ElevationScrollProps {
   children: React.ReactElement;
   shadow?: number;
@@ -45,24 +49,24 @@ interface ElevationScrollProps {
   newProps?:object;
 }
 
-const Header = () => {
+const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
   function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
-    const trigger = useScrollTrigger({
+    const trigger = scrollTrigger ? useScrollTrigger({
       disableHysteresis: disableHysteresis ? disableHysteresis : true,
       threshold: threshold ? threshold : 20,
-    });
+    }) : true;
 
     return React.cloneElement(children, trigger ? newProps : oldProps);
   }
 
-  function ElevationScroll({children,window,shadow,threshold,disableHysteresis,background,filename}:ElevationScrollProps) {
+  function ElevationScroll({children,shadow,threshold,disableHysteresis,background,filename}:ElevationScrollProps) {
     const theme = useTheme();
     // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({
+    const trigger = scrollTrigger ? useScrollTrigger({
       disableHysteresis: disableHysteresis ? disableHysteresis : true,
       threshold: threshold ? threshold : 20,
-    });
+    }) : true;
 
     const getProps = ( filename ? {filename: trigger ? "logo_color.png" : "logo_white.png"} : {style: {
         boxShadow: (trigger && shadow) ? theme.shadows[shadow] : "none",
@@ -126,16 +130,17 @@ const Header = () => {
                       (+52)33526542
                     </Button>
                   </ScrollTrigger>
-                  <StyledButton sx={{ml:2}} variant="contained" color="secondary">
-                    Contáctanos
-                  </StyledButton>
+                  <Link to={'/contacto'}>
+                    <StyledButton sx={{ml:2}} variant="contained" color="secondary">
+                      Contáctanos
+                    </StyledButton>
+                  </Link>
                 </ThemeProvider>
               </Box>
             </Toolbar>
           </Container>
         </AppBar>
       </ElevationScroll>
-
     </header>)
 }
 

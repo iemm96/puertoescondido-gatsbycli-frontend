@@ -2,31 +2,22 @@ import * as React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import withTheme from "../components/theme"
-import Banner from "../components/banner"
+import Banner from "../components/Banner"
 import { ThemeProvider } from '@mui/material/styles';
 import { defaultTheme } from "../theme/Theme";
 import PropertySlider from "../components/PropertySlider"
 import { Box, Button, Container, Grid, Typography } from "@mui/material"
 import Img from "gatsby-image";
 import { graphql, useStaticQuery } from "gatsby"
+import PostCard from "../components/PostCard"
+import TestimonialsSlider from "../components/TestimonialsSlider"
 
 // @ts-ignore
 import IconGastronomy from './../images/icons/gastronomy.svg';
-
-// @ts-ignore
 import IconBeach from "./../images/icons/Beach.svg";
-
-// @ts-ignore
 import IconHiking from "./../images/icons/hiking.svg";
-
-// @ts-ignore
-import IconTurtle from "./../images/icons/turtle.svg";
-
-// @ts-ignore
+import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
-
-import PostCard from "../components/PostCard"
-import TestimonialsSlider from "../components/TestimonialsSlider"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -41,13 +32,13 @@ const IndexPage = () => {
         }
       }
     }
-  `)
+  `);
 
   return(
     <>
       <ThemeProvider theme={defaultTheme}>
         <Seo title="Home" />
-        <Layout>
+        <Layout scrollTrigger={true}>
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',
@@ -125,7 +116,7 @@ const IndexPage = () => {
                       }}
                       quality={100}
                       fixed={data.file.childImageSharp.fixed}
-                      alt="Gatsby Docs are awesome"
+                      alt="Puerto escondido"
                     />
                   </div>
                 </Grid>
