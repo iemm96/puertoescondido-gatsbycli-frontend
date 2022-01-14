@@ -6,9 +6,9 @@ import GradientBox from "../components/GradientBox";
 import { graphql, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material"
-const IconTarget = require('./../images/icons/target.svg');
-const IconVision = require('./../images/icons/vision.svg');
-const IconValues = require('./../images/icons/values.svg');
+import IconTarget from './../images/icons/target.svg';
+import IconVision from './../images/icons/vision.svg';
+import IconValues from './../images/icons/values.svg';
 
 const ConocenosPage = () => {
   const data = useStaticQuery(graphql`
