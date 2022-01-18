@@ -1,13 +1,19 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { AppBar, Box, Button, Container, IconButton, Toolbar, useScrollTrigger } from "@mui/material"
+import useScrollTrigger from "@mui/material/useScrollTrigger"
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Box from  "@mui/material/Box";
+import AppBar from  "@mui/material/AppBar";
 import MenuIcon from '@mui/icons-material/Menu';
-import { ThemeProvider } from '@mui/material/styles';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import {StyledButton} from "../styled/";
 import {defaultTheme} from "../theme/Theme";
-import { useTheme } from '@mui/material/styles';
+import useTheme from '@mui/material/styles/useTheme';
 import Image from '../components/common/Image';
-import { WhatsApp } from "@mui/icons-material"
+import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
 
 const pages = [
@@ -89,8 +95,6 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
     textDecoration: 'none',
   }
 
-
-  
   return(
     <header>
       <ElevationScroll shadow={8} background="white">

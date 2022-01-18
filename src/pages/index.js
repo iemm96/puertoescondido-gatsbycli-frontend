@@ -5,8 +5,15 @@ import withTheme from "../components/theme"
 import Banner from "../components/Banner"
 import { ThemeProvider } from '@mui/material/styles';
 import { defaultTheme } from "../theme/Theme";
-import PropertySlider from "../components/PropertySlider"
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material"
+
+import PropertySlider from "../components/PropertySlider";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+
 import { StaticImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby"
 import PostCard from "../components/PostCard"

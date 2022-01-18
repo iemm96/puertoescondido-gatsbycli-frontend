@@ -1,6 +1,9 @@
 import * as React from 'react';
 import './../styles/wave-animation.scss';
-import { Box, Container, Grid, Typography } from "@mui/material"
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Image from '../components/common/Image';
 // @ts-ignore
 import Waves from './../images/waves.svg';

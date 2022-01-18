@@ -2,9 +2,12 @@ import * as React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import PropertyCard from "./PropertyCard"
-import { Grid, IconButton, Typography } from "@mui/material"
-import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import PropertyCard from "./PropertyCard";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+import ChevronRight from "@mui/icons-material/ChevronRight";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
 
 const settings = {
   dots: false,
