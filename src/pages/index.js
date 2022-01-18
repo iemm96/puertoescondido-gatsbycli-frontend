@@ -6,12 +6,12 @@ import Banner from "../components/Banner"
 import { ThemeProvider } from '@mui/material/styles';
 import { defaultTheme } from "../theme/Theme";
 import PropertySlider from "../components/PropertySlider"
-import { Box, Button, Container, Grid, Typography } from "@mui/material"
-import Img from "gatsby-image";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material"
+import { StaticImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby"
 import PostCard from "../components/PostCard"
 import TestimonialsSlider from "../components/TestimonialsSlider"
-
+import {Zoom, Fade} from 'react-reveal';
 // @ts-ignore
 import IconGastronomy from './../images/icons/gastronomy.svg';
 import IconBeach from "./../images/icons/Beach.svg";
@@ -43,21 +43,34 @@ const IndexPage = () => {
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',
             height: 600,
-            width: '100%'
+            width: '100%',
+            pt: 4
           }}>
-            <Container maxWidth="xl">
+            <Container sx={{
+              padding: {
+                xs: 0
+              }
+            }} maxWidth="xl">
               <PropertySlider/>
             </Container>
           </Box>
           <Box sx={{
             background: '#F2FBFC',
-            height: 420,
+            height: {
+              xs: 'auto',
+              md: 420
+            },
             width: '100%',
             padding: '2rem 0'
           }}>
             <Container maxWidth="xl">
               <Grid container>
-                <Grid item sm={12} md={6}>
+                <Grid
+                  order={{ xs:  2, md: 1}}
+                  xs={ 12 }
+                  md={ 6 }
+                  item
+                >
                   <Typography sx={{fontWeight: 600}} variant="h5">Puerto Escondido, Oaxaca.</Typography>
                   <Grid container>
                     <Grid item>
@@ -73,52 +86,68 @@ const IndexPage = () => {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid sx={{ mb:4 }} container spacing={4}>
-                    <Grid item display="flex" alignItems="center" direction="column">
-                      <IconBeach width={40}/>
-                      <Typography variant="label">Playas</Typography>
-                    </Grid>
-                    <Grid item display="flex" alignItems="center" direction="column">
-                      <IconGastronomy width={40}/>
-                      <Typography variant="label">Gastronomía</Typography>
-                    </Grid>
-                    <Grid item display="flex" alignItems="center" direction="column">
-                      <IconHiking width={40}/>
-                      <Typography variant="label">Senderismo</Typography>
-                    </Grid>
-                    <Grid item display="flex" alignItems="center" direction="column">
-                      <IconTurtle width={40}/>
-                      <Typography variant="label">Vida salvaje</Typography>
-                    </Grid>
-                    <Grid item display="flex" alignItems="center" direction="column">
-                      <IconFolclore width={40}/>
-                      <Typography variant="label">Folclore</Typography>
-                    </Grid>
-                  </Grid>
+                    <Fade cascade bottom>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: 16
+                      }}>
+                        <Stack direction="column">
+                          <IconBeach width={40}/>
+                          <Typography variant="caption">Playas</Typography>
+                        </Stack>
+                        <Stack direction="column">
+                          <IconGastronomy width={40}/>
+                          <Typography variant="caption">Gastronomía</Typography>
+                        </Stack>
+                        <Stack direction="column">
+                          <IconHiking width={40}/>
+                          <Typography variant="caption">Senderismo</Typography>
+                        </Stack>
+                        <Stack direction="column">
+                          <IconTurtle width={40}/>
+                          <Typography variant="caption">Vida salvaje</Typography>
+                        </Stack>
+                        <Stack direction="column">
+                          <IconFolclore width={40}/>
+                          <Typography variant="caption">Folclore</Typography>
+                        </Stack>
+                      </div>
+                    </Fade>
                   <Grid container>
                     <Button variant="contained" color="primary">
                       Contáctanos
                     </Button>
                   </Grid>
                 </Grid>
-                <Grid justifyContent="center" display="flex" item sm={12} md={6}>
-                  <div
-                    data-sal="slide-up"
-                    data-sal-delay="1200"
-                    data-sal-duration="600"
-                    data-sal-easing="ease"
-                  >
-                    <Img
+                <Grid
+                  sx={{
+                    mb: {
+                      xs: 4,
+                    }
+                  }}
+                  order={{ xs: 1, md: 2 }}
+                  justifyContent="center"
+                  display="flex"
+                  xs={12}
+                  md={6}
+                  item
+                >
+                  <Zoom>
+                    <StaticImage
+                      src="../images/img_puerto_escondido.JPG"
+                      formats={['auto']}
                       style={{
                         borderRadius: 16,
                         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
-                        marginTop: -80
+                        marginTop: 0,
                       }}
                       quality={100}
                       fixed={data.file.childImageSharp.fixed}
                       alt="Puerto escondido"
                     />
-                  </div>
+                  </Zoom>
                 </Grid>
               </Grid>
             </Container>

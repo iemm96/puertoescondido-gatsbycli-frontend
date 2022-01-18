@@ -8,6 +8,7 @@ import {defaultTheme} from "../theme/Theme";
 import { useTheme } from '@mui/material/styles';
 import Image from '../components/common/Image';
 import { WhatsApp } from "@mui/icons-material"
+import Sidebar from "./Sidebar"
 
 const pages = [
   {
@@ -51,6 +52,8 @@ interface ElevationScrollProps {
 
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
+  const ref = React.useRef(null);
+
   function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
     const trigger = scrollTrigger ? useScrollTrigger({
       disableHysteresis: disableHysteresis ? disableHysteresis : true,
@@ -85,6 +88,8 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
     fontFamily: 'Roboto',
     textDecoration: 'none',
   }
+
+
   
   return(
     <header>
@@ -98,17 +103,25 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <ScrollTrigger oldProps={{filename:"logo_white.png",width:175}} newProps={{filename:"logo_color.png",width:160}}>
-                <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
-              </ScrollTrigger>
-
-              <Box sx={{flexGrow: 1,display: {xs: 'flex', md: 'none'}}}>
+              <Box
+                sx={{
+                  flexGrow: {
+                    xs: 1,
+                    md: 0
+                  }
+                }}
+              >
+                <ScrollTrigger oldProps={{ filename:"logo_white.png", width:175 }} newProps={{ filename:"logo_color.png", width:160 }}>
+                  <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
+                </ScrollTrigger>
+              </Box>
+              <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={() => alert('menu clicked')}
+                  onClick={ () =>  ref.current.toggleDrawer(true) }
                   color="inherit"
                 >
                   <MenuIcon />
@@ -123,7 +136,15 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   </ScrollTrigger>
                 ))}
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
+              <Box
+                sx={{
+                  display: {
+                    xs: 'none',
+                    md: 'inline'
+                  },
+                  flexGrow: 0
+                }}
+              >
                 <ThemeProvider theme={defaultTheme}>
                   <ScrollTrigger oldProps={{color:"neutral"}} newProps={{color:"primary"}}>
                     <Button startIcon={<WhatsApp/>} variant="text">
@@ -141,6 +162,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
           </Container>
         </AppBar>
       </ElevationScroll>
+      <Sidebar ref={ref}/>
     </header>)
 }
 

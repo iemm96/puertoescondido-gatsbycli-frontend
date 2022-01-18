@@ -10,7 +10,9 @@ import { ArrowForwardOutlined } from '@mui/icons-material';
 const PropertyCard = () => {
   return(
     <Box sx={{
-      margin: 1
+      margin: {
+        xs: 1,
+      },
     }}>
       <StyledCard>
         <StaticImage

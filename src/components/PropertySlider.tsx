@@ -10,6 +10,18 @@ const settings = {
   dots: false,
   slidesToShow: 4,
   slidesToScroll: 1,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        centerMode: true,
+        centerPadding: '15%',
+        slidesToShow: 1,
+        infinite: false,
+      }
+    }
+  ]
 };
 
 const PropertySlider = () => {
@@ -23,8 +35,15 @@ const PropertySlider = () => {
           <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">Propiedades destacadas</Typography>
         </Grid>
         <Grid item>
-          <IconButton onClick={() => sliderRef?.current?.slickPrev()} component={ChevronLeft}/>
-          <IconButton onClick={() => sliderRef?.current?.slickNext()} component={ChevronRight}/>
+          <IconButton onClick={() => {
+              // @ts-ignore
+              sliderRef.current.slickPrev();
+          }
+          } component={ChevronLeft}/>
+          <IconButton onClick={() => {
+            // @ts-ignore
+            sliderRef?.current?.slickNext()
+          }} component={ChevronRight}/>
         </Grid>
       </Grid>
       <Slider ref={sliderRef} {...settings}>
