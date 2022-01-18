@@ -4,14 +4,21 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "./banner/Slide";
 import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material";
-
-const IconHouseConst = require('./../images/icons/icon-house-cost.svg') as string;
-const IconFindHouse = require('./../images/icons/icon-find-house.svg') as string;
-const IconSupportHouse = require('./../images/icons/icon-support-house.svg') as string;
-const IconResidential = require('./../images/icons/residential.svg') as string;
-const IconCultivation = require('./../images/icons/cultivation.svg') as string;
-const IconClimate = require('./../images/icons/climate.svg') as string;
-const IconBluePrint = require('./../images/icons/blueprint.svg') as string;
+import Fade from 'react-reveal/Fade';
+// @ts-ignore
+import IconHouseConst from './../images/icons/icon-house-cost.svg';
+// @ts-ignore
+import IconFindHouse from './../images/icons/icon-find-house.svg';
+// @ts-ignore
+import IconSupportHouse from './../images/icons/icon-support-house.svg';
+// @ts-ignore
+import IconResidential from './../images/icons/residential.svg';
+// @ts-ignore
+import IconCultivation from './../images/icons/cultivation.svg';
+// @ts-ignore
+import IconClimate from './../images/icons/climate.svg';
+// @ts-ignore
+import IconBluePrint from './../images/icons/blueprint.svg';
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -22,10 +29,13 @@ const StyledLinearBackgroundDiv = styled("div")(() => ({
 const StyledIconTypographyDiv = styled("div")(() => ({
   display: 'flex',
   justifyContent: 'left',
-  alignContent: 'center'
+  alignContent: 'center',
 }));
 
-const StyledH2 = styled(Typography)(() => ({
+const StyledH2 = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    fontSize: '2rem',
+  },
   '&::after': {
     content: '""',
     background: 'white',
@@ -40,7 +50,7 @@ const StyledH2 = styled(Typography)(() => ({
 const StyledTypesButton = styled(Button)(() => ({
   borderRadius: 0,
   boxShadow: 'none',
-  flex:1
+  flex: 1
 }));
 
 const Banner = () => {
@@ -59,24 +69,32 @@ const Banner = () => {
         <Container
           maxWidth="xl"
           sx={{
-            padding: "12rem 0"
+            padding: {
+              xs: '18rem 1rem 2rem 1rem',
+              md: '12rem 0'
+            }
           }}
         >
-          <div
-            data-sal="slide-up"
-            data-sal-delay="1200"
-            data-sal-duration="600"
-            data-sal-easing="ease"
-          >
+          <Fade bottom>
             <Grid container spacing={1}>
-              <Grid item xs={8}>
+              <Grid item xs={ 12 } md={8}>
                 <StyledH2 variant="h2" color="white">
                   Somos la inmobiliaria en la que puedes confiar.
                 </StyledH2>
               </Grid>
             </Grid>
-          </div>
-          <Grid container maxWidth="lg" spacing={0}>
+          </Fade>
+          <Grid
+            sx={{
+              display: {
+                xs: 'none',
+                md: 'inline'
+              }
+            }}
+            container
+            maxWidth="lg"
+            spacing={0}
+          >
             <Grid item xs={2}>
               <StyledIconTypographyDiv>
                 <IconHouseConst width={40}/>
@@ -104,9 +122,8 @@ const Banner = () => {
             </Grid>
           </Grid>
           <Grid container mt={2}>
-            <Grid item sm={12}>
+            <Grid item xs={12} md={4}>
               <TextField sx={{
-                width: 600,
                 '& .MuiFilledInput-root': {
                   backgroundColor: '#EBF2FF',
                   borderRadius: 3.5,
@@ -124,11 +141,14 @@ const Banner = () => {
         </Container>
       </StyledLinearBackgroundDiv>
       <Box sx={{
-        display:'flex',
+        display: {
+          xs: 'none',
+          md: 'flex'
+        }
       }}>
         <StyledTypesButton
           sx={{
-            borderRight: '1px solid white'
+            borderRight: '1px solid white',
           }}
           startIcon={<IconResidential width={40}/>}
           color="primary"

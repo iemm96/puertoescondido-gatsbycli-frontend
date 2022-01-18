@@ -2,8 +2,11 @@ import * as React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Grid, IconButton, Typography } from "@mui/material"
-import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+import ChevronRight from "@mui/icons-material/ChevronRight";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import PostCard from "./PostCard"
 
 const settings = {
@@ -23,8 +26,14 @@ const PropertySlider = () => {
           <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">La opinión de nuestros clientes</Typography>
         </Grid>
         <Grid item>
-          <IconButton onClick={() => sliderRef?.current?.slickPrev()} component={ChevronLeft}/>
-          <IconButton onClick={() => sliderRef?.current?.slickNext()} component={ChevronRight}/>
+          <IconButton onClick={() => {
+              // @ts-ignore
+            sliderRef?.current?.slickPrev()
+          }} component={ChevronLeft}/>
+          <IconButton onClick={() => {
+            // @ts-ignore
+            sliderRef?.current?.slickNext()
+          }} component={ChevronRight}/>
         </Grid>
       </Grid>
       <Slider ref={sliderRef} {...settings}>

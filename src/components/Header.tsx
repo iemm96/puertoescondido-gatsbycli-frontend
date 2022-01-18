@@ -1,13 +1,20 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { AppBar, Box, Button, Container, IconButton, Toolbar, useScrollTrigger } from "@mui/material"
+import useScrollTrigger from "@mui/material/useScrollTrigger"
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Box from  "@mui/material/Box";
+import AppBar from  "@mui/material/AppBar";
 import MenuIcon from '@mui/icons-material/Menu';
-import { ThemeProvider } from '@mui/material/styles';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import {StyledButton} from "../styled/";
 import {defaultTheme} from "../theme/Theme";
-import { useTheme } from '@mui/material/styles';
+import useTheme from '@mui/material/styles/useTheme';
 import Image from '../components/common/Image';
-import { WhatsApp } from "@mui/icons-material"
+import WhatsApp from "@mui/icons-material/WhatsApp"
+import Sidebar from "./Sidebar"
 
 const pages = [
   {
@@ -51,6 +58,8 @@ interface ElevationScrollProps {
 
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
+  const ref = React.useRef(null);
+
   function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
     const trigger = scrollTrigger ? useScrollTrigger({
       disableHysteresis: disableHysteresis ? disableHysteresis : true,
@@ -85,7 +94,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
     fontFamily: 'Roboto',
     textDecoration: 'none',
   }
-  
+
   return(
     <header>
       <ElevationScroll shadow={8} background="white">
@@ -98,17 +107,25 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <ScrollTrigger oldProps={{filename:"logo_white.png",width:175}} newProps={{filename:"logo_color.png",width:160}}>
-                <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
-              </ScrollTrigger>
-
-              <Box sx={{flexGrow: 1,display: {xs: 'flex', md: 'none'}}}>
+              <Box
+                sx={{
+                  flexGrow: {
+                    xs: 1,
+                    md: 0
+                  }
+                }}
+              >
+                <ScrollTrigger oldProps={{ filename:"logo_white.png", width:175 }} newProps={{ filename:"logo_color.png", width:160 }}>
+                  <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
+                </ScrollTrigger>
+              </Box>
+              <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={() => alert('menu clicked')}
+                  onClick={ () =>  ref.current.toggleDrawer(true) }
                   color="inherit"
                 >
                   <MenuIcon />
@@ -123,7 +140,15 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   </ScrollTrigger>
                 ))}
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
+              <Box
+                sx={{
+                  display: {
+                    xs: 'none',
+                    md: 'inline'
+                  },
+                  flexGrow: 0
+                }}
+              >
                 <ThemeProvider theme={defaultTheme}>
                   <ScrollTrigger oldProps={{color:"neutral"}} newProps={{color:"primary"}}>
                     <Button startIcon={<WhatsApp/>} variant="text">
@@ -141,6 +166,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
           </Container>
         </AppBar>
       </ElevationScroll>
+      <Sidebar ref={ref}/>
     </header>)
 }
 

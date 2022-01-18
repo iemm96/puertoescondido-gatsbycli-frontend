@@ -75,7 +75,7 @@ const Propiedades = () => {
             </Stack>
           </Box>
           <Grid sx={{ mt: 7 }} spacing={4} container>
-            <Grid xs={3} item>
+            <Grid sx={{ display: { xs: 'none', sm: 'inline' } }} xs={3} item>
               <Paper
                 sx={{
                   p: 2,
@@ -185,7 +185,7 @@ const Propiedades = () => {
                 </Stack>
               </Paper>
             </Grid>
-            <Grid xs={9} item>
+            <Grid xs={12} md={9} item>
               <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                 <Grid item>
                   <Typography>Ordenar por: Precio</Typography>
@@ -195,22 +195,22 @@ const Propiedades = () => {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
                   <PropertyCard/>
                 </Grid>
               </Grid>
