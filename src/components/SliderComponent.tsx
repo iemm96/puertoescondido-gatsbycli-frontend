@@ -7,7 +7,13 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import PropertyCard from "./components/PropertyCard"
+import PropertyCard from "./PropertyCard"
+
+type SliderComponentType = {
+  title: string;
+  subtitle: string;
+  settings?: any
+}
 
 const settings = {
   dots: false,
@@ -27,15 +33,15 @@ const settings = {
   ]
 };
 
-const PropertySlider = () => {
+const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
   const sliderRef = React.useRef();
 
   return(
     <>
-      <Typography variant="h6">¡Tu mejor opción!</Typography>
+      <Typography variant="subtitle1">{title}</Typography>
       <Grid container justifyContent="space-between">
         <Grid item>
-          <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">Propiedades destacadas</Typography>
+          <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">{subtitle}</Typography>
         </Grid>
         <Grid item>
           <IconButton onClick={() => {

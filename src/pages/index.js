@@ -16,7 +16,6 @@ import Button from "@mui/material/Button";
 
 import { StaticImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby"
-import PostCard from "../components/PostCard"
 import TestimonialsSlider from "../components/TestimonialsSlider"
 import {Zoom, Fade} from 'react-reveal';
 // @ts-ignore
@@ -25,6 +24,7 @@ import IconBeach from "./../images/icons/Beach.svg";
 import IconHiking from "./../images/icons/hiking.svg";
 import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
+import LastPosts from "../components/LastPosts"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -98,34 +98,54 @@ const IndexPage = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexFlow: 'row wrap',
                         marginBottom: 16
                       }}>
-                        <Stack direction="column">
+                        <Stack
+                          sx={{ flex: '0 0 33.333333%' }}
+                          direction="column"
+                        >
                           <IconBeach width={40}/>
                           <Typography variant="caption">Playas</Typography>
                         </Stack>
-                        <Stack direction="column">
+                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                           <IconGastronomy width={40}/>
                           <Typography variant="caption">Gastronomía</Typography>
                         </Stack>
-                        <Stack direction="column">
+                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                           <IconHiking width={40}/>
                           <Typography variant="caption">Senderismo</Typography>
                         </Stack>
-                        <Stack direction="column">
+                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                           <IconTurtle width={40}/>
                           <Typography variant="caption">Vida salvaje</Typography>
                         </Stack>
-                        <Stack direction="column">
+                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                           <IconFolclore width={40}/>
                           <Typography variant="caption">Folclore</Typography>
+                        </Stack>
+                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                          <IconHiking width={40}/>
+                          <Typography variant="caption">Senderismo</Typography>
                         </Stack>
                       </div>
                     </Fade>
                   <Grid container>
-                    <Button variant="contained" color="primary">
-                      Contáctanos
-                    </Button>
+                    <Grid
+                      xs={12}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: {
+                          xs: 'center',
+                          md: 'left'
+                        }
+                      }}
+                      item
+                    >
+                      <Button variant="contained" color="primary">
+                        Contáctanos
+                      </Button>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid
@@ -159,35 +179,7 @@ const IndexPage = () => {
               </Grid>
             </Container>
           </Box>
-          <Container maxWidth="xl">
-            <Typography variant="h6">Últimas entradas</Typography>
-            <Typography sx={{fontWeight: 600}} variant="h5">De nuestro blog</Typography>
-            <Grid container>
-              <Grid item>
-                <PostCard/>
-              </Grid>
-              <Grid item>
-                <PostCard/>
-              </Grid>
-              <Grid item>
-                <PostCard/>
-              </Grid>
-              <Grid item>
-                <PostCard/>
-              </Grid>
-            </Grid>
-          </Container>
-          <Box sx={{
-            justifyContent: 'center',
-            display: 'flex'
-          }}>
-            <Button
-              color="primary"
-              variant="contained"
-            >
-              Ver más entradas
-            </Button>
-          </Box>
+          <LastPosts/>
           <Container maxWidth="xl">
             <TestimonialsSlider/>
           </Container>

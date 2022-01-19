@@ -3,7 +3,17 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "./banner/Slide";
-import { Box, Button, Container, Grid, styled, TextField, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import {styled} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Search from "@mui/icons-material/Search";
+
 import Fade from 'react-reveal/Fade';
 // @ts-ignore
 import IconHouseConst from './../images/icons/icon-house-cost.svg';
@@ -19,6 +29,7 @@ import IconCultivation from './../images/icons/cultivation.svg';
 import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 import IconBluePrint from './../images/icons/blueprint.svg';
+import useTheme from "@mui/material/styles/useTheme"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -54,6 +65,8 @@ const StyledTypesButton = styled(Button)(() => ({
 }));
 
 const Banner = () => {
+  const theme = useTheme();
+
 
   const settings = {
     dots: false,
@@ -123,18 +136,24 @@ const Banner = () => {
           </Grid>
           <Grid container mt={2}>
             <Grid item xs={12} md={4}>
-              <TextField sx={{
-                '& .MuiFilledInput-root': {
-                  backgroundColor: '#EBF2FF',
-                  borderRadius: 3.5,
-                }
-              }}
+              <InputLabel sx={{ color: 'white' }} shrink htmlFor="search-property-input">
+                ¿Qué tipo de propiedad estás buscando?
+              </InputLabel>
+              <TextField
+                id="search-property-input"
+                sx={{
+                  '& .MuiFilledInput-root': {
+                    paddingRight: 0,
+                    backgroundColor: '#EBF2FF',
+                    borderRadius: 3.5,
+                  }
+                }}
                variant="filled"
                InputProps={{
                  disableUnderline: true,
-                 endAdornment: <Button color="primary" variant="contained">Buscar</Button>
+                 endAdornment: <IconButton sx={{ backgroundColor: theme.palette.primary.main }}><Search sx={{ color:'white' }}/></IconButton>
                }}
-               label="¿Qué tipo de propiedad estás buscando?"
+               placeholder="Cerca de la playa, rancho, terreno, etc."
                />
             </Grid>
           </Grid>

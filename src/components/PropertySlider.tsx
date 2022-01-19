@@ -21,7 +21,7 @@ const settings = {
         centerMode: true,
         centerPadding: '15%',
         slidesToShow: 1,
-        infinite: false,
+        infinite: true,
       }
     }
   ]
