@@ -159,18 +159,17 @@ const Banner = () => {
               <TextField
                 id="search-property-input"
                 sx={{
-                  '& .MuiFilledInput-root': {
+                  '& .MuiOutlinedInput-root': {
                     paddingRight: 0,
                     backgroundColor: '#EBF2FF',
                     borderRadius: 3.5,
                   }
                 }}
-               variant="filled"
                InputProps={{
                  disableUnderline: true,
                  endAdornment: <IconButton sx={{ backgroundColor: theme.palette.primary.main }}><Search sx={{ color:'white' }}/></IconButton>
                }}
-               placeholder="Cerca de la playa, rancho, terreno, etc."
+               placeholder="Cerca de la playa, terreno, etc."
                />
             </Grid>
           </Grid>

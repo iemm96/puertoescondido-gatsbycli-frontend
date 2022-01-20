@@ -6,7 +6,6 @@ import Banner from "../components/Banner"
 import { ThemeProvider } from '@mui/material/styles';
 import { defaultTheme } from "../theme/Theme";
 
-import PropertySlider from "../components/PropertySlider";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
