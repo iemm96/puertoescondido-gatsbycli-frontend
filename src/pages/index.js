@@ -24,7 +24,8 @@ import IconBeach from "./../images/icons/Beach.svg";
 import IconHiking from "./../images/icons/hiking.svg";
 import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
-import LastPosts from "../components/LastPosts"
+import LatestPosts from "../components/LatestPosts"
+import FeaturedPropierties from "../components/FeaturedPropierties"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -49,17 +50,15 @@ const IndexPage = () => {
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',
-            height: 600,
+            height: {
+              xs: 'auto',
+              md: 600
+            },
             width: '100%',
-            pt: 4
+            pt: 4,
+            pb: 2
           }}>
-            <Container sx={{
-              padding: {
-                xs: 0
-              }
-            }} maxWidth="xl">
-              <PropertySlider/>
-            </Container>
+            <FeaturedPropierties/>
           </Box>
           <Box sx={{
             background: '#F2FBFC',
@@ -179,7 +178,7 @@ const IndexPage = () => {
               </Grid>
             </Container>
           </Box>
-          <LastPosts/>
+          <LatestPosts/>
           <Container maxWidth="xl">
             <TestimonialsSlider/>
           </Container>

@@ -23,6 +23,7 @@ const PostCard = () => {
           <Typography variant="body2" color="text.secondary">
             $ 954,000 mxn
           </Typography>
+          {/* @ts-ignore */}
           <Typography variant="cardTitle">
             Fraccionamiento La Isla
           </Typography>

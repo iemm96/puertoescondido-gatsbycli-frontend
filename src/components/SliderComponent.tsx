@@ -7,7 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import PropertyCard from "./PropertyCard"
+import PropertyCard from "./PropertyCard";
+import Box from "@mui/material/Box";
+import "./../styles/slick.css";
 
 type SliderComponentType = {
   title: string;
@@ -27,7 +29,7 @@ const settings = {
         centerMode: true,
         centerPadding: '15%',
         slidesToShow: 1,
-        infinite: true,
+        infinite: false,
       }
     }
   ]
@@ -38,23 +40,26 @@ const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
 
   return(
     <>
-      <Typography variant="subtitle1">{title}</Typography>
-      <Grid container justifyContent="space-between">
-        <Grid item>
-          <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">{subtitle}</Typography>
-        </Grid>
-        <Grid item>
-          <IconButton onClick={() => {
+      <Box sx={ {pl: 2} }>
+        <Typography variant="subtitle1">{title}</Typography>
+        <Grid container justifyContent="space-between">
+          <Grid item>
+            <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={() => {
               // @ts-ignore
               sliderRef.current.slickPrev();
-          }
-          } component={ChevronLeft}/>
-          <IconButton onClick={() => {
-            // @ts-ignore
-            sliderRef?.current?.slickNext()
-          }} component={ChevronRight}/>
+            }
+            } component={ChevronLeft}/>
+            <IconButton onClick={() => {
+              // @ts-ignore
+              sliderRef?.current?.slickNext()
+            }} component={ChevronRight}/>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
+
       <Slider ref={sliderRef} {...settings}>
         <PropertyCard/>
         <PropertyCard/>

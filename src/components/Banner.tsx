@@ -29,7 +29,13 @@ import IconCultivation from './../images/icons/cultivation.svg';
 import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 import IconBluePrint from './../images/icons/blueprint.svg';
+
 import useTheme from "@mui/material/styles/useTheme"
+import useWindowDimensions from "../hooks/useWindowDimensions"
+import ResidentialIcon from "./common/icons/ResidentialIcon"
+import CultivationIcon from "./common/icons/CultivationIcon"
+import ClimateIcon from "./common/icons/ClimateIcon"
+import BluePrintIcon from "./common/icons/BluePrintIcon"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -58,6 +64,16 @@ const StyledH2 = styled(Typography)(({ theme }) => ({
   }
 }));
 
+const StyledTypesButtonMobile = styled(Button)(({ theme }) => ({
+  borderRadius: 6,
+  width: '100%',
+  textTransform: 'none',
+  boxShadow: 'none',
+  flex: 1,
+  backgroundColor: theme.palette.primary.main,
+  color: 'white'
+}));
+
 const StyledTypesButton = styled(Button)(() => ({
   borderRadius: 0,
   boxShadow: 'none',
@@ -66,7 +82,7 @@ const StyledTypesButton = styled(Button)(() => ({
 
 const Banner = () => {
   const theme = useTheme();
-
+  const { width } = useWindowDimensions();
 
   const settings = {
     dots: false,
@@ -159,6 +175,52 @@ const Banner = () => {
           </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
+      {
+        width < 480 ?
+          <Box
+            sx={{
+              backgroundColor: '#F7F6F4',
+              p: 2
+            }}
+          >
+            <Grid container spacing={1}>
+              <Grid xs={6} item>
+                <StyledTypesButtonMobile
+                  startIcon={<ResidentialIcon  width={24}/>}
+                  variant="contained"
+                >
+                  Fraccionamientos
+                </StyledTypesButtonMobile>
+              </Grid>
+              <Grid xs={6} item>
+                <StyledTypesButtonMobile
+                  startIcon={<CultivationIcon  width={24}/>}
+                  variant="contained"
+                >
+                  Ranchos
+                </StyledTypesButtonMobile>
+              </Grid>
+              <Grid xs={6} item>
+                <StyledTypesButtonMobile
+                  startIcon={<ClimateIcon  width={24}/>}
+                  variant="contained"
+                >
+                  Terrenos
+                </StyledTypesButtonMobile>
+              </Grid>
+              <Grid xs={6} item>
+                <StyledTypesButtonMobile
+                  startIcon={<BluePrintIcon  width={24}/>}
+                  variant="contained"
+                >
+                  Lotificaciones
+                </StyledTypesButtonMobile>
+              </Grid>
+            </Grid>
+          </Box>
+          :
+          <></>
+      }
       <Box sx={{
         display: {
           xs: 'none',
