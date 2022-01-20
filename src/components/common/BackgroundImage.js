@@ -16,7 +16,7 @@ const BackgroundImage = props => (
                 gatsbyImageData(
                   width: 2000
                   placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
+                  formats: [ WEBP, AVIF]
                 )
               }
             }

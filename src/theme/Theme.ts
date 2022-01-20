@@ -44,6 +44,16 @@ export const defaultTheme = createTheme({
       fontFamily: 'Poppins',
       fontSize: "1rem",
       fontWeight: 500
+    },
+    body2: {
+      color: '#898F99'
+    },
+    subtitle1: {
+      color: '#CD7D1E',
+      fontWeight: 500
+    },
+    h5: {
+      color: '#00A2A6',
     }
   },
   palette: {
@@ -57,6 +67,5 @@ export const defaultTheme = createTheme({
     secondary: {
       main: '#CD7D1E'
     },
-
   },
 });

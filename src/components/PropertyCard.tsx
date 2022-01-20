@@ -9,6 +9,7 @@ import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 
 const PropertyCard = () => {
+
   return(
     <Box sx={{
       margin: {
@@ -26,6 +27,7 @@ const PropertyCard = () => {
           <Typography variant="body2" color="text.secondary">
             $ 954,000 mxn
           </Typography>
+          {/* @ts-ignore */}
           <Typography variant="cardTitle">
             Fraccionamiento La Isla
           </Typography>
