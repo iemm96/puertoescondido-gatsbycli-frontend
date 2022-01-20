@@ -1,11 +1,13 @@
 import * as React from 'react';
-import BackgroundImage from "../common/BackgroundImage";
-import SlideType from "../../types/SlideType";
 
-const Slide = ({imageName}:SlideType) => {
+type SlideType = {
+  child: React.ReactElement;
+}
+
+const Slide = ({child}:SlideType) => {
   return(
     <>
-      <BackgroundImage filename={imageName}/>
+      {child}
     </>
   )
 }

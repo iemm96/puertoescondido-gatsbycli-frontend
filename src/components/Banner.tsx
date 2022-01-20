@@ -36,6 +36,7 @@ import ResidentialIcon from "./common/icons/ResidentialIcon"
 import CultivationIcon from "./common/icons/CultivationIcon"
 import ClimateIcon from "./common/icons/ClimateIcon"
 import BluePrintIcon from "./common/icons/BluePrintIcon"
+import Carousel from "./Carousel"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -265,11 +266,7 @@ const Banner = () => {
           Lotificaciones
         </StyledTypesButton>
       </Box>
-      <Slider {...settings} style={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}>
-        <Slide imageName="banner-1.jpg"/>
-        <Slide imageName="banner-2.jpg"/>
-        <Slide imageName="banner-3.jpg"/>
-      </Slider>
+      <Carousel styles={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}/>
     </>
   )
 };
