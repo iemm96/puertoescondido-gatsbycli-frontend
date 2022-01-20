@@ -49,8 +49,6 @@ const FeaturedPropierties = () => {
               </Grid>
             </Grid>
           </Container>
-
-
         </>
       }
       <Box sx={{
