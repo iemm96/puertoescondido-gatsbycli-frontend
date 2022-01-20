@@ -10,9 +10,14 @@ import Box from "@mui/material/Box"
 const title:string = "Últimas entradas";
 const subtitle:string = "De nuestro blog";
 
-const LastPosts = () => {
-  const { width } = useWindowDimensions();
+const LatestPosts = () => {
+  const [ postsResults, setPostsResults ] = React.useState([
+    {
+      
+    }
+  ]);
 
+  const { width } = useWindowDimensions();
   return(
     <>
       {width < 480 ?
@@ -57,4 +62,4 @@ const LastPosts = () => {
   )
 }
 
-export default LastPosts;
+export default LatestPosts
