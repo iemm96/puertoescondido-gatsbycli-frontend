@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 export const StyledCard = styled(Card)(() => ({
   position: 'relative',
   borderRadius: 16,
-  maxWidth: 296
+  width: 'auto'
 }));
 
 export const StyledButton = styled(Button)(() => ({

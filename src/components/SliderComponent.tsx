@@ -35,6 +35,16 @@ const settings = {
   ]
 };
 
+const boxStyles = {
+  margin: {
+    xs: 1,
+  },
+  p: {
+    xs: '0 1rem 0 0'
+  },
+  width: '100%'
+}
+
 const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
   const sliderRef = React.useRef();
 
@@ -61,17 +71,24 @@ const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
       </Box>
 
       <Slider ref={sliderRef} {...settings}>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <PropertyCard/>
+        </Box>
       </Slider>
     </>
   )

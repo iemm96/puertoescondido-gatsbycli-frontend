@@ -1,14 +1,20 @@
 import * as React from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { Container, Grid, Paper, Stack, Typography, Button } from "@mui/material";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import GradientBox from "../components/GradientBox";
 import { graphql, useStaticQuery } from "gatsby";
-import Img from "gatsby-image";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import ChevronRight from "@mui/icons-material/ChevronRight";
 import IconTarget from './../images/icons/target.svg';
 import IconVision from './../images/icons/vision.svg';
 import IconValues from './../images/icons/values.svg';
+import { StaticImage } from "gatsby-plugin-image";
 
 const ConocenosPage = () => {
   const data = useStaticQuery(graphql`
@@ -33,13 +39,19 @@ const ConocenosPage = () => {
         <Container maxWidth="xl">
           <Paper
             sx={{
-              p: 4,
-              mt: 20
+              p: {
+                xs: 2,
+                md: 4
+              },
+              mt: {
+                xs: 18,
+                md: 20
+              }
             }}
             elevation={1}
           >
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Stack direction="column">
                   <Typography sx={{ mb:2 }} variant="h4">
                     Conócenos
@@ -53,11 +65,18 @@ const ConocenosPage = () => {
                   </Typography>
                 </Stack>
               </Grid>
-              <Grid sx={{
-                justifyContent: 'center',
-                display: 'flex'
-              }} item xs={6}>
-                <Img
+              <Grid
+                sx={{
+                  justifyContent: 'center',
+                  display: 'flex'
+                }}
+                item
+                xs={12}
+                md={6}
+              >
+                <StaticImage
+                  src="../images/img-conocenos.jpg"
+                  formats={['auto', 'webp', 'avif']}
                   style={{
                     borderRadius: 16,
                   }}
@@ -69,7 +88,7 @@ const ConocenosPage = () => {
             </Grid>
           </Paper>
           <Grid sx={{ mt: 5 }} spacing={2} container>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <Stack direction="column">
                 <IconTarget width={56}/>
                 <Typography variant="h4">
@@ -80,7 +99,7 @@ const ConocenosPage = () => {
                 </Typography>
               </Stack>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <Stack direction="column">
                 <IconVision width={56}/>
                 <Typography variant="h4">
@@ -91,7 +110,7 @@ const ConocenosPage = () => {
                 </Typography>
               </Stack>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <Stack direction="column">
                 <IconValues width={56}/>
                 <Typography variant="h4">

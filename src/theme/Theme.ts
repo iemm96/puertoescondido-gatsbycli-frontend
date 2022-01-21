@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles"
+import { createTheme,responsiveFontSizes } from "@mui/material/styles";
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -34,7 +34,7 @@ declare module '@mui/material/Typography' {
   }
 }
 
-export const defaultTheme = createTheme({
+export const defaultTheme = responsiveFontSizes(createTheme({
   typography: {
     fontFamily: [
       'Poppins',
@@ -54,7 +54,7 @@ export const defaultTheme = createTheme({
     },
     h5: {
       color: '#00A2A6',
-    }
+    },
   },
   palette: {
     neutral: {
@@ -68,4 +68,4 @@ export const defaultTheme = createTheme({
       main: '#CD7D1E'
     },
   },
-});
+}));

@@ -181,7 +181,7 @@ const IndexPage = () => {
           <Container maxWidth="xl">
             <TestimonialsSlider/>
           </Container>
-          <Typography align="center">
+          <Typography sx={{ my:6 }} align="center">
             “NO ESPERE A INVERTIR EN BIENES RAICES,
             INVIERTA EN BIENES RAICES Y ESPERE”
           </Typography>
