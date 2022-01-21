@@ -6,7 +6,6 @@ import Banner from "../components/Banner"
 import { ThemeProvider } from '@mui/material/styles';
 import { defaultTheme } from "../theme/Theme";
 
-import PropertySlider from "../components/PropertySlider";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -182,7 +181,7 @@ const IndexPage = () => {
           <Container maxWidth="xl">
             <TestimonialsSlider/>
           </Container>
-          <Typography align="center">
+          <Typography sx={{ my:6 }} align="center">
             “NO ESPERE A INVERTIR EN BIENES RAICES,
             INVIERTA EN BIENES RAICES Y ESPERE”
           </Typography>

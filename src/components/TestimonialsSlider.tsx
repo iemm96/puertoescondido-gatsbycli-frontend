@@ -7,20 +7,43 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import PostCard from "./PostCard"
+import TestimonialCard from "./TestimonialCard"
+import Box from "@mui/material/Box"
 
 const settings = {
   dots: false,
   slidesToShow: 2,
   slidesToScroll: 1,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        centerMode: true,
+        centerPadding: '15%',
+        slidesToShow: 1,
+        infinite: false,
+      }
+    }
+  ]
 };
+
+const boxStyles = {
+  margin: {
+    xs: 1,
+  },
+  p: {
+    xs: '0 1rem 0 0'
+  },
+  width: '100%'
+}
 
 const PropertySlider = () => {
   const sliderRef = React.useRef();
 
   return(
     <>
-      <Typography variant="h6">Testimonios</Typography>
+      <Typography variant="subtitle1">Testimonios</Typography>
       <Grid container justifyContent="space-between">
         <Grid item>
           <Typography sx={{fontWeight: 600, mb: 5}} variant="h5">La opinión de nuestros clientes</Typography>
@@ -37,8 +60,12 @@ const PropertySlider = () => {
         </Grid>
       </Grid>
       <Slider ref={sliderRef} {...settings}>
-        <PostCard/>
-        <PostCard/>
+        <Box sx={boxStyles}>
+          <TestimonialCard/>
+        </Box>
+        <Box sx={boxStyles}>
+          <TestimonialCard/>
+        </Box>
       </Slider>
     </>
   )

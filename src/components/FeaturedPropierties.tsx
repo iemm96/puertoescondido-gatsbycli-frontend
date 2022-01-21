@@ -6,6 +6,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions"
 import SliderComponent from "./SliderComponent"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
@@ -29,22 +30,25 @@ const FeaturedPropierties = () => {
         </>
         :
         <>
-          <Typography variant="subtitle1">{title}</Typography>
-          <Typography variant="h5">{subtitle}</Typography>
-          <Grid container>
-            <Grid item>
-              <PostCard/>
+          <Container maxWidth="xl">
+            <Typography variant="subtitle1">{title}</Typography>
+            <Typography variant="h5">{subtitle}</Typography>
+            <Grid
+              container>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
+              <Grid item>
+                <PostCard/>
+              </Grid>
             </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-          </Grid>
+          </Container>
         </>
       }
       <Box sx={{
@@ -56,7 +60,7 @@ const FeaturedPropierties = () => {
           color="primary"
           variant="contained"
         >
-          Ver más entradas
+          Ver más propiedades
         </Button>
       </Box>
     </>

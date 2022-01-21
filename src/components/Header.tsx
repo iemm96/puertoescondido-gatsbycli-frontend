@@ -15,29 +15,7 @@ import useTheme from '@mui/material/styles/useTheme';
 import Image from '../components/common/Image';
 import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
-
-const pages = [
-  {
-    label: "Inicio",
-    href: "/",
-  },
-  {
-    label: "Conócenos",
-    href: "/conocenos",
-  },
-  {
-    label: "Servicios",
-    href: "/servicios",
-  },
-  {
-    label: "Propiedades",
-    href: "/propiedades",
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-  },
-];
+import { pages } from "./../constants";
 
 type HeaderPropsType = {
   scrollTrigger?: boolean;

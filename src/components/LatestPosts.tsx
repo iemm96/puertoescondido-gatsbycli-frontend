@@ -4,8 +4,8 @@ import Grid from "@mui/material/Grid";
 import PostCard from "./PostCard";
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import SliderComponent from "./SliderComponent"
-import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
 
 const title:string = "Últimas entradas";
 const subtitle:string = "De nuestro blog";
@@ -48,6 +48,8 @@ const LatestPosts = () => {
         </>
       }
       <Box sx={{
+        mt: 2,
+        mb: 4,
         justifyContent: 'center',
         display: 'flex'
       }}>

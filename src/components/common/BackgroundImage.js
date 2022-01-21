@@ -16,7 +16,7 @@ const BackgroundImage = props => (
                 gatsbyImageData(
                   width: 2000
                   placeholder: BLURRED
-                  formats: [ WEBP, AVIF]
+                  formats: [ AUTO, WEBP, AVIF]
                 )
               }
             }
@@ -34,7 +34,8 @@ const BackgroundImage = props => (
       }
 
       return (
-        <BgImage style={{height:800}} image={getImage(image.node)}/>);
+          <BgImage style={{height:800}} image={getImage(image.node)}/>
+      );
     }}
   />
 );
