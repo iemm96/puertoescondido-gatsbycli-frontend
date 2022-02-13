@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import GradientBox from "../components/GradientBox"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+import GradientBox from "../components/GradientBox";
 import {
   Box,
   Button,
@@ -9,9 +9,9 @@ import {
   Grid, Pagination,
   Stack,
   Typography
-} from "@mui/material"
-import { ChevronLeft } from "@mui/icons-material"
-import PropertyCard from "../components/PropertyCard"
+} from "@mui/material";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import PropertyCard from "../components/PropertyCard";
 
 const Blog = () => {
   return(
@@ -33,29 +33,29 @@ const Blog = () => {
           </Box>
           <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
             <Grid item>
-              <Typography>Mostrando 6 de 20 entradaso</Typography>
+              <Typography>Mostrando 6 de 20 entradas</Typography>
             </Grid>
             <Grid item>
               <Pagination color="primary" count={10} />
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid xs={4} item>
+          <Grid spacing={2} container>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={12} md={4} item>
               <PropertyCard/>
             </Grid>
           </Grid>

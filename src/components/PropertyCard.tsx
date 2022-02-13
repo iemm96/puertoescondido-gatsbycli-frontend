@@ -3,37 +3,51 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { StaticImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
+import { Box, Chip, Stack } from "@mui/material"
+import { calculateArea } from "../helpers/calculateArea"
 
-const PropertyCard = () => {
+const PropertyCard = ({ data }:{ data:any }) => {
+
+  const image = getImage(data?.coverImage);
 
   return(
+    <Box sx={{
+      margin: 1
+    }}>
       <StyledCard>
-        <StaticImage
-          src="../images/properties/la-isla.jpg"
-          alt="La isla"
-          style={{
-            width: '100%'
-          }}
-          quality={95}
-          formats={['auto', 'webp', 'avif']}
-        />
+
+        { image &&
+          <GatsbyImage
+            image={ image }
+            alt="La isla"
+          />
+        }
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            $ 954,000 mxn
+          <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
+            $ { data?.price &&
+          new Intl.NumberFormat().format(data?.price)
+          } mxn { ( data?.width && data?.length ) &&
+            `· ${calculateArea( parseInt(data.width), parseInt(data.length), data?.measures_unit )}`
+          }
           </Typography>
           {/* @ts-ignore */}
           <Typography variant="cardTitle">
-            Fraccionamiento La Isla
+            { data?.name }
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Brisas Zicatela
+            { data?.location && data.location.name }
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Drenaje · Luz · Agua · 200m²
-          </Typography>
+          <Stack sx={{ mt: 2 }} spacing={ 1 } direction="row">
+            {
+              data?.features &&
+              data.features.map( (feature, index) => (
+                <Chip size="small" key={index} label={ feature.name }/>
+              ) )
+            }
+          </Stack>
         </CardContent>
         <CardActions>
           <Button
@@ -46,7 +60,7 @@ const PropertyCard = () => {
           </Button>
         </CardActions>
       </StyledCard>
-
+    </Box>
   )
 }
 
