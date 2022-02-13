@@ -191,4 +191,5 @@ const IndexPage = () => {
   )
 }
 
-export default withTheme(IndexPage)
+export default withTheme(IndexPage);
+

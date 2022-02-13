@@ -16,6 +16,8 @@ import Image from '../components/common/Image';
 import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
+import axios from "axios"
+import { useEffect } from "react"
 
 type HeaderPropsType = {
   scrollTrigger?: boolean;
@@ -36,6 +38,13 @@ interface ElevationScrollProps {
 
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
+  useEffect(() => {
+    getRecords().then()
+  },[ ])
+  const getRecords = async () => {
+    const result = await axios.get('http://localhost:8080/api/properties');
+    console.log(result.data);
+  }
   const ref = React.useRef(null);
 
   function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
@@ -93,7 +102,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   }
                 }}
               >
-                <ScrollTrigger oldProps={{ filename:"logo_white.png", width:175 }} newProps={{ filename:"logo_color.png", width:160 }}>
+                <ScrollTrigger oldProps={{ filename:"logo_white.png", width: 175 }} newProps={{ filename:"logo_color.png", width:160 }}>
                   <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
                 </ScrollTrigger>
               </Box>
