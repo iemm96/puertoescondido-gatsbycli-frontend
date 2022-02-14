@@ -12,9 +12,10 @@ exports.createPages = async ({ actions }) => {
   })
 }
 
-exports.sourceNodes = async ({ actions, createNodeId, node, store, cache }) => {
-  const { createNode, createNodeField } = actions;
-  const fetchRandomUser = async () => await axios.get(`http://localhost:8080/api/properties`);
+exports.sourceNodes = async ({ actions }) => {
+  const { createNode } = actions;
+  console.log('process.env.API_HOST ',process.env.API_HOST)
+  const fetchRandomUser = async () => await axios.get(`${process.env.API_HOST}properties`);
   const res = await fetchRandomUser();
   res.data.properties.map(async ( property, i ) => {
     const propertyNode = {
@@ -91,10 +92,7 @@ exports.onCreateNode = async ({
                                 getCache,
                               }) => {
   // For all MarkdownRemark nodes that have a featured image url, call createRemoteFileNode
-
-  if(node.internal.type === "Properties") {
-    console.log('node!!!!!!!!!!!!!!!!!!!!!!!!!!!!',node);
-  }
+  
  try{
 
    if (
