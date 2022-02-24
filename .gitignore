@@ -1,4 +1,6 @@
 *.idea
+.env.development
+
 # Logs
 logs
 *.log

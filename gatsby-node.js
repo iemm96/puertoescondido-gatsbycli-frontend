@@ -37,28 +37,12 @@ exports.sourceNodes = async ({ actions }) => {
       location: property?.location,
       width: property?.width,
       length: property?.length,
+      isFeatured: property?.isFeatured,
       measures_unit: property?.measures_unit,
       coverImage: property?.coverImage
     }
 
-    /*
-      let fileNode;
-      
-      fileNode = await createRemoteFileNode({
-        url: property?.coverImage.url,
-        store,
-        cache,
-        createNode,
-        createNodeId: () => `propertyImage-${property?.coverImage._id}`,
-      });
 
-    await createNodeField({
-      node: fileNode,
-      name: 'PropertyPhoto',
-      value: 'true',
-    });
-
-     */
     
     propertyNode.internal.contentDigest = crypto
       .createHash(`md5`)

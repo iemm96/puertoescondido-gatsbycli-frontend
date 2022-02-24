@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
-import { Box, Chip, Stack } from "@mui/material"
+import { Chip, Stack } from "@mui/material"
 import { calculateArea } from "../helpers/calculateArea"
 
 const PropertyCard = ({ data }:{ data:any }) => {
@@ -14,9 +14,6 @@ const PropertyCard = ({ data }:{ data:any }) => {
   const image = getImage(data?.coverImage);
 
   return(
-    <Box sx={{
-      margin: 1
-    }}>
       <StyledCard>
 
         { image &&
@@ -28,10 +25,10 @@ const PropertyCard = ({ data }:{ data:any }) => {
         <CardContent>
           <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
             $ { data?.price &&
-          new Intl.NumberFormat().format(data?.price)
-          } mxn { ( data?.width && data?.length ) &&
-            `· ${calculateArea( parseInt(data.width), parseInt(data.length), data?.measures_unit )}`
-          }
+                new Intl.NumberFormat().format(data?.price)
+              } mxn { ( data?.width && data?.length ) &&
+                `· ${calculateArea( parseInt(data.width), parseInt(data.length), data?.measures_unit )}`
+              }
           </Typography>
           {/* @ts-ignore */}
           <Typography variant="cardTitle">
@@ -60,7 +57,6 @@ const PropertyCard = ({ data }:{ data:any }) => {
           </Button>
         </CardActions>
       </StyledCard>
-    </Box>
   )
 }
 
