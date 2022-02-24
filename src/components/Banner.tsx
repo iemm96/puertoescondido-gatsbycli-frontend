@@ -1,8 +1,6 @@
 import * as React from "react";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slide from "./banner/Slide";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -85,25 +83,15 @@ const Banner = () => {
   const theme = useTheme();
   const { width } = useWindowDimensions();
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3500,
-    fade:true
-  };
-
   return (
     <>
       <StyledLinearBackgroundDiv>
         <Container
-          maxWidth="xl"
           sx={{
-            padding: {
-              xs: '18rem 1rem 2rem 1rem',
-              md: '12rem 0'
-            }
+            pt: 20,
+            pb: 20,
           }}
+          maxWidth="xl"
         >
           <Fade bottom>
             <Grid container spacing={1}>

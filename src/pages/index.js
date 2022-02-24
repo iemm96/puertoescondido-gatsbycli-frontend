@@ -24,7 +24,7 @@ import IconHiking from "./../images/icons/hiking.svg";
 import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
 import LatestPosts from "../components/LatestPosts"
-import FeaturedPropierties from "../components/FeaturedPropierties"
+import FeaturedProperties from "../components/FeaturedProperties"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -46,18 +46,18 @@ const IndexPage = () => {
       <ThemeProvider theme={defaultTheme}>
         <Seo title="Home" />
         <Layout scrollTrigger={true}>
+
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',
             height: {
               xs: 'auto',
-              md: 600
             },
             width: '100%',
             pt: 4,
             pb: 2
           }}>
-            <FeaturedPropierties/>
+            <FeaturedProperties/>
           </Box>
           <Box sx={{
             background: '#F2FBFC',

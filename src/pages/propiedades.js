@@ -16,13 +16,41 @@ import {
 } from "@mui/material"
 import PropertyCard from "../components/PropertyCard"
 import { ChevronLeft, Clear } from "@mui/icons-material"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 function valuetext(value) {
   return `${value}°C`;
 }
 
 const Propiedades = () => {
+  const { allProperties } = useStaticQuery(graphql`
+      query allPropertiesQuery {
+          allProperties {
+              nodes {
+                  coverImage {
+                      childImageSharp {
+                          gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                      }
+                  }
+                  name
+                  price
+                  uid
+                  width
+                  length
+                  measures_unit
+                  features {
+                      name
+                  }
+                  currency
+                  location {
+                      name
+                  }
+                  isFeatured
+              }
+          }
+      }
+  `);
+
   const [value, setValue] = React.useState([20, 37]);
   const [state, setState] = React.useState({
     gilad: true,
@@ -193,24 +221,13 @@ const Propiedades = () => {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
-                <Grid justifyContent="center" display="flex" xs={12} md={4} item>
-                  <PropertyCard/>
-                </Grid>
+                {
+                  allProperties.nodes.map((property,index) => (
+                    <Grid key={index} justifyContent="center" display="flex" xs={12} md={4} item>
+                      <PropertyCard data={property}/>
+                    </Grid>
+                  ))
+                }
               </Grid>
               <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                 <Grid item>
@@ -245,13 +262,3 @@ const Propiedades = () => {
 }
 
 export default Propiedades;
-
-export const query = graphql`
-  query PropertiesPageQuery {
-    allProperties {
-      nodes {
-        name
-      }
-    }
-  }
-`

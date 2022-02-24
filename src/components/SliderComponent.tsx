@@ -10,30 +10,14 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import PropertyCard from "./PropertyCard";
 import Box from "@mui/material/Box";
 import "./../styles/slick.css";
+import { graphql, useStaticQuery } from "gatsby"
+import Container from "@mui/material/Container"
 
 type SliderComponentType = {
   title: string;
   subtitle: string;
   settings?: any
 }
-
-const settings = {
-  dots: false,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  arrows: false,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        centerMode: true,
-        centerPadding: '15%',
-        slidesToShow: 1,
-        infinite: false,
-      }
-    }
-  ]
-};
 
 const boxStyles = {
   margin: {
@@ -42,15 +26,61 @@ const boxStyles = {
   p: {
     xs: '0 1rem 0 0'
   },
-  width: '100%'
+  width: '100%',
 }
 
 const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
   const sliderRef = React.useRef();
+  const { allProperties } = useStaticQuery(graphql`
+      query FeaturedPropertiesQuery {
+          allProperties(filter: {isFeatured: {eq: true}}) {
+              nodes {
+                  coverImage {
+                      childImageSharp {
+                          gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                      }
+                  }
+                  name
+                  price
+                  uid
+                  width
+                  length
+                  measures_unit
+                  features {
+                      name
+                  }
+                  currency
+                  location {
+                      name
+                  }
+                  isFeatured
+              }
+          }
+      }
+  `);
+
+  const settings = {
+    dots: true,
+    slidesToShow: 4,
+    infinite: false,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          centerMode: true,
+          centerPadding: '15%',
+          slidesToShow: 1,
+          infinite: false,
+        }
+      }
+    ]
+  };
 
   return(
     <>
-      <Box sx={ {pl: 2} }>
+      <Container maxWidth="xl" sx={ {pl: 2} }>
         <Typography variant="subtitle1">{title}</Typography>
         <Grid container justifyContent="space-between">
           <Grid item>
@@ -68,27 +98,13 @@ const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
             }} component={ChevronRight}/>
           </Grid>
         </Grid>
-      </Box>
-
+      </Container>
       <Slider ref={sliderRef} {...settings}>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
-        <Box sx={boxStyles}>
-          <PropertyCard/>
-        </Box>
+        { allProperties.nodes.map( (item, index ) => (
+          <Box key={index} sx={boxStyles}>
+            <PropertyCard data={ item }/>
+          </Box>
+        )) }
       </Slider>
     </>
   )
