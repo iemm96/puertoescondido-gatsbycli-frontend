@@ -98,14 +98,15 @@ const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
             }} component={ChevronRight}/>
           </Grid>
         </Grid>
+        <Slider ref={sliderRef} {...settings}>
+          { allProperties.nodes.map( (item, index ) => (
+            <Box key={index} sx={boxStyles}>
+              <PropertyCard data={ item }/>
+            </Box>
+          )) }
+        </Slider>
       </Container>
-      <Slider ref={sliderRef} {...settings}>
-        { allProperties.nodes.map( (item, index ) => (
-          <Box key={index} sx={boxStyles}>
-            <PropertyCard data={ item }/>
-          </Box>
-        )) }
-      </Slider>
+
     </>
   )
 }

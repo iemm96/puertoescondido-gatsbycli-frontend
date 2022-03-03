@@ -63,7 +63,6 @@ const IndexPage = () => {
             background: '#F2FBFC',
             height: {
               xs: 'auto',
-              md: 420
             },
             width: '100%',
             padding: '2rem 0'

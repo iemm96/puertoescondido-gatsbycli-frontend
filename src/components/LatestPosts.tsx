@@ -20,33 +20,10 @@ const LatestPosts = () => {
   const { width } = useWindowDimensions();
   return(
     <>
-      {width < 480 ?
-        <>
-          <SliderComponent
-            title={title}
-            subtitle={subtitle}
-          />
-        </>
-        :
-        <>
-          <Typography variant="subtitle1">{title}</Typography>
-          <Typography sx={{fontWeight: 600}} variant="h5">{subtitle}</Typography>
-          <Grid container>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-            <Grid item>
-              <PostCard/>
-            </Grid>
-          </Grid>
-        </>
-      }
+      <SliderComponent
+        title={title}
+        subtitle={subtitle}
+      />
       <Box sx={{
         mt: 2,
         mb: 4,
