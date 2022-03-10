@@ -1,6 +1,7 @@
 const axios = require('axios');
 const crypto = require('crypto');
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
+const { GATSBY_API_HOST } = process.env;
 
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions
@@ -12,10 +13,9 @@ exports.createPages = async ({ actions }) => {
   })
 }
 
-exports.sourceNodes = async ({ actions }) => {
-  const { createNode } = actions;
-  console.log('process.env.API_HOST ',process.env.API_HOST)
-  const fetchRandomUser = async () => await axios.get(`${process.env.API_HOST}properties`);
+exports.sourceNodes = async ({ actions, createNodeId, node, store, cache }) => {
+  const { createNode, createNodeField } = actions;
+  const fetchRandomUser = async () => await axios.get(`http://localhost:8080/api/properties`);
   const res = await fetchRandomUser();
   res.data.properties.map(async ( property, i ) => {
     const propertyNode = {

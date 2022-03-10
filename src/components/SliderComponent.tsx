@@ -10,13 +10,13 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import PropertyCard from "./PropertyCard";
 import Box from "@mui/material/Box";
 import "./../styles/slick.css";
-import { graphql, useStaticQuery } from "gatsby"
 import Container from "@mui/material/Container"
 
 type SliderComponentType = {
   title: string;
   subtitle: string;
-  settings?: any
+  settings?: any;
+  data?: any;
 }
 
 const boxStyles = {
@@ -29,35 +29,8 @@ const boxStyles = {
   width: '100%',
 }
 
-const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
+const PropertySlider = ({ title, subtitle, data }:SliderComponentType) => {
   const sliderRef = React.useRef();
-  const { allProperties } = useStaticQuery(graphql`
-      query FeaturedPropertiesQuery {
-          allProperties(filter: {isFeatured: {eq: true}}) {
-              nodes {
-                  coverImage {
-                      childImageSharp {
-                          gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                      }
-                  }
-                  name
-                  price
-                  uid
-                  width
-                  length
-                  measures_unit
-                  features {
-                      name
-                  }
-                  currency
-                  location {
-                      name
-                  }
-                  isFeatured
-              }
-          }
-      }
-  `);
 
   const settings = {
     dots: true,
@@ -99,7 +72,7 @@ const PropertySlider = ({ title, subtitle }:SliderComponentType) => {
           </Grid>
         </Grid>
         <Slider ref={sliderRef} {...settings}>
-          { allProperties.nodes.map( (item, index ) => (
+          { ( data && data.length > 0 ) && data.map( (item, index ) => (
             <Box key={index} sx={boxStyles}>
               <PropertyCard data={ item }/>
             </Box>
