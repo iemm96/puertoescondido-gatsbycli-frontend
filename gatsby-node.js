@@ -43,7 +43,7 @@ exports.sourceNodes = async ({ actions }) => {
     }
 
 
-    
+
     propertyNode.internal.contentDigest = crypto
       .createHash(`md5`)
       .update(JSON.stringify(propertyNode))
