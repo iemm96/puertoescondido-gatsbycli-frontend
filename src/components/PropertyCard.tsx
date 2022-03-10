@@ -16,10 +16,13 @@ const PropertyCard = ({ data }:{ data:any }) => {
   return(
       <StyledCard>
 
-        { image &&
+        { image ?
           <GatsbyImage
             image={ image }
             alt="La isla"
+          /> : <img
+              src={ data?.coverImage?.url }
+              alt={'cover image'}
           />
         }
         <CardContent>
