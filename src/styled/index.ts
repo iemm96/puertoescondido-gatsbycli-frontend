@@ -5,7 +5,7 @@ export const StyledCard = styled(Card)(() => ({
   position: 'relative',
   borderRadius: 16,
   width: 'auto',
-  maxWidth: 280,
+  maxWidth: 414,
 }));
 
 export const StyledButton = styled(Button)(() => ({

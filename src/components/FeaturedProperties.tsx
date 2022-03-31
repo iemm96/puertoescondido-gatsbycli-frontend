@@ -4,6 +4,7 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import { useEffect, useState } from "react"
 import { fetchRecords } from "../actions/fetchRecords"
+import withTheme from "./theme"
 
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
@@ -42,7 +43,6 @@ const FeaturedProperties = () => {
   */
 
   useEffect(() => {
-      console.log('here')
       getFeaturedProperties().then();
   }, []);
 

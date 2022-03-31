@@ -2,10 +2,11 @@ import * as React from 'react';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Box, Button, Chip, Stack } from "@mui/material"
+import { Button } from "@mui/material"
 import { StaticImage } from "gatsby-plugin-image";
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
+import { navigate } from "gatsby"
 
 const PostCard = ({ data }:{ data:any }) => {
 
@@ -37,6 +38,7 @@ const PostCard = ({ data }:{ data:any }) => {
       </CardContent>
       <CardActions>
         <Button
+          onClick={() => navigate( `/${ data.uid }` )}
           variant="text"
           sx={{textTransform:'none'}}
           size="small"

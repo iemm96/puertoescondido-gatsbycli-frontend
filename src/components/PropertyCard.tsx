@@ -8,6 +8,7 @@ import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 import { Chip, Stack } from "@mui/material"
 import { calculateArea } from "../helpers/calculateArea"
+import { navigate } from "gatsby"
 
 const PropertyCard = ({ data }:{ data:any }) => {
 
@@ -51,6 +52,7 @@ const PropertyCard = ({ data }:{ data:any }) => {
         </CardContent>
         <CardActions>
           <Button
+            onClick={  () => navigate(`/${ data.uid }`) }
             variant="text"
             sx={{textTransform:'none'}}
             size="small"

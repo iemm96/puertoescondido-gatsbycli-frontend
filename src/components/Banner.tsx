@@ -35,6 +35,7 @@ import CultivationIcon from "./common/icons/CultivationIcon"
 import ClimateIcon from "./common/icons/ClimateIcon"
 import BluePrintIcon from "./common/icons/BluePrintIcon"
 import Carousel from "./Carousel"
+import Header from "./Header"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -85,6 +86,7 @@ const Banner = () => {
 
   return (
     <>
+      <Header scrollTrigger={ false }/>
       <StyledLinearBackgroundDiv>
         <Container
           sx={{
@@ -155,7 +157,11 @@ const Banner = () => {
                 }}
                InputProps={{
                  disableUnderline: true,
-                 endAdornment: <IconButton sx={{ backgroundColor: theme.palette.primary.main }}><Search sx={{ color:'white' }}/></IconButton>
+                 endAdornment: <IconButton sx={{
+                   backgroundColor: theme.palette.primary.main,
+                   height: 56,
+                   borderRadius: '0 14px 14px 0'
+                 }}><Search sx={{ color:'white' }}/></IconButton>
                }}
                placeholder="Cerca de la playa, terreno, etc."
                />

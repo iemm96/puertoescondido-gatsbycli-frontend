@@ -11,69 +11,40 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import {StyledButton} from "../styled/";
 import {defaultTheme} from "../theme/Theme";
-import useTheme from '@mui/material/styles/useTheme';
-import Image from '../components/common/Image';
 import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
-import axios from "axios"
-import { useEffect } from "react"
+import Slide from '@mui/material/Slide';
+import LogoWhite from '../images/logo_white.svg';
+import LogoColor from '../images/logo_color.svg';
 
 type HeaderPropsType = {
   scrollTrigger?: boolean;
 }
 
-interface ElevationScrollProps {
-  children: React.ReactElement;
-  shadow?: number;
-  window?: any;
-  threshold?: number;
-  disableHysteresis?: boolean;
-  background?: string;
-  filename?: string;
-  color?: string;
-  oldProps?: object;
-  newProps?:object;
-}
-
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
-
-  useEffect(() => {
-    getRecords().then()
-  },[ ])
-  const getRecords = async () => {
-    const result = await axios.get('http://localhost:8080/api/properties');
-    console.log(result.data);
-  }
   const ref = React.useRef(null);
 
-  function ScrollTrigger({children, oldProps, newProps, disableHysteresis,threshold}:ElevationScrollProps) {
-    const trigger = scrollTrigger ? useScrollTrigger({
-      disableHysteresis: disableHysteresis ? disableHysteresis : true,
-      threshold: threshold ? threshold : 20,
-    }) : true;
+  console.log( 'LogoColor ', LogoColor )
+  function ScrollTrigger( ) {
+    return useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 20,
+    })
 
-    return React.cloneElement(children, trigger ? newProps : oldProps);
   }
 
-  function ElevationScroll({children,shadow,threshold,disableHysteresis,background,filename}:ElevationScrollProps) {
-    const theme = useTheme();
-    // This is only being set here because the demo is in an iframe.
-    const trigger = scrollTrigger ? useScrollTrigger({
-      disableHysteresis: disableHysteresis ? disableHysteresis : true,
-      threshold: threshold ? threshold : 20,
-    }) : true;
+  const ShowOnScroll = ( {children}:{ children: React.ReactElement } ) => {
+    const trigger = useScrollTrigger({
 
-    const getProps = ( filename ? {filename: trigger ? "logo_color.png" : "logo_white.png"} : {style: {
-        boxShadow: (trigger && shadow) ? theme.shadows[shadow] : "none",
-        backgroundColor: (trigger && background) ? background : "transparent",
-        transition: theme.transitions.create(["box-shadow","background-color"], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen
-        }),
-        color: trigger ? defaultTheme.palette.primary.main : "white"
-      },} )
-    return React.cloneElement(children, getProps);
+      threshold: 80,
+    });
+
+    return (
+      <Slide appear={true} direction="down" in={ scrollTrigger ? trigger : true }>
+        {children}
+      </Slide>
+    );
   }
 
   const stylesLink = {
@@ -84,13 +55,17 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
   return(
     <header>
-      <ElevationScroll shadow={8} background="white">
+      <ShowOnScroll>
         <AppBar
           sx={{
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            padding: 1
+            backgroundColor: scrollTrigger ? "white" : "transparent",
+            pt: {
+              xs: 1,
+              md: 0
+            }
           }}
+          elevation={ scrollTrigger ? 4 : 0 }
+          position={ scrollTrigger ? 'fixed' : 'absolute' }
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -102,9 +77,12 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   }
                 }}
               >
-                <ScrollTrigger oldProps={{ filename:"logo_white.png", width: 175 }} newProps={{ filename:"logo_color.png", width:160 }}>
-                  <Image alt="Inmobiliaria Puerto Escondido" filename="logo_white.png"/>
-                </ScrollTrigger>
+                {
+                  scrollTrigger ?
+                    <LogoColor src={ LogoColor } width={ 100 } height={ 40 }  alt="Inmobiliaria Puerto Escondido"/> :
+                    <LogoWhite src={ LogoWhite } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
+                }
+
               </Box>
               <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
@@ -113,7 +91,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={ () =>  ref.current.toggleDrawer(true) }
-                  color="inherit"
+                  color={ scrollTrigger ? 'primary' : 'inherit' }
                 >
                   <MenuIcon />
                 </IconButton>
@@ -137,11 +115,9 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                 }}
               >
                 <ThemeProvider theme={defaultTheme}>
-                  <ScrollTrigger oldProps={{color:"neutral"}} newProps={{color:"primary"}}>
-                    <Button startIcon={<WhatsApp/>} variant="text">
-                      (+52)33526542
-                    </Button>
-                  </ScrollTrigger>
+                  <Button startIcon={<WhatsApp/>} variant="text">
+                    (+52)33526542
+                  </Button>
                   <Link to={'/contacto'}>
                     <StyledButton sx={{ml:2}} variant="contained" color="secondary">
                       Contáctanos
@@ -152,9 +128,10 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
             </Toolbar>
           </Container>
         </AppBar>
-      </ElevationScroll>
+      </ShowOnScroll>
       <Sidebar ref={ref}/>
-    </header>)
+    </header>
+  )
 }
 
 export default Header

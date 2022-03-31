@@ -42,8 +42,6 @@ exports.sourceNodes = async ({ actions }) => {
       coverImage: property?.coverImage
     }
 
-
-
     propertyNode.internal.contentDigest = crypto
       .createHash(`md5`)
       .update(JSON.stringify(propertyNode))

@@ -41,7 +41,8 @@
     "sass": "^1.46.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
-    "styled-icons": "^10.45.0"
+    "styled-icons": "^10.45.0",
+    "swiper": "^8.0.7"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
