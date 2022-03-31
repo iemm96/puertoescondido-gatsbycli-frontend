@@ -1,7 +1,8 @@
 import * as React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
@@ -17,40 +18,29 @@ type SliderComponentType = {
   subtitle: string;
   settings?: any;
   data?: any;
+  theme?: any;
 }
 
 const boxStyles = {
-  margin: {
-    xs: 1,
-  },
   p: {
     xs: '0 1rem 0 0'
   },
   width: '100%',
 }
 
-const PropertySlider = ({ title, subtitle, data }:SliderComponentType) => {
-  const sliderRef = React.useRef();
 
-  const settings = {
-    dots: true,
-    slidesToShow: 4,
-    infinite: false,
-    slidesToScroll: 1,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          centerMode: true,
-          centerPadding: '15%',
-          slidesToShow: 1,
-          infinite: false,
-        }
-      }
-    ]
-  };
+const PropertySlider = ({ title, subtitle, data, theme }:SliderComponentType) => {
+  const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
+  const [ swiperState, setSwiperState ] = React.useState<any>( {
+    isBeginning: true,
+    isEnd: false
+  } );
 
+  console.log('theme ', theme )
+  const arrowButtonStyles = {
+    borderRadius: 2,
+    height: 40,
+  }
   return(
     <>
       <Container maxWidth="xl" sx={ {pl: 2} }>
@@ -60,24 +50,69 @@ const PropertySlider = ({ title, subtitle, data }:SliderComponentType) => {
             <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
           </Grid>
           <Grid item>
-            <IconButton onClick={() => {
-              // @ts-ignore
-              sliderRef.current.slickPrev();
-            }
-            } component={ChevronLeft}/>
-            <IconButton onClick={() => {
-              // @ts-ignore
-              sliderRef?.current?.slickNext()
-            }} component={ChevronRight}/>
+            <IconButton
+              sx={ arrowButtonStyles }
+              disabled={ swiperState.isBeginning }
+              onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
+            >
+              <ChevronLeft/>
+            </IconButton>
+            <IconButton
+              sx={{
+                borderRadius: 2,
+                height: 40
+              }}
+              disabled={ swiperState.isEnd }
+              onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
+            >
+              <ChevronRight/>
+            </IconButton>
           </Grid>
         </Grid>
-        <Slider ref={sliderRef} {...settings}>
+        <Swiper
+          modules={[ Scrollbar ]}
+          slidesPerView="auto"
+          spaceBetween={ 10 }
+          centeredSlides={ false }
+          onSlideChange={ () => {
+            setSwiperState( {
+              isEnd: swiperDef.isEnd,
+              isBeginning: swiperDef.isBeginning
+            } );
+          } }
+          onSwiper={ (swiper) => {
+            setSwiperDef( swiper );
+            setSwiperState( {
+              isEnd: false,
+              isBeginning: true
+            });
+          }}
+          breakpoints={{
+            "640": {
+              "slidesPerView": 2,
+              "spaceBetween": 10
+            },
+            "768": {
+              "slidesPerView": 2,
+              "spaceBetween": 40
+            },
+            "1024": {
+              "slidesPerView": 4,
+              "spaceBetween": 10
+            }
+          }}
+          freeMode={true}
+        >
           { ( data && data.length > 0 ) && data.map( (item, index ) => (
-            <Box key={index} sx={boxStyles}>
-              <PropertyCard data={ item }/>
-            </Box>
+            <SwiperSlide>
+              <Box key={index} sx={boxStyles}>
+                <PropertyCard data={ item }/>
+              </Box>
+            </SwiperSlide>
+
           )) }
-        </Slider>
+        </Swiper>
+
       </Container>
 
     </>
