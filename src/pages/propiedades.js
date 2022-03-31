@@ -23,33 +23,8 @@ function valuetext(value) {
 }
 
 const Propiedades = () => {
-  const { allProperties } = useStaticQuery(graphql`
-      query allPropertiesQuery {
-          allProperties {
-              nodes {
-                  coverImage {
-                      childImageSharp {
-                          gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                      }
-                  }
-                  name
-                  price
-                  uid
-                  width
-                  length
-                  measures_unit
-                  features {
-                      name
-                  }
-                  currency
-                  location {
-                      name
-                  }
-                  isFeatured
-              }
-          }
-      }
-  `);
+
+
 
   const [value, setValue] = React.useState([20, 37]);
   const [state, setState] = React.useState({
@@ -221,13 +196,7 @@ const Propiedades = () => {
                 </Grid>
               </Grid>
               <Grid container>
-                {
-                  allProperties.nodes.map((property,index) => (
-                    <Grid key={index} justifyContent="center" display="flex" xs={12} md={4} item>
-                      <PropertyCard data={property}/>
-                    </Grid>
-                  ))
-                }
+
               </Grid>
               <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                 <Grid item>
