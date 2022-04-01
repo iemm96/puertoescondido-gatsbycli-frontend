@@ -13,7 +13,7 @@ import Header from "./Header"
 import "./layout.css"
 import Footer from "./Footer"
 import { ThemeProvider } from "@mui/material/styles"
-import { defaultTheme } from "../theme/Theme"
+import { defaultTheme, defaultThemeDark } from "../theme/Theme"
 
 const Layout = ({ children, scrollTrigger }) => {
   const data = useStaticQuery(graphql`
@@ -34,7 +34,9 @@ const Layout = ({ children, scrollTrigger }) => {
           overflow:'hidden'
         }}>
           <main>{children}</main>
-          <Footer/>
+          <ThemeProvider theme={ defaultThemeDark }>
+            <Footer/>
+          </ThemeProvider>
         </div>
       </ThemeProvider>
     </>

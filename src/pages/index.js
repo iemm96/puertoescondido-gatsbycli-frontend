@@ -43,7 +43,6 @@ const IndexPage = () => {
 
   return(
     <>
-      <ThemeProvider theme={defaultTheme}>
         <Seo title="Home" />
         <Layout scrollTrigger={true}>
 
@@ -185,10 +184,9 @@ const IndexPage = () => {
             INVIERTA EN BIENES RAICES Y ESPERE”
           </Typography>
         </Layout>
-      </ThemeProvider>
     </>
   )
 }
 
-export default withTheme(IndexPage);
+export default IndexPage;
 

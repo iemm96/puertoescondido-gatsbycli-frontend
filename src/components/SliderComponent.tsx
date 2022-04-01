@@ -18,7 +18,6 @@ type SliderComponentType = {
   subtitle: string;
   settings?: any;
   data?: any;
-  theme?: any;
 }
 
 const boxStyles = {
@@ -29,14 +28,13 @@ const boxStyles = {
 }
 
 
-const PropertySlider = ({ title, subtitle, data, theme }:SliderComponentType) => {
+const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
   const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
   const [ swiperState, setSwiperState ] = React.useState<any>( {
     isBeginning: true,
     isEnd: false
   } );
 
-  console.log('theme ', theme )
   const arrowButtonStyles = {
     borderRadius: 2,
     height: 40,
