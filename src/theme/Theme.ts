@@ -61,10 +61,12 @@ export const defaultTheme = responsiveFontSizes(createTheme({
       main: '#fff',
     },
     primary: {
+      light: '#49EEF2',
       main: '#00A2A6',
       contrastText: '#fff'
     },
     secondary: {
+      light: '#E5A150',
       main: '#CD7D1E'
     },
   },
