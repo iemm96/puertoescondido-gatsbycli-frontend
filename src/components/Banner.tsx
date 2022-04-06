@@ -49,16 +49,17 @@ const StyledIconTypographyDiv = styled("div")(() => ({
   alignContent: 'center',
 }));
 
-const StyledH2 = styled(Typography)(({ theme }) => ({
+const StyledMainTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
   },
+  fontWeight: 500,
   '&::after': {
     content: '""',
     background: 'white',
     width: '20%',
     margin: '8px 0',
-    height: 1,
+    height: 2,
     position:'relative',
     display: 'inherit',
   }
@@ -98,9 +99,9 @@ const Banner = () => {
           <Fade bottom>
             <Grid container spacing={1}>
               <Grid item xs={ 12 } md={8}>
-                <StyledH2 variant="h2" color="white">
+                <StyledMainTitle variant="h3" color="white">
                   Somos la inmobiliaria en la que puedes confiar.
-                </StyledH2>
+                </StyledMainTitle>
               </Grid>
             </Grid>
           </Fade>
@@ -148,20 +149,29 @@ const Banner = () => {
               </InputLabel>
               <TextField
                 id="search-property-input"
+                variant="filled"
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    paddingRight: 0,
+                  '& .Mui-focused': {
+                    backgroundColor: '#EBF2FF!important' as '#EBF2FF',
+                  },
+                  '& .MuiFilledInput-root': {
+                    paddingRight: '1px',
                     backgroundColor: '#EBF2FF',
                     borderRadius: 3.5,
-                  }
+
+                  },
+
                 }}
                InputProps={{
                  disableUnderline: true,
                  endAdornment: <IconButton sx={{
                    backgroundColor: theme.palette.primary.main,
                    height: 56,
-                   borderRadius: '0 14px 14px 0'
-                 }}><Search sx={{ color:'white' }}/></IconButton>
+                   borderRadius: '0 14px 14px 0',
+                   border: `2px solid ${ theme.palette.primary.main }`
+                 }}>
+                   <Search sx={{ color:'white' }}/>
+                 </IconButton>
                }}
                placeholder="Cerca de la playa, terreno, etc."
                />

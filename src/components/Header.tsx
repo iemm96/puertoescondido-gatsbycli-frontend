@@ -25,7 +25,6 @@ type HeaderPropsType = {
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
   const ref = React.useRef(null);
 
-  console.log( 'LogoColor ', LogoColor )
   function ScrollTrigger( ) {
     return useScrollTrigger({
       disableHysteresis: true,
@@ -59,10 +58,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
         <AppBar
           sx={{
             backgroundColor: scrollTrigger ? "white" : "transparent",
-            pt: {
-              xs: 1,
-              md: 0
-            }
+            pt: 1
           }}
           elevation={ scrollTrigger ? 4 : 0 }
           position={ scrollTrigger ? 'fixed' : 'absolute' }
@@ -115,7 +111,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                 }}
               >
                 <ThemeProvider theme={defaultTheme}>
-                  <Button startIcon={<WhatsApp/>} variant="text">
+                  <Button color={ scrollTrigger ? 'primary' : 'inherit' } startIcon={<WhatsApp/>} variant="text">
                     (+52)33526542
                   </Button>
                   <Link to={'/contacto'}>

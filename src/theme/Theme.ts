@@ -61,6 +61,45 @@ export const defaultTheme = responsiveFontSizes(createTheme({
       main: '#fff',
     },
     primary: {
+      light: '#49EEF2',
+      main: '#00A2A6',
+      contrastText: '#fff'
+    },
+    secondary: {
+      light: '#E5A150',
+      main: '#CD7D1E'
+    },
+  },
+}));
+
+export const defaultThemeDark = responsiveFontSizes(createTheme({
+  typography: {
+    fontFamily: [
+      'Poppins',
+    ].join(','),
+    cardTitle: {
+      color: '#023859',
+      fontFamily: 'Poppins',
+      fontSize: "1rem",
+      fontWeight: 500
+    },
+    body2: {
+      color: '#898F99'
+    },
+    subtitle1: {
+      color: '#CD7D1E',
+      fontWeight: 500
+    },
+    h5: {
+      color: '#00A2A6',
+    },
+  },
+  palette: {
+    mode: 'dark',
+    neutral: {
+      main: '#fff',
+    },
+    primary: {
       main: '#00A2A6',
       contrastText: '#fff'
     },
