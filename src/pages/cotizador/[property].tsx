@@ -1,7 +1,7 @@
 import * as React from "react";
 import Seo from "../../components/seo";
 import Container from "@mui/material/Container"
-import { Box, Chip, Stack, Typography, Slider } from "@mui/material"
+import { Box, Chip, Stack, Typography, Slider, useTheme } from "@mui/material"
 import Layout from "../../components/layout"
 import Grid from "@mui/material/Grid"
 import "slick-carousel/slick/slick.css";
@@ -14,6 +14,9 @@ import { fetchRecord } from "../../actions/fetchRecord"
 import { FmdGood } from "@mui/icons-material"
 import { calculateArea } from "../../helpers/calculateArea"
 import CoverImage from "../../components/common/CoverImage"
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import withTheme from "../../components/theme";
 
 const settings = {
   dots: true,
@@ -34,16 +37,58 @@ const settings = {
   ]
 };
 
+type marksType = {
+  value: number;
+  label: string;
+}
 const EstimateDetails = ({ property }) => {
+  const theme = useTheme();
   const [ propertyData, setPropertyData ] = useState( null );
+  const [ monthlyPay, setMonthlyPay ] = useState<any | number>( null );
+  const [ currentValueSlider, setCurrentValueSlider ] = useState<number>( 12 );
+  const [ months, setMonths ] = useState<marksType[] | null>( null )
   useEffect(() => {
-    getProperty().then()
+    getProperty().then();
   },[  ]);
+
+    useEffect(() => {
+
+      const totalPrice = propertyData?.zone?.price_per_square_meter * propertyData?.area;
+      const annualInterestTotal = propertyData?.zone?.price_annual_interest * ( currentValueSlider/12 );
+
+      
+      if( propertyData?.zone?.price_per_square_meter  ) {
+          
+        if( currentValueSlider === 0 ) {
+          setMonthlyPay( totalPrice )
+        }else {
+          setMonthlyPay( ( totalPrice + annualInterestTotal ) / currentValueSlider );
+
+        }
+      }
+        //setMonthlyPay(  currentValueSlider ? propertyData.price/currentValueSlider : propertyData?.price );
+    }, [ propertyData, currentValueSlider ]);
 
   const getProperty = async () => {
     const propertyResult = await fetchRecord( 'properties', property );
+
+    if( propertyResult?.property?.project?.selectable_financing_months ) {
+      const arrMonths:marksType[] = [{
+        value: 0,
+        label: 'De contado'
+      }];
+
+      propertyResult?.property?.project?.selectable_financing_months.map(( month:number ) => (
+        arrMonths.push({
+          value: month,
+          label: `${ month } meses`,
+        })
+      ));
+
+      setMonths( arrMonths );
+    }
+
     setPropertyData( propertyResult.property );
-    console.log( propertyResult )
   }
 
   const data = useStaticQuery(graphql`
@@ -60,27 +105,14 @@ const EstimateDetails = ({ property }) => {
       }
   `);
 
-  const marks = [
-    {
-      value: 0,
-      label: 'De contado',
-    },
-    {
-      value: 12,
-      label: '12 meses',
-    },
-    {
-      value: 24,
-      label: '37 meses',
-    },
-    {
-      value: 36,
-      label: '36 meses',
-    },
-  ];
+  
 
   function valuetext(value: number) {
-    return `${value} meses`;
+    return `${value}`;
+  }
+
+  const handleMonthsChange = (e: Event, newValue:number | number[]) => {
+      setCurrentValueSlider( newValue );
   }
 
   return(
@@ -98,100 +130,95 @@ const EstimateDetails = ({ property }) => {
                 location: propertyData?.location?.name,
                 features: propertyData?.features
               }}/>
-              <Container maxWidth="xl">
-              <Typography variant="subtitle1">Paso 2 de 2</Typography>
-              <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige las mensualidades...</Typography>
-              <Slider
-                aria-label="Mensualidades"
-                defaultValue={12}
-                max={ 36 }
-                getAriaValueText={valuetext}
-                step={ null }
-                valueLabelDisplay="auto"
-                marks={marks}
-              />
-              <Grid
-                sx={{ mt: 24 }}
-                spacing={4}
-                container
-              >
-                <Grid md={ 6 } item>
-                  <Stack
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'left'
-                    }}
-                    direction="column"
-                  >
-                    <Typography variant="h5">
-                      { propertyData.name }
-                    </Typography>
-                    <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
-                      $ { propertyData?.price &&
-                      new Intl.NumberFormat().format( propertyData?.price )
-                    } mxn { ( propertyData?.width && propertyData?.length ) &&
-                      `· ${calculateArea( parseInt( propertyData.width ), parseInt( propertyData.length ), data?.measures_unit )}`
-                    }
-                    </Typography>
-                    {
-                      propertyData?.location && (
+              <Container sx={{ mt: 2 }} maxWidth="xl">
+                <Typography variant="subtitle1">Paso 2 de 2</Typography>
+                <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige las mensualidades...</Typography>
+                {
+                  months && (
+                    <Box sx={{ px: 2 }}>
+                      <Slider
+                          onChange={ handleMonthsChange }
+                          aria-label="Mensualidades"
+                          defaultValue={ currentValueSlider }
+                          max={ propertyData?.project?.total_financing_months }
+                          getAriaValueText={valuetext}
+                          step={ null }
+                          valueLabelDisplay="auto"
+                          marks={ months }
+                      />
+                    </Box>
+                  )
+                }
+                <Container maxWidth="md">
+                  <Card sx={{ mt: 2 }}>
+                    <CardContent>
                         <Typography
-                          onClick={ () => {
-                            window.open( `https://www.google.com/maps/search/?api=1&query=${ propertyData.location.lat }%2C${ propertyData.location.lng }`, '_blank')
-                          } }
+                            sx={{
+                                color: theme.palette.primary.main
+                            }}
+                            align="center"
                         >
-                          <FmdGood/>
-                          { propertyData.location.name }
+                            { currentValueSlider === 0 ? `Precio de contado:` : `${currentValueSlider} mensualidades de:` }
                         </Typography>
-                      )
-                    }
+                        <Typography
+                            variant="h4"
+                            align="center"
+                            sx={{
+                                mt: 2,
+                                color: theme.palette.primary.main,
+                                fontWeight: 700
+                            }}
+                        >
+                            ${ new Intl.NumberFormat().format( monthlyPay ) }
+                        </Typography>
+                        <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
+                            <Typography color="text.secondary">
+                                Precio por metro cuadrado:
+                            </Typography>
+                            <Typography>
+                                { `$ ${propertyData?.zone?.price_per_square_meter } ${ propertyData?.currency }` }
+                            </Typography>
+                        </Stack>
+                        <Button
+                            sx={{
+                                mt: 2,
+                                textTransform: 'none'
+                            }}
+                            variant="contained"
+                            fullWidth
+                        >
+                            Solicitar Crédito
+                        </Button>
+                    </CardContent>
+                  </Card>
+                </Container>
 
-                    <Typography
-                      sx={{ mt: 2 }}
-                      variant="body2"
-                    >
-                      { propertyData.description }
-                    </Typography>
-                  </Stack>
-                  <Stack sx={{ mt: 2 }} spacing={ 1 } direction="row">
-                    {
-                      propertyData?.features &&
-                      propertyData.features.map( (feature, index) => (
-                        <Chip size="small" key={index} label={ feature.name }/>
-                      ) )
-                    }
-                  </Stack>
+              <Box
+                  sx={{
+                      justifyContent: 'center',
+                      display: 'flex'
+                  }}
+              >
                   <Button
-                    color="primary"
-                    variant="contained"
-                    sx={{
-                      mt: 4
-                    }}
+                      sx={{
+                          mt: 4,
+                          mb: 8,
+                          transformText: 'none'
+                      }}
+                      startIcon={ <ChevronLeft/> }
+                      variant="outlined"
                   >
-                    Agendar cita
+                      Volver al catálogo
                   </Button>
-                </Grid>
-              </Grid>
-            </Container>
+              </Box>
+              </Container>
             </>
           )
         }
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center'
-          }}
-        >
-          <Button
-            onClick={ () => navigate( '/' ) }
-            startIcon={<ChevronLeft/>}
-          >
-            Volver al inicio
-          </Button>
-        </Box>
+
       </Layout>
     </>
   )
 }
 
-export default EstimateDetails;
+export default withTheme( EstimateDetails );

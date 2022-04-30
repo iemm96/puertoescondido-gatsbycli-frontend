@@ -54,8 +54,9 @@ const CoverImage = ({ data }:{ data:any }) => {
 
   return(
     <StyledRelativeDiv>
+        <Container maxWidth="xl">
+
       <StyledAbsoluteDiv>
-        <Container>
           <Stack>
             <Stack direction="row" spacing={ 1 }>
               <Typography
@@ -113,8 +114,9 @@ const CoverImage = ({ data }:{ data:any }) => {
               ))
             }
           </Stack>
-        </Container>
       </StyledAbsoluteDiv>
+      </Container>
+
       <StyledLinearBackgroundDiv/>
       <MyThemeComponent image={ data.image }/>
     </StyledRelativeDiv>
