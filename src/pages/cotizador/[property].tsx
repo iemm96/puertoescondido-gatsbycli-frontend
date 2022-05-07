@@ -11,8 +11,6 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import { graphql, navigate, useStaticQuery } from "gatsby"
 import { useEffect, useState } from "react"
 import { fetchRecord } from "../../actions/fetchRecord"
-import { FmdGood } from "@mui/icons-material"
-import { calculateArea } from "../../helpers/calculateArea"
 import CoverImage from "../../components/common/CoverImage"
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -133,22 +131,27 @@ const EstimateDetails = ({ property }) => {
               <Container sx={{ mt: 2 }} maxWidth="xl">
                 <Typography variant="subtitle1">Paso 2 de 2</Typography>
                 <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige las mensualidades...</Typography>
-                {
-                  months && (
-                    <Box sx={{ px: 2 }}>
-                      <Slider
-                          onChange={ handleMonthsChange }
-                          aria-label="Mensualidades"
-                          defaultValue={ currentValueSlider }
-                          max={ propertyData?.project?.total_financing_months }
-                          getAriaValueText={valuetext}
-                          step={ null }
-                          valueLabelDisplay="auto"
-                          marks={ months }
-                      />
-                    </Box>
-                  )
-                }
+                <Grid justifyContent="center" container>
+                  <Grid item xs={ 12 } md={ 10 }>
+                      {
+                        months && (
+                          <Box>
+                            <Slider
+                                onChange={ handleMonthsChange }
+                                aria-label="Mensualidades"
+                                defaultValue={ currentValueSlider }
+                                max={ propertyData?.project?.total_financing_months }
+                                getAriaValueText={valuetext}
+                                step={ null }
+                                valueLabelDisplay="auto"
+                                marks={ months }
+                            />
+                          </Box>
+                        )
+                    }
+                  </Grid>
+                </Grid>
+                
                 <Container maxWidth="md">
                   <Card sx={{ mt: 2 }}>
                     <CardContent>
@@ -205,6 +208,7 @@ const EstimateDetails = ({ property }) => {
                           mb: 8,
                           transformText: 'none'
                       }}
+                      onClick={ () => navigate('/') }
                       startIcon={ <ChevronLeft/> }
                       variant="outlined"
                   >

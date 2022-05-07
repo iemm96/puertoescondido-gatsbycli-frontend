@@ -4,7 +4,7 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import { useEffect, useState } from "react"
 import { fetchRecords } from "../actions/fetchRecords"
-import withTheme from "./theme"
+import { navigate } from "gatsby";
 
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
@@ -76,6 +76,7 @@ const FeaturedProperties = () => {
       }}>
         <Button
           color="primary"
+          onClick={ () => navigate( '/propiedades' ) }
           variant="contained"
         >
           Ver más propiedades
