@@ -22,7 +22,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const Propiedades = () => {
+const Propiedades = ({ location }) => {
   const params = new URLSearchParams(location.search);
   const search = params.get("search");
   const limit = 6; //properties result limit
