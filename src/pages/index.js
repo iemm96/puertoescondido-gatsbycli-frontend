@@ -25,6 +25,7 @@ import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
 import LatestPosts from "../components/LatestPosts"
 import FeaturedProperties from "../components/FeaturedProperties"
+import SplashScreen from "../components/common/SplashScreen";
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -45,7 +46,7 @@ const IndexPage = () => {
     <>
         <Seo title="Home" />
         <Layout scrollTrigger={true}>
-
+          <SplashScreen duration={4}/>
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',

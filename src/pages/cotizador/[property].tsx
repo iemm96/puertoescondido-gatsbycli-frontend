@@ -20,25 +20,6 @@ import {Gallery} from "../../components/common/Gallery";
 import Header from "../../components/Header";
 import SplashScreen from "../../components/common/SplashScreen";
 
-const settings = {
-    dots: true,
-    slidesToShow: 5,
-    infinite: false,
-    slidesToScroll: 1,
-    arrows: true,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                centerMode: true,
-                centerPadding: '15%',
-                slidesToShow: 1,
-                infinite: false,
-            }
-        }
-    ]
-};
-
 type marksType = {
     value: number;
     label: string;
