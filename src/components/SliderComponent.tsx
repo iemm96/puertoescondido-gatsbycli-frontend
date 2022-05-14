@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Typography from "@mui/material/Typography";
@@ -40,80 +40,80 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
     height: 40,
   }
   return(
-    <>
-      <Container maxWidth="xl" sx={ {pl: 2} }>
-        <Typography variant="subtitle1">{title}</Typography>
-        <Grid container justifyContent="space-between">
-          <Grid item>
-            <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
+      <>
+        <Container maxWidth="xl" sx={ {pl: 2} }>
+          <Typography variant="subtitle1">{title}</Typography>
+          <Grid container justifyContent="space-between">
+            <Grid item>
+              <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
+            </Grid>
+            <Grid item>
+              <IconButton
+                  sx={ arrowButtonStyles }
+                  disabled={ swiperState.isBeginning }
+                  onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
+              >
+                <ChevronLeft/>
+              </IconButton>
+              <IconButton
+                  sx={{
+                    borderRadius: 2,
+                    height: 40
+                  }}
+                  disabled={ swiperState.isEnd }
+                  onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
+              >
+                <ChevronRight/>
+              </IconButton>
+            </Grid>
           </Grid>
-          <Grid item>
-            <IconButton
-              sx={ arrowButtonStyles }
-              disabled={ swiperState.isBeginning }
-              onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
-            >
-              <ChevronLeft/>
-            </IconButton>
-            <IconButton
-              sx={{
-                borderRadius: 2,
-                height: 40
+          <Swiper
+              modules={[ Scrollbar ]}
+              slidesPerView="auto"
+              spaceBetween={ 10 }
+              centeredSlides={ false }
+              onSlideChange={ () => {
+                setSwiperState( {
+                  isEnd: swiperDef.isEnd,
+                  isBeginning: swiperDef.isBeginning
+                } );
+              } }
+              onSwiper={ (swiper) => {
+                setSwiperDef( swiper );
+                setSwiperState( {
+                  isEnd: false,
+                  isBeginning: true
+                });
               }}
-              disabled={ swiperState.isEnd }
-              onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
-            >
-              <ChevronRight/>
-            </IconButton>
-          </Grid>
-        </Grid>
-        <Swiper
-          modules={[ Scrollbar ]}
-          slidesPerView="auto"
-          spaceBetween={ 10 }
-          centeredSlides={ false }
-          onSlideChange={ () => {
-            setSwiperState( {
-              isEnd: swiperDef.isEnd,
-              isBeginning: swiperDef.isBeginning
-            } );
-          } }
-          onSwiper={ (swiper) => {
-            setSwiperDef( swiper );
-            setSwiperState( {
-              isEnd: false,
-              isBeginning: true
-            });
-          }}
-          breakpoints={{
-            "640": {
-              "slidesPerView": 2,
-              "spaceBetween": 10
-            },
-            "768": {
-              "slidesPerView": 2,
-              "spaceBetween": 40
-            },
-            "1024": {
-              "slidesPerView": 4,
-              "spaceBetween": 10
-            }
-          }}
-          freeMode={true}
-        >
-          { ( data && data.length > 0 ) && data.map( (item, index ) => (
-            <SwiperSlide>
-              <Box key={index} sx={boxStyles}>
-                <PropertyCard data={ item }/>
-              </Box>
-            </SwiperSlide>
+              breakpoints={{
+                "640": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 10
+                },
+                "768": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 40
+                },
+                "1024": {
+                  "slidesPerView": 4,
+                  "spaceBetween": 10
+                }
+              }}
+              freeMode={true}
+          >
+            { ( data && data.length > 0 ) && data.map( (item, index ) => (
+                <SwiperSlide>
+                  <Box key={index} sx={boxStyles}>
+                    <PropertyCard key={ index } data={ item }/>
+                  </Box>
+                </SwiperSlide>
 
-          )) }
-        </Swiper>
+            )) }
+          </Swiper>
 
-      </Container>
+        </Container>
 
-    </>
+      </>
   )
 }
 

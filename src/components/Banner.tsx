@@ -36,6 +36,8 @@ import ClimateIcon from "./common/icons/ClimateIcon"
 import BluePrintIcon from "./common/icons/BluePrintIcon"
 import Carousel from "./Carousel"
 import Header from "./Header"
+import { navigate } from 'gatsby';
+import { useState } from 'react';
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -84,7 +86,7 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
   const theme = useTheme();
   const { width } = useWindowDimensions();
-
+  const [ querySearch, setQuerySearch ] = useState<string | null>( null );
   return (
     <>
       <Header scrollTrigger={ false }/>
@@ -150,7 +152,12 @@ const Banner = () => {
               <TextField
                 id="search-property-input"
                 variant="filled"
+                onChange={ (e) => setQuerySearch( e.target.value ) }
                 sx={{
+                  '&:hover': {
+                    borderRadius: 3.5,
+                    backgroundColor: '#EBF2FF!important' as '#EBF2FF',
+                  },
                   '& .Mui-focused': {
                     backgroundColor: '#EBF2FF!important' as '#EBF2FF',
                   },
@@ -163,13 +170,22 @@ const Banner = () => {
 
                 }}
                InputProps={{
-                 disableUnderline: true,
+                 disableUnderline: true,                 
                  endAdornment: <IconButton sx={{
                    backgroundColor: theme.palette.primary.main,
+                   '&:hover': {
+                    backgroundColor: theme.palette.primary.main,
+                  },
                    height: 56,
                    borderRadius: '0 14px 14px 0',
                    border: `2px solid ${ theme.palette.primary.main }`
-                 }}>
+                 }}
+                 onClick={() => {
+                   if( querySearch ) {
+                    navigate(`/propiedades?search=${ querySearch }`)
+                   }
+                  }}
+                 >
                    <Search sx={{ color:'white' }}/>
                  </IconButton>
                }}

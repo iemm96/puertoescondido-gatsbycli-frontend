@@ -14,6 +14,7 @@ import "./layout.css"
 import Footer from "./Footer"
 import { ThemeProvider } from "@mui/material/styles"
 import { defaultTheme, defaultThemeDark } from "../theme/Theme"
+import ScrollHeader from "./ScrollHeader";
 
 const Layout = ({ children, scrollTrigger }) => {
   const data = useStaticQuery(graphql`
@@ -29,7 +30,12 @@ const Layout = ({ children, scrollTrigger }) => {
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
-        <Header siteTitle={data.site.siteMetadata?.title || `Title`} scrollTrigger={scrollTrigger}/>
+        {
+          scrollTrigger && (
+              <Header siteTitle={data.site.siteMetadata?.title || `Title`}/>
+          )
+        }
+        <ScrollHeader siteTitle={data.site.siteMetadata?.title || `Title`} scrollTrigger={scrollTrigger}/>
         <div style={{
           overflow:'hidden'
         }}>

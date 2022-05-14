@@ -16,15 +16,15 @@ import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
 import Slide from '@mui/material/Slide';
 // @ts-ignore
-import LogoWhite from '../images/logo_white.svg';
+import LogoColor from '../images/logo_color.svg';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import {Stack} from "@mui/material";
 
 type HeaderPropsType = {
   scrollTrigger?: boolean;
 }
 
-const Header = ({ scrollTrigger }:HeaderPropsType) => {
+const ScrollHeader = ({ scrollTrigger }:HeaderPropsType) => {
   const ref = React.useRef(null);
 
   function ScrollTrigger( ) {
@@ -55,13 +55,14 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
   return(
     <header>
+      <ShowOnScroll>
         <AppBar
           sx={{
-            backgroundColor: "transparent",
+            backgroundColor: scrollTrigger ? "white" : "transparent",
             pt: 1
           }}
-          elevation={ 0 }
-          position={ 'absolute' }
+          elevation={ scrollTrigger ? 4 : 0 }
+          position={ scrollTrigger ? 'fixed' : 'absolute' }
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -73,7 +74,7 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   }
                 }}
               >
-                  <LogoWhite src={ LogoWhite } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
+                <LogoColor src={ LogoColor } width={ 100 } height={ 40 }  alt="Inmobiliaria Puerto Escondido"/> :
               </Box>
               <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
@@ -89,16 +90,16 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
               </Box>
               <Stack spacing={ 2 } direction="row" sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map(({label,href}) => (
-                    <Typography 
-                      onClick={ () => navigate(href) }
-                      key={label}
-                      sx={{
-                        color: "white",
-                        cursor: 'pointer',
-                        '&:hover': {
-                          textDecoration: 'underline'
-                        }
-                      }}
+                    <Typography
+                        color="primary"
+                        onClick={ () => navigate(href) }
+                        key={label}
+                        sx={{
+                          cursor: 'pointer',
+                          '&:hover': {
+                            textDecoration: 'underline'
+                          }
+                        }}
                     >
                       { label }
                     </Typography>
@@ -127,9 +128,10 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
             </Toolbar>
           </Container>
         </AppBar>
+      </ShowOnScroll>
       <Sidebar ref={ref}/>
     </header>
   )
 }
 
-export default Header
+export default ScrollHeader;

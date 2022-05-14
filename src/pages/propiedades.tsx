@@ -14,18 +14,21 @@ import {
   Slider,
   FormControl, FormControlLabel, Checkbox
 } from "@mui/material"
-import PropertyCard from "../components/PropertyCard"
 import { ChevronLeft, Clear } from "@mui/icons-material"
-import { graphql, useStaticQuery } from "gatsby"
+import PropertyCard from "../components/PropertyCard";
+import {fetchRecords} from "../actions/fetchRecords";
 
 function valuetext(value) {
   return `${value}°C`;
 }
 
 const Propiedades = () => {
-
-
-
+  const params = new URLSearchParams(location.search);
+  const search = params.get("search");
+  const limit = 6; //properties result limit
+  const [ currentPage, setCurrentPage ] = React.useState<number>( 0 );
+  const [ properties, setProperties ] = React.useState<any>( null );
+  const [ total, setTotal ] = React.useState<number | null>( null );
   const [value, setValue] = React.useState([20, 37]);
   const [state, setState] = React.useState({
     gilad: true,
@@ -38,6 +41,24 @@ const Propiedades = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  React.useEffect(() => {
+      getProperties().then();
+  },[ currentPage ]);
+
+  const getProperties = async () => {
+    let resource:string = `properties?limit=${ limit }&startAt=${currentPage}`;
+
+    if( search ) {
+      resource = `properties/search?query=${search}&limit=${ limit }&startAt=${currentPage}`;
+    }
+
+    const result = await fetchRecords( resource )
+    if( result ) {
+      setTotal( result.total );
+      setProperties( result.properties );
+    }
+  }
 
   const handleChangeCheck = (event) => {
     setState({
@@ -195,15 +216,25 @@ const Propiedades = () => {
                   <Pagination color="primary" count={10} />
                 </Grid>
               </Grid>
-              <Grid container>
-
+              <Grid spacing={2} container>
+                  {
+                    properties && properties.map(( val:any, index:number) => (
+                      <Grid md={ 4 } item key={ index }>
+                        <PropertyCard key={ index } data={val}/>
+                      </Grid>
+                    ))
+                  }
               </Grid>
               <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                 <Grid item>
-                  <Typography>Mostrando 6 de 200 resultados</Typography>
+                  {
+                    total && (
+                          <Typography>Mostrando { limit } de { total } resultados</Typography>
+                      )
+                  }
                 </Grid>
                 <Grid item>
-                  <Pagination color="primary" count={10} />
+                  <Pagination color="primary" count={10} onChange={ (event, page) => setCurrentPage(page) } />
                 </Grid>
               </Grid>
               <Grid
