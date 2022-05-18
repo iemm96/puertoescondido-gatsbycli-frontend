@@ -13,47 +13,52 @@ exports.createPages = async ({ actions }) => {
   })
 }
 
-exports.sourceNodes = async ({ actions }) => {
+exports.sourceNodes = async ({ actions, createNodeID, createContentDigest }) => {
+  const { createNode } = actions;
 
   try {
-    const { createNode } = actions;
-    const fetchProperties = async () => await axios.get(`${ GATSBY_API_HOST }properties`);
-    const res = await fetchProperties();
-    res.data.properties.map(async ( property, i ) => {
-      const propertyNode = {
-        id: `${i}`,
-        parent: `__SOURCE__`,
-        internal: {
-          type: `Properties`, // name of the graphQL query --> allRandomUser {}
-          // contentDigest will be added just after
-          // but it is required
-        },
-        children: [],
-        name: property.name,
-        description: property.description,
-        price: property.price,
-        currency: property.currency,
-        uid: property.uid,
-        images: property?.images,
-        features: property?.features,
-        location: property?.location,
-        width: property?.width,
-        length: property?.length,
-        isFeatured: property?.isFeatured,
-        measures_unit: property?.measures_unit,
-        coverImage: property?.coverImage
-      }
 
-      propertyNode.internal.contentDigest = crypto
-        .createHash(`md5`)
-        .update(JSON.stringify(propertyNode))
-        .digest(`hex`);;
-      createNode(propertyNode);
-    })
+    const fetchProjects = async () => await axios.get(`${ GATSBY_API_HOST }projects`);
+    const resProjects = await fetchProjects();
+
+    let node_type = 'Project';
+
+    resProjects.data.projects.map(async ( project, i ) => {
+      createNode({
+        ...project,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify( project ),
+          contentDigest: createContentDigest( project )
+        },
+      })
+    });
+
+    const fetchProperties = async () => await axios.get(`${ GATSBY_API_HOST }properties`);
+    const resProperties = await fetchProperties();
+
+    node_type = 'Property';
+
+    resProperties.data.properties.map(async ( property, i ) => {
+      createNode({
+        ...property,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify( property ),
+          contentDigest: createContentDigest( property )
+        },
+      })
+    });
+
   }catch (e) {
     console.log(e)
   }
-
 
   return;
 }
@@ -61,14 +66,11 @@ exports.sourceNodes = async ({ actions }) => {
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
   createTypes(`
-    type Properties implements Node {
-      property: Property
+    type Property implements Node {
       coverImage: File @link(from: "fields.localFile")
     }
-    type Property {
-      title: String!
-      coverImageUrl: String
-      coverImageAlt: String
+    type Project implements Node {
+      coverImage: File @link(from: "fields.localFile")
     }
   `)
 }
@@ -81,27 +83,54 @@ exports.onCreateNode = async ({
                               }) => {
   // For all MarkdownRemark nodes that have a featured image url, call createRemoteFileNode
 
- try{
+   try{
 
-   if (
-     node.internal.type === "Properties" &&
-     node.coverImage.url !== null
-   ) {
+     if (
+       node.internal.type === "Property" &&
+       node.coverImage.url !== null
+     ) {
 
-     const fileNode = await createRemoteFileNode({
-       url: node.coverImage.url, // string that points to the URL of the image
-       parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
-       createNode, // helper function in gatsby-node to generate the node
-       createNodeId, // helper function in gatsby-node to generate the node id
-       getCache,
-     })
-     // if the file was created, extend the node with "localFile"
-     if (fileNode) {
-       createNodeField({ node, name: "localFile", value: fileNode.id })
+       console.log( 'node.coverImage.url Property', node );
+       const fileNode = await createRemoteFileNode({
+         url: node.coverImage.url, // string that points to the URL of the image
+         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+         createNode, // helper function in gatsby-node to generate the node
+         createNodeId, // helper function in gatsby-node to generate the node id
+         getCache,
+       })
+
+       // if the file was created, extend the node with "localFile"
+       if (fileNode) {
+         createNodeField({ node, name: "localFile", value: fileNode.id })
+       }
      }
+   }catch (e) {
+     console.log('error creating node ',e);
    }
- }catch (e) {
-   console.log('error creating node ',e);
- }
+
+  try{
+
+    if (
+        node.internal.type === "Project" &&
+        node.coverImage.url !== null
+    ) {
+
+      console.log( 'node.coverImage.url Project', node );
+
+      const fileNode = await createRemoteFileNode({
+        url: node.coverImage.url, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode, // helper function in gatsby-node to generate the node
+        createNodeId, // helper function in gatsby-node to generate the node id
+        getCache,
+      })
+      // if the file was created, extend the node with "localFile"
+      if (fileNode) {
+        createNodeField({ node, name: "localFile", value: fileNode.id })
+      }
+    }
+  }catch (e) {
+    console.log('error creating node ',e);
+  }
 }
 

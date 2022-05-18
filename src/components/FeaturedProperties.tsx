@@ -4,13 +4,65 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import { useEffect, useState } from "react"
 import { fetchRecords } from "../actions/fetchRecords"
-import { navigate } from "gatsby";
+import {graphql, navigate, useStaticQuery} from "gatsby";
 
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
 const FeaturedProperties = () => {
   const [ properties, setProperties ] = useState<any>([]);
+
+    const data = useStaticQuery(graphql`
+        query FeaturedItems {
+            allProperty(filter: {isFeatured: {eq: true}}) {
+                edges {
+                    node {
+                        coverImage {
+                            childImageSharp {
+                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                            }
+                        }
+                        name
+                        price
+                        uid
+                        measures_unit
+                        isFeatured
+                        location {
+                            name
+                        }
+                        features {
+                            name
+                        }
+                    }
+                }
+            }
+            allProject(filter: {isFeatured: {eq: true}}) {
+                edges {
+                    node {
+                        coverImage {
+                            childImageSharp {
+                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                            }
+                        }
+                        name
+                        uid
+                        measures_unit
+                        isFeatured
+                        location {
+                            name
+                        }
+                        features {
+                            name
+                        }
+                        isProject
+                    }
+                }
+            }
+        }
+
+
+
+    `);
 
   /*
     const { allProperties } = useStaticQuery(graphql`
@@ -25,8 +77,6 @@ const FeaturedProperties = () => {
                   name
                   price
                   uid
-                  width
-                  length
                   measures_unit
                   features {
                       name
@@ -42,9 +92,14 @@ const FeaturedProperties = () => {
   `);
   */
 
-  useEffect(() => {
-      getFeaturedProperties().then();
-  }, []);
+    React.useEffect(() => {
+        if( data ) {
+            if( data.allProject.edges ) {
+
+                setProperties( data.allProject.edges.concat( data.allProperty.edges ) )
+            }
+        }
+    },[ data ])
 
   const getFeaturedProperties = async () => {
       const { properties } = await fetchRecords('properties' );
@@ -54,7 +109,7 @@ const FeaturedProperties = () => {
       properties.map( item => (
         item.isFeatured && arrFeaturedProperties.push( item )
       ))
-      
+
       setProperties( arrFeaturedProperties );
   }
 
@@ -69,19 +124,6 @@ const FeaturedProperties = () => {
             />
           )
       }
-      <Box sx={{
-        mt: 2,
-        justifyContent: 'center',
-        display: 'flex'
-      }}>
-        <Button
-          color="primary"
-          onClick={ () => navigate( '/propiedades' ) }
-          variant="contained"
-        >
-          Ver más propiedades
-        </Button>
-      </Box>
     </>
   )
 }

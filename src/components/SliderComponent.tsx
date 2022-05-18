@@ -12,6 +12,8 @@ import PropertyCard from "./PropertyCard";
 import Box from "@mui/material/Box";
 import "./../styles/slick.css";
 import Container from "@mui/material/Container"
+import {navigate} from "gatsby";
+import Button from "@mui/material/Button";
 
 type SliderComponentType = {
   title: string;
@@ -48,6 +50,14 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
               <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
             </Grid>
             <Grid item>
+              <Button
+                  sx={{ textTransform: 'none' }}
+                  color="primary"
+                  onClick={ () => navigate( '/propiedades' ) }
+                  variant="contained"
+              >
+                Ver más propiedades
+              </Button>
               <IconButton
                   sx={ arrowButtonStyles }
                   disabled={ swiperState.isBeginning }
@@ -104,7 +114,7 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
             { ( data && data.length > 0 ) && data.map( (item, index ) => (
                 <SwiperSlide>
                   <Box key={index} sx={boxStyles}>
-                    <PropertyCard key={ index } data={ item }/>
+                    <PropertyCard key={ index } data={ item.node }/>
                   </Box>
                 </SwiperSlide>
 
