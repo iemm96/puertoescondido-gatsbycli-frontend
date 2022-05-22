@@ -16,9 +16,9 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
   const theme = useTheme();
   const image = getImage(data?.coverImage);
 
-  const CardInnerContent = ((data:any) => (
+  const CardInnerContent = (( data:any ) => (
       <CardActionArea
-          onClick={ () => navigate(`/cotizador/${ data.uid }`) }
+          onClick={ () => navigate(`/${ data.slug }`) }
       >
         {
             ( !data.isProject && image ) && (
@@ -84,7 +84,7 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
   const ProjectCard = (data) => (
       <CardActionArea
           sx={{ height: '100%' }}
-          onClick={ () => navigate(`/cotizador/${ data.uid }`) }
+          onClick={ () => navigate(`/proyecto/${ data.slug }`) }
       >
         {
             ( !data.isProject && image ) && (

@@ -1,8 +1,8 @@
 import * as React from "react";
-import Seo from "../components/seo";
+import Seo from "../../components/seo";
 import Container from "@mui/material/Container"
 import { Box, Chip, Stack, Typography } from "@mui/material"
-import Layout from "../components/layout"
+import Layout from "../../components/layout"
 import Grid from "@mui/material/Grid"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,9 +11,9 @@ import Button from "@mui/material/Button"
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import { graphql, navigate, useStaticQuery } from "gatsby"
 import { useEffect, useState } from "react"
-import { fetchRecord } from "../actions/fetchRecord"
+import { fetchRecord } from "../../actions/fetchRecord"
 import { FmdGood } from "@mui/icons-material"
-import { calculateArea } from "../helpers/calculateArea"
+import { calculateArea } from "../../helpers/calculateArea"
 
 const settings = {
   dots: true,
@@ -41,9 +41,8 @@ const Servicios = ({ property }) => {
   },[  ]);
 
   const getProperty = async () => {
-    const propertyResult = await fetchRecord( 'properties/bySlug', property );
-    setPropertyData( propertyResult.property );
-    console.log( propertyResult )
+    const propertyResult = await fetchRecord( 'projects/bySlug', property );
+    setPropertyData( propertyResult.project );
   }
 
   const data = useStaticQuery(graphql`

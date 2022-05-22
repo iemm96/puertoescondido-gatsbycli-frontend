@@ -27,6 +27,7 @@ const FeaturedProperties = () => {
                         uid
                         measures_unit
                         isFeatured
+                        slug
                         location {
                             name
                         }
@@ -48,6 +49,7 @@ const FeaturedProperties = () => {
                         uid
                         measures_unit
                         isFeatured
+                        slug
                         location {
                             name
                         }
