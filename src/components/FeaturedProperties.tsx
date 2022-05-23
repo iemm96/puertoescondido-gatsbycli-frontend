@@ -1,10 +1,8 @@
 import * as React from "react";
 import SliderComponent from "./SliderComponent"
-import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { fetchRecords } from "../actions/fetchRecords"
-import {graphql, navigate, useStaticQuery} from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";

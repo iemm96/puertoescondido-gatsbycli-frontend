@@ -18,7 +18,7 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
 
   const CardInnerContent = (( data:any ) => (
       <CardActionArea
-          onClick={ () => navigate(`/${ data.slug }`) }
+          onClick={ () => navigate(`/propiedades/${ data.slug }`) }
       >
         {
             ( !data.isProject && image ) && (

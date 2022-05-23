@@ -1,10 +1,7 @@
 import * as React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import withTheme from "../components/theme"
 import Banner from "../components/Banner"
-import { ThemeProvider } from '@mui/material/styles';
-import { defaultTheme } from "../theme/Theme";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

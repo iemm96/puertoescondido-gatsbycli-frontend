@@ -1,16 +1,47 @@
 const axios = require('axios');
-const crypto = require('crypto');
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
 const { GATSBY_API_HOST } = process.env;
 
-exports.createPages = async ({ actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  createPage({
-    path: "/using-dsg",
-    component: require.resolve("./src/templates/using-dsg.js"),
-    context: {},
-    defer: true,
-  })
+
+  const { data } = await graphql(`
+    query Properties {
+            allProperty {
+                nodes {
+                   
+                        coverImage {
+                            childImageSharp {
+                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                            }
+                        }
+                        name
+                        price
+                        uid
+                        measures_unit
+                        isFeatured
+                        slug
+                        location {
+                            name
+                        }
+                        features {
+                            name
+                        }
+                    
+                }
+            }
+        }
+  `);
+
+  data.allProperty.nodes.forEach( node => {
+    createPage({
+      path: `/propiedades/${ node.slug }`,
+      component: require.resolve("./src/templates/PropertyDetails.tsx"),
+      context: { slug: node.slug },
+    })
+  } )
+
+
 }
 
 exports.sourceNodes = async ({ actions, createNodeID, createContentDigest }) => {
@@ -83,6 +114,8 @@ exports.onCreateNode = async ({
                               }) => {
   // For all MarkdownRemark nodes that have a featured image url, call createRemoteFileNode
 
+
+
    try{
 
      if (
@@ -90,7 +123,6 @@ exports.onCreateNode = async ({
        node.coverImage.url !== null
      ) {
 
-       console.log( 'node.coverImage.url Property', node );
        const fileNode = await createRemoteFileNode({
          url: node.coverImage.url, // string that points to the URL of the image
          parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
@@ -114,8 +146,6 @@ exports.onCreateNode = async ({
         node.internal.type === "Project" &&
         node.coverImage.url !== null
     ) {
-
-      console.log( 'node.coverImage.url Project', node );
 
       const fileNode = await createRemoteFileNode({
         url: node.coverImage.url, // string that points to the URL of the image
