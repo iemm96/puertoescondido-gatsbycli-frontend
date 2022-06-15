@@ -21,14 +21,14 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
           onClick={ () => navigate(`/propiedades/${ data.slug }`) }
       >
         {
-            ( !data.isProject && image ) && (
+            ( !data?.isProject && image ) && (
                 <GatsbyImage
                     image={ image }
                     style={{
                       width: '100%',
                       zIndex: 0,
                       //position: data.isProject ? 'absolute' : 'relative',
-                      height: data.isProject ? '100%' : 'auto'
+                      height: data?.isProject ? '100%' : 'auto'
                     }}
                     alt={ data.name }
                 />
@@ -36,7 +36,7 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
         }
         <CardContent>
           {
-            !data.isProject && (
+            !data?.isProject && (
                   <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
                     $ { data?.price &&
                       new Intl.NumberFormat().format(data?.price)
@@ -87,14 +87,14 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
           onClick={ () => navigate(`/proyecto/${ data.slug }`) }
       >
         {
-            ( !data.isProject && image ) && (
+            ( !data?.isProject && image ) && (
                 <GatsbyImage
                     image={ image }
                     style={{
                       width: '100%',
                       zIndex: 0,
                       //position: data.isProject ? 'absolute' : 'relative',
-                      height: data.isProject ? '100%' : 'auto'
+                      height: data?.isProject ? '100%' : 'auto'
                     }}
                     alt={ data.name }
                 />
