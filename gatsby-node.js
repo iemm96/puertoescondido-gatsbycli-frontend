@@ -97,10 +97,41 @@ exports.sourceNodes = async ({ actions, createNodeID, createContentDigest }) => 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
   createTypes(`
+    type Location implements Node {
+      name: String!
+    }
+    type Feature implements Node {
+      name: String!
+    }
+    type Image implements Node {
+      url: String!
+    }
     type Property implements Node {
+      uid: String!
+      name: String!
+      description: String!
+      price: String!
+      measures_unit: String!
+      isFeatured: Boolean!
+      location: Location!
+      features: Feature!
+      slug: String!
+      images: Image!
+      area: String!
       coverImage: File @link(from: "fields.localFile")
     }
     type Project implements Node {
+      uid: String!
+      name: String!
+      description: String!
+      price: String!
+      isFeatured: Boolean!
+      isProject: Boolean!
+      location: Location!
+      features: Feature!
+      slug: String!
+      measures_unit: String!
+      area: String!
       coverImage: File @link(from: "fields.localFile")
     }
   `)
