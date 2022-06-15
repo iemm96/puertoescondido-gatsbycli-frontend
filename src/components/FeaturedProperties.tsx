@@ -29,9 +29,6 @@ const FeaturedProperties = () => {
                         location {
                             name
                         }
-                        features {
-                            name
-                        }
                     }
                 }
             }
@@ -49,9 +46,6 @@ const FeaturedProperties = () => {
                         isFeatured
                         slug
                         location {
-                            name
-                        }
-                        features {
                             name
                         }
                         isProject
