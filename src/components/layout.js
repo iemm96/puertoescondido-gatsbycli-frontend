@@ -15,6 +15,7 @@ import Footer from "./Footer"
 import { ThemeProvider } from "@mui/material/styles"
 import { defaultTheme, defaultThemeDark } from "../theme/Theme"
 import ScrollHeader from "./ScrollHeader";
+import FloatingContactButton from "./common/FloatingContactButton";
 
 const Layout = ({ children, scrollTrigger }) => {
   const data = useStaticQuery(graphql`
@@ -36,6 +37,7 @@ const Layout = ({ children, scrollTrigger }) => {
           )
         }
         <ScrollHeader siteTitle={data.site.siteMetadata?.title || `Title`} scrollTrigger={scrollTrigger}/>
+        <FloatingContactButton/>
         <div style={{
           overflow:'hidden'
         }}>

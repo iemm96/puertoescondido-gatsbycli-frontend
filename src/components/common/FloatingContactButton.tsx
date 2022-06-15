@@ -1,24 +1,96 @@
 import * as React from 'react';
 
-/*
 import styled from "styled-components";
-import {MediumBlue, WinterSky} from "../colors";
 import {Whatsapp} from "@styled-icons/boxicons-logos/Whatsapp";
 import {Telegram} from "@styled-icons/boxicons-logos/Telegram";
 import {Messenger} from "@styled-icons/boxicons-logos/Messenger";
 import {PhoneCall} from "@styled-icons/evaicons-solid/PhoneCall";
-import {Row} from "./grid";
-import Astro from "../../assets/img/astro-img.webp";
-import {StyledLinkButton, StyledCircleButton, StyledText} from "../styled";
 import {CloseOutline} from "@styled-icons/evaicons-outline/CloseOutline";
+import { ChatDots } from "@styled-icons/bootstrap/ChatDots";
+import {Typography, Stack, Button} from "@mui/material";
+
+export const StyledLinkButton = styled.a`
+  font-size: 16px;
+  text-decoration: none;
+  color: ${(props) => props.color ? props.color : 'white'};
+  background-color: ${(props) => props.background ? props.background : `rgba(0,0,0,0)`};
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  border: 2px solid ${(props) => props.borderColor ? props.borderColor : 'white'};
+  cursor: pointer;
+  position: relative;
+  max-width: 150px;
+  transition: .25s ease-in;
+  outline: none;
+
+  &:hover {
+    border: 2px solid white;
+    transition: .25s ease-in-out;
+    background-color: ${(props) => props.background ? props.background : '#CD7D1E'};
+    box-shadow: 0px 24px 44px -20px rgba(0,0,0,0.98);
+    -webkit-box-shadow: 0px 24px 44px -20px rgba(0,0,0,0.98);
+    -moz-box-shadow: 0px 24px 44px -20px rgba(0,0,0,0.98);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.9rem 1.5rem;
+    font-size: 16px;
+  }
+`;
+
+export const StyledText = styled.p`
+    color: ${(props) => props.color ? props.color : 'white;'};
+    ${(props) => props.align && `text-align:${props.align};`}
+    ${(props) => props.size && `font-size:${props.size}px;`}
+    ${(props) => props.weight && `font-weight:${props.weight};`}
+    ${(props) => props.align && `text-align:${props.align};`}
+`;
+
+
+export const StyledCircleButton = styled.button`
+  color: ${(props) => props.color ? props.color : 'white'};
+  background-color: ${(props) => props.background ? props.background : 'transparent'};
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  font-size: 16px;
+  border:2px solid white;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  
+  &.active {
+    background-color: transparent;
+    border: 2px solid #CD7D1E;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+  }
+
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+  
+  @media (max-width: 1280px) {
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+  }
+  
+`;
 
 const StyledBotonFlotante = styled.div`
-  box-shadow: ${MediumBlue(0.9)} 0px 20px 30px -10px;
+  box-shadow: #00A2A6 0px 20px 30px -10px;
   border-radius: 50%;
   height: 80px;
   width: 80px;
   background-color: rgba(0,0,0,.87);
-  border: 6px solid ${MediumBlue(1)};
+  border: 6px solid #00A2A6;
   position: fixed;
   bottom: ${(props) => props.bottom['desktop'] ? props.bottom['desktop'] : '20'}px; 
   right: 20px;
@@ -29,7 +101,7 @@ const StyledBotonFlotante = styled.div`
   z-index: 999;
   
   &.open {
-    border: 1px solid ${MediumBlue(1)};
+    border: 1px solid #00A2A6;
     border-radius: 15px;
     width: 300px;
     height: 450px;
@@ -37,9 +109,9 @@ const StyledBotonFlotante = styled.div`
   }
   
   &.alert {
-    border: 6px solid ${WinterSky(1)};
-    background-color: ${WinterSky(1)};
-    box-shadow: ${WinterSky(0.9)} 0px 20px 30px -10px;
+    border: 6px solid #CD7D1E;
+    background-color: #CD7D1E;
+    box-shadow: #CD7D1E 0px 20px 30px -10px;
   }
 
   @media (min-width: 1112px) {
@@ -52,7 +124,7 @@ const StyledBotonFlotante = styled.div`
     width: 60px;
     bottom: ${(props) => props.bottom['movil'] ? props.bottom['movil'] : '10'}px;
     &.alert {
-      border: 4px solid ${WinterSky(1)};
+      border: 4px solid #CD7D1E};
     }
   }
 `;
@@ -61,7 +133,7 @@ const StyledNotificacion = styled.div`
   position: absolute;
   width: 40px;
   height: 40px;
-  background-color: ${WinterSky(1)};
+  background-color: #CD7D1E;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,10 +165,10 @@ const StyledImg = styled.img`
 `
 
 const FloatingContactButton = () => {
-    const [open,setOpen] = useState(false);
-    const [displayMenu,setDisplayMenu] = useState(false);
-    const [shake,setShake] = useState(false);
-    const [bottom,setBottom] = useState({
+    const [open,setOpen] = React.useState(false);
+    const [displayMenu,setDisplayMenu] = React.useState(false);
+    const [shake,setShake] = React.useState(false);
+    const [bottom,setBottom] = React.useState({
         'desktop':20,
         'movil':40
     }); //Se define el bottom del botón en px [desktop,móvil]
@@ -144,34 +216,51 @@ const FloatingContactButton = () => {
         }
         >
             {shake && <>
-                <StyledNotificacion>1</StyledNotificacion>
+                <StyledNotificacion>
+                    <Typography color="white">
+                        1
+                    </Typography>
+                </StyledNotificacion>
             </>}
             {open ? <>
-                <Row className="fade-in" style={{flexDirection:'column',justifyContent:'center',alignItems:'center',textAlign:'center',display: (displayMenu ? 'flex' : 'none')}}>
+                <Stack  sx={{ p: 2 }} spacing={ 2 } className="fade-in" style={{flexDirection:'column',justifyContent:'center',alignItems:'center',textAlign:'center',display: (displayMenu ? 'flex' : 'none')}}>
                     <StyledCircleButton onClick={() => handleClick()} style={{position:'absolute',top:5,right:5}}>
                         <CloseOutline size={30} />
                     </StyledCircleButton>
-                    <StyledText style={{marginTop:'3rem'}} align={'center'}>
-                        Hola, Me llamo AstroDev, ¿Charlamos?
-                    </StyledText>
-                    <StyledLinkButton onClick={() => handleClick()} href="https://api.whatsapp.com/send?phone=+523323660598&text=Excelente%20d%C3%ADa!%20me%20gustar%C3%ADa%20una%20cotizaci%C3%B3n" target="_blank">
-                        <Whatsapp size={20} color={'white'}/> WhatsApp
-                    </StyledLinkButton>
-                    <StyledLinkButton style={{marginTop:'1rem'}} onClick={() => handleClick()} href="https://t.me/nucleodev" target="_blank">
-                        <Telegram size={20} color={'white'}/> Telegram
-                    </StyledLinkButton>
-                    <StyledLinkButton style={{marginTop:'1rem'}} onClick={() => handleClick()} href="http://m.me/nucleodevoficial" target="_blank">
-                        <Messenger size={20} color={'white'}/> Messenger
-                    </StyledLinkButton>
-                    <StyledLinkButton style={{marginTop:'1rem'}} onClick={() => handleClick()} href="tel:+523323660598" target="_blank">
-                        <PhoneCall size={20} color={'white'}/> Llámame
-                    </StyledLinkButton>
-                </Row>
-                <StyledImg className={'open'} src={Astro}/>
-            </> : <StyledImg src={Astro}/>}
+                    <Typography color="white" sx={{mt:3}} align={'center'}>
+                        Hola, ¿Tienes dudas? ¡Estamos para ayudarte!
+                    </Typography>
+                    <Button variant="outlined" fullWidth
+                        startIcon={<Whatsapp size={20} color={'white'}/>}
+                        onClick={() => handleClick()}>
+                         WhatsApp
+                    </Button>
+                    <Button variant="outlined" fullWidth
+                        startIcon={
+                            <Telegram size={20} color={'white'}/>
+                        }
+                        onClick={() => handleClick()}>
+                        Telegram
+                    </Button>
+                    <Button variant="outlined" fullWidth
+                        startIcon={
+                            <Messenger size={20} color={'white'}/>
+                        }
+                        onClick={() => handleClick()}>
+                        Messenger
+                    </Button>
+                    <Button variant="outlined" fullWidth
+                        startIcon={
+                            <PhoneCall size={20} color={'white'}/>
+                        }
+                        onClick={() => handleClick()}>
+                        Llámame
+                    </Button>
+                </Stack>
+            </> : <ChatDots color="white" size={40}/> }
 
         </StyledBotonFlotante>
     )
 }
 
-export default BotonFlotanteContacto;*/
+export default FloatingContactButton;
