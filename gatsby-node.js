@@ -5,41 +5,85 @@ const { GATSBY_API_HOST } = process.env;
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const { data } = await graphql(`
-    query Properties {
-            allProperty {
-                nodes {
-                   
-                        coverImage {
-                            childImageSharp {
-                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                            }
-                        }
-                        name
-                        price
-                        uid
-                        measures_unit
-                        isFeatured
-                        slug
-                        location {
-                            name
-                        }
-                        features {
-                            name
-                        }
-                    
-                }
-            }
-        }
-  `);
+  try {
 
-  data.allProperty.nodes.forEach( node => {
-    createPage({
-      path: `/propiedades/${ node.slug }`,
-      component: require.resolve("./src/templates/PropertyDetails.tsx"),
-      context: { slug: node.slug },
-    })
-  } )
+    const { data } = await graphql(`
+      query Properties {
+              allProperty {
+                  nodes {
+                     
+                          coverImage {
+                              childImageSharp {
+                                  gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                              }
+                          }
+                          name
+                          price
+                          uid
+                          measures_unit
+                          isFeatured
+                          slug
+                          location {
+                              name
+                          }
+                          features {
+                              name
+                          }
+                      
+                  }
+              }
+          }
+    `);
+
+    const dataProjects = await graphql(`
+      query Projects {
+          allProject {
+            nodes {
+              name
+              uid
+              measures_unit
+              isFeatured
+              slug
+              location {
+                name
+              }
+              coverImage {
+                              childImageSharp {
+                                  gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                              }
+                          }
+              images {
+                childrenImageSharp {
+                  gatsbyImageData(formats: AUTO)
+                }
+              }
+        
+            }
+          }
+        }
+    `);
+
+
+    data.allProperty.nodes.forEach( node => {
+      createPage({
+        path: `/propiedades/${ node.slug }`,
+        component: require.resolve("./src/templates/PropertyDetails.tsx"),
+        context: { slug: node.slug },
+      })
+    } );
+
+
+    dataProjects.data.allProject.nodes.forEach( node => {
+      createPage({
+        path: `/proyectos-ssr/${ node.slug }`,
+        component: require.resolve("./src/templates/ProjectDetails.tsx"),
+        context: { slug: node.slug },
+      })
+    } );
+  }catch (e) {
+    console.log( e );
+  }
+
 
 
 }
@@ -94,8 +138,73 @@ exports.sourceNodes = async ({ actions, createNodeID, createContentDigest }) => 
   return;
 }
 
-exports.createSchemaCustomization = ({ actions }) => {
+exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
+
+  const fields = {
+    name: { type: 'String!' },
+    area: { type: 'String!' },
+    description: { type: 'String!' },
+    price: { type: 'String!' },
+    uid: { type: 'String!' },
+    measures_unit: { type: 'String!' },
+    isFeatured: { type: 'Boolean!' },
+    slug: { type: 'String!' },
+    features: { type: "Feature!" },
+    isProject: { type: "Boolean!" },
+    location: { type: "Location!" },
+    // Single Node
+    coverImage: {
+      type: 'File',
+      resolve: (source, args, context, info) => {
+        return context.nodeModel.getNodeById({
+          id: `${source.uid}-image`,
+          type: 'File',
+        })
+      }
+    },
+    // Array
+    images: {
+      type: '[File]',
+      resolve: (source, args, context, info) => {
+        const images = source.images.map((img, index) => (
+            context.nodeModel.getNodeById({
+              id: `${source.uid}-images-${index}`,
+              type: 'File',
+            })
+        ))
+        return images
+      }
+    },
+  }
+  const typeDefs = [
+      "type Project implements Node",
+    schema.buildObjectType({
+      name: `Project`,
+      fields: fields
+    }),
+    "type Property implements Node",
+    schema.buildObjectType({
+      name: `Property`,
+      fields: fields
+    }),
+    "type Feature implements Node",
+    schema.buildObjectType({
+      name: `Feature`,
+      fields: {
+        name: { type: 'String!' },
+      }
+    }),
+    "type Location implements Node",
+    schema.buildObjectType({
+      name: `Location`,
+      fields: {
+        name: { type: 'String!' },
+      }
+    }),
+  ];
+
+  /*
   createTypes(`
     type Location implements Node {
       name: String!
@@ -103,9 +212,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Feature implements Node {
       name: String!
     }
-    type Image implements Node {
-      url: String!
-    }
+
     type Property implements Node {
       uid: String!
       name: String!
@@ -116,7 +223,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       location: Location!
       features: Feature!
       slug: String!
-      images: Image!
       area: String!
       coverImage: File @link(from: "fields.localFile")
     }
@@ -128,13 +234,17 @@ exports.createSchemaCustomization = ({ actions }) => {
       isFeatured: Boolean!
       isProject: Boolean!
       location: Location!
-      features: Feature!
+      features: [Feature!]!
       slug: String!
+      length: String!
+      width: String!
       measures_unit: String!
       area: String!
       coverImage: File @link(from: "fields.localFile")
     }
-  `)
+  `)*/
+
+  createTypes( typeDefs )
 }
 
 exports.onCreateNode = async ({
@@ -182,13 +292,34 @@ exports.onCreateNode = async ({
         url: node.coverImage.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
-        createNodeId, // helper function in gatsby-node to generate the node id
+        createNodeId: (id) => `${node.uid}-image`,
         getCache,
       })
       // if the file was created, extend the node with "localFile"
       if (fileNode) {
         createNodeField({ node, name: "localFile", value: fileNode.id })
       }
+    }
+
+    if (
+        node.internal.type === "Project" &&
+        node.images !== null
+    ) {
+
+      node.images.map( async  (image, index) => {
+        const fileNode = await createRemoteFileNode({
+          url: image.url, // string that points to the URL of the image
+          parentNodeId: node.id,
+          createNode, // helper function in gatsby-node to generate the node
+          createNodeId: id => `${node.uid}-images-${index}`,
+          getCache,
+        })
+        // if the file was created, extend the node with "localFile"
+        if (fileNode) {
+          createNodeField({ node, name: "localFile", value: fileNode.id })
+        }
+      });
+
     }
   }catch (e) {
     console.log('error creating node ',e);
