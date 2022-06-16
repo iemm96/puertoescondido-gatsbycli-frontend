@@ -120,10 +120,13 @@ const PropertyDetails = ({ data }) => {
                     }}
                 >
                     <Button
-                        onClick={ () => navigate( '/' ) }
+                        sx={{
+                            textTransform: 'none'
+                        }}
+                        onClick={ () => navigate( -1 ) }
                         startIcon={<ChevronLeft/>}
                     >
-                        Volver al inicio
+                        Volver
                     </Button>
                 </Box>
             </Layout>
@@ -137,26 +140,19 @@ export const query = graphql`
     query PropertiesDetailsPage($slug: String) {
         property(slug: {eq: $slug}) {
             name
-            price
             uid
-            area
             description
-            features {
-                name
-            }
             location {
                 name
             }
-            images {
-                url
-            }
             coverImage {
                 childImageSharp {
-                    gatsbyImageData(
-                        placeholder: BLURRED
-                        formats: AUTO
-                        layout: FULL_WIDTH
-                    )
+                    gatsbyImageData( placeholder: BLURRED, quality: 100, formats: [AUTO, WEBP, AVIF])
+                }
+            }
+            images {
+                childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
                 }
             }
         }
