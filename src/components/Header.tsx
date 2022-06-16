@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Link, navigate } from 'gatsby';
-import useScrollTrigger from "@mui/material/useScrollTrigger"
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
@@ -14,7 +13,6 @@ import {defaultTheme} from "../theme/Theme";
 import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
-import Slide from '@mui/material/Slide';
 // @ts-ignore
 import LogoWhite from '../images/logo_white.svg';
 import Typography from '@mui/material/Typography';
@@ -26,32 +24,6 @@ type HeaderPropsType = {
 
 const Header = ({ scrollTrigger }:HeaderPropsType) => {
   const ref = React.useRef(null);
-
-  function ScrollTrigger( ) {
-    return useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 20,
-    })
-
-  }
-
-  const ShowOnScroll = ( {children}:{ children: React.ReactElement } ) => {
-    const trigger = useScrollTrigger({
-      threshold: 80,
-    });
-
-    return (
-      <Slide appear={true} direction="down" in={ trigger }>
-        {children}
-      </Slide>
-    );
-  }
-
-  const stylesLink = {
-    marginRight: '1rem',
-    fontFamily: 'Roboto',
-    textDecoration: 'none',
-  }
 
   return(
     <header>
