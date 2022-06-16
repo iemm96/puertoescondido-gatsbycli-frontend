@@ -3,7 +3,8 @@ import { Chip, createTheme, Stack, styled } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import useTheme from "@mui/material/styles/useTheme"
-import { ThemeProvider } from "@mui/styles"
+import { BgImage } from "gbimage-bridge";
+import {getImage} from "gatsby-plugin-image";
 
 interface MyThemeComponentProps {
   image: string;
@@ -17,7 +18,7 @@ const StyledLinearBackgroundDiv = styled("div")(() => ({
   position: 'absolute'
 }));
 
-const CoverImage = ({ data }:{ data:any }) => {
+const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
   const theme = useTheme();
 
   const StyledRelativeDiv = styled('div')(() => ({
@@ -52,7 +53,7 @@ const CoverImage = ({ data }:{ data:any }) => {
     position: 'relative',
   }));
 
-  return(
+    return(
     <StyledRelativeDiv>
         <Container maxWidth="xl">
 
@@ -118,7 +119,13 @@ const CoverImage = ({ data }:{ data:any }) => {
       </Container>
 
       <StyledLinearBackgroundDiv/>
-      <MyThemeComponent image={ data.image }/>
+        {
+            data?.image && <MyThemeComponent image={ data.image }/>
+        }
+        {
+            gatsbyImage &&    // @ts-ignore
+            <BgImage style={{height:800}} image={ gatsbyImage }/>
+        }
     </StyledRelativeDiv>
   )
 }
