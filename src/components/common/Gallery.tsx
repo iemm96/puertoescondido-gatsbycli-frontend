@@ -54,7 +54,12 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
     }
 
     return(
-        <>
+        <Box sx={{
+            width: {
+                xs: 375,
+            },
+            position: 'relative'
+        }}>
             <Modal
                 open={ open }
                 onClose={ () => setOpen( false ) }
@@ -70,16 +75,16 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     />
                 </Box>
             </Modal>
-            <>
+
                 <Swiper
                     style={{
                         // @ts-ignore
                         "--swiper-navigation-color": theme.palette.primary.main,
                         "--swiper-pagination-color": theme.palette.primary.main,
                         width: '100%',
-                        height: 450
                     }}
-                    spaceBetween={10}
+                    slidesPerView="auto"
+                    spaceBetween={ 10 }
                     navigation={true}
                     thumbs={{ swiper: thumbsSwiper }}
                     modules={[FreeMode, Navigation, Thumbs]}
@@ -93,7 +98,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                         //onClick={ () => handleSelectImage( val.url ) }
                                         alt={"img-1"}
                                         style={{
-                                            height: 400,
+                                            maxWidth: 300,
                                             cursor: 'pointer',
                                             borderRadius: 16,
                                             objectFit: 'cover'
@@ -106,10 +111,13 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     }
                 </Swiper>
                 <Swiper
-                    modules={[ Scrollbar ]}
-                    slidesPerView="auto"
-                    spaceBetween={ 10 }
-                    centeredSlides={ true }
+                    style={{
+                        marginTop: 8
+                    }}
+                    spaceBetween={10}
+                    slidesPerView={4}
+                    watchSlidesProgress={true}
+                    modules={[FreeMode, Navigation, Thumbs]}
                     onSlideChange={ () => {
                         setSwiperState( {
                             isEnd: swiperDef.isEnd,
@@ -150,6 +158,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                         //onClick={ () => handleSelectImage( val.url ) }
                                         alt={"img-1"}
                                         style={{
+                                            maxWidth: 300,
                                             cursor: 'pointer',
                                             borderRadius: 8,
                                             objectFit: 'cover'
@@ -162,9 +171,8 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                         ))
                     }
                 </Swiper>
-            </>
 
-        </>
+        </Box>
 
     )
 }
