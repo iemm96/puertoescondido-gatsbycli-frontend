@@ -36,14 +36,15 @@ const ProjectDetails = ({ data }) => {
                       />
                       <Container maxWidth="xl">
                           <Grid
-                              sx={{ mt: 24 }}
+                              sx={{ mt: 4 }}
                               spacing={4}
+                              justifyContent="center"
                               container
                           >
-                              <Grid md={ 6 } item>
+                              <Grid md={ 6 } item order={{ xs: 2, md: 1 }}>
                                   <Gallery data={ images } preview={ true }/>
                               </Grid>
-                              <Grid md={ 6 } item>
+                              <Grid md={ 6 } item order={{ xs: 1, md: 2 }}>
                                   <Stack
                                       sx={{
                                           display: 'flex',
@@ -140,12 +141,12 @@ export const query = graphql`
             }
             coverImage {
                 childImageSharp {
-                    gatsbyImageData( placeholder: BLURRED, quality: 100, formats: [AUTO, WEBP, AVIF])
+                    gatsbyImageData( placeholder: BLURRED, quality: 100, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED, aspectRatio: 1.5 )
                 }
             }
             images {
                 childImageSharp {
-                    gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED,           aspectRatio: 1 )
                 }
             }
             

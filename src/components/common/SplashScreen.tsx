@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from "@mui/material/Box";
 // @ts-ignore
 import LogoColor from '../../images/logo_color.svg';
 import Typography from "@mui/material/Typography";
@@ -13,6 +12,11 @@ export const transition = {
 const SplashScreen = ( { duration }:{ duration:number } ) => {
 
     const [ isVisible, setIsVisible ] = React.useState<boolean>( true );
+    const phrases = [
+        "Invierte en el destino turistico con mayor crecimiento de México...",
+
+    ]
+
     React.useEffect(() => {
         changeBodyOverflow()
     }, [ ]);
@@ -74,10 +78,11 @@ const SplashScreen = ( { duration }:{ duration:number } ) => {
                                 }}
                             >
                                 <Typography
+                                    textAlign="center"
                                     variant="subtitle2"
                                     color="text.secondary"
                                 >
-                                    Preparando todo...
+                                    { phrases[Math.floor(Math.random()*phrases.length)] }
                                 </Typography>
                             </motion.div>
 

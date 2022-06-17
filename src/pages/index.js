@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 
 import { StaticImage } from "gatsby-plugin-image";
-import { graphql, useStaticQuery } from "gatsby"
+import {graphql, navigate, useStaticQuery} from "gatsby"
 import TestimonialsSlider from "../components/TestimonialsSlider"
 import {Zoom, Fade} from 'react-reveal';
 // @ts-ignore
@@ -67,7 +67,7 @@ const IndexPage = () => {
             <Container maxWidth="xl">
               <Grid container>
                 <Grid
-                  order={{ xs:  2, md: 1}}
+
                   xs={ 12 }
                   md={ 6 }
                   item
@@ -124,7 +124,13 @@ const IndexPage = () => {
                         </Stack>
                       </div>
                     </Fade>
-                  <Grid container>
+                  <Grid
+                    sx={{
+                      mb: {
+                        xs: 4
+                      }
+                    }}
+                      container>
                     <Grid
                       xs={12}
                       sx={{
@@ -136,7 +142,14 @@ const IndexPage = () => {
                       }}
                       item
                     >
-                      <Button variant="contained" color="primary">
+                      <Button
+                          onClick={() => navigate('/contacto')}
+                          sx={{
+                            textTransform: 'none'
+                          }}
+                          variant="contained"
+                          color="primary"
+                      >
                         Contáctanos
                       </Button>
                     </Grid>
@@ -148,7 +161,7 @@ const IndexPage = () => {
                       xs: 4,
                     }
                   }}
-                  order={{ xs: 1, md: 2 }}
+
                   justifyContent="center"
                   display="flex"
                   xs={12}

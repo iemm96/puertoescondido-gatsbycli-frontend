@@ -56,8 +56,7 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
     return(
     <StyledRelativeDiv>
         <Container maxWidth="xl">
-
-      <StyledAbsoluteDiv>
+          <StyledAbsoluteDiv>
           <Stack>
             <Stack direction="row" spacing={ 1 }>
               <Typography
@@ -116,17 +115,16 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
             }
           </Stack>
       </StyledAbsoluteDiv>
-      </Container>
-
-      <StyledLinearBackgroundDiv/>
-        {
-            data?.image && <MyThemeComponent image={ data.image }/>
-        }
-        {
-            gatsbyImage &&    // @ts-ignore
-            <BgImage style={{height:800}} image={ gatsbyImage }/>
-        }
-    </StyledRelativeDiv>
+        </Container>
+        <StyledLinearBackgroundDiv/>
+          {
+              data?.image && <MyThemeComponent image={ data.image }/>
+          }
+          {
+              gatsbyImage &&    // @ts-ignore
+              <BgImage style={{height:400}} image={ gatsbyImage }/>
+          }
+        </StyledRelativeDiv>
   )
 }
 

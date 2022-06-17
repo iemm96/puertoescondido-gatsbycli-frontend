@@ -28,7 +28,7 @@ const Footer = () => {
           backgroundColor: '#023859'
         }}>
           <Container sx={{
-            padding: '2rem 0',
+            padding: '2rem',
             marginTop: -1
           }} maxWidth="xl">
             <Grid sx={{

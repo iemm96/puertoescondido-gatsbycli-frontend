@@ -1,8 +1,11 @@
 import * as React from "react";
-import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/scrollbar';
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+import { Pagination } from 'swiper';
+
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
@@ -14,6 +17,7 @@ import "./../styles/slick.css";
 import Container from "@mui/material/Container"
 import {navigate} from "gatsby";
 import Button from "@mui/material/Button";
+import useTheme from "@mui/material/styles/useTheme";
 
 type SliderComponentType = {
   title: string;
@@ -31,6 +35,7 @@ const boxStyles = {
 
 
 const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
+  const theme = useTheme();
   const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
   const [ swiperState, setSwiperState ] = React.useState<any>( {
     isBeginning: true,
@@ -41,15 +46,30 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
     borderRadius: 2,
     height: 40,
   }
+
   return(
       <>
         <Container maxWidth="xl" sx={ {pl: 2} }>
           <Typography variant="subtitle1">{title}</Typography>
-          <Grid container justifyContent="space-between">
+          <Grid
+              sx={{
+                mb:{
+                  xs: 2
+                }
+              }}
+              container
+              justifyContent="space-between"
+          >
             <Grid item>
               <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
             </Grid>
-            <Grid item>
+            <Grid sx={{
+              display: {
+                xs: 'none',
+                md: 'flex'
+              },
+            }} item
+            >
               <Button
                   sx={{ textTransform: 'none' }}
                   color="primary"
@@ -58,27 +78,39 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
               >
                 Ver más propiedades
               </Button>
-              <IconButton
-                  sx={ arrowButtonStyles }
-                  disabled={ swiperState.isBeginning }
-                  onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
-              >
-                <ChevronLeft/>
-              </IconButton>
-              <IconButton
-                  sx={{
-                    borderRadius: 2,
-                    height: 40
-                  }}
-                  disabled={ swiperState.isEnd }
-                  onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
-              >
-                <ChevronRight/>
-              </IconButton>
+              <Box>
+                <IconButton
+                    sx={ arrowButtonStyles }
+                    disabled={ swiperState.isBeginning }
+                    onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
+                >
+                  <ChevronLeft/>
+                </IconButton>
+                <IconButton
+                    sx={{
+                      borderRadius: 2,
+                      height: 40
+                    }}
+                    disabled={ swiperState.isEnd }
+                    onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
+                >
+                  <ChevronRight/>
+                </IconButton>
+              </Box>
             </Grid>
           </Grid>
           <Swiper
-              modules={[ Scrollbar ]}
+              style={{
+                // @ts-ignore
+                "--swiper-pagination-color": theme.palette.primary.main,
+                paddingBottom: '2rem',
+              }}
+              observeParents={  true }
+              observer={  true }
+              pagination={{
+                dynamicBullets: true,
+              }}
+              modules={[ Pagination ]}
               slidesPerView="auto"
               spaceBetween={ 10 }
               centeredSlides={ false }
@@ -120,9 +152,26 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
 
             )) }
           </Swiper>
-
+          <Box
+              sx={{
+                mt: 4,
+                display: {
+                  xs: 'flex',
+                  md: 'none'
+                },
+                justifyContent: 'center'
+              }}
+          >
+            <Button
+                sx={{ textTransform: 'none' }}
+                color="primary"
+                onClick={ () => navigate( '/propiedades' ) }
+                variant="contained"
+            >
+              Ver más propiedades
+            </Button>
+          </Box>
         </Container>
-
       </>
   )
 }

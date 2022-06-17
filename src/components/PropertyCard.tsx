@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { StyledCard } from "../styled/";
-import {ArrowForwardOutlined, StarRounded} from '@mui/icons-material';
+import {ArrowCircleRightOutlined, ArrowForwardOutlined, StarRounded} from '@mui/icons-material';
 import { CardActionArea, Chip, Stack } from "@mui/material"
 import { calculateArea } from "../helpers/calculateArea"
 import { navigate } from "gatsby"
@@ -163,7 +163,12 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
             }
           </Stack>
         </CardContent>
-        <CardActions>
+        <CardActions
+            sx={{
+                position: 'absolute',
+                bottom: 8
+            }}
+        >
           <Button
               onClick={  () => navigate(`/${ data.uid }`) }
               variant="text"
@@ -173,7 +178,7 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
               }}
               size="small"
 
-              startIcon={<ArrowForwardOutlined/>}
+              startIcon={<ArrowCircleRightOutlined/>}
           >
             Ver detalles
           </Button>
