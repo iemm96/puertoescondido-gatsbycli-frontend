@@ -58,30 +58,33 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
         <Container maxWidth="xl">
           <StyledAbsoluteDiv>
           <Stack>
-            <Stack direction="row" spacing={ 1 }>
-              <Typography
-                sx={{
-                  color: theme.palette.primary.main
-                }}
-              >
-                $
-              </Typography>
-              <Typography
-                sx={{
-                  color: theme.palette.primary.light
-                }}
-              >
-                { data?.price }
-              </Typography>
-              <Typography
-                sx={{
-                  color: theme.palette.secondary.light
-                }}
-              >
-                { data?.currency }
-              </Typography>
-            </Stack>
-
+              {
+                data?.price && (
+                    <Stack direction="row" spacing={ 1 }>
+                      <Typography
+                          sx={{
+                            color: theme.palette.primary.main
+                          }}
+                      >
+                        $
+                      </Typography>
+                      <Typography
+                          sx={{
+                            color: theme.palette.primary.light
+                          }}
+                      >
+                        { data?.price }
+                      </Typography>
+                      <Typography
+                          sx={{
+                            color: theme.palette.secondary.light
+                          }}
+                      >
+                        { data?.currency }
+                      </Typography>
+                    </Stack>
+                  )
+              }
             <Typography
               sx={{
                 mt: 2,

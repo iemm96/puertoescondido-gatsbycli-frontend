@@ -12,9 +12,8 @@ import {graphql, navigate} from "gatsby"
 import { FmdGood } from "@mui/icons-material"
 import { calculateArea } from "../helpers/calculateArea"
 import {Gallery} from "../components/common/Gallery";
-import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import { getImage } from "gatsby-plugin-image";
 import CoverImage from "../components/common/CoverImage";
-import {BgImage} from "gbimage-bridge";
 
 const ProjectDetails = ({ data }) => {
     const { name, price, location, description, features, images, width, length, coverImage } = data.project;
