@@ -14,11 +14,15 @@ import { calculateArea } from "../helpers/calculateArea"
 import {Gallery} from "../components/common/Gallery";
 import { getImage } from "gatsby-plugin-image";
 import CoverImage from "../components/common/CoverImage";
+import StyledButton from "../styled/StyledButton";
+import useTheme from "@mui/material/styles/useTheme";
+import withTheme from "../components/theme";
 
 const ProjectDetails = ({ data }) => {
     const { name, price, location, description, features, images, width, length, coverImage } = data.project;
     const coverImageObject = getImage( coverImage );
-  return(
+
+    return(
       <>
           <Seo title="Detalles propiedad"/>
           <Layout scrollTrigger>
@@ -54,25 +58,49 @@ const ProjectDetails = ({ data }) => {
                                       <Typography variant="h5">
                                           { name }
                                       </Typography>
-                                      <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
-                                          $ { price &&
-                                          new Intl.NumberFormat().format( price )
-                                      } mxn { ( width && length ) &&
-                                          `· ${calculateArea( parseInt( width ), parseInt( length ), data?.measures_unit )}`
-                                      }
-                                      </Typography>
                                       {
-                                          location && (
-                                              <Typography
-                                                  onClick={ () => {
-                                                      window.open( `https://www.google.com/maps/search/?api=1&query=${ location.lat }%2C${ location.lng }`, '_blank')
-                                                  } }
-                                              >
-                                                  <FmdGood/>
-                                                  { location.name }
+                                          data?.price && (
+                                              <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
+                                                  $ { price &&
+                                                  new Intl.NumberFormat().format( price )
+                                              } mxn { ( width && length ) &&
+                                                  `· ${calculateArea( parseInt( width ), parseInt( length ), data?.measures_unit )}`
+                                              }
                                               </Typography>
                                           )
                                       }
+
+                                      {
+                                          location && (
+                                              <a
+                                                  style={{
+                                                      color: '#CD7D1E',
+                                                      alignItems: 'center',
+                                                      display: 'flex'
+                                                  }}
+                                                  href={
+                                                      ( location?.lat && location?.lng ) ?
+                                                  `https://www.google.com/maps/search/?api=1&query=${ location.lat }%2C${ location.lng }` :
+                                                  '#'
+                                              }
+                                                  target={ ( location?.lat && location?.lng ) ? '_blank' : '_self' }
+                                              >
+                                                  <FmdGood style={{ fontSize: 14 }}/>
+                                                  { location.name }
+                                              </a>
+                                          )
+                                      }
+                                      <Stack direction="row">
+                                          <StyledButton>
+                                              Plano
+                                          </StyledButton>
+                                          <StyledButton>
+                                              Folleto
+                                          </StyledButton>
+                                          <StyledButton>
+                                              Vista aérea
+                                          </StyledButton>
+                                      </Stack>
 
                                       <Typography
                                           sx={{ mt: 2 }}
@@ -81,7 +109,7 @@ const ProjectDetails = ({ data }) => {
                                           { description }
                                       </Typography>
                                   </Stack>
-                                  <Stack sx={{ mt: 2 }} spacing={ 1 } direction="row">
+                                  <Stack sx={{ mt: 2 }} spacing={ 2 } direction="row" flexWrap="wrap">
                                       {
                                           features &&
                                           features.map( (feature, index) => (
@@ -89,15 +117,16 @@ const ProjectDetails = ({ data }) => {
                                           ) )
                                       }
                                   </Stack>
-                                  <Button
+                                  <StyledButton
                                       color="primary"
                                       variant="contained"
                                       sx={{
-                                          mt: 4
+                                          mt: 3,
+                                          px: 4
                                       }}
                                   >
                                       Agendar cita
-                                  </Button>
+                                  </StyledButton>
                               </Grid>
                           </Grid>
                       </Container>
@@ -111,23 +140,24 @@ const ProjectDetails = ({ data }) => {
                 justifyContent: 'center'
               }}
             >
-              <Button
-                      sx={{
-                          mt: 4,
-                          textTransform: 'none'
-                      }}
-                    onClick={ () => navigate( -1 ) }
-                    startIcon={<ChevronLeft/>}
+              <StyledButton
+                sx={{
+                    my: 6,
+                    px: 4,
+                }}
+                onClick={ () => navigate( -1 ) }
+                startIcon={<ChevronLeft/>}
+                variant="outlined"
               >
                 Volver
-              </Button>
+              </StyledButton>
             </Box>
           </Layout>
       </>
-  )
+    )
 }
 
-export default ProjectDetails;
+export default withTheme( ProjectDetails );
 
 export const query = graphql`
     query ProjectsDetailsPage($slug: String) {
@@ -137,6 +167,11 @@ export const query = graphql`
             description
             location {
                 name
+                lat
+                lng
+            }
+            features {
+                name
             }
             coverImage {
                 childImageSharp {
@@ -145,7 +180,7 @@ export const query = graphql`
             }
             images {
                 childImageSharp {
-                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED,           aspectRatio: 1 )
+                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED,  aspectRatio: 1.7 )
                 }
             }
             
