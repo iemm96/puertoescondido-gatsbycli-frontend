@@ -52,7 +52,7 @@ const ProjectDetails = ({ data }) => {
                                     sx={{
                                         display: {
                                             xs: 'none',
-                                            md: 'flex'
+                                            md: 'block'
                                         }
                                     }}
                                     md={ 6 } item order={{ xs: 1, md: 2 }}
