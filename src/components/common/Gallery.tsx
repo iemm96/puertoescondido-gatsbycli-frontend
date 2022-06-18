@@ -77,26 +77,25 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                 </Box>
             </Modal>
 
-                <Swiper
-                    style={{
-                        // @ts-ignore
-                        "--swiper-navigation-color": theme.palette.primary.main,
-                        "--swiper-pagination-color": theme.palette.primary.main,
-                        width: '100%',
-                    }}
-                    slidesPerView="auto"
-                    spaceBetween={ 10 }
-                    navigation={true}
-                    thumbs={{ swiper: thumbsSwiper }}
-                    modules={[FreeMode, Navigation, Thumbs]}
-                >
-                    {
-                        data && data.map((val:any, index:number) => (
-                            <SwiperSlide key={ index }>
-                                <Box key={ index } sx={boxStyles}>
-
+            <Swiper
+                style={{
+                    // @ts-ignore
+                    "--swiper-navigation-color": theme.palette.primary.main,
+                    "--swiper-pagination-color": theme.palette.primary.main,
+                    width: '100%',
+                }}
+                slidesPerView="auto"
+                spaceBetween={ 10 }
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
+            >
+                {
+                    data && data.map((val:any, index:number) => (
+                        <SwiperSlide key={ index }>
+                            <Box key={ index } sx={boxStyles}>
                                     <GatsbyImage
-                                        //onClick={ () => handleSelectImage( val.url ) }
+                                        onClick={ () => handleSelectImage( val?.url ) }
                                         alt={"img-1"}
                                         style={{
                                             maxWidth: 300,
@@ -169,10 +168,10 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                     />
                                 </Box>
 
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
+                        </SwiperSlide>
+                    ))
+                }
+            </Swiper>
 
         </Box>
 
