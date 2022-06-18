@@ -1,5 +1,3 @@
-import Container from "@mui/material/Container";
-import {Scrollbar} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -14,6 +12,8 @@ import {Modal} from "@mui/material";
 import {useState} from "react";
 import useTheme from "@mui/material/styles/useTheme"
 import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import "../../styles/swiper-custom.css";
+
 const boxStyles = {
     p: {
         xs: '0 1rem 0 0'
@@ -111,6 +111,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     }
                 </Swiper>
                 <Swiper
+                    className="thumbs-slider"
                     style={{
                         marginTop: 8
                     }}
