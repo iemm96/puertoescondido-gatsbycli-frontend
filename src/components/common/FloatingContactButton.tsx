@@ -178,7 +178,7 @@ const FloatingContactButton = () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 setBottom(
                     {
-                        'desktop':350,
+                        'desktop':400,
                         'movil':100
                     }
                 );

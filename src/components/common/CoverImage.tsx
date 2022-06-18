@@ -57,7 +57,7 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
     <StyledRelativeDiv>
         <Container maxWidth="xl">
           <StyledAbsoluteDiv>
-          <Stack>
+            <Stack>
               {
                 data?.price && (
                     <Stack direction="row" spacing={ 1 }>
@@ -102,22 +102,22 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
               { data?.location }
             </Typography>
           </Stack>
-          <Stack sx={{ mt: 1 }} direction="row">
-            {
-              data?.features && data.features.map((item:any, index:number) => (
-                <Chip
-                  size="small"
-                  color="primary"
-                  variant="outlined"
-                  sx={{
-                    color: theme.palette.primary.contrastText
-                  }}
-                  label={ item.name }
-                />
-              ))
-            }
-          </Stack>
-      </StyledAbsoluteDiv>
+              <Stack sx={{ mt: 1 }} direction="row" flexWrap="wrap">
+                {
+                  data?.features && data.features.map((item:any, index:number) => (
+                    <Chip
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                      sx={{
+                        color: theme.palette.primary.contrastText
+                      }}
+                      label={ item.name }
+                    />
+                  ))
+                }
+             </Stack>
+            </StyledAbsoluteDiv>
         </Container>
         <StyledLinearBackgroundDiv/>
           {
