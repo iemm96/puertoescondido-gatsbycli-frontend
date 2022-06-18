@@ -44,6 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
               slug
               location {
                 name
+                
               }
               coverImage {
                   childImageSharp {
@@ -94,6 +95,7 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
     let node_type = 'Project';
 
     resProjects.data.projects.map(async ( project, i ) => {
+
       createNode({
         ...project,
         id: `${node_type}-${i}`,
@@ -145,7 +147,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     measures_unit: { type: 'String!' },
     isFeatured: { type: 'Boolean!' },
     slug: { type: 'String!' },
-    features: { type: "Feature!" },
+    features: { type: "[Feature!]" },
     isProject: { type: "Boolean!" },
     location: { type: "Location!" },
     // Single Node
@@ -173,15 +175,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     },
   }
   const typeDefs = [
-      "type Project implements Node",
-    schema.buildObjectType({
-      name: `Project`,
-      fields: fields
-    }),
+
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,
-      fields: fields
+      fields: fields,
+      interfaces: ["Node"],
     }),
     "type Feature implements Node",
     schema.buildObjectType({
@@ -195,7 +194,14 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Location`,
       fields: {
         name: { type: 'String!' },
+        lat: { type: 'String!' },
+        lng: { type: 'String!' },
       }
+    }),
+    "type Project implements Node",
+    schema.buildObjectType({
+      name: `Project`,
+      fields: fields
     }),
   ];
 
