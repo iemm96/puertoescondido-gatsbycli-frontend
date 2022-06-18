@@ -57,6 +57,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
         <Box sx={{
             width: {
                 xs: 375,
+                md: 600,
             },
             position: 'relative'
         }}>
