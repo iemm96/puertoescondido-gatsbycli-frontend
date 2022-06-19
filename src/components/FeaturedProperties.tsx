@@ -21,14 +21,12 @@ const FeaturedProperties = () => {
                             }
                         }
                         name
-                        price
+                        
                         uid
                         measures_unit
                         isFeatured
-                        slug
-                        location {
-                            name
-                        }
+                        
+                        
                     }
                 }
             }

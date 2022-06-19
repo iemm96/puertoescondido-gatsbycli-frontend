@@ -28,7 +28,7 @@ import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 import IconBluePrint from './../images/icons/blueprint.svg';
 
-import useTheme from "@mui/material/styles/useTheme"
+import useTheme from "@mui/material/styles/useTheme";
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import ResidentialIcon from "./common/icons/ResidentialIcon"
 import CultivationIcon from "./common/icons/CultivationIcon"
@@ -38,6 +38,7 @@ import Carousel from "./Carousel"
 import Header from "./Header"
 import { navigate } from 'gatsby';
 import { useState } from 'react';
+import { CustomSearchInput, useCustomSearchInput, handleSearch } from "./common/CustomSearchInput";
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
@@ -86,7 +87,8 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
   const theme = useTheme();
   const { width } = useWindowDimensions();
-  const [ querySearch, setQuerySearch ] = useState<string | null>( null );
+  const { querySearch, setQuerySearch } = useCustomSearchInput()
+
   return (
     <>
       <Header scrollTrigger={ false }/>
@@ -149,6 +151,7 @@ const Banner = () => {
               <InputLabel sx={{ color: 'white' }} shrink htmlFor="search-property-input">
                 ¿Qué tipo de propiedad estás buscando?
               </InputLabel>
+              <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch}/>
               <TextField
                 id="search-property-input"
                 variant="filled"

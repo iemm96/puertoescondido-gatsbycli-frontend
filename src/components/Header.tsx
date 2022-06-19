@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
@@ -38,14 +38,21 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Box
+                
                 sx={{
                   flexGrow: {
                     xs: 1,
                     md: 0
-                  }
+                  },
+                  
                 }}
               >
-                  <LogoWhite src={ LogoWhite } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
+                  <LogoWhite
+                  onClick={ () => navigate('/') }
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                   src={ LogoWhite } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
               </Box>
               <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                 <IconButton
@@ -89,11 +96,12 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
                   <Button color={ scrollTrigger ? 'primary' : 'inherit' } startIcon={<WhatsApp/>} variant="text">
                     (+52)33526542
                   </Button>
-                  <Link to={'/contacto'}>
-                    <StyledButton sx={{ml:2}} variant="contained" color="secondary">
+                    <StyledButton
+                      onClick={ () => navigate( '/contacto' ) }
+                      sx={{ml:2}} variant="contained" color="secondary"
+                    >
                       Contáctanos
                     </StyledButton>
-                  </Link>
                 </ThemeProvider>
               </Box>
             </Toolbar>

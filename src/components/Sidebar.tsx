@@ -6,7 +6,7 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { pages } from "./../constants";
-import { Link } from "gatsby"
+import { navigate } from "gatsby"
 
 const Sidebar = React.forwardRef( (props:any, ref:any) => {
   const [open,setOpen] = React.useState(false);
@@ -42,11 +42,9 @@ const Sidebar = React.forwardRef( (props:any, ref:any) => {
       >
         <List>
           {pages.map((item, index) => (
-            <Link to={item.href}>
-              <ListItem button key={index}>
-                <ListItemText primary={item.label} />
-              </ListItem>
-            </Link>
+            <ListItem onClick={() => navigate(item.href)} button key={index}>
+              <ListItemText primary={item.label} />
+            </ListItem>
           ))}
         </List>
         <Divider />
