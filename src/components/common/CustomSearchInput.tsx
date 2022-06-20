@@ -1,64 +1,160 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { FilterList } from '@mui/icons-material';
+import {Close, FilterList} from '@mui/icons-material';
 import useTheme from "@mui/material/styles/useTheme";
+import { useFlexSearch } from 'react-use-flexsearch';
 import { navigate } from "gatsby";
+import {Box, CardActionArea, Typography} from "@mui/material";
+import CardContent from "@mui/material/CardContent";
 
-export const useCustomSearchInput = () => {
-    const [ querySearch, setQuerySearch ] = React.useState<string | undefined>( undefined );
+function truncate(str, max) {
+    return str.length > max ? str.substr(0, max-1) + '…' : str;
+}
+
+export const unFlattenResults = results =>
+    results.map(post => {
+        const { name, description, slug } = post;
+        return { slug, project: { name, description } };
+    });
+
+export const useCustomSearchInput = (index:any, store:any, query:string | undefined ) => {
+    const [ querySearch, setQuerySearch ] = React.useState<string | undefined>( query );
+    const [ iterableResults, setIterableResults ] = React.useState<any>(null);
+
+    const results = unFlattenResults(useFlexSearch(querySearch, index, store));
+
+
+    React.useEffect(() => {
+        setIterableResults( results );
+    },[]);
 
     const handleSearch = () => {
-        navigate(`/propiedades?search=${ querySearch }` );
+        console.log('query search ', querySearch)
+        setQuerySearch(  querySearch );
+        console.log(results)
+        setIterableResults( results )
+        // navigate(`/propiedades?search=${ querySearch }` );
     }
     return {
         querySearch,
         setQuerySearch,
-        handleSearch
+        handleSearch,
+        iterableResults,
+        setIterableResults
     }
 }
 
-export const CustomSearchInput = ({querySearch, setQuerySearch, handleSearch}:{
+export const CustomSearchInput = ({querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults}:{
     querySearch: string | undefined,
     setQuerySearch:any,
-    handleSearch: any
+    handleSearch: any,
+    iterableResults: any,
+    setIterableResults: any
 }) => {
+    console.log(iterableResults)
     const theme = useTheme();
     return(
-        <Paper
-            onKeyDown={ (e:any) => {
-                if(e.keyCode == 13){
-                    console.log('value', e.target.value);
-                    // put the login here
-                }
-            }}
-            component="form"
-            sx={{ borderRadius: 4, backgroundColor: '#EBF2FF', p: 0, display: 'flex', alignItems: 'center', width: 420 }}
-        >
-            <IconButton sx={{ p: '10px' }} aria-label="menu">
-                <FilterList />
-            </IconButton>
-            <InputBase
-                onChange={ (e) => setQuerySearch( e.target.value ) }
-                defaultValue={querySearch}
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Cerca de la playa, terreno, etc..."
-                inputProps={{ 'aria-label': 'buscar' }}
-            />
-            <IconButton
-                onClick={ handleSearch }
-                sx={{
-                    backgroundColor: theme.palette.primary.main,
-                    borderRadius: '0 16px 16px 0',
-                    p: '16px',
-                    color: "white"
-                }}
-                aria-label="buscar"
+        <Box sx={{ position: 'relative' }}>
+            <Paper
+
+                component="form"
+                sx={{ borderRadius: 4, backgroundColor: '#EBF2FF', p: 0, display: 'flex', alignItems: 'center', width: 420 }}
             >
-                <SearchIcon />
-            </IconButton>
-        </Paper>
+                <IconButton sx={{ p: '10px' }} aria-label="menu">
+                    <FilterList />
+                </IconButton>
+                <InputBase
+                    onKeyDown={ (e:any) => {
+                        if(e.keyCode == 13){
+                            handleSearch()
+                        }
+                    }}
+                    onChange={ (e) => setQuerySearch( e.target.value ) }
+                    defaultValue={ querySearch ? querySearch : undefined }
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Cerca de la playa, terreno, etc..."
+                    inputProps={{ 'aria-label': 'buscar' }}
+                    value={ querySearch }
+                />
+                <IconButton
+                    onClick={ handleSearch }
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        borderRadius: '0 16px 16px 0',
+                        p: '16px',
+                        color: "white"
+                    }}
+                    aria-label="buscar"
+                >
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
+            {
+                iterableResults && (
+                    <Paper
+                        elevation={ 4 }
+                        sx={{
+                            p: 2,
+                            position: 'absolute',
+                            width: '100%',
+                            zIndex: 2
+                        }}
+                    >
+                        {
+                            iterableResults.length > 0 ? iterableResults.map((val:any, index:number) => (
+                                <Card
+                                    key={ index }
+                                    sx={{
+                                        p: 1,
+                                        borderRadius: 0,
+                                        borderBottom: `1px solid ${ theme.palette.primary.main }`,
+                                        position: 'relative'
+                                    }}
+                                    elevation={0}
+                                >
+                                    <CardActionArea
+                                        onClick={ () => navigate(`/propiedades/${ val.slug }` )}
+                                    >
+                                        <CardContent>
+                                            <Typography color="secondary" variant="h6">
+                                                { val.project.name }
+                                            </Typography>
+                                            <Typography>
+                                                { truncate( val.project.description , 80 ) }
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            )) : (
+                                <Typography>
+                                    No se encontraron resultados para la búsqueda "{ querySearch }"
+                                </Typography>
+                            )
+                        }
+                        <IconButton
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                                zIndex: 3,
+                            }}
+                            onClick={ () => {
+                                setIterableResults(null);
+                                setQuerySearch( undefined );
+                            }}
+                        >
+                            <Close/>
+                        </IconButton>
+                    </Paper>
+                )
+            }
+
+        </Box>
+
     )
 }
+

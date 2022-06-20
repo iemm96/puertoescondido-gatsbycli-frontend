@@ -16,17 +16,20 @@ import {
 import { ChevronLeft, Clear } from "@mui/icons-material"
 import PropertyCard from "../components/PropertyCard";
 import {fetchRecords} from "../actions/fetchRecords";
+import { graphql } from "gatsby";
 import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
 
 function valuetext(value) {
   return `${value}°C`;
 }
 
-const Propiedades = ({ location }) => {
+const Propiedades = ({ location, data: {
+  localSearchPages: { index, store },
+}, }) => {
   const params = new URLSearchParams(location.search);
   const search = params.get("search");
   const limit = 6; //properties result limit
-  const { querySearch, setQuerySearch, handleSearch } = useCustomSearchInput();
+  const { querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults } = useCustomSearchInput( index, store, search );
   const [ currentPage, setCurrentPage ] = React.useState<number>( 0 );
   const [ properties, setProperties ] = React.useState<any>( null );
   const [ total, setTotal ] = React.useState<number | null>( null );
@@ -81,7 +84,7 @@ const Propiedades = ({ location }) => {
             >
               <Stack spacing={2} direction="column">
                 <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
-                <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch}/>
+                <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch} iterableResults={iterableResults} setIterableResults={ setIterableResults }/>
               </Stack>
             </Box>
             <Grid sx={{ mt: 7 }} spacing={4} container>
@@ -249,3 +252,12 @@ const Propiedades = ({ location }) => {
 }
 
 export default Propiedades;
+
+export const query = graphql`
+  query PropiedadesQuery {
+    localSearchPages {
+      index
+      store
+    }
+  }
+`
