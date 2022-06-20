@@ -9,7 +9,6 @@ import {
   Pagination,
   Paper,
   Stack,
-  TextField,
   Typography,
   Slider,
   FormControl, FormControlLabel, Checkbox
@@ -27,7 +26,7 @@ const Propiedades = ({ location }) => {
   const params = new URLSearchParams(location.search);
   const search = params.get("search");
   const limit = 6; //properties result limit
-  const [ querySearch, setQuerySearch, handleSearch, ] = useCustomSearchInput();
+  const { querySearch, setQuerySearch, handleSearch } = useCustomSearchInput();
   const [ currentPage, setCurrentPage ] = React.useState<number>( 0 );
   const [ properties, setProperties ] = React.useState<any>( null );
   const [ total, setTotal ] = React.useState<number | null>( null );
