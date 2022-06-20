@@ -17,6 +17,7 @@ import {
 import { ChevronLeft, Clear } from "@mui/icons-material"
 import PropertyCard from "../components/PropertyCard";
 import {fetchRecords} from "../actions/fetchRecords";
+import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -26,6 +27,7 @@ const Propiedades = ({ location }) => {
   const params = new URLSearchParams(location.search);
   const search = params.get("search");
   const limit = 6; //properties result limit
+  const [ querySearch, setQuerySearch, handleSearch, ] = useCustomSearchInput();
   const [ currentPage, setCurrentPage ] = React.useState<number>( 0 );
   const [ properties, setProperties ] = React.useState<any>( null );
   const [ total, setTotal ] = React.useState<number | null>( null );
@@ -43,7 +45,7 @@ const Propiedades = ({ location }) => {
   };
 
   React.useEffect(() => {
-      getProperties().then();
+    getProperties().then();
   },[ currentPage ]);
 
   const getProperties = async () => {
@@ -68,196 +70,182 @@ const Propiedades = ({ location }) => {
   };
 
   return(
-    <>
-      <Seo title="Propiedades"/>
-      <Layout>
-        <Container maxWidth="xl">
-          <Box
-            sx={{
-              justifyContent: 'center',
-              display: 'flex'
-            }}
-          >
-            <Stack spacing={2} direction="column">
-              <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
-              <TextField
+      <>
+        <Seo title="Propiedades"/>
+        <Layout scrollTrigger>
+          <Container maxWidth="xl">
+            <Box
                 sx={{
-                  width: 600,
-                  '& .MuiFilledInput-root': {
-                    backgroundColor: '#EBF2FF',
-                    borderRadius: 3.5,
-                  }
+                  justifyContent: 'center',
+                  display: 'flex'
                 }}
-                variant="filled"
-                InputProps={{
-                  disableUnderline: true,
-                  endAdornment: <Button color="primary" variant="contained">Buscar</Button>
-                }}
-                label="Palabra clave (alberca, terreno, etc.)"
-              />
-            </Stack>
-          </Box>
-          <Grid sx={{ mt: 7 }} spacing={4} container>
-            <Grid sx={{ display: { xs: 'none', sm: 'inline' } }} xs={3} item>
-              <Paper
-                sx={{
-                  p: 2,
-                  borderRadius: 3,
-                  height: '100%'
-                }}
-                elevation={2}
-              >
-                <Stack direction="column">
-                  <Box
+            >
+              <Stack spacing={2} direction="column">
+                <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
+                <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch}/>
+              </Stack>
+            </Box>
+            <Grid sx={{ mt: 7 }} spacing={4} container>
+              <Grid sx={{ display: { xs: 'none', sm: 'inline' } }} xs={3} item>
+                <Paper
                     sx={{
-                      justifyContent: 'space-between',
-                      display: 'flex',
-                      alignItems: 'center'
+                      p: 2,
+                      borderRadius: 3,
+                      height: '100%'
                     }}
-                  >
-                    <Typography variant="subtitle1">
-                      Filtrar resultados
-                    </Typography>
+                    elevation={2}
+                >
+                  <Stack direction="column">
+                    <Box
+                        sx={{
+                          justifyContent: 'space-between',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                    >
+                      <Typography variant="subtitle1">
+                        Filtrar resultados
+                      </Typography>
+                      <Button
+                          size="small"
+                          startIcon={<Clear/>}
+                      >
+                        Limpiar filtros
+                      </Button>
+                    </Box>
+                    <Stack sx={{ mt: 2 }} direction="column">
+                      <Typography variant="caption">Rango de precio</Typography>
+                      <Slider
+                          getAriaLabel={() => 'Temperature range'}
+                          value={value}
+                          onChange={handleChange}
+                          valueLabelDisplay="auto"
+                          getAriaValueText={valuetext}
+                      />
+                      <Box
+                          sx={{
+                            justifyContent: 'space-between',
+                            display: 'flex'
+                          }}
+                      >
+                        <Typography variant="caption">Desde $100,000</Typography>
+                        <Typography variant="caption">Hasta $1,000,000</Typography>
+                      </Box>
+                      <Typography sx={{ mt: 2 }} variant="caption">Metros cuadrados</Typography>
+                      <Slider
+                          getAriaLabel={() => 'Metros cuadrados'}
+                          value={value}
+                          onChange={handleChange}
+                          valueLabelDisplay="auto"
+                          getAriaValueText={valuetext}
+                      />
+                      <Box
+                          sx={{
+                            justifyContent: 'space-between',
+                            display: 'flex'
+                          }}
+                      >
+                        <Typography variant="caption">Desde 50m2</Typography>
+                        <Typography variant="caption">Hasta 1,000m2</Typography>
+                      </Box>
+                    </Stack>
+                    <Stack sx={{ mt: 2 }} direction="column">
+                      <Typography variant="caption">Zonas</Typography>
+                      <FormControl component="fieldset" variant="standard">
+                        <FormControlLabel
+                            control={
+                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
+                            }
+                            label="Cerca de la playa"
+                        />
+                        <FormControlLabel
+                            control={
+                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
+                            }
+                            label="Terreno plano"
+                        />
+                        <FormControlLabel
+                            control={
+                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
+                            }
+                            label="Cerca del centro"
+                        />
+                      </FormControl>
+                    </Stack>
+                    <Stack sx={{ mt: 2 }} direction="column">
+                      <Typography variant="caption">Ubicaciones</Typography>
+                      <FormControl component="fieldset" variant="standard">
+                        <FormControlLabel
+                            control={
+                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
+                            }
+                            label="Brisas Zicatela"
+                        />
+                      </FormControl>
+                    </Stack>
+                    <hr/>
+                    <FormControl component="fieldset" variant="standard">
+                      <FormControlLabel
+                          control={
+                            <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
+                          }
+                          label="Sólo propiedades destacadas"
+                      />
+                    </FormControl>
+                  </Stack>
+                </Paper>
+              </Grid>
+              <Grid xs={12} md={9} item>
+                <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
+                  <Grid item>
+                    <Typography>Ordenar por: Precio</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Pagination color="primary" count={10} />
+                  </Grid>
+                </Grid>
+                <Grid spacing={2} container>
+                  {
+                      properties && properties.map(( val:any, index:number) => (
+                          <Grid md={ 4 } item key={ index }>
+                            <PropertyCard key={ index } data={val}/>
+                          </Grid>
+                      ))
+                  }
+                </Grid>
+                <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
+                  <Grid item>
+                    {
+                        total && (
+                            <Typography>Mostrando { limit } de { total } resultados</Typography>
+                        )
+                    }
+                  </Grid>
+                  <Grid item>
+                    <Pagination color="primary" count={10} onChange={ (event, page) => setCurrentPage(page) } />
+                  </Grid>
+                </Grid>
+                <Grid
+                    sx={{
+                      mt: 4,
+                      mb: 2
+                    }}
+                    container
+                    justifyContent="center"
+                >
+                  <Grid item>
                     <Button
-                      size="small"
-                      startIcon={<Clear/>}
+                        startIcon={<ChevronLeft/>}
                     >
-                      Limpiar filtros
+                      Volver al inicio
                     </Button>
-                  </Box>
-                  <Stack sx={{ mt: 2 }} direction="column">
-                    <Typography variant="caption">Rango de precio</Typography>
-                    <Slider
-                      getAriaLabel={() => 'Temperature range'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                    />
-                    <Box
-                      sx={{
-                        justifyContent: 'space-between',
-                        display: 'flex'
-                      }}
-                    >
-                      <Typography variant="caption">Desde $100,000</Typography>
-                      <Typography variant="caption">Hasta $1,000,000</Typography>
-                    </Box>
-                    <Typography sx={{ mt: 2 }} variant="caption">Metros cuadrados</Typography>
-                    <Slider
-                      getAriaLabel={() => 'Metros cuadrados'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                    />
-                    <Box
-                      sx={{
-                        justifyContent: 'space-between',
-                        display: 'flex'
-                      }}
-                    >
-                      <Typography variant="caption">Desde 50m2</Typography>
-                      <Typography variant="caption">Hasta 1,000m2</Typography>
-                    </Box>
-                  </Stack>
-                  <Stack sx={{ mt: 2 }} direction="column">
-                    <Typography variant="caption">Zonas</Typography>
-                    <FormControl component="fieldset" variant="standard">
-                      <FormControlLabel
-                        control={
-                          <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                        }
-                        label="Cerca de la playa"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                        }
-                        label="Terreno plano"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                        }
-                        label="Cerca del centro"
-                      />
-                    </FormControl>
-                  </Stack>
-                  <Stack sx={{ mt: 2 }} direction="column">
-                    <Typography variant="caption">Ubicaciones</Typography>
-                    <FormControl component="fieldset" variant="standard">
-                      <FormControlLabel
-                        control={
-                          <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                        }
-                        label="Brisas Zicatela"
-                      />
-                    </FormControl>
-                  </Stack>
-                  <hr/>
-                  <FormControl component="fieldset" variant="standard">
-                    <FormControlLabel
-                      control={
-                        <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                      }
-                      label="Sólo propiedades destacadas"
-                    />
-                  </FormControl>
-                </Stack>
-              </Paper>
-            </Grid>
-            <Grid xs={12} md={9} item>
-              <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
-                <Grid item>
-                  <Typography>Ordenar por: Precio</Typography>
-                </Grid>
-                <Grid item>
-                  <Pagination color="primary" count={10} />
-                </Grid>
-              </Grid>
-              <Grid spacing={2} container>
-                  {
-                    properties && properties.map(( val:any, index:number) => (
-                      <Grid md={ 4 } item key={ index }>
-                        <PropertyCard key={ index } data={val}/>
-                      </Grid>
-                    ))
-                  }
-              </Grid>
-              <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
-                <Grid item>
-                  {
-                    total && (
-                          <Typography>Mostrando { limit } de { total } resultados</Typography>
-                      )
-                  }
-                </Grid>
-                <Grid item>
-                  <Pagination color="primary" count={10} onChange={ (event, page) => setCurrentPage(page) } />
-                </Grid>
-              </Grid>
-              <Grid
-                sx={{
-                  mt: 4,
-                  mb: 2
-                }}
-                container
-                justifyContent="center"
-              >
-                <Grid item>
-                  <Button
-                    startIcon={<ChevronLeft/>}
-                  >
-                    Volver al inicio
-                  </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </Layout>
-    </>
+          </Container>
+        </Layout>
+      </>
   )
 }
 
