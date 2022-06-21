@@ -7,10 +7,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import {styled} from "@mui/material";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Search from "@mui/icons-material/Search";
 
 import Fade from 'react-reveal/Fade';
 // @ts-ignore
@@ -86,7 +83,7 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
     const theme = useTheme();
     const { width } = useWindowDimensions();
-    const { querySearch, setQuerySearch, handleSearch, iterableResults } = useCustomSearchInput()
+    const { querySearch, setQuerySearch, handleSearch, iterableResults } = useCustomSearchInput( null,null, undefined )
 
     return (
         <>
