@@ -21,12 +21,16 @@ export const unFlattenResults = results =>
         return { slug, project: { name, description } };
     });
 
-export const useCustomSearchInput = (index:any, store:any, query:string | undefined ) => {
+export const useCustomSearchInput = ( index:any | null, store:any | null, query:string | undefined ) => {
     const [ querySearch, setQuerySearch ] = React.useState<string | undefined>( query );
     const [ iterableResults, setIterableResults ] = React.useState<any>(null);
+    const [ openSidebar, setOpenSidebar ] = React.useState<boolean>( false );
 
-    const results = unFlattenResults(useFlexSearch(querySearch, index, store));
+    let results:any = null;
 
+    if( index && store ) {
+        results = unFlattenResults( useFlexSearch( querySearch, index, store ));
+    }
 
     React.useEffect(() => {
         setIterableResults( results );
@@ -37,37 +41,69 @@ export const useCustomSearchInput = (index:any, store:any, query:string | undefi
         setQuerySearch(  querySearch );
         console.log(results)
         setIterableResults( results )
-        // navigate(`/propiedades?search=${ querySearch }` );
     }
     return {
         querySearch,
         setQuerySearch,
         handleSearch,
         iterableResults,
-        setIterableResults
+        setIterableResults,
+        openSidebar,
+        setOpenSidebar
     }
 }
 
-export const CustomSearchInput = ({querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults}:{
-    querySearch: string | undefined,
-    setQuerySearch:any,
-    handleSearch: any,
-    iterableResults: any,
-    setIterableResults: any
-}) => {
-    console.log(iterableResults)
+export const CustomSearchInput = (
+    {
+        querySearch,
+        setQuerySearch,
+        handleSearch,
+        iterableResults,
+        setIterableResults,
+        openSidebar,
+        setOpenSidebar
+    }:{
+        querySearch: string | undefined,
+        setQuerySearch:any,
+        handleSearch: any,
+        iterableResults: any,
+        setIterableResults: any,
+        openSidebar: boolean,
+        setOpenSidebar: any
+    }) => {
+
+    const textInput = React.useRef(null);
+
     const theme = useTheme();
     return(
         <Box sx={{ position: 'relative' }}>
             <Paper
 
                 component="form"
-                sx={{ borderRadius: 4, backgroundColor: '#EBF2FF', p: 0, display: 'flex', alignItems: 'center', width: 420 }}
+                sx={{
+                    borderRadius: 4,
+                    backgroundColor: '#EBF2FF',
+                    p: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: {
+                        xs:320,
+                        md: 420
+                    }
+                }}
             >
-                <IconButton sx={{ p: '10px' }} aria-label="menu">
+                <IconButton
+                    sx={{ p: '10px', display: {
+                            xs: 'inline',
+                            lg: 'none'
+                        }}}
+                    aria-label="menu"
+                    onClick={ () => setOpenSidebar( !openSidebar ) }
+                >
                     <FilterList />
                 </IconButton>
                 <InputBase
+                    inputRef={ textInput }
                     onKeyDown={ (e:any) => {
                         if(e.keyCode == 13){
                             handleSearch()
@@ -75,11 +111,30 @@ export const CustomSearchInput = ({querySearch, setQuerySearch, handleSearch, it
                     }}
                     onChange={ (e) => setQuerySearch( e.target.value ) }
                     defaultValue={ querySearch ? querySearch : undefined }
-                    sx={{ ml: 1, flex: 1 }}
+                    sx={{ pl:{
+                            md: 1,
+                            xs: 0
+                        }, ml: 1, flex: 1 }}
                     placeholder="Cerca de la playa, terreno, etc..."
                     inputProps={{ 'aria-label': 'buscar' }}
                     value={ querySearch }
                 />
+                {
+                    textInput?.current?.value !== "" && (
+                        <IconButton
+                            sx={{
+                                zIndex: 3,
+                            }}
+                            onClick={ () => {
+                                textInput.current.value = ""
+                                setIterableResults(null);
+                                setQuerySearch( undefined );
+                            }}
+                        >
+                            <Close/>
+                        </IconButton>
+                    )
+                }
                 <IconButton
                     onClick={ handleSearch }
                     sx={{
@@ -143,6 +198,7 @@ export const CustomSearchInput = ({querySearch, setQuerySearch, handleSearch, it
                                 zIndex: 3,
                             }}
                             onClick={ () => {
+                                textInput.current.value = ""
                                 setIterableResults(null);
                                 setQuerySearch( undefined );
                             }}
