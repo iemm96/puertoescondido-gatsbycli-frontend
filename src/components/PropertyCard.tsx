@@ -13,7 +13,6 @@ import { BgImage } from "gbimage-bridge";
 import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
 const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
-    console.log('property card data, ', data)
     const theme = useTheme();
     const image = getImage(data?.coverImage);
 
