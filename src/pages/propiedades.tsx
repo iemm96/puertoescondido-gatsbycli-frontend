@@ -7,32 +7,57 @@ import {
   Container,
   Grid,
   Pagination,
-  Paper,
   Stack,
   Typography,
-  Slider,
-  FormControl, FormControlLabel, Checkbox
 } from "@mui/material"
-import { ChevronLeft, Clear } from "@mui/icons-material"
+import { ChevronLeft } from "@mui/icons-material"
 import PropertyCard from "../components/PropertyCard";
 import {fetchRecords} from "../actions/fetchRecords";
 import { graphql } from "gatsby";
 import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
+import {FiltersBox, useFiltersBox} from "../components/common/FiltersBox";
+import useWindowDimensions from "../hooks/useWindowDimensions";
+import useTheme from "@mui/material/styles/useTheme";
 
-function valuetext(value) {
-  return `${value}°C`;
-}
+const Propiedades = (
+    { location,
+      data: {
+        localSearchPages: {
+          index,
+          store
+        },
+        allProperty: {
+          nodes
+        }
+      },
+    }
+) => {
 
-const Propiedades = ({ location, data: {
-  localSearchPages: { index, store },
-}, }) => {
+
+  const {
+    filters,
+    setFilters,
+    handleChange
+  } = useFiltersBox();
+
+  const properties = nodes;
   const params = new URLSearchParams(location.search);
   const search = params.get("search");
   const limit = 6; //properties result limit
-  const { querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults } = useCustomSearchInput( index, store, search );
+  const {
+    querySearch,
+    setQuerySearch,
+    handleSearch,
+    iterableResults,
+    setIterableResults,
+    openSidebar,
+    setOpenSidebar
+  } = useCustomSearchInput( index, store, search );
   const [ currentPage, setCurrentPage ] = React.useState<number>( 0 );
-  const [ properties, setProperties ] = React.useState<any>( null );
+  const { width } = useWindowDimensions();
   const [ total, setTotal ] = React.useState<number | null>( null );
+  const theme = useTheme();
+
   const [value, setValue] = React.useState([20, 37]);
   const [state, setState] = React.useState({
     gilad: true,
@@ -42,11 +67,8 @@ const Propiedades = ({ location, data: {
 
   const { gilad } = state;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   React.useEffect(() => {
+
     getProperties().then();
   },[ currentPage ]);
 
@@ -60,7 +82,7 @@ const Propiedades = ({ location, data: {
     const result = await fetchRecords( resource )
     if( result ) {
       setTotal( result.total );
-      setProperties( result.properties );
+      //setProperties( result.properties );
     }
   }
 
@@ -84,120 +106,29 @@ const Propiedades = ({ location, data: {
             >
               <Stack spacing={2} direction="column">
                 <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
-                <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch} iterableResults={iterableResults} setIterableResults={ setIterableResults }/>
+                <CustomSearchInput
+                    querySearch={ querySearch }
+                    setQuerySearch={ setQuerySearch }
+                    handleSearch={ handleSearch }
+                    iterableResults={ iterableResults }
+                    setIterableResults={ setIterableResults }
+                    openSidebar={  openSidebar }
+                    setOpenSidebar={ setOpenSidebar }
+                />
               </Stack>
             </Box>
             <Grid sx={{ mt: 7 }} spacing={4} container>
-              <Grid sx={{ display: { xs: 'none', sm: 'inline' } }} xs={3} item>
-                <Paper
-                    sx={{
-                      p: 2,
-                      borderRadius: 3,
-                      height: '100%'
-                    }}
-                    elevation={2}
-                >
-                  <Stack direction="column">
-                    <Box
-                        sx={{
-                          justifyContent: 'space-between',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}
-                    >
-                      <Typography variant="subtitle1">
-                        Filtrar resultados
-                      </Typography>
-                      <Button
-                          size="small"
-                          startIcon={<Clear/>}
-                      >
-                        Limpiar filtros
-                      </Button>
-                    </Box>
-                    <Stack sx={{ mt: 2 }} direction="column">
-                      <Typography variant="caption">Rango de precio</Typography>
-                      <Slider
-                          getAriaLabel={() => 'Temperature range'}
-                          value={value}
-                          onChange={handleChange}
-                          valueLabelDisplay="auto"
-                          getAriaValueText={valuetext}
-                      />
-                      <Box
-                          sx={{
-                            justifyContent: 'space-between',
-                            display: 'flex'
-                          }}
-                      >
-                        <Typography variant="caption">Desde $100,000</Typography>
-                        <Typography variant="caption">Hasta $1,000,000</Typography>
-                      </Box>
-                      <Typography sx={{ mt: 2 }} variant="caption">Metros cuadrados</Typography>
-                      <Slider
-                          getAriaLabel={() => 'Metros cuadrados'}
-                          value={value}
-                          onChange={handleChange}
-                          valueLabelDisplay="auto"
-                          getAriaValueText={valuetext}
-                      />
-                      <Box
-                          sx={{
-                            justifyContent: 'space-between',
-                            display: 'flex'
-                          }}
-                      >
-                        <Typography variant="caption">Desde 50m2</Typography>
-                        <Typography variant="caption">Hasta 1,000m2</Typography>
-                      </Box>
-                    </Stack>
-                    <Stack sx={{ mt: 2 }} direction="column">
-                      <Typography variant="caption">Zonas</Typography>
-                      <FormControl component="fieldset" variant="standard">
-                        <FormControlLabel
-                            control={
-                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                            }
-                            label="Cerca de la playa"
-                        />
-                        <FormControlLabel
-                            control={
-                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                            }
-                            label="Terreno plano"
-                        />
-                        <FormControlLabel
-                            control={
-                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                            }
-                            label="Cerca del centro"
-                        />
-                      </FormControl>
-                    </Stack>
-                    <Stack sx={{ mt: 2 }} direction="column">
-                      <Typography variant="caption">Ubicaciones</Typography>
-                      <FormControl component="fieldset" variant="standard">
-                        <FormControlLabel
-                            control={
-                              <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                            }
-                            label="Brisas Zicatela"
-                        />
-                      </FormControl>
-                    </Stack>
-                    <hr/>
-                    <FormControl component="fieldset" variant="standard">
-                      <FormControlLabel
-                          control={
-                            <Checkbox checked={gilad} onChange={handleChangeCheck} name="gilad" />
-                          }
-                          label="Sólo propiedades destacadas"
-                      />
-                    </FormControl>
-                  </Stack>
-                </Paper>
+              <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
+                <FiltersBox
+                    filters={ filters }
+                    setFilters={ setFilters }
+                    handleChange={ handleChange }
+                    openSidebar={ openSidebar }
+                    setOpenSidebar={ setOpenSidebar }
+                    responsiveMode={ width < 1200 }
+                />
               </Grid>
-              <Grid xs={12} md={9} item>
+              <Grid xs={12} lg={9} item>
                 <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                   <Grid item>
                     <Typography>Ordenar por: Precio</Typography>
@@ -258,6 +189,24 @@ export const query = graphql`
     localSearchPages {
       index
       store
+    }
+    allProperty {
+      nodes {
+        name
+        slug
+        description
+        features {
+          name
+        }
+        location {
+          name
+        }
+        coverImage {
+          childImageSharp {
+            gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+          }
+        }
+      }
     }
   }
 `
