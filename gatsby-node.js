@@ -81,7 +81,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }catch (e) {
     console.log( e );
   }
-  
+
 }
 
 exports.sourceNodes = async ({ actions, createContentDigest }) => {
@@ -141,15 +141,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const fields = {
     name: { type: 'String!' },
     area: { type: 'String!' },
-    description: { type: 'String!' },
-    price: { type: 'String!' },
+    description: { type: 'String' },
+    price: { type: 'String' },
     uid: { type: 'String!' },
     measures_unit: { type: 'String!' },
     isFeatured: { type: 'Boolean!' },
-    slug: { type: 'String!' },
+    slug: { type: 'String' },
     features: { type: "[Feature!]" },
     isProject: { type: "Boolean!" },
-    location: { type: "Location!" },
+    location: { type: "Location" },
     // Single Node
     coverImage: {
       type: 'File',
@@ -225,15 +225,36 @@ exports.onCreateNode = async ({
         url: node.coverImage.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
-        createNodeId, // helper function in gatsby-node to generate the node id
+        createNodeId: (id) => `${node.uid}-image`,
         getCache,
       })
-
       // if the file was created, extend the node with "localFile"
       if (fileNode) {
         createNodeField({ node, name: "localFile", value: fileNode.id })
       }
     }
+
+    if (
+        node.internal.type === "Property" &&
+        node.images !== null
+    ) {
+
+      node.images.map( async  (image, index) => {
+        const fileNode = await createRemoteFileNode({
+          url: image.url, // string that points to the URL of the image
+          parentNodeId: node.id,
+          createNode, // helper function in gatsby-node to generate the node
+          createNodeId: id => `${node.uid}-images-${index}`,
+          getCache,
+        })
+        // if the file was created, extend the node with "localFile"
+        if (fileNode) {
+          createNodeField({ node, name: "localFile", value: fileNode.id })
+        }
+      });
+
+    }
+
     if (
         node.internal.type === "Project" &&
         node.coverImage.url !== null
