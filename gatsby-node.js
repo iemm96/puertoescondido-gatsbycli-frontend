@@ -17,9 +17,7 @@ exports.createPages = async ({ graphql, actions }) => {
                           }
                       }
                       name
-                      price
                       uid
-                      measures_unit
                       isFeatured
                       slug
                       location {
@@ -78,6 +76,22 @@ exports.createPages = async ({ graphql, actions }) => {
         context: { slug: node.slug },
       })
     } );
+
+    const postsPerPage = 6
+    const numPages = Math.ceil(data.allProperty.nodes.length / postsPerPage);
+
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/propiedades` : `/propiedades/${i + 1}`,
+        component: require.resolve("./src/templates/PropertiesList.tsx"),
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage: i + 1,
+        },
+      })
+    })
   }catch (e) {
     console.log( e );
   }
