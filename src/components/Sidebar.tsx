@@ -32,7 +32,7 @@ const Sidebar = React.forwardRef( (props:any, ref:any) => {
   return(
     <Drawer
       anchor="right"
-      open={open}
+      open={ open }
       onClose={ toggle() }
     >
       <Box
