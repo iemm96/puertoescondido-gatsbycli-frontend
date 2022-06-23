@@ -5,8 +5,7 @@ import {
     Box,
     Container,
     Grid,
-    Pagination,
-    Stack, TextField,
+    Stack,
     Typography,
 } from "@mui/material"
 import {ChevronLeft, ChevronRight, Home} from "@mui/icons-material"
@@ -34,7 +33,7 @@ const PropertiesList = (
         pageContext
     }
 ) => {
-    const { limit, skip, numPages, currentPage } = pageContext;
+    const { limit, skip, numPages, currentPage, totalResults } = pageContext;
 
     const {
         filters,
@@ -97,11 +96,11 @@ const PropertiesList = (
                                     <Typography>Ordenar por: Precio</Typography>
                                 </Grid>
                             </Grid>
-                            <Grid sx={{ justifyContent: 'center' }} spacing={2} container>
+                            <Grid spacing={2} container>
                                 {
                                     properties && properties.map(( val:any, index:number) => (
-                                        <Grid md={ 4 } item key={ index }>
-                                            <PropertyCard key={ index } data={val}/>
+                                        <Grid sx={{ justifyContent: 'center' }} xs={ 12 } sm={ 6 } md={ 4 } item key={ index }>
+                                            <PropertyCard key={ index } data={val} showAsList/>
                                         </Grid>
                                     ))
                                 }
@@ -117,7 +116,7 @@ const PropertiesList = (
                                 >
                                     <Typography
                                         variant="body2">
-                                        Total de resultados:
+                                        Total de resultados: { totalResults }
                                     </Typography>
                                 </Grid>
                                 <Grid
