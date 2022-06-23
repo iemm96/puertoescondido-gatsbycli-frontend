@@ -14,21 +14,16 @@ import {Clear} from "@mui/icons-material";
 import * as React from "react";
 
 type FilterType = {
-    minPrice: number,
-    currentPrice: number,
-    maxPrice: number,
-    maxSquareMeters: number,
-    currentSquareMeters: number,
-    onlyFeaturedProperties: boolean
+    priceRange: [number,number],
+    squareMetersRange: [number,number],
+    onlyFeaturedProperties: boolean,
+    location?: string,
 }
 export const useFiltersBox = () => {
     const [ filters, setFilters ] = React.useState<FilterType | null>( {
-        minPrice: 0,
-        currentPrice: 0,
-        maxPrice: 0,
-        maxSquareMeters: 0,
-        currentSquareMeters: 0,
-        onlyFeaturedProperties: false
+        priceRange: [ 0, 0 ],
+        squareMetersRange: [ 0, 0],
+        onlyFeaturedProperties: false,
     }  );
 
     const handleChange = ( ) => {
