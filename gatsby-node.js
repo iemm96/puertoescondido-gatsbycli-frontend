@@ -60,7 +60,9 @@ exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
+    //let arrayPricesRange = [ 0, 0 ];
 
+    //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
     data.allProperty.nodes.forEach( node => {
       createPage({
         path: `/propiedad/${ node.slug }`,
@@ -78,7 +80,7 @@ exports.createPages = async ({ graphql, actions }) => {
     } );
 
     const postsPerPage = 6
-    const numPages = Math.ceil(data.allProperty.nodes.length / postsPerPage);
+    const numPages = Math.ceil(data.allProperty.nodes.length / postsPerPage );
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
@@ -88,6 +90,7 @@ exports.createPages = async ({ graphql, actions }) => {
           limit: postsPerPage,
           skip: i * postsPerPage,
           numPages,
+          totalResults: data.allProperty.nodes.length,
           currentPage: i + 1,
         },
       })
@@ -103,10 +106,30 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
 
   try {
 
+    const fetchLocations = async () => await axios.get(`${ GATSBY_API_HOST }locations`);
+    const resultLocations = await fetchLocations();
+
+    let node_type = 'Location';
+
+    resultLocations.data.locations.map(async ( location, i ) => {
+
+      createNode({
+        ...location,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify( location ),
+          contentDigest: createContentDigest( location )
+        },
+      })
+    });
+
     const fetchProjects = async () => await axios.get(`${ GATSBY_API_HOST }projects`);
     const resProjects = await fetchProjects();
 
-    let node_type = 'Project';
+    node_type = 'Project';
 
     resProjects.data.projects.map(async ( project, i ) => {
 
