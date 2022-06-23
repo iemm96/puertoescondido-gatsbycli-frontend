@@ -12,9 +12,11 @@ import { navigate } from "gatsby"
 import { BgImage } from "gbimage-bridge";
 import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
-const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
+import useWindowDimensions from "../hooks/useWindowDimensions";
+const PropertyCard = ({ data, key, showAsList }:{ data:any, key: number, showAsList?:boolean }) => {
     const theme = useTheme();
     const image = getImage(data?.coverImage);
+    const { width }  = useWindowDimensions();
 
     const CardInnerContent = (( data:any ) => (
         <CardActionArea
@@ -187,7 +189,21 @@ const PropertyCard = ({ data, key }:{ data:any, key: number }) => {
     )
 
     return(
-        <StyledCard key={ key }>
+        <StyledCard
+            sx={{
+                maxWidth: {
+                    xs: '100%',
+                    md: 414
+                },
+                borderRadius: showAsList ? 0 : 4,
+                borderBottom: {
+                    xs: showAsList && `1px solid ${ theme.palette.primary.main }`,
+                    md: 'none'
+                },
+                height: showAsList ? 'auto' : 400
+            }}
+            elevation={ width < 400 ? 0 : 1 }
+            key={ key }>
             {
                 data?.isProject ? (
 
