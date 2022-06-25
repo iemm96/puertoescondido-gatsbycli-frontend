@@ -5,7 +5,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Inmobiliaria Puerto Escondido`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `Somos una empresa 100% Mexicana originaria de la ciudad de Puerto Escondido, que se dedica a la intermediación en la compra - venta de inmuebles, terrenos, ranchos y fraccionamientos a buen precio, en Puerto Escondido y sus zonas aledañas.`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   },
@@ -96,7 +96,7 @@ module.exports = {
         // required.
         query: `
           {
-            allProject {
+            allProperty {
               nodes {
                 name
                 description
@@ -127,7 +127,7 @@ module.exports = {
         // containing properties to index. The objects must contain the `ref`
         // field above (default: 'id'). This is required.
         normalizer: ({ data }) =>
-            data.allProject.nodes.map((node) => ({
+            data.allProperty.nodes.map((node) => ({
               uid: node.uid,
               slug: node.slug,
               name: node.name,
