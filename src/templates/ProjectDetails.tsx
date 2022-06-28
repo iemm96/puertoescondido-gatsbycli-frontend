@@ -190,7 +190,7 @@ export const query = graphql`
                 childImageSharp {
                     gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED,  aspectRatio: 1.7 )
                 }
-                url
+                
             }
 
         }
