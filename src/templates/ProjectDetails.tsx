@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import {graphql, navigate} from "gatsby"
-import { FmdGood } from "@mui/icons-material"
+import {Download, FmdGood} from "@mui/icons-material"
 import { calculateArea } from "../helpers/calculateArea"
 import {Gallery} from "../components/common/Gallery";
 import { getImage } from "gatsby-plugin-image";
@@ -17,7 +17,7 @@ import StyledButton from "../styled/StyledButton";
 import withTheme from "../components/theme";
 
 const ProjectDetails = ({ data }) => {
-    const { name, price, location, description, features, images, width, length, coverImage } = data.project;
+    const { name, price, location, description, features, images, width, length, coverImage, brochureFile, bluePrintFile } = data.project;
     const coverImageObject = getImage( coverImage );
 
     return(
@@ -98,16 +98,33 @@ const ProjectDetails = ({ data }) => {
                                                 </a>
                                             )
                                         }
-                                        <Stack direction="row">
-                                            <StyledButton>
-                                                Plano
-                                            </StyledButton>
-                                            <StyledButton>
-                                                Folleto
-                                            </StyledButton>
-                                            <StyledButton>
-                                                Vista aérea
-                                            </StyledButton>
+                                        <Stack sx={{ mt: 2 }} spacing={ 2 } direction="row">
+
+                                            {
+                                                bluePrintFile && (
+                                                    <StyledButton
+                                                        size="small"
+                                                        startIcon={ <Download/> }
+                                                        variant="outlined"
+                                                        onClick={ () => window.open( bluePrintFile.url, '_blank' )}
+                                                    >
+                                                        Plano
+                                                    </StyledButton>
+                                                )
+                                            }
+
+                                            {
+                                                brochureFile && (
+                                                    <StyledButton
+                                                        size="small"
+                                                        startIcon={ <Download/> }
+                                                        variant="outlined"
+                                                        onClick={ () => window.open( brochureFile.url, '_blank' )}
+                                                    >
+                                                        Folleto
+                                                    </StyledButton>
+                                                )
+                                            }
                                         </Stack>
 
                                         <Typography
@@ -173,6 +190,12 @@ export const query = graphql`
             name
             uid
             description
+            bluePrintFile {
+                url
+            }
+            brochureFile {
+                url
+            }
             location {
                 name
                 lat

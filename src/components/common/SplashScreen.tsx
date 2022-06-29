@@ -13,8 +13,11 @@ const SplashScreen = ( { duration }:{ duration:number } ) => {
 
     const [ isVisible, setIsVisible ] = React.useState<boolean>( true );
     const phrases = [
-        "Invierte en el destino turistico con mayor crecimiento de México...",
-
+        "Invierte en el destino turístico con mayor crecimiento de México...",
+        "Descubre terrenos cerca de la playa...",
+        "Terrenos ideales para desarrollos turísticos...",
+        "Múltiples planes de financiamiento...",
+        "Descuentos en pagos de contado y a 6 meses...",
     ]
 
     React.useEffect(() => {
@@ -34,7 +37,7 @@ const SplashScreen = ( { duration }:{ duration:number } ) => {
                                 opacity: 0
                             }}
                             style={{
-                                opacity: 1,
+                                opacity: 0.95,
                                 position: 'fixed',
                                 height: '100%',
                                 width: '100%',
@@ -60,10 +63,13 @@ const SplashScreen = ( { duration }:{ duration:number } ) => {
 
                             >
                                 <motion.div
-                                    animate={{ opacity: [1, .5, 1] }}
+                                    animate={{
+                                        opacity: [1, .5, 1],
+                                        translateY: [ 0, -7, 0 ]
+                                }}
                                     transition={{ ease: "linear", duration: 1.5, repeat: Infinity }}
                                 >
-                                    <LogoColor src={ LogoColor } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
+                                    <LogoColor width={ 200 }  alt="Inmobiliaria Puerto Escondido"/>
                                 </motion.div>
                             </motion.div>
                             <motion.div
@@ -79,7 +85,7 @@ const SplashScreen = ( { duration }:{ duration:number } ) => {
                             >
                                 <Typography
                                     textAlign="center"
-                                    variant="subtitle2"
+                                    variant="caption"
                                     color="text.secondary"
                                 >
                                     { phrases[Math.floor(Math.random()*phrases.length)] }

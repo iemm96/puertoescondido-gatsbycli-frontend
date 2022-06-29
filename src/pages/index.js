@@ -43,7 +43,6 @@ const IndexPage = () => {
     <>
         <Seo title="Home" />
         <Layout scrollTrigger={true}>
-          <SplashScreen duration={4}/>
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',

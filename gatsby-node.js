@@ -226,19 +226,30 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         name: { type: 'String!' },
       }
     }),
+    "type ExternalFile implements Node",
+    schema.buildObjectType({
+      name: `ExternalFile`,
+      fields: {
+        url: { type: 'String' },
+      }
+    }),
     "type Location implements Node",
     schema.buildObjectType({
       name: `Location`,
       fields: {
         name: { type: 'String!' },
-        lat: { type: 'String!' },
-        lng: { type: 'String!' },
+        lat: { type: 'String' },
+        lng: { type: 'String' },
       }
     }),
     "type Project implements Node",
     schema.buildObjectType({
       name: `Project`,
-      fields: fields
+      fields: {
+        ...fields,
+        brochureFile: { type: "ExternalFile" },
+        bluePrintFile: { type: "ExternalFile" }
+      }
     }),
   ];
 
