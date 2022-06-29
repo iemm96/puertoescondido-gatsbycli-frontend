@@ -20,7 +20,7 @@ const boxStyles = {
     },
     width: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
 }
 
 const modalStyles = {
@@ -40,13 +40,8 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
     console.log( data )
     const theme = useTheme();
     const [ open, setOpen ] = useState<boolean>( false );
-    const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ thumbsSwiper, setThumbsSwiper ] = useState<any>(null);
-    const [ selectedImage, setSelectedImage ] = useState<string | null>( null );
-    const [ swiperState, setSwiperState ] = React.useState<any>( {
-        isBeginning: true,
-        isEnd: false
-    } );
+    const [ selectedImage, setSelectedImage ] = useState<any | null>( null );
 
     const handleSelectImage = ( imageUrl:string ) => {
         setSelectedImage( imageUrl );
@@ -57,7 +52,8 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
         <Box sx={{
             width: {
                 xs: 375,
-                md: 600,
+                md: 450,
+                lg: 600
             },
             position: 'relative'
         }}>
@@ -68,11 +64,15 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={ modalStyles }>
-                    <img
-                        alt="preview-image"
-                        width="100%"
-                        height="100%"
-                        src={ selectedImage }
+                    <GatsbyImage
+                        //onClick={ () => handleSelectImage( val.url ) }
+                        alt={"img-1"}
+                        style={{
+                            maxWidth: 450,
+                            cursor: 'pointer',
+                            objectFit: 'contain'
+                        }}
+                        image={getImage( selectedImage )}
                     />
                 </Box>
             </Modal>
@@ -93,9 +93,12 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                 {
                     data && data.map((val:any, index:number) => (
                         <SwiperSlide key={ index }>
-                            <Box key={ index } sx={boxStyles}>
+                            <Box key={ index } sx={{
+                                height: 250,
+                                ...boxStyles
+                            }}>
                                     <GatsbyImage
-                                        onClick={ () => handleSelectImage( val?.url ) }
+                                        onClick={ () => handleSelectImage( val ) }
                                         alt={"img-1"}
                                         style={{
                                             maxWidth: 300,
@@ -119,19 +122,8 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     slidesPerView={4}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    onSlideChange={ () => {
-                        setSwiperState( {
-                            isEnd: swiperDef.isEnd,
-                            isBeginning: swiperDef.isBeginning
-                        } );
-                    } }
                     onSwiper={ (swiper) => {
                         setThumbsSwiper(swiper)
-                        setSwiperDef( swiper );
-                        setSwiperState( {
-                            isEnd: false,
-                            isBeginning: true
-                        });
                     }}
                     breakpoints={{
                         "640": {
@@ -152,7 +144,10 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     {
                         data && data.map((val:any, index:number) => (
                             <SwiperSlide key={ index }>
-                                <Box key={ index } sx={boxStyles}>
+                                <Box key={ index } sx={{
+                                    height: 100,
+                                    ...boxStyles
+                                }}>
 
 
                                     <GatsbyImage
