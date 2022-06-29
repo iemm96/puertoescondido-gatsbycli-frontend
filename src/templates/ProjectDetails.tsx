@@ -211,9 +211,8 @@ export const query = graphql`
             }
             images {
                 childImageSharp {
-                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED,  aspectRatio: 1.7 )
+                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED )
                 }
-                
             }
 
         }
