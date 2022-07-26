@@ -13,7 +13,8 @@ import { BgImage } from "gbimage-bridge";
 import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-const PropertyCard = ({ data, key, showAsList }:{ data:any, key: number, showAsList?:boolean }) => {
+
+const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAsList?:boolean }) => {
     const theme = useTheme();
     const image = getImage(data?.coverImage);
     const { width }  = useWindowDimensions();
