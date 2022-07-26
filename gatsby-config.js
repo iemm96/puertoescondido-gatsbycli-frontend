@@ -36,6 +36,14 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-source-sanity`,
+      options: {
+        projectId: `xkbliqmc`,
+        dataset: `production`,
+        token: process.env.GATSBY_SANITY_TOKEN,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
