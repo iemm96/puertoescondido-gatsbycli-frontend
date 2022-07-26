@@ -161,7 +161,6 @@ const IndexPage = () => {
                       xs: 4,
                     }
                   }}
-
                   justifyContent="center"
                   display="flex"
                   xs={12}
