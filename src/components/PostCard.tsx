@@ -1,55 +1,63 @@
 import * as React from 'react';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button } from "@mui/material"
-import { StaticImage } from "gatsby-plugin-image";
+import {Button, CardActionArea, Chip, Stack} from "@mui/material"
+import {GatsbyImage, getImage, StaticImage} from "gatsby-plugin-image";
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 import { navigate } from "gatsby"
 
-const PostCard = ({ data }:{ data:any }) => {
+const PostCard = ({ data }:{ data?:any }) => {
+    const image = getImage( data?.mainImage?.asset )
+    console.log(  'data ', data)
+    return(
+        <StyledCard>
+            <CardActionArea
+                onClick={ () => navigate( `post/${ data?.slug.current}` ) }
+            >
+                {
+                    image && (
+                        <GatsbyImage
+                            image={ image }
+                            style={{
+                                width: '100%',
+                                zIndex: 0,
+                                height: 200
+                            }}
+                            alt={ data.title }
+                        />
+                    )
+                }
+                <CardContent>
+                    {/* @ts-ignore */}
+                    <Typography variant="cardTitle">
+                        { data.title }
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        { data?.author?.name }
+                    </Typography>
+                    <Stack sx={{ mt: 2 }} spacing={ 2 } direction="row" flexWrap="wrap">
+                        {
+                            data?.categories &&
+                            data.categories.map( (category, index) => (
+                                <Chip size="small" key={index} label={ category.title }/>
+                            ) )
+                        }
+                    </Stack>
+                    <Button
+                        variant="text"
+                        sx={{textTransform:'none'}}
+                        size="small"
+                        startIcon={<ArrowForwardOutlined/>}
+                    >
+                        Leer
+                    </Button>
+                </CardContent>
+            </CardActionArea>
 
-  return(
-    <StyledCard>
-      <StaticImage
-        src="../images/properties/la-isla.jpg"
-        alt="La isla"
-        style={{
-          width: '100%'
-        }}
-        quality={95}
-        formats={['auto', 'webp', 'avif']}
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          $ 954,000 mxn
-        </Typography>
-        {/* @ts-ignore */}
-        <Typography variant="cardTitle">
-          Fraccionamiento La Isla
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Brisas Zicatela
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Drenaje · Luz · Agua · 200m²
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          onClick={() => navigate( `/${ data.uid }` )}
-          variant="text"
-          sx={{textTransform:'none'}}
-          size="small"
-          startIcon={<ArrowForwardOutlined/>}
-        >
-          Ver detalles
-        </Button>
-      </CardActions>
-    </StyledCard>
+        </StyledCard>
 
-  )
+    )
 }
 
 export default PostCard;
