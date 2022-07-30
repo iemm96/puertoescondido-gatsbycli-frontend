@@ -1,44 +1,63 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import PostCard from "./PostCard";
-import useWindowDimensions from "../hooks/useWindowDimensions"
 import SliderComponent from "./SliderComponent"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
+import { useState } from "react"
+import { graphql, useStaticQuery } from "gatsby";
+import PostCard from "./PostCard";
 
 const title:string = "Últimas entradas";
 const subtitle:string = "De nuestro blog";
 
 const LatestPosts = () => {
-  const [ postsResults, setPostsResults ] = React.useState([
-    {
-      
-    }
-  ]);
+    const [ posts, setPosts ] = useState<any>([]);
 
-  const { width } = useWindowDimensions();
-  return(
-    <>
-      <SliderComponent
-        title={title}
-        subtitle={subtitle}
-      />
-      <Box sx={{
-        mt: 2,
-        mb: 4,
-        justifyContent: 'center',
-        display: 'flex'
-      }}>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Ver más entradas
-        </Button>
-      </Box>
-    </>
-  )
+    const data = useStaticQuery(graphql`
+        query LatestPosts {
+            allSanityPost {
+                edges {
+                    node {
+                        title
+                        slug {
+                            current
+                        }
+                        categories {
+                            title
+                        }
+                        author {
+                            name
+                        }
+                        mainImage {
+                            asset {
+                                gatsbyImageData(fit: FILLMAX, placeholder: BLURRED)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    `);
+
+    React.useEffect(() => {
+        if( data ) {
+            setPosts( data.allSanityPost.edges )
+        }
+    },[ data ])
+
+    return(
+        <>
+            {
+                posts.length > 0 && (
+                    <SliderComponent
+                        title={title}
+                        subtitle={subtitle}
+                        data={ posts }
+                        Component={ PostCard }
+                    />
+                )
+            }
+        </>
+    )
 }
 
-export default LatestPosts
+
+export default LatestPosts;

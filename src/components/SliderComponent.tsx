@@ -18,12 +18,22 @@ import Container from "@mui/material/Container"
 import {navigate} from "gatsby";
 import Button from "@mui/material/Button";
 import useTheme from "@mui/material/styles/useTheme";
+import {FC} from "react";
+
+interface FunctionalComponentPropsType {
+    key?: number;
+    data?: any;
+}
 
 type SliderComponentType = {
     title: string;
     subtitle: string;
     settings?: any;
     data?: any;
+    viewMoreButton?: boolean;
+    viewMoreButtonText?: string;
+    viewMoreButtonRedirectPath?: string;
+    Component?: FC<FunctionalComponentPropsType>
 }
 
 const boxStyles = {
@@ -33,8 +43,7 @@ const boxStyles = {
     width: '100%',
 }
 
-
-const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
+const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText }:SliderComponentType) => {
     const theme = useTheme();
     const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ swiperState, setSwiperState ] = React.useState<any>( {
@@ -70,14 +79,19 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
                         },
                     }} item
                     >
-                        <Button
-                            sx={{ textTransform: 'none' }}
-                            color="primary"
-                            onClick={ () => navigate( '/propiedades' ) }
-                            variant="contained"
-                        >
-                            Ver más propiedades
-                        </Button>
+                        {
+                            viewMoreButton && (
+                                <Button
+                                    sx={{ textTransform: 'none' }}
+                                    color="primary"
+                                    onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
+                                    variant="contained"
+                                >
+                                    { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
+                                </Button>
+                            )
+                        }
+
                         <Box>
                             <IconButton
                                 sx={ arrowButtonStyles }
@@ -92,7 +106,7 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
                                     height: 40
                                 }}
                                 disabled={ swiperState.isEnd }
-                                onClick={ () => swiperDef ? swiperDef.slideNext() : '' }
+                                onClick={() => swiperDef ? swiperDef.slideNext() : ''}
                             >
                                 <ChevronRight/>
                             </IconButton>
@@ -114,13 +128,13 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
                     slidesPerView="auto"
                     spaceBetween={ 10 }
                     centeredSlides={ false }
-                    onSlideChange={ () => {
+                    onSlideChange={() => {
                         setSwiperState( {
                             isEnd: swiperDef.isEnd,
                             isBeginning: swiperDef.isBeginning
                         } );
-                    } }
-                    onSwiper={ (swiper) => {
+                    }}
+                    onSwiper={(swiper) => {
                         setSwiperDef( swiper );
                         setSwiperState( {
                             isEnd: false,
@@ -137,24 +151,25 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
                             "spaceBetween": 40
                         },
                         "1024": {
-                            "slidesPerView": 3,
-                            "spaceBetween": 10
-                        },
-                        "1280": {
                             "slidesPerView": 4,
                             "spaceBetween": 10
                         }
                     }}
                     freeMode={true}
                 >
-                    { ( data && data.length > 0 ) && data.map( (item, index ) => (
+                    {( data && data.length > 0 ) && data.map( (item, index ) => (
                         <SwiperSlide>
                             <Box key={index} sx={boxStyles}>
-                                <PropertyCard key={ index } data={ item.node }/>
+                                {
+                                    Component ? (
+                                        <Component key={ index } data={ item.node }/>
+                                    ) : (
+                                        <PropertyCard key={ index } data={ item.node }/>
+                                    )
+                                }
                             </Box>
                         </SwiperSlide>
-
-                    )) }
+                    ))}
                 </Swiper>
                 <Box
                     sx={{
@@ -166,18 +181,23 @@ const PropertySlider = ({ title, subtitle, data  }:SliderComponentType) => {
                         justifyContent: 'center'
                     }}
                 >
-                    <Button
-                        sx={{ textTransform: 'none' }}
-                        color="primary"
-                        onClick={ () => navigate( '/propiedades' ) }
-                        variant="contained"
-                    >
-                        Ver más propiedades
-                    </Button>
+                    {
+                        viewMoreButton && (
+                            <Button
+                                sx={{ textTransform: 'none' }}
+                                color="primary"
+                                onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
+                                variant="contained"
+                            >
+                                { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
+                            </Button>
+                        )
+                    }
+
                 </Box>
             </Container>
         </>
     )
 }
 
-export default React.forwardRef(PropertySlider);
+export default React.forwardRef(SliderComponent);

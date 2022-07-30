@@ -126,7 +126,6 @@ const ProjectDetails = ({ data }) => {
                                                 )
                                             }
                                         </Stack>
-
                                         <Typography
                                             sx={{ mt: 2 }}
                                             variant="body2"
@@ -155,9 +154,7 @@ const ProjectDetails = ({ data }) => {
                                 </Grid>
                             </Grid>
                         </Container>
-
                     </>
-
                 }
                 <Box
                     sx={{

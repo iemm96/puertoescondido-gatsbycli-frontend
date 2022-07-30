@@ -165,6 +165,25 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
       })
     });
 
+    const fetchTestimonials = async () => await axios.get(`${ GATSBY_API_HOST }testimonials`);
+    const resTestimonials = await fetchTestimonials();
+
+    node_type = 'Testimonial';
+
+    resTestimonials.data.testimonials.map(async ( testimonial, i ) => {
+      createNode({
+        ...testimonial,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify( testimonial ),
+          contentDigest: createContentDigest( testimonial )
+        },
+      })
+    });
+
   }catch (e) {
     console.log(e)
   }

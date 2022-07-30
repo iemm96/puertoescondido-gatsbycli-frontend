@@ -6,7 +6,7 @@ import { FormatQuote } from "@mui/icons-material"
 import Box from "@mui/material/Box"
 import { Avatar, Stack } from "@mui/material"
 
-const TestimonialCard = () => {
+const TestimonialCard = ({ data }:{ data?:any }) => {
 
   return(
       <StyledCard>
@@ -15,19 +15,22 @@ const TestimonialCard = () => {
             <FormatQuote color="primary"/>
           </Box>
           <Typography sx={{ mt: 1 }} variant="body2" color="text.secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia, massa sed
-            suscipit sollicitudin, odio quam lobortis nibh, id elementum leo urna a lorem. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit.
+            { data.comment }
           </Typography>
           <Stack sx={{ alignItems: 'center', mt: 3 }} spacing={2} direction="row">
             <Avatar/>
             <Stack direction="column">
               <Typography variant="subtitle2">
-                Lorena Vazquez
+                { data.name }
               </Typography>
-              <Typography variant="caption">
-                Cliente Feliz
-              </Typography>
+              {
+                  data?.role && (
+                      <Typography variant="caption">
+                        { data.role }
+                      </Typography>
+                  )
+              }
+
             </Stack>
           </Stack>
         </CardContent>
