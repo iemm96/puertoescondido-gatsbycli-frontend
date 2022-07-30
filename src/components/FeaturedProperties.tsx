@@ -66,6 +66,9 @@ const FeaturedProperties = () => {
                         title={title}
                         subtitle={subtitle}
                         data={ properties }
+                        viewMoreButtonRedirectPath="propiedades"
+                        viewMoreButtonText="Ver más propiedades"
+                        viewMoreButton
                     />
                 )
             }

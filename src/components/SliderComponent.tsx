@@ -30,6 +30,9 @@ type SliderComponentType = {
     subtitle: string;
     settings?: any;
     data?: any;
+    viewMoreButton?: boolean;
+    viewMoreButtonText?: string;
+    viewMoreButtonRedirectPath?: string;
     Component?: FC<FunctionalComponentPropsType>
 }
 
@@ -40,7 +43,7 @@ const boxStyles = {
     width: '100%',
 }
 
-const SliderComponent = ({ title, subtitle, data, Component }:SliderComponentType) => {
+const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText }:SliderComponentType) => {
     const theme = useTheme();
     const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ swiperState, setSwiperState ] = React.useState<any>( {
@@ -76,14 +79,19 @@ const SliderComponent = ({ title, subtitle, data, Component }:SliderComponentTyp
                         },
                     }} item
                     >
-                        <Button
-                            sx={{ textTransform: 'none' }}
-                            color="primary"
-                            onClick={ () => navigate( '/propiedades' ) }
-                            variant="contained"
-                        >
-                            Ver más propiedades
-                        </Button>
+                        {
+                            viewMoreButton && (
+                                <Button
+                                    sx={{ textTransform: 'none' }}
+                                    color="primary"
+                                    onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
+                                    variant="contained"
+                                >
+                                    { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
+                                </Button>
+                            )
+                        }
+
                         <Box>
                             <IconButton
                                 sx={ arrowButtonStyles }
@@ -173,14 +181,19 @@ const SliderComponent = ({ title, subtitle, data, Component }:SliderComponentTyp
                         justifyContent: 'center'
                     }}
                 >
-                    <Button
-                        sx={{ textTransform: 'none' }}
-                        color="primary"
-                        onClick={ () => navigate( '/propiedades' ) }
-                        variant="contained"
-                    >
-                        Ver más propiedades
-                    </Button>
+                    {
+                        viewMoreButton && (
+                            <Button
+                                sx={{ textTransform: 'none' }}
+                                color="primary"
+                                onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
+                                variant="contained"
+                            >
+                                { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
+                            </Button>
+                        )
+                    }
+
                 </Box>
             </Container>
         </>

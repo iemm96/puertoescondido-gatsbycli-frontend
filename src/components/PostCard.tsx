@@ -9,7 +9,6 @@ import { navigate } from "gatsby"
 
 const PostCard = ({ data }:{ data?:any }) => {
     const image = getImage( data?.mainImage?.asset )
-    console.log(  'data ', data)
     return(
         <StyledCard>
             <CardActionArea
@@ -54,7 +53,6 @@ const PostCard = ({ data }:{ data?:any }) => {
                     </Button>
                 </CardContent>
             </CardActionArea>
-
         </StyledCard>
 
     )

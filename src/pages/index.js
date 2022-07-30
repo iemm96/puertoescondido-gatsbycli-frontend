@@ -23,6 +23,7 @@ import IconFolclore from "./../images/icons/Folklore.svg";
 import LatestPosts from "../components/LatestPosts"
 import FeaturedProperties from "../components/FeaturedProperties"
 import SplashScreen from "../components/common/SplashScreen";
+import Testimonials from "../components/Testimonials";
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -187,9 +188,9 @@ const IndexPage = () => {
           </Box>
           <LatestPosts/>
           <Container maxWidth="xl">
-            <TestimonialsSlider/>
+            <Testimonials/>
           </Container>
-          <Typography sx={{ my:6 }} align="center">
+          <Typography sx={{ my:6, fontWeight: 700 }} align="center" color="text.secondary">
             “NO ESPERE A INVERTIR EN BIENES RAICES,
             INVIERTA EN BIENES RAICES Y ESPERE”
           </Typography>
