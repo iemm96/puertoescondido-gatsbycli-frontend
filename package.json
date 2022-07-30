@@ -11,6 +11,7 @@
     "@mui/material": "^5.2.5",
     "@mui/styled-engine-sc": "^5.1.0",
     "@mui/styles": "^5.2.0",
+    "@portabletext/react": "^1.0.6",
     "axios": "^0.25.0",
     "browser-monads": "^1.0.0",
     "flexsearch": "^0.7.21",

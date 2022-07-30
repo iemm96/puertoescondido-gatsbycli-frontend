@@ -60,7 +60,35 @@ exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
-    //let arrayPricesRange = [ 0, 0 ];
+    const dataPosts = await graphql(`
+      query LatestPosts {
+              allSanityPost {
+                  edges {
+                      node {
+                          title
+                          slug {
+                              current
+                          }
+                          categories {
+                              title
+                          }
+                          author {
+                              name
+                          }
+                      }
+                  }
+              }
+          }
+    `)
+
+    dataPosts.data.allSanityPost.edges.forEach( node => {
+      console.log('node!! ', node.node)
+      createPage({
+        path: `/post/${ node.node.slug.current }`,
+        component: require.resolve("./src/templates/Post.tsx"),
+        context: { slug: node.node.slug.current },
+      })
+    } );
 
     //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
     data.allProperty.nodes.forEach( node => {

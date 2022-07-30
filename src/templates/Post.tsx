@@ -8,13 +8,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import {graphql, navigate} from "gatsby"
-import {Download } from "@mui/icons-material"
+import * as ReactDOM from 'react-dom'
+import {PortableText} from '@portabletext/react'
 
 import StyledButton from "../styled/StyledButton";
 import withTheme from "../components/theme";
 
+const components = {
+    types: {
+        code: props => (
+            <pre data-language={props.node.language}>
+        <code>{props.node.code}</code>
+      </pre>
+        )
+    }
+}
+
 const Post = ({ data }) => {
-    const {title, body} = data.project;
+    const {title, author, body } = data.project;
 
     return(
         <>
@@ -69,7 +80,9 @@ const Post = ({ data }) => {
                                             sx={{ mt: 2 }}
                                             variant="body2"
                                         >
-                                            { body }
+                                            {
+                                                <PortableText value={ body } components={components} />
+                                            }
                                         </Typography>
                                     </Stack>
                                     <StyledButton
@@ -113,34 +126,19 @@ const Post = ({ data }) => {
 export default withTheme( Post );
 
 export const query = graphql`
-    query Post($slug: String) {
-        project(slug: {eq: $slug}) {
-            name
-            uid
-            description
-            
-            brochureFile {
-                url
+    query MyQuery {
+        sanityPost(slug: {current: {eq: "en-el-mar-a-nadar"}}) {
+            body {
+                _type
+                style
+                list
+                _rawChildren
             }
-            location {
-                name
-                lat
-                lng
-            }
-            features {
+            author {
                 name
             }
-            coverImage {
-                childImageSharp {
-                    gatsbyImageData( placeholder: BLURRED, quality: 100, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED, aspectRatio: 1.5 )
-                }
-            }
-            images {
-                childImageSharp {
-                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED )
-                }
-            }
-
         }
     }
+    }
+
 `
