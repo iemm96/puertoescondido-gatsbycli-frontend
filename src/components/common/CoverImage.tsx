@@ -18,7 +18,7 @@ const StyledLinearBackgroundDiv = styled("div")(() => ({
     position: 'absolute'
 }));
 
-const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
+const CoverImage = ({ data, gatsbyImage, maxWidth }:{ data:any, gatsbyImage:any, maxWidth?: 'xs' | 'xl' | 'sm' | 'md' }) => {
     const theme = useTheme();
 
     const StyledRelativeDiv = styled('div')(() => ({
@@ -55,7 +55,7 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
 
     return(
         <StyledRelativeDiv>
-            <Container maxWidth="xl">
+            <Container maxWidth={ maxWidth ? maxWidth : 'xl' }>
                 <StyledAbsoluteDiv>
                     <Stack>
                         {
@@ -94,7 +94,19 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
                         >
                             { data?.name }
                         </Typography>
-
+                        {
+                            data?.author && (
+                                <Typography
+                                    sx={{
+                                        mt: 1,
+                                    }}
+                                    variant="body2"
+                                    color={ theme.palette.primary.contrastText }
+                                >
+                                    { data?.author }
+                                </Typography>
+                            )
+                        }
                         {
                             ( data?.lat && data?.lng ) ?
                                 (
@@ -116,7 +128,7 @@ const CoverImage = ({ data, gatsbyImage }:{ data:any, gatsbyImage:any }) => {
                                             color: theme.palette.primary.contrastText
                                         }}
                                     >
-                                        <FmdGood style={{ fontSize: 14 }}/>
+                                        {data?.location && <FmdGood style={{ fontSize: 14 }}/>}
                                         { data?.location }
                                     </Typography>
                                 )
