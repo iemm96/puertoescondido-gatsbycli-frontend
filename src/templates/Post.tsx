@@ -8,94 +8,62 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import {graphql, navigate} from "gatsby"
-import * as ReactDOM from 'react-dom'
-import {PortableText} from '@portabletext/react'
+import { PortableText } from '@portabletext/react';
 
 import StyledButton from "../styled/StyledButton";
 import withTheme from "../components/theme";
+import CoverImage from "../components/common/CoverImage";
+import {getImage} from "gatsby-plugin-image";
+import Divider from "@mui/material/Divider";
 
-const components = {
+const serializers = {
     types: {
-        code: props => (
-            <pre data-language={props.node.language}>
-        <code>{props.node.code}</code>
-      </pre>
-        )
-    }
+        normal: ({children}) => <Typography>
+            {children}
+        </Typography>,
+    },
 }
 
 const Post = ({ data }) => {
-    const {title, author, body } = data.project;
+    const {title, author, _rawBody, mainImage } = data.sanityPost;
+    const coverImageObject = getImage( mainImage.asset );
+    console.log( _rawBody )
 
     return(
         <>
-            <Seo title="Detalles propiedad"/>
+            <Seo title={ `${title}`} />
             <Layout scrollTrigger>
                 {
                     <>
                         {
-                            /*
+
                             <CoverImage
-                            data={{
-                                price: price,
-                                name: name,
-                                location: location?.name,
-                                lat: location?.lat,
-                                lng: location?.lng,
-                                features: features,
-                                description: description
-                            }}
-                            gatsbyImage={ coverImageObject }
+                                maxWidth="md"
+                                data={{
+                                    name: title,
+                                    author: author.name
+                                }}
+                                gatsbyImage={ coverImageObject }
                         />
-                            */
+
                         }
-                        <Container maxWidth="xl">
+                        <Container maxWidth="md">
                             <Grid
-                                sx={{ mt: 4 }}
-                                spacing={4}
-                                justifyContent="center"
+                                sx={{ mt: 2 }}
+                                justifyContent="left"
                                 container
                             >
                                 <Grid
-                                    sx={{
-                                        display: {
-                                            xs: 'none',
-                                            md: 'block'
-                                        }
-                                    }}
-                                    md={ 12 } item order={{ xs: 1, md: 2 }}
+                                    xs={ 12 }
+                                    md={ 10 }
                                 >
-                                    <Stack
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'left'
-                                        }}
-                                        direction="column"
-                                    >
-                                        <Typography variant="h5">
-                                            { title }
-                                        </Typography>
-
-                                        <Typography
-                                            sx={{ mt: 2 }}
-                                            variant="body2"
-                                        >
-                                            {
-                                                <PortableText value={ body } components={components} />
-                                            }
-                                        </Typography>
-                                    </Stack>
-                                    <StyledButton
-                                        color="primary"
-                                        variant="contained"
-                                        sx={{
-                                            mt: 3,
-                                            px: 4
-                                        }}
-                                    >
-                                        Agendar cita
-                                    </StyledButton>
+                                    { /* @ts-ignore */ }
+                                    <PortableText value={_rawBody} components={serializers} />
                                 </Grid>
+                            </Grid>
+                            <Divider/>
+                            <Grid container>
+
                             </Grid>
                         </Container>
                     </>
@@ -126,19 +94,18 @@ const Post = ({ data }) => {
 export default withTheme( Post );
 
 export const query = graphql`
-    query MyQuery {
-        sanityPost(slug: {current: {eq: "en-el-mar-a-nadar"}}) {
-            body {
-                _type
-                style
-                list
-                _rawChildren
-            }
+    query Post($slug: String) {
+        sanityPost(slug: {current: {eq: $slug}}) {
+            _rawBody
+            title
             author {
                 name
             }
+            mainImage {
+                asset {
+                    gatsbyImageData(fit: FILLMAX, placeholder: BLURRED)
+                }
+            }
         }
     }
-    }
-
 `
