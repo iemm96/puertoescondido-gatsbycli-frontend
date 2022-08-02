@@ -26,7 +26,7 @@ const Contacto = () => {
   return(
     <>
       <Seo title="Contacto"/>
-      <Layout>
+      <Layout persistentHeader={true}>
         <GradientBox height={400} position="absolute"/>
         <Box sx={{
           justifyContent: 'center',

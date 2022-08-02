@@ -48,10 +48,13 @@ const LatestPosts = () => {
             {
                 posts.length > 0 && (
                     <SliderComponent
+                        viewMoreButtonRedirectPath="blog"
+                        viewMoreButtonText="Ver más entradas"
                         title={title}
                         subtitle={subtitle}
                         data={ posts }
                         Component={ PostCard }
+                        viewMoreButton
                     />
                 )
             }

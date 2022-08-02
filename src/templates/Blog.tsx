@@ -9,56 +9,30 @@ import {
     Typography,
 } from "@mui/material"
 import {ChevronLeft, ChevronRight, Home} from "@mui/icons-material"
-import PropertyCard from "../components/PropertyCard";
 import StyledButton from "../styled/StyledButton";
 import {graphql, navigate} from "gatsby";
-import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
-import {FiltersBox, useFiltersBox} from "../components/common/FiltersBox";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import PostCard from "../components/PostCard";
+import GradientBox from "../components/GradientBox";
 
-const PropertiesList = (
+const Blog = (
     {
-
-        location,
         data: {
-            localSearchPages: {
-                index,
-                store
-            },
-            allProperty: {
+            allSanityPost: {
                 nodes,
-
             }
         },
         pageContext
     }
 ) => {
-    const { limit, skip, numPages, currentPage, totalResults } = pageContext;
+    const { numPages, currentPage, totalResults, limit } = pageContext;
 
-    const {
-        filters,
-        setFilters,
-        handleChange
-    } = useFiltersBox();
-
-    const properties = nodes;
-    const params = new URLSearchParams(location.search);
-    const search = params.get("search");
-    const {
-        querySearch,
-        setQuerySearch,
-        handleSearch,
-        iterableResults,
-        setIterableResults,
-        openSidebar,
-        setOpenSidebar
-    } = useCustomSearchInput( index, store, search );
-    const { width } = useWindowDimensions();
+    const posts = nodes;
 
     return(
         <>
-            <Seo title="Propiedades"/>
-            <Layout scrollTrigger persistentHeader={true}>
+            <Seo title="Blog"/>
+            <Layout scrollTrigger persistentHeader>
+                <GradientBox position="absolute" height={1200}/>
                 <Container maxWidth="xl">
                     <Box
                         sx={{
@@ -67,40 +41,17 @@ const PropertiesList = (
                         }}
                     >
                         <Stack spacing={2} direction="column">
-                            <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
-                            <CustomSearchInput
-                                querySearch={ querySearch }
-                                setQuerySearch={ setQuerySearch }
-                                handleSearch={ handleSearch }
-                                iterableResults={ iterableResults }
-                                setIterableResults={ setIterableResults }
-                                openSidebar={  openSidebar }
-                                setOpenSidebar={ setOpenSidebar }
-                            />
+                            <Typography align="center" sx={{ mt: 18 }} color="primary" variant="h4">Blog</Typography>
+                            <Typography align="center" sx={{ mt: 2 }} variant="h6" color="secondary">¡Descubre tendencias, noticias y tips del mundo inmobiliario!</Typography>
                         </Stack>
                     </Box>
-                    <Grid sx={{ mt: 7 }} spacing={4} container>
-                        <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
-                            <FiltersBox
-                                filters={ filters }
-                                setFilters={ setFilters }
-                                handleChange={ handleChange }
-                                openSidebar={ openSidebar }
-                                setOpenSidebar={ setOpenSidebar }
-                                responsiveMode={ width < 1200 }
-                            />
-                        </Grid>
-                        <Grid xs={12} lg={9} item>
-                            <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
-                                <Grid item>
-                                    <Typography>Ordenar por: Precio</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid spacing={2} container>
+                    <Grid sx={{ mt: 7 }} spacing={2} container>
+                        <Grid xs={12} item>
+                            <Grid spacing={1} container>
                                 {
-                                    properties && properties.map(( val:any, index:number) => (
+                                    posts && posts.map(( val:any, index:number) => (
                                         <Grid sx={{ justifyContent: 'center' }} xs={ 12 } sm={ 6 } md={ 4 } item key={ index }>
-                                            <PropertyCard key={ index } data={val} showAsList/>
+                                            <PostCard key={ index } data={val}/>
                                         </Grid>
                                     ))
                                 }
@@ -142,8 +93,8 @@ const PropertiesList = (
                                                 <StyledButton
                                                     onClick={
                                                         ( currentPage - 1 ) === 1 ?
-                                                            () => navigate( '/propiedades' ) :
-                                                            () => navigate(`/propiedades/${ ( currentPage - 1 ) }`)
+                                                            () => navigate( '/blog' ) :
+                                                            () => navigate(`/blog/${ ( currentPage - 1 ) }`)
                                                     }
                                                     variant="outlined"
                                                     startIcon={<ChevronLeft/>}
@@ -155,7 +106,7 @@ const PropertiesList = (
                                         {
                                             ( currentPage + 1 ) <= numPages && (
                                                 <StyledButton
-                                                    onClick={ () => navigate(`/propiedades/${ currentPage + 1 }`)}
+                                                    onClick={ () => navigate(`/blog/${ currentPage + 1 }`)}
                                                     variant="contained"
                                                     endIcon={<ChevronRight/>}
                                                 >
@@ -181,7 +132,7 @@ const PropertiesList = (
                                     item
                                 >
                                     <Typography variant="body2">
-                                        Página { currentPage } de 4
+                                        Página { currentPage } de { Math.round( totalResults / limit ) }
                                     </Typography>
 
                                 </Grid>
@@ -214,32 +165,33 @@ const PropertiesList = (
     )
 }
 
-export default PropertiesList;
+export default Blog;
 
 export const query = graphql`
-    query PropiedadesQuery($skip: Int!, $limit: Int!) {
+    query BlogPosts($skip: Int!, $limit: Int!) {
         localSearchPages {
             index
             store
         }
-        allProperty(
+        allSanityPost(
             limit: $limit
             skip: $skip
         ) {
             nodes {
-                name
-                slug
-                description
-                features {
-                    name
-                }
-                location {
-                    name
-                }
-                coverImage {
-                    childImageSharp {
-                        gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                title
+                mainImage {
+                    asset {
+                        gatsbyImageData(fit: FILLMAX, placeholder: BLURRED)
                     }
+                }
+                slug {
+                    current
+                }
+                categories {
+                    title
+                }
+                author {
+                    name
                 }
             }
         }

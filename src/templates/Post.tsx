@@ -55,7 +55,7 @@ const Post = ({ data }) => {
                             >
                                 <Grid
                                     xs={ 12 }
-                                    md={ 10 }
+                                    md={ 9 }
                                 >
                                     { /* @ts-ignore */ }
                                     <PortableText value={_rawBody} components={serializers} />

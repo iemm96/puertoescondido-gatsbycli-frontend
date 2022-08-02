@@ -21,117 +21,120 @@ import Typography from '@mui/material/Typography';
 import {Stack} from "@mui/material";
 
 type HeaderPropsType = {
-  scrollTrigger?: boolean;
+    scrollTrigger?: boolean;
+    persistentHeader?: boolean;
 }
 
-const ScrollHeader = ({ scrollTrigger }:HeaderPropsType) => {
-  const ref = React.useRef(null);
+const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
+    const ref = React.useRef(null);
 
-  function ScrollTrigger( ) {
-    return useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 20,
-    })
+    const ShowOnScroll = ( {children}:{ children: React.ReactElement } ) => {
+        const trigger = useScrollTrigger({
+            threshold: 80,
+        });
 
-  }
+        return (
+            <Slide appear={true} direction="down" in={ trigger }>
+                {children}
+            </Slide>
+        );
+    }
 
-  const ShowOnScroll = ( {children}:{ children: React.ReactElement } ) => {
-    const trigger = useScrollTrigger({
-      threshold: 80,
-    });
+    const stylesLink = {
+        marginRight: '1rem',
+        fontFamily: 'Roboto',
+        textDecoration: 'none',
+    }
 
-    return (
-      <Slide appear={true} direction="down" in={ trigger }>
-        {children}
-      </Slide>
-    );
-  }
-
-  const stylesLink = {
-    marginRight: '1rem',
-    fontFamily: 'Roboto',
-    textDecoration: 'none',
-  }
-
-  return(
-    <header>
-      <ShowOnScroll>
+    const bar = () => (
         <AppBar
-          sx={{
-            backgroundColor: scrollTrigger ? "white" : "transparent",
-            pt: 1
-          }}
-          elevation={ scrollTrigger ? 4 : 0 }
-          position={ scrollTrigger ? 'fixed' : 'absolute' }
+            sx={{
+                backgroundColor: scrollTrigger ? "white" : "transparent",
+                pt: 1
+            }}
+            elevation={ scrollTrigger ? 4 : 0 }
+            position={ scrollTrigger ? 'fixed' : 'absolute' }
         >
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Box
-                sx={{
-                  flexGrow: {
-                    xs: 1,
-                    md: 0
-                  }
-                }}
-              >
-                <LogoColor src={ LogoColor } width={ 100 } height={ 40 }  alt="Inmobiliaria Puerto Escondido"/> :
-              </Box>
-              <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={ () =>  ref.current.toggleDrawer(true) }
-                  color={ scrollTrigger ? 'primary' : 'inherit' }
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
-              <Stack spacing={ 2 } direction="row" sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map(({label,href}) => (
-                    <Typography
-                        color="primary"
-                        onClick={ () => navigate(href) }
-                        key={label}
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <Box
                         sx={{
-                          cursor: 'pointer',
-                          '&:hover': {
-                            textDecoration: 'underline'
-                          }
+                            flexGrow: {
+                                xs: 1,
+                                md: 0
+                            }
                         }}
                     >
-                      { label }
-                    </Typography>
-                ))}
-              </Stack>
-              <Box
-                sx={{
-                  display: {
-                    xs: 'none',
-                    md: 'inline'
-                  },
-                  flexGrow: 0
-                }}
-              >
-                <ThemeProvider theme={defaultTheme}>
-                  <Button color={ scrollTrigger ? 'primary' : 'inherit' } startIcon={<WhatsApp/>} variant="text">
-                    (+52)33526542
-                  </Button>
-                  <Link to={'/contacto'}>
-                    <StyledButton sx={{ml:2}} variant="contained" color="secondary">
-                      Contáctanos
-                    </StyledButton>
-                  </Link>
-                </ThemeProvider>
-              </Box>
-            </Toolbar>
-          </Container>
+                        <LogoColor src={ LogoColor } width={ 100 } height={ 40 }  alt="Inmobiliaria Puerto Escondido"/> :
+                    </Box>
+                    <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={ () =>  ref.current.toggleDrawer(true) }
+                            color={ scrollTrigger ? 'primary' : 'inherit' }
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Box>
+                    <Stack spacing={ 2 } direction="row" sx={{ flexGrow: 1, ml:8, display: { xs: 'none', md: 'flex' } }}>
+                        {pages.map(({label,href}) => (
+                            <Typography
+                                color="primary"
+                                onClick={ () => navigate(href) }
+                                key={label}
+                                sx={{
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        textDecoration: 'underline'
+                                    }
+                                }}
+                            >
+                                { label }
+                            </Typography>
+                        ))}
+                    </Stack>
+                    <Box
+                        sx={{
+                            display: {
+                                xs: 'none',
+                                md: 'inline'
+                            },
+                            flexGrow: 0
+                        }}
+                    >
+                        <ThemeProvider theme={defaultTheme}>
+                            <Button color={ scrollTrigger ? 'primary' : 'inherit' } startIcon={<WhatsApp/>} variant="text">
+                                (+52)33526542
+                            </Button>
+                            <Link to={'/contacto'}>
+                                <StyledButton sx={{ml:2}} variant="contained" color="secondary">
+                                    Contáctanos
+                                </StyledButton>
+                            </Link>
+                        </ThemeProvider>
+                    </Box>
+                </Toolbar>
+            </Container>
         </AppBar>
-      </ShowOnScroll>
-      <Sidebar ref={ref}/>
-    </header>
-  )
+    )
+    return(
+        <header id="header-scroll">
+            {
+                persistentHeader ? (
+                    bar()
+                ) : (
+                    <ShowOnScroll>
+                        { bar() }
+                    </ShowOnScroll>
+                )
+            }
+
+            <Sidebar ref={ref}/>
+        </header>
+    )
 }
 
 export default ScrollHeader;

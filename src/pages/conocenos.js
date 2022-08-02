@@ -8,13 +8,15 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import GradientBox from "../components/GradientBox";
-import { graphql, useStaticQuery } from "gatsby";
+import {graphql, navigate, useStaticQuery} from "gatsby";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import IconTarget from './../images/icons/target.svg';
 import IconVision from './../images/icons/vision.svg';
 import IconValues from './../images/icons/values.svg';
 import { StaticImage } from "gatsby-plugin-image";
+import {Home} from "@mui/icons-material";
+import StyledButton from "../styled/StyledButton";
 
 const ConocenosPage = () => {
   const data = useStaticQuery(graphql`
@@ -34,7 +36,7 @@ const ConocenosPage = () => {
   return(
     <>
       <Seo title="Conócenos" />
-      <Layout>
+      <Layout persistentHeader={true}>
         <GradientBox position="absolute" height={400}/>
         <Container maxWidth="xl">
           <Paper
@@ -90,8 +92,8 @@ const ConocenosPage = () => {
           <Grid sx={{ mt: 5 }} spacing={2} container>
             <Grid xs={12} md={4} item>
               <Stack direction="column">
-                <IconTarget width={56}/>
-                <Typography variant="h4">
+                <IconTarget width={48}/>
+                <Typography variant="h6" color="primary">
                   Misión
                 </Typography>
                 <Typography variant="body2">
@@ -101,8 +103,8 @@ const ConocenosPage = () => {
             </Grid>
             <Grid xs={12} md={4} item>
               <Stack direction="column">
-                <IconVision width={56}/>
-                <Typography variant="h4">
+                <IconVision width={48}/>
+                <Typography variant="h6"  color="primary">
                   Visión
                 </Typography>
                 <Typography variant="body2">
@@ -112,8 +114,8 @@ const ConocenosPage = () => {
             </Grid>
             <Grid xs={12} md={4} item>
               <Stack direction="column">
-                <IconValues width={56}/>
-                <Typography variant="h4">
+                <IconValues width={48}/>
+                <Typography variant="h6" color="primary">
                   Valores
                 </Typography>
                 <Typography variant="body2">
@@ -132,19 +134,12 @@ const ConocenosPage = () => {
             container
           >
             <Grid item>
-              <Button
-                startIcon={<ChevronLeft/>}
+              <StyledButton
+                  onClick={ () => navigate( '/' ) }
+                  startIcon={<Home/>}
               >
                 Volver al inicio
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                endIcon={<ChevronRight/>}
-              >
-                Ir al catálogo de propiedades
-              </Button>
+              </StyledButton>
             </Grid>
           </Grid>
         </Container>
