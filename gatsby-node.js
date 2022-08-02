@@ -7,7 +7,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   try {
 
-    const { data } = await graphql(`
+    const dataProperties = await graphql(`
       query Properties {
               allProperty {
                   nodes {
@@ -61,41 +61,23 @@ exports.createPages = async ({ graphql, actions }) => {
     `);
 
     const dataPosts = await graphql(`
-      query LatestPosts {
-              allSanityPost {
-                  edges {
-                      node {
-                          title
-                          slug {
-                              current
-                          }
-                          categories {
-                              title
-                          }
-                          author {
-                              name
-                          }
-                      }
-                  }
-              }
-          }
+      query AllPost {
+        allSanityPost {
+          nodes {
+            title
+            slug {
+              current
+            }
+          }         
+        }
+      }
     `)
 
-    dataPosts.data.allSanityPost.edges.forEach( node => {
-      console.log('node!! ', node.node)
+    dataPosts.data.allSanityPost.nodes.forEach( node => {
       createPage({
-        path: `/post/${ node.node.slug.current }`,
+        path: `/post/${ node.slug.current }`,
         component: require.resolve("./src/templates/Post.tsx"),
-        context: { slug: node.node.slug.current },
-      })
-    } );
-
-    //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
-    data.allProperty.nodes.forEach( node => {
-      createPage({
-        path: `/propiedad/${ node.slug }`,
-        component: require.resolve("./src/templates/PropertyDetails.tsx"),
-        context: { slug: node.slug },
+        context: { slug: node.slug.current },
       })
     } );
 
@@ -108,6 +90,31 @@ exports.createPages = async ({ graphql, actions }) => {
     } );
 
     const postsPerPage = 6
+    const numPagesBlog = Math.ceil(dataPosts.data.allSanityPost.nodes.length / postsPerPage );
+
+    Array.from({ length: numPagesBlog }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+        component: require.resolve("./src/templates/Blog.tsx"),
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPagesBlog,
+          totalResults: dataPosts.data.allSanityPost.nodes.length,
+          currentPage: i + 1,
+        },
+      })
+    });
+
+    //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
+    dataProperties.allProperty.nodes.forEach( node => {
+      createPage({
+        path: `/propiedad/${ node.slug }`,
+        component: require.resolve("./src/templates/PropertyDetails.tsx"),
+        context: { slug: node.slug },
+      })
+    } );
+
     const numPages = Math.ceil(data.allProperty.nodes.length / postsPerPage );
 
     Array.from({ length: numPages }).forEach((_, i) => {
@@ -122,10 +129,11 @@ exports.createPages = async ({ graphql, actions }) => {
           currentPage: i + 1,
         },
       })
-    })
+    });
   }catch (e) {
     console.log( e );
   }
+
 
 }
 

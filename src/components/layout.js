@@ -17,7 +17,7 @@ import { defaultTheme, defaultThemeDark } from "../theme/Theme"
 import ScrollHeader from "./ScrollHeader";
 import FloatingContactButton from "./common/FloatingContactButton";
 
-const Layout = ({ children, scrollTrigger }) => {
+const Layout = ({ children, scrollTrigger, persistentHeader = false }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -29,25 +29,25 @@ const Layout = ({ children, scrollTrigger }) => {
   `)
 
   return (
-    <>
-      <ThemeProvider theme={defaultTheme}>
-        {
-          scrollTrigger && (
-              <Header siteTitle={data.site.siteMetadata?.title || `Title`}/>
-          )
-        }
-        <ScrollHeader siteTitle={data.site.siteMetadata?.title || `Title`} scrollTrigger={scrollTrigger}/>
-        <FloatingContactButton/>
-        <div style={{
-          overflow:'hidden'
-        }}>
-          <main>{children}</main>
-          <ThemeProvider theme={ defaultThemeDark }>
-            <Footer/>
-          </ThemeProvider>
-        </div>
-      </ThemeProvider>
-    </>
+      <>
+        <ThemeProvider theme={defaultTheme}>
+          {
+              scrollTrigger && (
+                  <Header siteTitle={data.site.siteMetadata?.title || `Title`}/>
+              )
+          }
+          <ScrollHeader siteTitle={data.site.siteMetadata?.title || `Title`} scrollTrigger={scrollTrigger} persistentHeader={ persistentHeader }/>
+          <FloatingContactButton/>
+          <div style={{
+            overflow:'hidden'
+          }}>
+            <main>{children}</main>
+            <ThemeProvider theme={ defaultThemeDark }>
+              <Footer/>
+            </ThemeProvider>
+          </div>
+        </ThemeProvider>
+      </>
   )
 }
 

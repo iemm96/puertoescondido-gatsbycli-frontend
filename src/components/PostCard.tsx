@@ -12,7 +12,7 @@ const PostCard = ({ data }:{ data?:any }) => {
     return(
         <StyledCard>
             <CardActionArea
-                onClick={ () => navigate( `post/${ data?.slug.current}` ) }
+                onClick={ () => navigate( `/post/${ data?.slug.current}` ) }
             >
                 {
                     image && (

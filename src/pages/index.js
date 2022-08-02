@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 
 import { StaticImage } from "gatsby-plugin-image";
 import {graphql, navigate, useStaticQuery} from "gatsby"
-import TestimonialsSlider from "../components/TestimonialsSlider"
 import {Zoom, Fade} from 'react-reveal';
 // @ts-ignore
 import IconGastronomy from './../images/icons/gastronomy.svg';
@@ -41,10 +40,10 @@ const IndexPage = () => {
   `);
 
   return(
-    <>
+      <>
         <Seo title="Home" />
         <Layout scrollTrigger={true}>
-          <SplashScreen duration={4}/>
+          <SplashScreen duration={3}/>
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',
@@ -68,80 +67,78 @@ const IndexPage = () => {
             <Container maxWidth="xl">
               <Grid container>
                 <Grid
-
-                  xs={ 12 }
-                  md={ 6 }
-                  item
+                    xs={ 12 }
+                    md={ 6 }
+                    item
                 >
                   <Typography sx={{fontWeight: 600}} variant="h5">Puerto Escondido, Oaxaca.</Typography>
                   <Grid container>
                     <Grid item>
-                      <Typography sx={{mb: 2}} variant="h6">Invierte en este destino turístico.</Typography>
+                      <Typography sx={{mb: 2}} variant="h6" color="secondary">Invierte en este destino turístico.</Typography>
                     </Grid>
                   </Grid>
                   <Grid container>
                     <Grid item>
                       <Typography sx={{mb: 3}} variant="body2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor velit adipiscing lorem tellus
-                        blandit. In suspendisse a ut id aliquam. Enim vitae aliquet sit sit lectus ultrices urna. Donec orci,
-                        ridiculus blandit fames tristique. At lobortis.
+                        Una vez que pises puerto escondido tu corazón quedará enganchado con la belleza de sus playas, con su atmósfera rústica y relajada.
+                        Definitivamente no te arrepentirás de invertir en un pedacito de esta joya del pacífico mexicano y vivir como dios manda.
                       </Typography>
                     </Grid>
                   </Grid>
-                    <Fade cascade bottom>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexFlow: 'row wrap',
-                        marginBottom: 16
-                      }}>
-                        <Stack
+                  <Fade cascade bottom>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexFlow: 'row wrap',
+                      marginBottom: 16
+                    }}>
+                      <Stack
                           sx={{ flex: '0 0 33.333333%' }}
                           direction="column"
-                        >
-                          <IconBeach width={40}/>
-                          <Typography variant="caption">Playas</Typography>
-                        </Stack>
-                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                          <IconGastronomy width={40}/>
-                          <Typography variant="caption">Gastronomía</Typography>
-                        </Stack>
-                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                          <IconHiking width={40}/>
-                          <Typography variant="caption">Senderismo</Typography>
-                        </Stack>
-                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                          <IconTurtle width={40}/>
-                          <Typography variant="caption">Vida salvaje</Typography>
-                        </Stack>
-                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                          <IconFolclore width={40}/>
-                          <Typography variant="caption">Folclore</Typography>
-                        </Stack>
-                        <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                          <IconHiking width={40}/>
-                          <Typography variant="caption">Senderismo</Typography>
-                        </Stack>
-                      </div>
-                    </Fade>
+                      >
+                        <IconBeach width={40}/>
+                        <Typography variant="caption" color="secondary">Playas</Typography>
+                      </Stack>
+                      <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                        <IconGastronomy width={40}/>
+                        <Typography variant="caption" color="secondary">Gastronomía</Typography>
+                      </Stack>
+                      <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                        <IconHiking width={40}/>
+                        <Typography variant="caption" color="secondary">Senderismo</Typography>
+                      </Stack>
+                      <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                        <IconTurtle width={40}/>
+                        <Typography variant="caption" color="secondary">Vida salvaje</Typography>
+                      </Stack>
+                      <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                        <IconFolclore width={40}/>
+                        <Typography variant="caption" color="secondary">Folclore</Typography>
+                      </Stack>
+                      <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
+                        <IconHiking width={40}/>
+                        <Typography variant="caption" color="secondary">Senderismo</Typography>
+                      </Stack>
+                    </div>
+                  </Fade>
                   <Grid
-                    sx={{
-                      mb: {
-                        xs: 4
-                      }
-                    }}
-                      container>
-                    <Grid
-                      xs={12}
                       sx={{
-                        display: 'flex',
-                        justifyContent: {
-                          xs: 'center',
-                          md: 'left'
+                        mb: {
+                          xs: 4
                         }
                       }}
-                      item
+                      container>
+                    <Grid
+                        xs={12}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: {
+                            xs: 'center',
+                            md: 'left'
+                          }
+                        }}
+                        item
                     >
                       <Button
                           onClick={() => navigate('/contacto')}
@@ -157,29 +154,29 @@ const IndexPage = () => {
                   </Grid>
                 </Grid>
                 <Grid
-                  sx={{
-                    mb: {
-                      xs: 4,
-                    }
-                  }}
-                  justifyContent="center"
-                  display="flex"
-                  xs={12}
-                  md={6}
-                  item
+                    sx={{
+                      mb: {
+                        xs: 4,
+                      }
+                    }}
+                    justifyContent="center"
+                    display="flex"
+                    xs={12}
+                    md={6}
+                    item
                 >
                   <Zoom>
                     <StaticImage
-                      src="../images/img_puerto_escondido.JPG"
-                      formats={['auto']}
-                      style={{
-                        borderRadius: 16,
-                        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
-                        marginTop: 0,
-                      }}
-                      quality={100}
-                      fixed={data.file.childImageSharp.fixed}
-                      alt="Puerto escondido"
+                        src="../images/img_puerto_escondido.JPG"
+                        formats={['auto']}
+                        style={{
+                          borderRadius: 16,
+                          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                          marginTop: 0,
+                        }}
+                        quality={100}
+                        fixed={data.file.childImageSharp.fixed}
+                        alt="Puerto escondido"
                     />
                   </Zoom>
                 </Grid>
@@ -190,12 +187,12 @@ const IndexPage = () => {
           <Container maxWidth="xl">
             <Testimonials/>
           </Container>
-          <Typography sx={{ my:6, fontWeight: 700 }} align="center" color="text.secondary">
-            “NO ESPERE A INVERTIR EN BIENES RAICES,
-            INVIERTA EN BIENES RAICES Y ESPERE”
+          <Typography sx={{ my:6, fontWeight: 700, maxWidth: 500 }} align="center" color="primary">
+            “No espere a invertir en Bienes Raíces,
+            Invierta en Bienes Raíces y espere...”
           </Typography>
         </Layout>
-    </>
+      </>
   )
 }
 

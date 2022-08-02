@@ -50,7 +50,7 @@ const Servicios = () => {
   return(
     <>
       <Seo title="Servicios"/>
-      <Layout>
+      <Layout persistentHeader={true}>
         <Box
           sx={{
             justifyContent: 'center',
