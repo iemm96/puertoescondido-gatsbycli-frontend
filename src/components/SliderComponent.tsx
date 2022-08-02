@@ -151,6 +151,10 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                             "spaceBetween": 40
                         },
                         "1024": {
+                            "slidesPerView": 3,
+                            "spaceBetween": 10
+                        },
+                        "1280": {
                             "slidesPerView": 4,
                             "spaceBetween": 10
                         }
