@@ -26,23 +26,10 @@ import SplashScreen from "../components/common/SplashScreen";
 import Testimonials from "../components/Testimonials";
 
 const IndexPage = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      file(relativePath: { eq: "img_puerto_escondido.JPG" }) {
-        childImageSharp {
-          # Specify a fixed image and fragment.
-          # The default width is 400 pixels
-          fixed(width: 700) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-    }
-  `);
 
   return(
       <>
-        <Seo title="Home" />
+        <Seo title="Inicio" />
         <Layout scrollTrigger={true}>
           <SplashScreen duration={3}/>
           <Banner/>
@@ -129,7 +116,9 @@ const IndexPage = () => {
                           xs: 4
                         }
                       }}
-                      container>
+                      spacing={ 2 }
+                      container
+                  >
                     <Grid
                         xs={12}
                         sx={{
@@ -169,14 +158,14 @@ const IndexPage = () => {
                   <Zoom>
                     <StaticImage
                         src="../images/img_puerto_escondido.JPG"
-                        formats={['auto']}
+                        formats={['webp']}
                         style={{
                           borderRadius: 16,
                           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
                           marginTop: 0,
                         }}
                         quality={100}
-                        fixed={data.file.childImageSharp.fixed}
+                        width={ 740 }
                         alt="Puerto escondido"
                     />
                   </Zoom>
@@ -190,7 +179,7 @@ const IndexPage = () => {
           </Container>
           <Typography sx={{ my:6, fontWeight: 700 }} align="center" color="primary">
             “No espere a invertir en Bienes Raíces,
-              Invierta en Bienes Raíces y espere...”
+            Invierta en Bienes Raíces y espere...”
           </Typography>
         </Layout>
       </>

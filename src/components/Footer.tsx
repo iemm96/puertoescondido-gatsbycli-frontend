@@ -137,15 +137,11 @@ const Footer = () => {
                         </Grid>
                         <Grid item>
                             <Typography color={theme.palette.text.primary} sx={{ fontSize: 12 }}>© { new Date().getFullYear() } · Inmobiliaria Puerto Escondido. </Typography>
-
-
                         </Grid>
                     </Grid>
                 </Container>
             </Box>
         </footer>
-
-
     )
 }
 

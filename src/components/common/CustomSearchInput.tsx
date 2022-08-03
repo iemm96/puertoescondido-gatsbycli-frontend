@@ -149,7 +149,7 @@ export const CustomSearchInput = (
                 </IconButton>
             </Paper>
             {
-                iterableResults && (
+                ( querySearch && iterableResults ) && (
                     <Paper
                         elevation={ 4 }
                         sx={{

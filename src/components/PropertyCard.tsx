@@ -21,7 +21,7 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
 
     const CardInnerContent = (( data:any ) => (
         <CardActionArea
-            onClick={ () => navigate(`/propiedades/${ data.slug }`) }
+            onClick={ () => navigate(`/propiedad/${ data.slug }`) }
         >
             {
                 ( !data?.isProject && image ) && (
@@ -96,7 +96,6 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                         style={{
                             width: '100%',
                             zIndex: 0,
-                            //position: data.isProject ? 'absolute' : 'relative',
                             height: data?.isProject ? '100%' : 'auto'
                         }}
                         alt={ data.name }
@@ -196,7 +195,7 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                     xs: '100%',
                     md: 414
                 },
-                borderRadius: showAsList ? 0 : 4,
+                borderRadius: showAsList ? 3 : 4,
                 borderBottom: {
                     xs: showAsList && `1px solid ${ theme.palette.primary.main }`,
                     md: 'none'

@@ -34,7 +34,7 @@ const PropertyDetails = ({ data }) => {
     return(
         <>
             <Seo title={ name }/>
-            <Layout>
+            <Layout persistentHeader>
                 <Container maxWidth="xl">
                     <Grid
                         sx={{ mt: 24 }}

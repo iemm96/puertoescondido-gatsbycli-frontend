@@ -107,7 +107,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
 
     //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
-    dataProperties.allProperty.nodes.forEach( node => {
+    dataProperties.data.allProperty.nodes.forEach( node => {
       createPage({
         path: `/propiedad/${ node.slug }`,
         component: require.resolve("./src/templates/PropertyDetails.tsx"),
@@ -115,7 +115,7 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     } );
 
-    const numPages = Math.ceil(data.allProperty.nodes.length / postsPerPage );
+    const numPages = Math.ceil(dataProperties.data.allProperty.nodes.length / postsPerPage );
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
@@ -125,7 +125,7 @@ exports.createPages = async ({ graphql, actions }) => {
           limit: postsPerPage,
           skip: i * postsPerPage,
           numPages,
-          totalResults: data.allProperty.nodes.length,
+          totalResults: dataProperties.data.allProperty.nodes.length,
           currentPage: i + 1,
         },
       })

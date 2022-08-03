@@ -33,7 +33,7 @@ const PropertiesList = (
         pageContext
     }
 ) => {
-    const { limit, skip, numPages, currentPage, totalResults } = pageContext;
+    const { limit, numPages, currentPage, totalResults } = pageContext;
 
     const {
         filters,
@@ -181,7 +181,7 @@ const PropertiesList = (
                                     item
                                 >
                                     <Typography variant="body2">
-                                        Página { currentPage } de 4
+                                        Página { currentPage } de { Math.round( totalResults / limit ) }
                                     </Typography>
 
                                 </Grid>
