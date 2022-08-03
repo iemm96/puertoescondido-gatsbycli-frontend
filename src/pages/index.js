@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import { StaticImage } from "gatsby-plugin-image";
 import {graphql, navigate, useStaticQuery} from "gatsby"
 import {Zoom, Fade} from 'react-reveal';
+
 // @ts-ignore
 import IconGastronomy from './../images/icons/gastronomy.svg';
 import IconBeach from "./../images/icons/Beach.svg";
@@ -187,9 +188,9 @@ const IndexPage = () => {
           <Container maxWidth="xl">
             <Testimonials/>
           </Container>
-          <Typography sx={{ my:6, fontWeight: 700, maxWidth: 500 }} align="center" color="primary">
+          <Typography sx={{ my:6, fontWeight: 700 }} align="center" color="primary">
             “No espere a invertir en Bienes Raíces,
-            Invierta en Bienes Raíces y espere...”
+              Invierta en Bienes Raíces y espere...”
           </Typography>
         </Layout>
       </>

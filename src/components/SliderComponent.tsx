@@ -19,6 +19,7 @@ import {navigate} from "gatsby";
 import Button from "@mui/material/Button";
 import useTheme from "@mui/material/styles/useTheme";
 import {FC} from "react";
+import { Fade } from 'react-reveal';
 
 interface FunctionalComponentPropsType {
     key?: number;
@@ -163,15 +164,18 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                 >
                     {( data && data.length > 0 ) && data.map( (item, index ) => (
                         <SwiperSlide>
-                            <Box key={index} sx={boxStyles}>
-                                {
-                                    Component ? (
-                                        <Component key={ index } data={ item.node }/>
-                                    ) : (
-                                        <PropertyCard key={ index } data={ item.node }/>
-                                    )
-                                }
-                            </Box>
+                            <Fade duration={ 1500 } right>
+                                <Box key={index} sx={boxStyles}>
+                                    {
+                                        Component ? (
+                                            <Component key={ index } data={ item.node }/>
+                                        ) : (
+                                            <PropertyCard key={ index } data={ item.node }/>
+                                        )
+                                    }
+                                </Box>
+                            </Fade>
+
                         </SwiperSlide>
                     ))}
                 </Swiper>
