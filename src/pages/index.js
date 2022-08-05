@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 
 import { StaticImage } from "gatsby-plugin-image";
-import {graphql, navigate, useStaticQuery} from "gatsby"
+import { navigate } from "gatsby"
 import {Zoom, Fade} from 'react-reveal';
 
 // @ts-ignore
@@ -22,7 +22,6 @@ import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
 import LatestPosts from "../components/LatestPosts"
 import FeaturedProperties from "../components/FeaturedProperties"
-import SplashScreen from "../components/common/SplashScreen";
 import Testimonials from "../components/Testimonials";
 
 const IndexPage = () => {
@@ -31,7 +30,6 @@ const IndexPage = () => {
       <>
         <Seo title="Inicio" />
         <Layout scrollTrigger={true}>
-          <SplashScreen duration={3}/>
           <Banner/>
           <Box sx={{
             background: 'linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)',

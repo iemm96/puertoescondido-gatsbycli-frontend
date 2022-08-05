@@ -63,11 +63,13 @@ export const defaultTheme = responsiveFontSizes(createTheme({
     primary: {
       light: '#49EEF2',
       main: '#00A2A6',
+      dark: '#008285',
       contrastText: '#fff'
     },
     secondary: {
       light: '#E5A150',
-      main: '#CD7D1E'
+      main: '#CD7D1E',
+      dark: '#A46418'
     },
   },
 }));

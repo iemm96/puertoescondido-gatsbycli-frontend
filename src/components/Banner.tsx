@@ -163,6 +163,7 @@ const Banner = () => {
                         <Grid container spacing={1}>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
+                                    onClick={ () => navigate(`/`) }
                                     startIcon={<ResidentialIcon  width={24}/>}
                                     variant="contained"
                                 >
