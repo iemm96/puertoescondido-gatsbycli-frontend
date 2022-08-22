@@ -38,7 +38,7 @@ const Post = ({ data }) => {
                         {
 
                             <CoverImage
-                                maxWidth="md"
+                                maxWidth="lg"
                                 data={{
                                     name: title,
                                     author: author.name
@@ -47,7 +47,7 @@ const Post = ({ data }) => {
                         />
 
                         }
-                        <Container maxWidth="md">
+                        <Container maxWidth="lg">
                             <Grid
                                 sx={{ mt: 2 }}
                                 justifyContent="left"
@@ -56,6 +56,7 @@ const Post = ({ data }) => {
                                 <Grid
                                     xs={ 12 }
                                     md={ 9 }
+                                    sx={{ textAlign: 'justify' }}
                                 >
                                     { /* @ts-ignore */ }
                                     <PortableText value={_rawBody} components={serializers} />

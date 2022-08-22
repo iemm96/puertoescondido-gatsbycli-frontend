@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Image from '../components/common/Image';
 import { Tiktok } from "@styled-icons/boxicons-logos/Tiktok";
-
+import {FmdGood} from "@mui/icons-material";
 import useTheme from "@mui/material/styles/useTheme"
 import {Facebook, Instagram, YouTube} from "@mui/icons-material";
 import {Stack} from "@mui/material";
@@ -110,8 +110,14 @@ const Footer = () => {
                                 <Grid item>
                                     <Typography style={ typographyStyles }>+52 (951) 171 48 29</Typography>
                                 </Grid>
-                                <Grid item>
-                                    <Typography style={ typographyStyles }>Calle 2a Norte, #306, Sector Reforma B, Centro, Puerto Escondido, Oax, México.</Typography>
+                                <Grid sx={{ alignItems: 'center', display: 'flex' }} item>
+                                    <FmdGood sx={{ fontSize: 14, color: 'white', mr: 1 }}/>
+                                    <Typography sx={{
+                                        '&:hover': {
+                                            textDecoration: 'underline',
+                                            cursor: 'pointer'
+                                        }
+                                    }} onClick={() => window.open('https://g.page/inmobiliaria-puerto-escondido?share', '_blank')} style={ typographyStyles }>Calle 2a Norte, #306, Sector Reforma B, Centro, Puerto Escondido, Oax, México.</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
