@@ -20,6 +20,7 @@ import IconBeach from "./../images/icons/Beach.svg";
 import IconHiking from "./../images/icons/hiking.svg";
 import IconTurtle from "../images/icons/turtle.svg";
 import IconFolclore from "./../images/icons/Folklore.svg";
+import Eco from './../images/icons/eco.svg';
 import LatestPosts from "../components/LatestPosts"
 import FeaturedProperties from "../components/FeaturedProperties"
 import Testimonials from "../components/Testimonials";
@@ -66,8 +67,12 @@ const IndexPage = () => {
                   <Grid container>
                     <Grid item>
                       <Typography sx={{mb: 3}} variant="body2">
-                        Una vez que pises puerto escondido tu corazón quedará enganchado con la belleza de sus playas, con su atmósfera rústica y relajada.
-                        Definitivamente no te arrepentirás de invertir en un pedacito de esta joya del pacífico mexicano y vivir como dios manda.
+                        Una vez que pises Puerto Escondido, tu corazón
+                        quedará enganchado con la belleza de sus playas,
+                        su atmósfera rústica y relajada. Definitivamente no te
+                        arrepentirás de invertir en un pedacito de esta joya
+                        del pacífico mexicano y disfrutar de todas las virtudes
+                        que este lugar mágico tiene para ti. ¡Te esperamos!
                       </Typography>
                     </Grid>
                   </Grid>
@@ -91,8 +96,8 @@ const IndexPage = () => {
                         <Typography variant="caption" color="secondary">Gastronomía</Typography>
                       </Stack>
                       <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
-                        <IconHiking width={40}/>
-                        <Typography variant="caption" color="secondary">Senderismo</Typography>
+                        <Eco width={40}/>
+                        <Typography variant="caption" color="secondary">Eco-turismo</Typography>
                       </Stack>
                       <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                         <IconTurtle width={40}/>
@@ -104,7 +109,7 @@ const IndexPage = () => {
                       </Stack>
                       <Stack sx={{ flex: '0 0 33.333333%' }} direction="column">
                         <IconHiking width={40}/>
-                        <Typography variant="caption" color="secondary">Senderismo</Typography>
+                        <Typography variant="caption" color="secondary">Aventura</Typography>
                       </Stack>
                     </div>
                   </Fade>
