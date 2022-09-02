@@ -81,7 +81,6 @@ const StyledTypesButton = styled(Button)(() => ({
 }));
 
 const Banner = () => {
-    const theme = useTheme();
     const { width } = useWindowDimensions();
     const { querySearch, setQuerySearch, handleSearch, iterableResults } = useCustomSearchInput( null,null, undefined )
 
@@ -147,7 +146,12 @@ const Banner = () => {
                             <InputLabel sx={{ color: 'white' }} shrink htmlFor="search-property-input">
                                 ¿Qué tipo de propiedad estás buscando?
                             </InputLabel>
-                            <CustomSearchInput querySearch={querySearch} setQuerySearch={setQuerySearch} handleSearch={handleSearch} iterableResults={ iterableResults }/>
+                            <CustomSearchInput
+                                querySearch={ querySearch }
+                                setQuerySearch={ setQuerySearch }
+                                handleSearch={ handleSearch }
+                                iterableResults={ iterableResults }
+                            />
                         </Grid>
                     </Grid>
                 </Container>

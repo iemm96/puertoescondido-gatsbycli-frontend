@@ -10,6 +10,7 @@ import { useFlexSearch } from 'react-use-flexsearch';
 import { navigate } from "gatsby";
 import {Box, CardActionArea, Typography} from "@mui/material";
 import CardContent from "@mui/material/CardContent";
+import {useEffect} from "react";
 
 function truncate(str, max) {
     return str.length > max ? str.substr(0, max-1) + '…' : str;
@@ -37,9 +38,7 @@ export const useCustomSearchInput = ( index:any | null, store:any | null, query:
     },[]);
 
     const handleSearch = () => {
-        console.log('query search ', querySearch)
         setQuerySearch(  querySearch );
-        console.log(results)
         setIterableResults( results )
     }
     return {
@@ -74,11 +73,14 @@ export const CustomSearchInput = (
 
     const textInput = React.useRef(null);
 
+    useEffect(() => {
+        handleSearch();
+    },[ querySearch ]);
+
     const theme = useTheme();
     return(
         <Box sx={{ position: 'relative' }}>
             <Paper
-
                 component="form"
                 sx={{
                     borderRadius: 4,
@@ -172,7 +174,7 @@ export const CustomSearchInput = (
                                     elevation={0}
                                 >
                                     <CardActionArea
-                                        onClick={ () => navigate(`/propiedades/${ val.slug }` )}
+                                        onClick={ () => navigate(`/propiedad/${ val.slug }` )}
                                     >
                                         <CardContent>
                                             <Typography color="secondary" variant="h6">

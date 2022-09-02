@@ -18,7 +18,6 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const PropertiesList = (
     {
-
         location,
         data: {
             localSearchPages: {
