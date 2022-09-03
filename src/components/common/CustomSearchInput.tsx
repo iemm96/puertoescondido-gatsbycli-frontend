@@ -10,7 +10,6 @@ import { useFlexSearch } from 'react-use-flexsearch';
 import { navigate } from "gatsby";
 import {Box, CardActionArea, Typography} from "@mui/material";
 import CardContent from "@mui/material/CardContent";
-import {useEffect} from "react";
 
 function truncate(str, max) {
     return str.length > max ? str.substr(0, max-1) + '…' : str;
@@ -33,14 +32,14 @@ export const useCustomSearchInput = ( index:any | null, store:any | null, query:
         results = unFlattenResults( useFlexSearch( querySearch, index, store ));
     }
 
-    React.useEffect(() => {
-        setIterableResults( results );
-    },[]);
-
     const handleSearch = () => {
-        setQuerySearch(  querySearch );
-        setIterableResults( results )
+        setIterableResults( results );
     }
+
+    React.useEffect(() => {
+        handleSearch();
+    },[ querySearch, query ]);
+
     return {
         querySearch,
         setQuerySearch,
@@ -60,22 +59,20 @@ export const CustomSearchInput = (
         iterableResults,
         setIterableResults,
         openSidebar,
-        setOpenSidebar
+        setOpenSidebar,
+        redirectTo,
     }:{
         querySearch: string | undefined,
-        setQuerySearch:any,
+        setQuerySearch: any,
         handleSearch: any,
         iterableResults: any,
         setIterableResults: any,
         openSidebar: boolean,
-        setOpenSidebar: any
+        setOpenSidebar: any,
+        redirectTo?: string | undefined,
     }) => {
 
     const textInput = React.useRef(null);
-
-    useEffect(() => {
-        handleSearch();
-    },[ querySearch ]);
 
     const theme = useTheme();
     return(
@@ -107,7 +104,13 @@ export const CustomSearchInput = (
                 <InputBase
                     inputRef={ textInput }
                     onKeyDown={ (e:any) => {
-                        if(e.keyCode == 13){
+
+                        if(e.keyCode === 13) {
+                            e.preventDefault();
+                            if( redirectTo ) {
+                                navigate( `${ redirectTo }?search=${ querySearch }` );
+                                return;
+                            }
                             handleSearch()
                         }
                     }}
@@ -128,8 +131,12 @@ export const CustomSearchInput = (
                                 zIndex: 3,
                             }}
                             onClick={ () => {
+                                if( redirectTo ) {
+                                    navigate( `${ redirectTo }?search=${ querySearch }` );
+                                    return;
+                                }
                                 textInput.current.value = ""
-                                setIterableResults(null);
+                                setIterableResults( null );
                                 setQuerySearch( undefined );
                             }}
                         >

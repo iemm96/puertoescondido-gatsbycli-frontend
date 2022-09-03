@@ -151,6 +151,7 @@ const Banner = () => {
                                 setQuerySearch={ setQuerySearch }
                                 handleSearch={ handleSearch }
                                 iterableResults={ iterableResults }
+                                redirectTo="/propiedades"
                             />
                         </Grid>
                     </Grid>
