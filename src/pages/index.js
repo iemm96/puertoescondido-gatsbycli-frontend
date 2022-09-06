@@ -66,7 +66,7 @@ const IndexPage = () => {
                   </Grid>
                   <Grid container>
                     <Grid item>
-                      <Typography sx={{mb: 3}} variant="body2">
+                      <Typography align="justify" sx={{mb: 3}} variant="body2">
                         Una vez que pises Puerto Escondido, tu corazón
                         quedará enganchado con la belleza de sus playas,
                         su atmósfera rústica y relajada. Definitivamente no te

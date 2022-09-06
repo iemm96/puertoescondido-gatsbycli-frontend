@@ -5,6 +5,7 @@ import GradientBox from "../components/GradientBox"
 import { Paper, Typography, Box, Container, Grid, Stack, TextField, Button } from "@mui/material"
 import { Controller, useForm } from 'react-hook-form';
 import { ChevronLeft, Facebook, Instagram, Phone, PinDrop, WhatsApp, YouTube } from "@mui/icons-material"
+import Divider from '@mui/material/Divider';
 
 const inputStyles = {
   '& .MuiFilledInput-input': {
@@ -26,7 +27,7 @@ const Contacto = () => {
   return(
     <>
       <Seo title="Contacto"/>
-      <Layout persistentHeader={true}>
+      <Layout persistentHeader={ true }>
         <GradientBox height={400} position="absolute"/>
         <Box sx={{
           justifyContent: 'center',
@@ -45,10 +46,10 @@ const Contacto = () => {
         <Container maxWidth="lg">
           <Paper
             sx={{ p: 4 }}
-            elevation={2}
+            elevation={ 2 }
           >
-            <Grid container spacing={2}>
-              <Grid sx={{ borderRight: '1px solid #C4C4C4' }} xs={7} item>
+            <Grid container spacing={ 2 }>
+              <Grid sx={{ borderRight: '1px solid #C4C4C4', pr: 2 }} xs={ 12 } md={ 7 } item>
                 <Stack direction="column">
                   <Typography variant="subtitle1">
                     Escríbenos
@@ -57,8 +58,8 @@ const Contacto = () => {
                     ¡Estamos para resolver tus dudas!
                   </Typography>
                   <form>
-                    <Grid container spacing={2}>
-                      <Grid xs={12} item>
+                    <Grid container spacing={ 2 }>
+                      <Grid xs={ 12 } item>
                         <Controller
                           render={({ field: { onChange, value } }) => (
                             <TextField
@@ -77,66 +78,62 @@ const Contacto = () => {
                           control={control}
                         />
                       </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                      <Grid xs={6} item>
+                      <Grid xs={ 12 } md={ 6 } item>
                         <Controller
-                          render={({ field: { onChange, value } }) => (
-                            <TextField
-                              InputProps={{
-                                disableUnderline: true
-                              }}
-                              sx={inputStyles}
-                              fullWidth
-                              variant="filled"
-                              onChange={onChange}
-                              value={value}
-                              label="Teléfono"
-                            />
-                          )}
-                          name="phone"
-                          control={control}
+                            render={({ field: { onChange, value } }) => (
+                                <TextField
+                                    InputProps={{
+                                      disableUnderline: true
+                                    }}
+                                    sx={inputStyles}
+                                    fullWidth
+                                    variant="filled"
+                                    onChange={onChange}
+                                    value={value}
+                                    label="Teléfono"
+                                />
+                            )}
+                            name="phone"
+                            control={control}
                         />
                       </Grid>
-                      <Grid xs={6} item>
+                      <Grid xs={ 12 } md={ 6 } item>
                         <Controller
-                          render={({ field: { onChange, value } }) => (
-                            <TextField
-                              InputProps={{
-                                disableUnderline: true
-                              }}
-                              sx={inputStyles}
-                              fullWidth
-                              variant="filled"
-                              onChange={onChange}
-                              value={value}
-                              label="Correo"
-                            />
-                          )}
-                          name="email"
-                          control={control}
+                            render={({ field: { onChange, value } }) => (
+                                <TextField
+                                    InputProps={{
+                                      disableUnderline: true
+                                    }}
+                                    sx={inputStyles}
+                                    fullWidth
+                                    variant="filled"
+                                    onChange={onChange}
+                                    value={value}
+                                    label="Correo"
+                                />
+                            )}
+                            name="email"
+                            control={control}
                         />
                       </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
                       <Grid xs={12} item>
                         <Controller
-                          render={({ field: { onChange, value } }) => (
-                            <TextField
-                              InputProps={{
-                                disableUnderline: true
-                              }}
-                              sx={inputStyles}
-                              fullWidth
-                              variant="filled"
-                              onChange={onChange}
-                              value={value}
-                              multiline
-                              label="Mensaje"
-                            />
-                          )}
-                          name="message"
-                          control={control}
+                            render={({ field: { onChange, value } }) => (
+                                <TextField
+                                    InputProps={{
+                                      disableUnderline: true
+                                    }}
+                                    sx={inputStyles}
+                                    fullWidth
+                                    variant="filled"
+                                    onChange={onChange}
+                                    value={value}
+                                    multiline
+                                    label="Mensaje"
+                                />
+                            )}
+                            name="message"
+                            control={control}
                         />
                       </Grid>
                     </Grid>
@@ -148,32 +145,38 @@ const Contacto = () => {
                   >
                     Enviar mensaje
                   </Button>
-                  <Stack sx={{ mt: 5 }} spacing={3} direction="row">
-                    <Typography>
-                      Nuestras Redes Sociales:
-                    </Typography>
-                    <YouTube width={24}/>
-                    <Facebook width={24}/>
-                    <Instagram width={24}/>
-                    <WhatsApp width={24}/>
-                  </Stack>
+                  <Grid container mt={ 5 }>
+                    <Grid xs={ 12 } md={ 6 } item>
+                      <Typography>
+                        Nuestras Redes Sociales:
+                      </Typography>
+                    </Grid>
+                    <Grid xs={ 12 } md={ 6 } item>
+                      <Stack spacing={ 3 } direction="row">
+                        <YouTube width={24}/>
+                        <Facebook width={24}/>
+                        <Instagram width={24}/>
+                        <WhatsApp width={24}/>
+                      </Stack>
+                    </Grid>
+                  </Grid>
+
                 </Stack>
               </Grid>
-              <Grid xs={5} item>
+              <Grid xs={ 12 } md={ 5 } item>
                 <Stack direction="column">
-                  <Stack direction="row" spacing={1}>
-                    <Phone width={24}/>
+                  <Stack direction="row" sx={{ alignItems: 'center' }} spacing={1}>
+                    <Phone />
                     <Typography variant="h6">
                       Teléfonos
                     </Typography>
                   </Stack>
                   <Typography>
-                    +52 (954) 108 49 25{<br/>}
-                    {<br/>}
+                    +52 (954) 108 49 25<br/>
                     +52 (951) 171 48 29
                   </Typography>
-                  <Stack direction="row" spacing={1}>
-                    <PinDrop width={24}/>
+                  <Stack mt={ 2 } direction="row" sx={{ alignItems: 'center' }} spacing={1}>
+                    <PinDrop />
                     <Typography variant="h6">
                       Domicilio
                     </Typography>

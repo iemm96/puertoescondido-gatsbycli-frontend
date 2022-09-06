@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import styled from "styled-components";
 import {Whatsapp} from "@styled-icons/boxicons-logos/Whatsapp";
-import {Telegram} from "@styled-icons/boxicons-logos/Telegram";
 import {Messenger} from "@styled-icons/boxicons-logos/Messenger";
 import {PhoneCall} from "@styled-icons/evaicons-solid/PhoneCall";
 import {CloseOutline} from "@styled-icons/evaicons-outline/CloseOutline";
 import { ChatDots } from "@styled-icons/bootstrap/ChatDots";
 import {Typography, Stack, Button} from "@mui/material";
+import {Email} from "@mui/icons-material";
 
 export const StyledLinkButton = styled.a`
   font-size: 16px;
@@ -204,9 +204,13 @@ const FloatingContactButton = () => {
         }
     },[open]);
 
-    const handleClick = () => {
+    const handleClick = (url?:string) => {
         setOpen(false);
         setDisplayMenu(false);
+
+        if( url ) {
+            window.open(url, '_blank');
+        }
     }
 
     return(
@@ -232,28 +236,28 @@ const FloatingContactButton = () => {
                     </Typography>
                     <Button variant="outlined" fullWidth
                         startIcon={<Whatsapp size={20} color={'white'}/>}
-                        onClick={() => handleClick()}>
+                        onClick={() => handleClick('https://api.whatsapp.com/send/?phone=529541084925&text=Hola+los+contacto+desde+su+web')}>
                          WhatsApp
                     </Button>
                     <Button variant="outlined" fullWidth
                         startIcon={
-                            <Telegram size={20} color={'white'}/>
+                            <Email sx={{ color: 'white', fontSize: 20 }}/>
                         }
-                        onClick={() => handleClick()}>
-                        Telegram
+                        onClick={() => handleClick(`mailto:inmobiliariapuertoescondido@gmail.com&subject=Hola+los+contacto+desde+su+pagina+web`)}>
+                        Email
                     </Button>
                     <Button variant="outlined" fullWidth
                         startIcon={
                             <Messenger size={20} color={'white'}/>
                         }
-                        onClick={() => handleClick()}>
+                        onClick={() => handleClick('https://m.me/TerrenosenPuertoEscondido')}>
                         Messenger
                     </Button>
                     <Button variant="outlined" fullWidth
                         startIcon={
                             <PhoneCall size={20} color={'white'}/>
                         }
-                        onClick={() => handleClick()}>
+                        onClick={() => handleClick('tel:+529541084925')}>
                         Llámame
                     </Button>
                 </Stack>
