@@ -40,12 +40,6 @@ const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
         );
     }
 
-    const stylesLink = {
-        marginRight: '1rem',
-        fontFamily: 'Roboto',
-        textDecoration: 'none',
-    }
-
     const bar = () => (
         <AppBar
             sx={{
@@ -58,7 +52,9 @@ const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box
+                        onClick={ () => navigate('/') }
                         sx={{
+                            cursor: 'pointer',
                             flexGrow: {
                                 xs: 1,
                                 md: 0
@@ -74,7 +70,7 @@ const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={ () =>  ref.current.toggleDrawer(true) }
-                            color={ scrollTrigger ? 'primary' : 'inherit' }
+                            color={ ( scrollTrigger || persistentHeader ) ? 'primary' : 'inherit' }
                         >
                             <MenuIcon />
                         </IconButton>

@@ -63,7 +63,7 @@ const ConocenosPage = () => {
                     {<br/>}
                     Brindamos la confianza que usted necesita en la realización de compra - venta de inmuebles, encargándonos que dichas operaciones se lleven a cabo con toda la seguridad jurídica  que se requiera a la hora de comprar o vender un inmueble.{<br/>}
                     {<br/>}
-                    Contamos con un equipo de colaboradores con 25 años de experiencia en el ramo inmobiliario, que le darán esa seguridad y garantía que necesita a la hora de invertir en un inmueble con nosotros que será su patrimonio.
+                    Contamos con un equipo de colaboradores con 30 años de experiencia en el ramo inmobiliario, que le darán esa seguridad y garantía que necesita a la hora de invertir en un inmueble con nosotros que será su patrimonio.
                   </Typography>
                 </Stack>
               </Grid>
@@ -96,8 +96,8 @@ const ConocenosPage = () => {
                 <Typography variant="h6" color="primary">
                   Misión
                 </Typography>
-                <Typography variant="body2">
-                  Seguir ofreciendo asesoría inmobiliaria personalizada a nuestros clientes, contar con los inmuebles que tengan la certeza legal para maximizar el valor de sus inversiones y protección de su patrimonio, logrando una relación de mutuo beneficio.
+                <Typography align="justify" variant="body2">
+                  Somos una empresa dedicada a la compra, venta y promoción de propiedades en la costa oaxaqueña. Estamos comprometidos en poder proporcionar asesoramiento integral para poder entender y solucionar las necesidades de nuestros clientes. Buscamos ser la opción más confiable para la adquisición de una propiedad, basándonos en nuestra experiencia, transparencia y profesionalismo.
                 </Typography>
               </Stack>
             </Grid>
@@ -108,7 +108,7 @@ const ConocenosPage = () => {
                   Visión
                 </Typography>
                 <Typography variant="body2">
-                  Expandir nuestra participación a nivel regional y nacional. Ser líder regional en el desarrollo y comercialización de bienes inmuebles comerciales y habitaciones. Ser una empresa reconocida con un alto valor percibido en sus productos y servicios,  logrando así la asociación con estándares de excelencia.
+                  Posicionarnos como la empresa costeña más confiable y con mayor experiencia en el mercado inmobiliario de Puerto Escondido, Oaxaca para que las personas acudan como primera opción hacia nosotros y así poder trabajar con orgullo y seguir creciendo con éxito junto a nuestros clientes en la búsqueda de maximizar el valor de sus inversiones, satisfacer sus necesidades y otorgarles la posibilidad de encontrar su nuevo hogar.
                 </Typography>
               </Stack>
             </Grid>
@@ -119,7 +119,16 @@ const ConocenosPage = () => {
                   Valores
                 </Typography>
                 <Typography variant="body2">
-                  Expandir nuestra participación a nivel regional y nacional. Ser líder regional en el desarrollo y comercialización de bienes inmuebles comerciales y habitaciones. Ser una empresa reconocida con un alto valor percibido en sus productos y servicios,  logrando así la asociación con estándares de excelencia.
+                  <b>Calidad</b>{ <br/> }
+                  Nos distinguimos por el trato y apoyo que le brindamos a nuestros clientes para ayudarlos a buscar la mejor opción, adecuada a sus necesidades y gustos.{ <br/> }
+                  <b>Compromiso</b>{ <br/> }
+                  Nos comprometemos como empresa en asesorar y acompañar al comprador en todo el proceso de la adquisición de su propiedad.{ <br/> }
+                  <b>Responsabilidad</b>{ <br/> }
+                  Nos encargamos en entregar bienes y servicios de calidad.{ <br/> }
+                  <b>Seguridad</b>{ <br/> }
+                  Resaltar un vínculo de confianza en los que los clientes se sientan satisfechos en sus necesidades, deseos y proyectos.{ <br/> }
+                  <b>Honestidad</b>{ <br/> }
+                  Nos enfocamos en darle transparencia y credibilidad a nuestra empresa, dando el mejor servicio y generando confianza a través de la verdad.{ <br/> }
                 </Typography>
               </Stack>
             </Grid>
