@@ -37,7 +37,6 @@ export const useGallery = () => {
 }
 
 export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
-    console.log( data )
     const theme = useTheme();
     const [ open, setOpen ] = useState<boolean>( false );
     const [ thumbsSwiper, setThumbsSwiper ] = useState<any>(null);
@@ -148,10 +147,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                     height: 100,
                                     ...boxStyles
                                 }}>
-
-
                                     <GatsbyImage
-                                        //onClick={ () => handleSelectImage( val.url ) }
                                         alt={"img-1"}
                                         style={{
                                             maxWidth: 300,

@@ -59,7 +59,6 @@ const ProjectDetails = ({ data }) => {
                                 >
                                     <Stack
                                         sx={{
-                                            display: 'flex',
                                             justifyContent: 'left'
                                         }}
                                         direction="column"
