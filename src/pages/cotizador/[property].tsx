@@ -38,11 +38,10 @@ const EstimateDetails = ({ property }) => {
 
     useEffect(() => {
 
-        const totalPrice = propertyData?.zone?.price_per_square_meter * propertyData?.area;
-        const annualInterestTotal = propertyData?.zone?.price_annual_interest * ( currentValueSlider/12 );
-
-
-        if( propertyData?.zone?.price_per_square_meter  ) {
+        const totalPrice = propertyData?.price * propertyData?.area;
+        const annualInterestTotal = 20000 * ( currentValueSlider/12 );
+        
+        if( propertyData?.price  ) {
 
             if( currentValueSlider === 0 ) {
                 setMonthlyPay( totalPrice )
@@ -55,15 +54,15 @@ const EstimateDetails = ({ property }) => {
     }, [ propertyData, currentValueSlider ]);
 
     const getProperty = async () => {
-        const propertyResult = await fetchRecord( 'properties', property );
+        const propertyResult = await fetchRecord( 'properties/bySlug', property );
 
-        if( propertyResult?.property?.project?.selectable_financing_months ) {
+        if( propertyResult?.property?.selectable_financing_months ) {
             const arrMonths:marksType[] = [{
                 value: 0,
                 label: 'De contado'
             }];
 
-            propertyResult?.property?.project?.selectable_financing_months.map(( month:number ) => (
+            propertyResult?.property?.selectable_financing_months.map(( month:number ) => (
                 arrMonths.push({
                     value: month,
                     label: `${ month } meses`,
@@ -143,7 +142,7 @@ const EstimateDetails = ({ property }) => {
                                                         onChange={ handleMonthsChange }
                                                         aria-label="Mensualidades"
                                                         defaultValue={ currentValueSlider }
-                                                        max={ propertyData?.project?.total_financing_months }
+                                                        max={ propertyData?.total_financing_months }
                                                         getAriaValueText={valuetext}
                                                         step={ null }
                                                         valueLabelDisplay="auto"
@@ -182,7 +181,7 @@ const EstimateDetails = ({ property }) => {
                                                     Precio por metro cuadrado:
                                                 </Typography>
                                                 <Typography>
-                                                    { `$ ${propertyData?.zone?.price_per_square_meter } ${ propertyData?.currency }` }
+                                                    { `$ ${propertyData?.price } ${ propertyData?.currency }` }
                                                 </Typography>
                                             </Stack>
                                             <Button
@@ -206,10 +205,9 @@ const EstimateDetails = ({ property }) => {
                                     <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Galería</Typography>
                                     {
                                         galleryImages &&
-                                        <Gallery data={ galleryImages }/>
+                                        <Gallery data={ galleryImages } preview={false}/>
                                     }
                                 </Container>
-
                             </StyledGradientSection>
                             <Box
                                 sx={{

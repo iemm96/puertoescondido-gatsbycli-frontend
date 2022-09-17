@@ -35,18 +35,14 @@ const Post = ({ data }) => {
             <Layout scrollTrigger>
                 {
                     <>
-                        {
-
-                            <CoverImage
-                                maxWidth="lg"
-                                data={{
-                                    name: title,
-                                    author: author.name
-                                }}
-                                gatsbyImage={ coverImageObject }
+                        <CoverImage
+                            maxWidth="lg"
+                            data={{
+                                name: title,
+                                author: author.name
+                            }}
+                            gatsbyImage={ coverImageObject }
                         />
-
-                        }
                         <Container maxWidth="lg">
                             <Grid
                                 sx={{ mt: 2 }}

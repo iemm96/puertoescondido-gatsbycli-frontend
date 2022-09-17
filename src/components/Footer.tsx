@@ -60,7 +60,14 @@ const Footer = () => {
             <Grid item>
               <Image filename="logo_footer.png" />
             </Grid>
-            <Grid sx={{ display: "flex", alignItems: "center" }} item>
+            <Grid
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                mt: { xs: 2, md: 0 },
+              }}
+              item
+            >
               <Stack spacing={4} direction="row">
                 <a
                   href="https://www.facebook.com/TerrenosenPuertoEscondido/?_rdc=1&_rdr"
@@ -194,10 +201,10 @@ const Footer = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link style={typographyStyles}>Términos y condiciones</Link>
+                  <Link to={'/terminos-condiciones'} style={typographyStyles}>Términos y condiciones</Link>
                 </Grid>
                 <Grid item>
-                  <Link style={typographyStyles}>Políticas de privacidad</Link>
+                  <Link to={'/aviso-privacidad'} style={typographyStyles}>Políticas de privacidad</Link>
                 </Grid>
               </Grid>
             </Grid>

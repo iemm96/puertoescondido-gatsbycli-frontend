@@ -6,7 +6,7 @@ import { graphql, useStaticQuery } from "gatsby";
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
-const FeaturedProperties = () => {
+const FeaturedProperties = ({ attached }:{ attached?:boolean }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
@@ -49,7 +49,6 @@ const FeaturedProperties = () => {
         }
     `);
 
-
     React.useEffect(() => {
         if( data ) {
             if( data.allProject.edges ) {
@@ -63,8 +62,9 @@ const FeaturedProperties = () => {
             {
                 properties.length > 0 && (
                     <SliderComponent
-                        title={title}
-                        subtitle={subtitle}
+                        title={ title }
+                        attached={ attached }
+                        subtitle={ subtitle }
                         data={ properties }
                         viewMoreButtonRedirectPath="propiedades"
                         viewMoreButtonText="Ver más propiedades"

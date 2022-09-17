@@ -15,6 +15,7 @@ import {graphql, navigate} from "gatsby";
 import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
 import {FiltersBox, useFiltersBox} from "../components/common/FiltersBox";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import FeaturedProperties from "../components/FeaturedProperties";
 
 const PropertiesList = (
     {
@@ -26,23 +27,31 @@ const PropertiesList = (
             },
             allProperty: {
                 nodes,
-
-            }
+            },
+            allCategory: {
+                nodes: categories
+            },
         },
         pageContext
     }
 ) => {
     const { limit, numPages, currentPage, totalResults } = pageContext;
+    const properties = nodes;
 
     const {
         filters,
         setFilters,
-        handleChange
-    } = useFiltersBox();
+        handleChange,
+        filteredResults
+    } = useFiltersBox(
+        properties,
+        categories
+    );
 
-    const properties = nodes;
     const params = new URLSearchParams(location.search);
     const search = params.get("search");
+    const category = params.get("categoria");
+
     const {
         querySearch,
         setQuerySearch,
@@ -50,8 +59,10 @@ const PropertiesList = (
         iterableResults,
         setIterableResults,
         openSidebar,
-        setOpenSidebar
+        setOpenSidebar,
+
     } = useCustomSearchInput( index, store, search );
+
     const { width } = useWindowDimensions();
 
     return(
@@ -65,8 +76,8 @@ const PropertiesList = (
                             display: 'flex'
                         }}
                     >
-                        <Stack spacing={2} direction="column">
-                            <Typography align="center" sx={{ mt: 18 }} variant="h4">Propiedades disponibles</Typography>
+                        <Stack spacing={2} direction="column" justifyContent="center">
+                            <Typography align="center" sx={{ mt: 18 }} variant="h5">Propiedades disponibles</Typography>
                             <CustomSearchInput
                                 querySearch={ querySearch }
                                 setQuerySearch={ setQuerySearch }
@@ -81,6 +92,8 @@ const PropertiesList = (
                     <Grid sx={{ mt: 7 }} spacing={4} container>
                         <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
                             <FiltersBox
+                                defaultCategory={ category }
+                                categories={ categories }
                                 filters={ filters }
                                 setFilters={ setFilters }
                                 handleChange={ handleChange }
@@ -90,14 +103,12 @@ const PropertiesList = (
                             />
                         </Grid>
                         <Grid xs={12} lg={9} item>
-                            <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
-                                <Grid item>
-                                    <Typography>Ordenar por: Precio</Typography>
-                                </Grid>
+                            <Grid container>
+                                <FeaturedProperties attached/>
                             </Grid>
                             <Grid spacing={2} container>
                                 {
-                                    properties && properties.map(( val:any, index:number) => (
+                                    filteredResults && filteredResults.map(( val:any, index:number) => (
                                         <Grid sx={{ justifyContent: 'center' }} xs={ 12 } sm={ 6 } md={ 4 } item key={ index }>
                                             <PropertyCard key={ index } data={val} showAsList/>
                                         </Grid>
@@ -180,7 +191,7 @@ const PropertiesList = (
                                     item
                                 >
                                     <Typography variant="body2">
-                                        Página { currentPage } de { Math.round( totalResults / limit ) }
+                                        Página { currentPage } de { Math.round( totalResults / limit ) === 0 ? 1 :  Math.round( totalResults / limit ) }
                                     </Typography>
 
                                 </Grid>
@@ -221,14 +232,26 @@ export const query = graphql`
             index
             store
         }
+        allCategory {
+            nodes {
+                name
+            }
+        }
         allProperty(
             limit: $limit
-            skip: $skip
+            skip: $skip,
+            filter: {
+                isVisible: { eq: true }
+            }
         ) {
             nodes {
                 name
                 slug
                 description
+                price
+                category {
+                    name
+                }
                 features {
                     name
                 }

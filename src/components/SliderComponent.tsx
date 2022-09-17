@@ -34,6 +34,7 @@ type SliderComponentType = {
     viewMoreButton?: boolean;
     viewMoreButtonText?: string;
     viewMoreButtonRedirectPath?: string;
+    attached?: boolean;
     Component?: FC<FunctionalComponentPropsType>
 }
 
@@ -44,7 +45,7 @@ const boxStyles = {
     width: '100%',
 }
 
-const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText }:SliderComponentType) => {
+const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached }:SliderComponentType) => {
     const theme = useTheme();
     const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ swiperState, setSwiperState ] = React.useState<any>( {
@@ -59,8 +60,12 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
     return(
         <>
-            <Container maxWidth="xl" sx={ {pl: 2} }>
-                <Typography variant="subtitle1">{title}</Typography>
+            <Container maxWidth="xl" sx={{pl: 2, p: attached ? '0 !important' : 'inherit'}}>
+                {
+                    !attached && (
+                        <Typography variant="subtitle1">{title}</Typography>
+                    )
+                }
                 <Grid
                     sx={{
                         mb:{
@@ -81,7 +86,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                     }} item
                     >
                         {
-                            viewMoreButton && (
+                            ( viewMoreButton && !attached ) && (
                                 <Button
                                     sx={{ textTransform: 'none' }}
                                     color="primary"
@@ -156,7 +161,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                             "spaceBetween": 10
                         },
                         "1280": {
-                            "slidesPerView": 4,
+                            "slidesPerView": attached ? 3 : 4,
                             "spaceBetween": 10
                         }
                     }}
@@ -170,12 +175,11 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                                         Component ? (
                                             <Component key={ index } data={ item.node }/>
                                         ) : (
-                                            <PropertyCard key={ index } data={ item.node }/>
+                                            <PropertyCard key={ index } data={ item.node } attached={ attached }/>
                                         )
                                     }
                                 </Box>
                             </Fade>
-
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -190,7 +194,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                     }}
                 >
                     {
-                        viewMoreButton && (
+                        (viewMoreButton && !attached ) && (
                             <Button
                                 sx={{ textTransform: 'none' }}
                                 color="primary"

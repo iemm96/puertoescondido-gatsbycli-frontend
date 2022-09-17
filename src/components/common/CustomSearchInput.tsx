@@ -66,9 +66,9 @@ export const CustomSearchInput = (
         setQuerySearch: any,
         handleSearch: any,
         iterableResults: any,
-        setIterableResults: any,
-        openSidebar: boolean,
-        setOpenSidebar: any,
+        setIterableResults?: any,
+        openSidebar?: boolean,
+        setOpenSidebar?: any,
         redirectTo?: string | undefined,
     }) => {
 

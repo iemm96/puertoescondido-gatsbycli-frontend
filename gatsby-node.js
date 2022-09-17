@@ -7,6 +7,16 @@ exports.createPages = async ({ graphql, actions }) => {
 
   try {
 
+    const dataCategories = await graphql(`
+      query Category {
+        allCategory {
+        nodes {
+          name
+        }
+       }
+      }
+    `);
+
     const dataProperties = await graphql(`
       query Properties {
               allProperty {
@@ -73,6 +83,9 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `)
 
+    const postsPerPage = 6
+    let numPages = 0;
+
     dataPosts.data.allSanityPost.nodes.forEach( node => {
       createPage({
         path: `/post/${ node.slug.current }`,
@@ -89,7 +102,6 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     } );
 
-    const postsPerPage = 6
     const numPagesBlog = Math.ceil(dataPosts.data.allSanityPost.nodes.length / postsPerPage );
 
     Array.from({ length: numPagesBlog }).forEach((_, i) => {
@@ -115,7 +127,7 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     } );
 
-    const numPages = Math.ceil(dataProperties.data.allProperty.nodes.length / postsPerPage );
+    numPages = Math.ceil(dataProperties.data.allProperty.nodes.length / postsPerPage );
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
@@ -133,8 +145,6 @@ exports.createPages = async ({ graphql, actions }) => {
   }catch (e) {
     console.log( e );
   }
-
-
 }
 
 exports.sourceNodes = async ({ actions, createContentDigest }) => {
@@ -142,6 +152,25 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
 
   try {
 
+    //Fetch categories
+    const fetchCategories = async () => await axios.get( `${ GATSBY_API_HOST }categories` );
+    const resultCategories = await fetchCategories();
+
+    resultCategories.data.categories.map( async ( category, i ) => {
+      createNode({
+        ...category,
+        id: `Category-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: 'Category', // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify( category ),
+          contentDigest: createContentDigest( category )
+        },
+      })
+    })
+
+    //Fetch locations
     const fetchLocations = async () => await axios.get(`${ GATSBY_API_HOST }locations`);
     const resultLocations = await fetchLocations();
 
@@ -241,7 +270,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     slug: { type: 'String' },
     features: { type: "[Feature!]" },
     isProject: { type: "Boolean!" },
+    isVisible: { type: "Boolean" },
     location: { type: "Location" },
+    total_financing_months: { type: "Int" },
+    selectable_financing_months: { type: "[Int]" },
     // Single Node
     coverImage: {
       type: 'File',

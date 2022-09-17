@@ -241,6 +241,7 @@ const Banner = () => {
                     Terrenos
                 </StyledTypesButton>
                 <StyledTypesButton
+                    onClick={ () => navigate(`/propiedades?categoria=Lotificaciones`) }
                     startIcon={<IconBluePrint width={40}/>}
                     color="primary"
                     variant="contained"

@@ -14,7 +14,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
-const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAsList?:boolean }) => {
+const PropertyCard = ({ data, key, showAsList, attached }:{ data?:any, key: number, showAsList?:boolean, attached?:boolean }) => {
     const theme = useTheme();
     const image = getImage(data?.coverImage);
     const { width }  = useWindowDimensions();
@@ -70,17 +70,21 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                     }
                 </Stack>
             </CardContent>
-            <CardActions>
-                <Button
-                    onClick={  () => navigate(`/${ data.uid }`) }
-                    variant="text"
-                    sx={{textTransform:'none'}}
-                    size="small"
-                    startIcon={<ArrowForwardOutlined/>}
-                >
-                    Ver detalles
-                </Button>
-            </CardActions>
+            {
+                !attached && (
+                    <CardActions>
+                        <Button
+                            onClick={  () => navigate(`/${ data.uid }`) }
+                            variant="text"
+                            sx={{textTransform:'none'}}
+                            size="small"
+                            startIcon={<ArrowForwardOutlined/>}
+                        >
+                            Ver detalles
+                        </Button>
+                    </CardActions>
+                )
+            }
         </CardActionArea>
     ));
 
@@ -108,44 +112,49 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                     variant="h5"
                     color={ theme.palette.primary.light }
                     sx={{
-                        fontWeight: 900
+                        fontSize: attached ? '16px !important' : 'inherit',
+                        fontWeight: attached ? 500 : 900
                     }}
                 >
                     { data?.name }
                 </Typography>
                 {
-                    data?.isFeatured && (
+                    ( data?.isFeatured ) && (
                         <>
                             <Typography variant="body2" color="white">
                                 Proyecto estrella
                             </Typography>
-                            <Stack direction="row" spacing={ 0 }>
-                                <StarRounded
-                                    sx={{
-                                        color: '#FFE70E'
-                                    }}
-                                />
-                                <StarRounded
-                                    sx={{
-                                        color: '#FFE70E'
-                                    }}
-                                />
-                                <StarRounded
-                                    sx={{
-                                        color: '#FFE70E'
-                                    }}
-                                />
-                                <StarRounded
-                                    sx={{
-                                        color: '#FFE70E'
-                                    }}
-                                />
-                                <StarRounded
-                                    sx={{
-                                        color: '#FFE70E'
-                                    }}
-                                />
-                            </Stack>
+                            {
+                                !attached && (
+                                    <Stack direction="row" spacing={ 0 }>
+                                        <StarRounded
+                                            sx={{
+                                                color: '#FFE70E'
+                                            }}
+                                        />
+                                        <StarRounded
+                                            sx={{
+                                                color: '#FFE70E'
+                                            }}
+                                        />
+                                        <StarRounded
+                                            sx={{
+                                                color: '#FFE70E'
+                                            }}
+                                        />
+                                        <StarRounded
+                                            sx={{
+                                                color: '#FFE70E'
+                                            }}
+                                        />
+                                        <StarRounded
+                                            sx={{
+                                                color: '#FFE70E'
+                                            }}
+                                        />
+                                    </Stack>
+                                )
+                            }
                         </>
 
                     )
@@ -164,27 +173,30 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                     }
                 </Stack>
             </CardContent>
-            <CardActions
-                sx={{
-                    position: 'absolute',
-                    bottom: 8
-                }}
-            >
-                <Button
-                    onClick={  () => navigate(`/${ data.uid }`) }
-                    variant="text"
-                    sx={{
-                        textTransform:'none',
-                        color: theme.palette.primary.light
-                    }}
-                    size="small"
+            {
+                !attached && (
+                    <CardActions
+                        sx={{
+                            position: 'absolute',
+                            bottom: 8
+                        }}
+                    >
+                        <Button
+                            onClick={  () => navigate(`/${ data.uid }`) }
+                            variant="text"
+                            sx={{
+                                textTransform:'none',
+                                color: theme.palette.primary.light
+                            }}
+                            size="small"
 
-                    startIcon={<ArrowCircleRightOutlined/>}
-                >
-                    Ver detalles
-                </Button>
-            </CardActions>
-
+                            startIcon={<ArrowCircleRightOutlined/>}
+                        >
+                            Ver detalles
+                        </Button>
+                    </CardActions>
+                )
+            }
         </CardActionArea>
     )
 
@@ -200,7 +212,7 @@ const PropertyCard = ({ data, key, showAsList }:{ data?:any, key: number, showAs
                     xs: showAsList && `1px solid ${ theme.palette.primary.main }`,
                     md: 'none'
                 },
-                height: showAsList ? 'auto' : 400
+                height: showAsList ? 'auto' : ( attached ? 100 : 400)
             }}
             elevation={ width < 400 ? 0 : 1 }
             key={ key }>
