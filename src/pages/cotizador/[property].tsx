@@ -25,7 +25,7 @@ type marksType = {
     value: number;
     label: string;
 }
-const EstimateDetails = ({ property }) => {
+const EstimateDetails = ({  property, data }) => {
     const theme = useTheme();
     const [ propertyData, setPropertyData ] = useState( null );
     const [ monthlyPay, setMonthlyPay ] = useState<any | number>( null );
@@ -106,6 +106,8 @@ const EstimateDetails = ({ property }) => {
     const handleMonthsChange = (e: Event, newValue:number | number[]) => {
         setCurrentValueSlider( newValue );
     }
+
+
 
     return(
         <>
@@ -205,14 +207,18 @@ const EstimateDetails = ({ property }) => {
                                 </Container>
                             </Container>
                             <StyledGradientSection sx={{
-                                mt: 4
+                                mt: 4,
+                                pb: 4
                             }}>
                                 <Container maxWidth="xl">
                                     <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Galería</Typography>
-                                    {
-                                        galleryImages &&
-                                        <Gallery data={ galleryImages } preview={false}/>
-                                    }
+                                    <Grid item justifyContent="center" display="flex">
+                                        {
+                                            data?.property?.images &&
+                                            <Gallery data={ data.property.images } preview={ true }/>
+                                        }
+                                    </Grid>
+
                                 </Container>
                             </StyledGradientSection>
                             <Box
@@ -243,3 +249,19 @@ const EstimateDetails = ({ property }) => {
 }
 
 export default withTheme( EstimateDetails );
+
+export const query = graphql`
+    query ProjectsDetailsPage2($slug: String) {
+        property(slug: {eq: $slug}) {
+            name
+            uid
+            description
+            images {
+                childImageSharp {
+                    gatsbyImageData( placeholder: BLURRED, formats: [AUTO, WEBP, AVIF], layout: CONSTRAINED )
+                }
+            }
+
+        }
+    }
+`
