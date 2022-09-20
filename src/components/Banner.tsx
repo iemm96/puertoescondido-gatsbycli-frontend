@@ -33,7 +33,7 @@ import ClimateIcon from "./common/icons/ClimateIcon"
 import BluePrintIcon from "./common/icons/BluePrintIcon"
 import Carousel from "./Carousel"
 import Header from "./Header"
-import { navigate } from 'gatsby';
+import {graphql, navigate, useStaticQuery} from 'gatsby';
 import { CustomSearchInput, useCustomSearchInput } from "./common/CustomSearchInput";
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
@@ -82,7 +82,20 @@ const StyledTypesButton = styled(Button)(() => ({
 
 const Banner = () => {
     const { width } = useWindowDimensions();
-    const { querySearch, setQuerySearch, handleSearch, iterableResults } = useCustomSearchInput( null,null, undefined )
+
+    const { localSearchPages } = useStaticQuery(graphql`
+        query PropiedadesQuery2 {
+            localSearchPages {
+                index
+                store
+            }
+        }
+    `);
+
+    const { querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults } = useCustomSearchInput( localSearchPages.index, localSearchPages.store, undefined )
+
+
+
 
     return (
         <>
@@ -115,11 +128,11 @@ const Banner = () => {
                         maxWidth="lg"
                         spacing={0}
                     >
-                        <Grid item xs={2}>
+                        <Grid item xs={2} mb={1}>
                             <StyledIconTypographyDiv>
-                                <IconHouseConst width={40}/>
+                                <IconHouseConst width={36}/>
                                 <Typography sx={{ml:2}} color="white">
-                                    Sin costos {<br/>} ocultos
+                                    Sin costos ocultos
                                 </Typography>
                             </StyledIconTypographyDiv>
                         </Grid>
@@ -151,7 +164,8 @@ const Banner = () => {
                                 setQuerySearch={ setQuerySearch }
                                 handleSearch={ handleSearch }
                                 iterableResults={ iterableResults }
-                                redirectTo="/propiedades"
+                                setIterableResults={ setIterableResults }
+                                hideFiltersButton={ true }
                             />
                         </Grid>
                     </Grid>
@@ -168,7 +182,7 @@ const Banner = () => {
                         <Grid container spacing={1}>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
-                                    onClick={ () => navigate(`/`) }
+                                    onClick={ () => navigate(`/propiedades?categoria=Fraccionamiento`) }
                                     startIcon={<ResidentialIcon  width={24}/>}
                                     variant="contained"
                                 >
@@ -177,6 +191,7 @@ const Banner = () => {
                             </Grid>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
+                                    onClick={ () => navigate(`/propiedades?categoria=Ranchos`) }
                                     startIcon={<CultivationIcon  width={24}/>}
                                     variant="contained"
                                 >
@@ -185,6 +200,7 @@ const Banner = () => {
                             </Grid>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
+                                    onClick={ () => navigate(`/propiedades?categoria=Terreno`) }
                                     startIcon={<ClimateIcon  width={24}/>}
                                     variant="contained"
                                 >
@@ -193,6 +209,7 @@ const Banner = () => {
                             </Grid>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
+                                    onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
                                     startIcon={<BluePrintIcon  width={24}/>}
                                     variant="contained"
                                 >
@@ -211,6 +228,7 @@ const Banner = () => {
                 }
             }}>
                 <StyledTypesButton
+                    onClick={ () => navigate(`/propiedades?categoria=Fraccionamiento`) }
                     sx={{
                         borderRight: '1px solid white',
                     }}
@@ -221,6 +239,7 @@ const Banner = () => {
                     Fraccionamientos
                 </StyledTypesButton>
                 <StyledTypesButton
+                    onClick={ () => navigate(`/propiedades?categoria=Ranchos`) }
                     sx={{
                         borderRight: '1px solid white'
                     }}
@@ -231,6 +250,7 @@ const Banner = () => {
                     Ranchos
                 </StyledTypesButton>
                 <StyledTypesButton
+                    onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
                     sx={{
                         borderRight: '1px solid white'
                     }}
@@ -241,7 +261,7 @@ const Banner = () => {
                     Terrenos
                 </StyledTypesButton>
                 <StyledTypesButton
-                    onClick={ () => navigate(`/propiedades?categoria=Lotificaciones`) }
+                    onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
                     startIcon={<IconBluePrint width={40}/>}
                     color="primary"
                     variant="contained"
@@ -255,3 +275,4 @@ const Banner = () => {
 };
 
 export default Banner;
+

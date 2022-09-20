@@ -19,6 +19,7 @@ import StyledGradientSection from "../../styled/StyledGradientSection";
 import {Gallery} from "../../components/common/Gallery";
 import Header from "../../components/Header";
 import SplashScreen from "../../components/common/SplashScreen";
+import StyledButton from "../../styled/StyledButton";
 
 type marksType = {
     value: number;
@@ -31,7 +32,7 @@ const EstimateDetails = ({ property }) => {
     const [ currentValueSlider, setCurrentValueSlider ] = useState<number>( 12 );
     const [ months, setMonths ] = useState<marksType[] | null>( null );
     const [ galleryImages, setGalleryImages ] = useState<any[]>( [] );
-
+    const [ priceInterestAnnual, setPriceInterestAnual ] = useState<any>( null );
     useEffect(() => {
         getProperty().then();
     },[  ]);
@@ -39,7 +40,13 @@ const EstimateDetails = ({ property }) => {
     useEffect(() => {
 
         const totalPrice = propertyData?.price * propertyData?.area;
-        const annualInterestTotal = 20000 * ( currentValueSlider/12 );
+        let annualInterestTotal = null;
+        if( priceInterestAnnual ) {
+            annualInterestTotal = priceInterestAnnual * ( currentValueSlider/12 );
+        } else {
+            annualInterestTotal = ( currentValueSlider/12 );
+        }
+
         
         if( propertyData?.price  ) {
 
@@ -47,7 +54,6 @@ const EstimateDetails = ({ property }) => {
                 setMonthlyPay( totalPrice )
             }else {
                 setMonthlyPay( ( totalPrice + annualInterestTotal ) / currentValueSlider );
-
             }
         }
         //setMonthlyPay(  currentValueSlider ? propertyData.price/currentValueSlider : propertyData?.price );
@@ -61,6 +67,10 @@ const EstimateDetails = ({ property }) => {
                 value: 0,
                 label: 'De contado'
             }];
+
+            if( propertyResult?.property?.price_annual_interest ) {
+                setPriceInterestAnual( propertyResult?.property?.price_annual_interest );
+            }
 
             propertyResult?.property?.selectable_financing_months.map(( month:number ) => (
                 arrMonths.push({
@@ -88,22 +98,6 @@ const EstimateDetails = ({ property }) => {
 
         setPropertyData( propertyResult.property );
     }
-
-    const data = useStaticQuery(graphql`
-        query {
-            file(relativePath: { eq: "img_puerto_escondido.JPG" }) {
-                childImageSharp {
-                    # Specify a fixed image and fragment.
-                    # The default width is 400 pixels
-                    fixed(width: 700) {
-                        ...GatsbyImageSharpFixed
-                    }
-                }
-            }
-        }
-    `);
-
-
 
     function valuetext(value: number) {
         return `${value}`;
@@ -153,7 +147,6 @@ const EstimateDetails = ({ property }) => {
                                         }
                                     </Grid>
                                 </Grid>
-
                                 <Container maxWidth="md">
                                     <Card sx={{ mt: 2 }}>
                                         <CardContent>
@@ -181,19 +174,32 @@ const EstimateDetails = ({ property }) => {
                                                     Precio por metro cuadrado:
                                                 </Typography>
                                                 <Typography>
-                                                    { `$ ${propertyData?.price } ${ propertyData?.currency }` }
+                                                    { `$ ${ propertyData?.price } ${ propertyData?.currency }` }
                                                 </Typography>
                                             </Stack>
-                                            <Button
+                                            {
+                                                propertyData?.first_payment_mount && (
+                                                    <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
+                                                        <Typography color="text.secondary">
+                                                            Enganche:
+                                                        </Typography>
+                                                        <Typography>
+                                                            { `$ ${ propertyData?.first_payment_mount } ${ propertyData?.currency }` }
+                                                        </Typography>
+                                                    </Stack>
+                                                )
+                                            }
+                                            <StyledButton
                                                 sx={{
                                                     mt: 2,
                                                     textTransform: 'none'
                                                 }}
                                                 variant="contained"
+                                                color="secondary"
                                                 fullWidth
                                             >
                                                 Solicitar Crédito
-                                            </Button>
+                                            </StyledButton>
                                         </CardContent>
                                     </Card>
                                 </Container>
@@ -215,18 +221,17 @@ const EstimateDetails = ({ property }) => {
                                     display: 'flex'
                                 }}
                             >
-                                <Button
+                                <StyledButton
                                     sx={{
                                         mt: 4,
                                         mb: 8,
-                                        transformText: 'none'
                                     }}
                                     onClick={ () => navigate('/') }
                                     startIcon={ <ChevronLeft/> }
                                     variant="outlined"
                                 >
                                     Volver al catálogo
-                                </Button>
+                                </StyledButton>
                             </Box>
                         </>
                     )

@@ -61,6 +61,7 @@ export const CustomSearchInput = (
         openSidebar,
         setOpenSidebar,
         redirectTo,
+        hideFiltersButton
     }:{
         querySearch: string | undefined,
         setQuerySearch: any,
@@ -70,6 +71,7 @@ export const CustomSearchInput = (
         openSidebar?: boolean,
         setOpenSidebar?: any,
         redirectTo?: string | undefined,
+        hideFiltersButton?: boolean,
     }) => {
 
     const textInput = React.useRef(null);
@@ -91,16 +93,23 @@ export const CustomSearchInput = (
                     }
                 }}
             >
-                <IconButton
-                    sx={{ p: '10px', display: {
-                            xs: 'inline',
-                            lg: 'none'
-                        }}}
-                    aria-label="menu"
-                    onClick={ () => setOpenSidebar( !openSidebar ) }
-                >
-                    <FilterList />
-                </IconButton>
+                {
+                    !hideFiltersButton && (
+                        <IconButton
+                            sx={{
+                                p: '10px',
+                                display: {
+                                    xs: 'inline',
+                                    lg: 'none'
+                                }
+                            }}
+                            aria-label="menu"
+                            onClick={ () => setOpenSidebar( !openSidebar ) }
+                        >
+                            <FilterList />
+                        </IconButton>
+                    )
+                }
                 <InputBase
                     inputRef={ textInput }
                     onKeyDown={ (e:any) => {

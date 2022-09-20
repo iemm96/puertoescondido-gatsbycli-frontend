@@ -60,7 +60,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
     return(
         <>
-            <Container maxWidth="xl" sx={{pl: 2, p: attached ? '0 !important' : 'inherit'}}>
+            <Container maxWidth="xl" sx={{pl: 2, p: attached ? '0 !important' : 2}}>
                 {
                     !attached && (
                         <Typography variant="subtitle1">{title}</Typography>

@@ -44,8 +44,7 @@ const PropertiesList = (
         handleChange,
         filteredResults
     } = useFiltersBox(
-        properties,
-        categories
+        properties
     );
 
     const params = new URLSearchParams(location.search);

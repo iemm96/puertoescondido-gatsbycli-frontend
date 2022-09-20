@@ -34,7 +34,6 @@ const LatestPosts = () => {
                 }
             }
         }
-
     `);
 
     React.useEffect(() => {
