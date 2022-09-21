@@ -86,7 +86,7 @@ const CoverImage = ({
                         color: theme.palette.primary.light,
                       }}
                     >
-                      {data?.price}
+                      {data?.price && new Intl.NumberFormat().format( data.price )} el metro cuadrado
                     </Typography>
                     <Typography
                       sx={{

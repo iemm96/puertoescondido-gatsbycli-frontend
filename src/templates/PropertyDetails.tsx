@@ -8,52 +8,37 @@ import Button from "@mui/material/Button";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import Seo from "../components/seo";
 import Layout from "../components/layout";
-import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import { getImage } from "gatsby-plugin-image";
+import {Gallery} from "../components/common/Gallery";
+import CoverImage from "../components/common/CoverImage";
 
 const PropertyDetails = ({ data }) => {
-    const { name, price, location, description, features, coverImage, images } = data.property
-    const image = getImage( coverImage );
-    const [ selectedImage, setSelectedImage ] = React.useState<string | null>();
-
-    const Thumbnails = ( images:[any] ) => (
-        <>
-            <Stack direction="row" spacing={ 2 }>
-                {
-                    images.map( (image:any, index:number) => (
-                        <img onClick={ () => setSelectedImage( image.url ) } alt={ name } key={index} src={ image.url } width={100} height={ 100 }
-                             style={{
-                                 cursor: 'pointer',
-                                 objectFit: 'cover'
-                            }}
-                        />
-                    ) )
-                }
-            </Stack>
-        </>
-    )
+    const { name, price, location, description, features, images, coverImage } = data.property
+    const coverImageObject = getImage( coverImage )
     return(
         <>
             <Seo title={ name }/>
-            <Layout persistentHeader>
+            <Layout scrollTrigger>
+                <CoverImage
+                    data={{
+                        price: price,
+                        name: name,
+                        location: location?.name,
+                        lat: location?.lat,
+                        lng: location?.lng,
+                        features: features,
+                        description: description
+                    }}
+                    gatsbyImage={ coverImageObject }
+                />
                 <Container maxWidth="xl">
                     <Grid
-                        sx={{ mt: 24 }}
+                        sx={{ mt: 4 }}
                         spacing={4}
                         container
                     >
                         <Grid md={ 6 } item>
-                            <Stack spacing={ 2 }>
-                                {
-                                    selectedImage ?
-                                        <img alt={ name } src={ selectedImage }
-                                             style={{
-                                                 width: '100%',
-                                                 objectFit: 'cover',
-                                             }}
-                                        /> : <GatsbyImage alt={ name } image={ image }/>
-                                }
-                                { Thumbnails( images ) }
-                            </Stack>
+                            <Gallery data={ images } preview={ true }/>
                         </Grid>
                         <Grid md={ 6 } item>
                             <Stack
@@ -67,9 +52,9 @@ const PropertyDetails = ({ data }) => {
                                     { name }
                                 </Typography>
                                 <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
-                                    $ { price &&
+                                    Desde $ { price &&
                                     new Intl.NumberFormat().format( price )
-                                } mxn
+                                } mxn el metro cuadrado
                                 </Typography>
                                 {
                                     location && (
@@ -77,8 +62,9 @@ const PropertyDetails = ({ data }) => {
                                             onClick={ () => {
                                                 window.open( `https://www.google.com/maps/search/?api=1&query=${ location.lat }%2C${ location.lng }`, '_blank')
                                             } }
+                                            color="secondary"
                                         >
-                                            <FmdGood/>
+                                            <FmdGood sx={{ fontSize: 16 }}/>
                                             { location.name }
                                         </Typography>
                                     )
@@ -142,6 +128,7 @@ export const query = graphql`
             name
             uid
             description
+            price
             location {
                 name
             }
