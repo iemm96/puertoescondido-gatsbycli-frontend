@@ -10,13 +10,23 @@ const subtitle:string = "¡Mira lo que nuestros clientes dicen!";
 const Testimonials = () => {
     const [ testimonials, setTestimonials ] = useState<any>([]);
 
-    const data = useStaticQuery(graphql`
+    const { allTestimonial } = useStaticQuery(graphql`
         query Testimonials {
             allTestimonial {
                 edges {
+                    
                     node {
                         name
                         comment
+                        avatar {
+                            childImageSharp {
+                                gatsbyImageData(
+                                    width: 280
+                                    placeholder: BLURRED
+                                    formats: [AUTO, WEBP, AVIF]
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -25,12 +35,12 @@ const Testimonials = () => {
 
 
     React.useEffect(() => {
-        if( data ) {
-            if( data.allTestimonial.edges ) {
-                setTestimonials( data.allTestimonial.edges )
+        if( allTestimonial ) {
+            if( allTestimonial.edges ) {
+                setTestimonials( allTestimonial.edges )
             }
         }
-    },[ data ])
+    },[ allTestimonial ])
 
     return(
         <>

@@ -1,74 +1,70 @@
-const axios = require('axios');
-const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
-const { GATSBY_API_HOST } = process.env;
+const axios = require("axios")
+const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
+const { GATSBY_API_HOST } = process.env
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   try {
 
-    const dataCategories = await graphql(`
-      query Category {
-        allCategory {
-        nodes {
-          name
-        }
-       }
-      }
-    `);
-
     const dataProperties = await graphql(`
       query Properties {
-              allProperty {
-                  nodes {
-                      coverImage {
-                          childImageSharp {
-                              gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                          }
-                      }
-                      name
-                      uid
-                      isFeatured
-                      slug
-                      location {
-                          name
-                      }
-                      features {
-                          name
-                      }
-                  }
+        allProperty {
+          nodes {
+            coverImage {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 280
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
-          }
-    `);
-
-    const dataProjects = await graphql(`
-      query Projects {
-          allProject {
-            nodes {
+            }
+            name
+            uid
+            isFeatured
+            slug
+            location {
               name
-              uid
-              measures_unit
-              isFeatured
-              slug
-              location {
-                name
-                
-              }
-              coverImage {
-                  childImageSharp {
-                      gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                  }
-              }
-              images {
-                childrenImageSharp {
-                  gatsbyImageData(formats: AUTO)
-                }
-              }
-        
+            }
+            features {
+              name
             }
           }
         }
-    `);
+      }
+    `)
+
+    const dataProjects = await graphql(`
+      query Projects {
+        allProject {
+          nodes {
+            name
+            uid
+            measures_unit
+            isFeatured
+            slug
+            location {
+              name
+            }
+            coverImage {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 280
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+            images {
+              childrenImageSharp {
+                gatsbyImageData(formats: AUTO)
+              }
+            }
+          }
+        }
+      }
+    `)
 
     const dataPosts = await graphql(`
       query AllPost {
@@ -78,31 +74,33 @@ exports.createPages = async ({ graphql, actions }) => {
             slug {
               current
             }
-          }         
+          }
         }
       }
     `)
 
     const postsPerPage = 6
-    let numPages = 0;
+    let numPages = 0
 
-    dataPosts.data.allSanityPost.nodes.forEach( node => {
+    dataPosts.data.allSanityPost.nodes.forEach(node => {
       createPage({
-        path: `/post/${ node.slug.current }`,
+        path: `/post/${node.slug.current}`,
         component: require.resolve("./src/templates/Post.tsx"),
         context: { slug: node.slug.current },
       })
-    } );
+    })
 
-    dataProjects.data.allProject.nodes.forEach( node => {
+    dataProjects.data.allProject.nodes.forEach(node => {
       createPage({
-        path: `/proyecto/${ node.slug }`,
+        path: `/proyecto/${node.slug}`,
         component: require.resolve("./src/templates/ProjectDetails.tsx"),
         context: { slug: node.slug },
       })
-    } );
+    })
 
-    const numPagesBlog = Math.ceil(dataPosts.data.allSanityPost.nodes.length / postsPerPage );
+    const numPagesBlog = Math.ceil(
+      dataPosts.data.allSanityPost.nodes.length / postsPerPage
+    )
 
     Array.from({ length: numPagesBlog }).forEach((_, i) => {
       createPage({
@@ -116,18 +114,19 @@ exports.createPages = async ({ graphql, actions }) => {
           currentPage: i + 1,
         },
       })
-    });
+    })
 
-    //Math.min( ...data.allProperty.nodes.map( node => node?.price ) );
-    dataProperties.data.allProperty.nodes.forEach( node => {
+    dataProperties.data.allProperty.nodes.forEach(node => {
       createPage({
-        path: `/propiedad/${ node.slug }`,
+        path: `/propiedad/${node.slug}`,
         component: require.resolve("./src/templates/PropertyDetails.tsx"),
         context: { slug: node.slug },
       })
-    } );
+    })
 
-    numPages = Math.ceil(dataProperties.data.allProperty.nodes.length / postsPerPage );
+    numPages = Math.ceil(
+      dataProperties.data.allProperty.nodes.length / postsPerPage
+    )
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
@@ -141,43 +140,43 @@ exports.createPages = async ({ graphql, actions }) => {
           currentPage: i + 1,
         },
       })
-    });
-  }catch (e) {
-    console.log( e );
+    })
+  } catch (e) {
+    console.log(e)
   }
 }
 
 exports.sourceNodes = async ({ actions, createContentDigest }) => {
-  const { createNode } = actions;
+  const { createNode } = actions
 
   try {
-
     //Fetch categories
-    const fetchCategories = async () => await axios.get( `${ GATSBY_API_HOST }categories` );
-    const resultCategories = await fetchCategories();
+    const fetchCategories = async () =>
+      await axios.get(`${GATSBY_API_HOST}categories`)
+    const resultCategories = await fetchCategories()
 
-    resultCategories.data.categories.map( async ( category, i ) => {
+    resultCategories.data.categories.map(async (category, i) => {
       createNode({
         ...category,
         id: `Category-${i}`,
         parent: null,
         children: [],
         internal: {
-          type: 'Category', // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify( category ),
-          contentDigest: createContentDigest( category )
+          type: "Category", // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify(category),
+          contentDigest: createContentDigest(category),
         },
       })
     })
 
     //Fetch locations
-    const fetchLocations = async () => await axios.get(`${ GATSBY_API_HOST }locations`);
-    const resultLocations = await fetchLocations();
+    const fetchLocations = async () =>
+      await axios.get(`${GATSBY_API_HOST}locations`)
+    const resultLocations = await fetchLocations()
 
-    let node_type = 'Location';
+    let node_type = "Location"
 
-    resultLocations.data.locations.map(async ( location, i ) => {
-
+    resultLocations.data.locations.map(async (location, i) => {
       createNode({
         ...location,
         id: `${node_type}-${i}`,
@@ -185,19 +184,19 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
         children: [],
         internal: {
           type: node_type, // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify( location ),
-          contentDigest: createContentDigest( location )
+          content: JSON.stringify(location),
+          contentDigest: createContentDigest(location),
         },
       })
-    });
+    })
 
-    const fetchProjects = async () => await axios.get(`${ GATSBY_API_HOST }projects`);
-    const resProjects = await fetchProjects();
+    const fetchProjects = async () =>
+      await axios.get(`${GATSBY_API_HOST}projects`)
+    const resProjects = await fetchProjects()
 
-    node_type = 'Project';
+    node_type = "Project"
 
-    resProjects.data.projects.map(async ( project, i ) => {
-
+    resProjects.data.projects.map(async (project, i) => {
       createNode({
         ...project,
         id: `${node_type}-${i}`,
@@ -205,18 +204,19 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
         children: [],
         internal: {
           type: node_type, // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify( project ),
-          contentDigest: createContentDigest( project )
+          content: JSON.stringify(project),
+          contentDigest: createContentDigest(project),
         },
       })
-    });
+    })
 
-    const fetchProperties = async () => await axios.get(`${ GATSBY_API_HOST }properties`);
-    const resProperties = await fetchProperties();
+    const fetchProperties = async () =>
+      await axios.get(`${GATSBY_API_HOST}properties`)
+    const resProperties = await fetchProperties()
 
-    node_type = 'Property';
+    node_type = "Property"
 
-    resProperties.data.properties.map(async ( property, i ) => {
+    resProperties.data.properties.map(async (property, i) => {
       createNode({
         ...property,
         id: `${node_type}-${i}`,
@@ -224,18 +224,19 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
         children: [],
         internal: {
           type: node_type, // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify( property ),
-          contentDigest: createContentDigest( property )
+          content: JSON.stringify(property),
+          contentDigest: createContentDigest(property),
         },
       })
-    });
+    })
 
-    const fetchTestimonials = async () => await axios.get(`${ GATSBY_API_HOST }testimonials`);
-    const resTestimonials = await fetchTestimonials();
+    const fetchTestimonials = async () =>
+      await axios.get(`${GATSBY_API_HOST}testimonials`)
+    const resTestimonials = await fetchTestimonials()
 
-    node_type = 'Testimonial';
+    node_type = "Testimonial"
 
-    resTestimonials.data.testimonials.map(async ( testimonial, i ) => {
+    resTestimonials.data.testimonials.map(async (testimonial, i) => {
       createNode({
         ...testimonial,
         id: `${node_type}-${i}`,
@@ -243,31 +244,30 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
         children: [],
         internal: {
           type: node_type, // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify( testimonial ),
-          contentDigest: createContentDigest( testimonial )
+          content: JSON.stringify(testimonial),
+          contentDigest: createContentDigest(testimonial),
         },
       })
-    });
-
-  }catch (e) {
+    })
+  } catch (e) {
     console.log(e)
   }
 
-  return;
+  return
 }
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
 
   const fields = {
-    name: { type: 'String!' },
-    area: { type: 'String!' },
-    description: { type: 'String' },
-    price: { type: 'String' },
-    uid: { type: 'String!' },
-    measures_unit: { type: 'String!' },
-    isFeatured: { type: 'Boolean!' },
-    slug: { type: 'String' },
+    name: { type: "String!" },
+    area: { type: "String!" },
+    description: { type: "String" },
+    price: { type: "String" },
+    uid: { type: "String!" },
+    measures_unit: { type: "String!" },
+    isFeatured: { type: "Boolean!" },
+    slug: { type: "String" },
     features: { type: "[Feature!]" },
     isProject: { type: "Boolean!" },
     isVisible: { type: "Boolean" },
@@ -276,58 +276,74 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     selectable_financing_months: { type: "[Int]" },
     // Single Node
     coverImage: {
-      type: 'File',
-      resolve: (source, args, context, info) => {
+      type: "File",
+      resolve: (source, args, context, ) => {
         return context.nodeModel.getNodeById({
           id: `${source.uid}-image`,
-          type: 'File',
+          type: "File",
         })
-      }
+      },
     },
     // Array
     images: {
-      type: '[File]',
-      resolve: (source, args, context, info) => {
-        const images = source.images.map((img, index) => (
-            context.nodeModel.getNodeById({
-              id: `${source.uid}-images-${index}`,
-              type: 'File',
-            })
-        ))
+      type: "[File]",
+      resolve: (source, args, context, ) => {
+        const images = source.images.map((img, index) =>
+          context.nodeModel.getNodeById({
+            id: `${source.uid}-images-${index}`,
+            type: "File",
+          })
+        )
         return images
-      }
+      },
     },
   }
   const typeDefs = [
-
+      "type Testimonial implements Node",
+      schema.buildObjectType({
+        name: 'Testimonial',
+        fields: {
+          name: { type: "String!" },
+          comment: { type: "String!" },
+          avatar: {
+            type: "File",
+            resolve: ( source, args, context ) => {
+              return context.nodeModel.getNodeById({
+                id: `${source.uid}-image`,
+                type: "File",
+              })
+            },
+          },
+        }
+      }),
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,
-      fields: { ...fields, price: { type: "String!" }},
+      fields: { ...fields, price: { type: "String!" } },
       interfaces: ["Node"],
     }),
     "type Feature implements Node",
     schema.buildObjectType({
       name: `Feature`,
       fields: {
-        name: { type: 'String!' },
-      }
+        name: { type: "String!" },
+      },
     }),
     "type ExternalFile implements Node",
     schema.buildObjectType({
       name: `ExternalFile`,
       fields: {
-        url: { type: 'String' },
-      }
+        url: { type: "String" },
+      },
     }),
     "type Location implements Node",
     schema.buildObjectType({
       name: `Location`,
       fields: {
-        name: { type: 'String!' },
-        lat: { type: 'String' },
-        lng: { type: 'String' },
-      }
+        name: { type: "String!" },
+        lat: { type: "String" },
+        lng: { type: "String" },
+      },
     }),
     "type Project implements Node",
     schema.buildObjectType({
@@ -335,32 +351,27 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       fields: {
         ...fields,
         brochureFile: { type: "ExternalFile" },
-        bluePrintFile: { type: "ExternalFile" }
-      }
+        bluePrintFile: { type: "ExternalFile" },
+      },
     }),
-  ];
+  ]
 
-  createTypes( typeDefs )
+  createTypes(typeDefs)
 }
 
 exports.onCreateNode = async ({
-                                node,
-                                actions: { createNode, createNodeField },
-                                createNodeId,
-                                getCache,
-                              }) => {
-
-  try{
-    if (
-        node.internal.type === "Property" &&
-        node.coverImage.url !== null
-    ) {
-
+  node,
+  actions: { createNode, createNodeField },
+  createNodeId,
+  getCache,
+}) => {
+  try {
+    if (node.internal.type === "Property" && node.coverImage.url !== null) {
       const fileNode = await createRemoteFileNode({
         url: node.coverImage.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
-        createNodeId: (id) => `${node.uid}-image`,
+        createNodeId: id => `${node.uid}-image`,
         getCache,
       })
       // if the file was created, extend the node with "localFile"
@@ -369,12 +380,8 @@ exports.onCreateNode = async ({
       }
     }
 
-    if (
-        node.internal.type === "Property" &&
-        node.images !== null
-    ) {
-
-      node.images.map( async  (image, index) => {
+    if (node.internal.type === "Property" && node.images !== null) {
+      node.images.map(async (image, index) => {
         const fileNode = await createRemoteFileNode({
           url: image.url, // string that points to the URL of the image
           parentNodeId: node.id,
@@ -386,20 +393,15 @@ exports.onCreateNode = async ({
         if (fileNode) {
           createNodeField({ node, name: "localFile", value: fileNode.id })
         }
-      });
-
+      })
     }
 
-    if (
-        node.internal.type === "Project" &&
-        node.coverImage.url !== null
-    ) {
-
+    if (node.internal.type === "Project" && node.coverImage.url !== null) {
       const fileNode = await createRemoteFileNode({
         url: node.coverImage.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
-        createNodeId: (id) => `${node.uid}-image`,
+        createNodeId: id => `${node.uid}-image`,
         getCache,
       })
       // if the file was created, extend the node with "localFile"
@@ -408,12 +410,22 @@ exports.onCreateNode = async ({
       }
     }
 
-    if (
-        node.internal.type === "Project" &&
-        node.images !== null
-    ) {
+    if (node.internal.type === "Testimonial" && node.avatar.url !== null) {
+      const fileNode = await createRemoteFileNode({
+        url: node.avatar.url, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode, // helper function in gatsby-node to generate the node
+        createNodeId: id => `${node.uid}-image`,
+        getCache,
+      })
+      // if the file was created, extend the node with "localFile"
+      if (fileNode) {
+        createNodeField({ node, name: "localFile", value: fileNode.id })
+      }
+    }
 
-      node.images.map( async  (image, index) => {
+    if (node.internal.type === "Project" && node.images !== null) {
+      node.images.map(async (image, index) => {
         const fileNode = await createRemoteFileNode({
           url: image.url, // string that points to the URL of the image
           parentNodeId: node.id,
@@ -425,11 +437,9 @@ exports.onCreateNode = async ({
         if (fileNode) {
           createNodeField({ node, name: "localFile", value: fileNode.id })
         }
-      });
-
+      })
     }
-  }catch (e) {
-    console.log('error creating node ',e);
+  } catch (e) {
+    console.log("error creating node ", e)
   }
 }
-
