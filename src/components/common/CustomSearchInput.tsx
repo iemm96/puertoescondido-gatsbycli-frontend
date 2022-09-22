@@ -23,7 +23,7 @@ export const unFlattenResults = results =>
 
 export const useCustomSearchInput = ( index:any | null, store:any | null, query:string | undefined ) => {
     const [ querySearch, setQuerySearch ] = React.useState<string | undefined>( query );
-    const [ iterableResults, setIterableResults ] = React.useState<any>(null);
+    const [ iterableResults, setIterableResults ] = React.useState<any>([]);
     const [ openSidebar, setOpenSidebar ] = React.useState<boolean>( false );
 
     let results:any = null;
@@ -145,7 +145,7 @@ export const CustomSearchInput = (
                                     return;
                                 }
                                 textInput.current.value = ""
-                                setIterableResults( null );
+                                setIterableResults( [] );
                                 setQuerySearch( undefined );
                             }}
                         >
@@ -167,7 +167,7 @@ export const CustomSearchInput = (
                 </IconButton>
             </Paper>
             <Grow
-                in={querySearch && iterableResults}
+                in={ querySearch && iterableResults.length > 0 }
                 style={{ transformOrigin: '0 0 0' }}
                 {...(querySearch && iterableResults ? { timeout: 1000 } : {})}
             >
@@ -177,7 +177,8 @@ export const CustomSearchInput = (
                                 p: 1,
                                 position: 'absolute',
                                 width: '100%',
-                                zIndex: 2
+                                zIndex: 2,
+                                minHeight: 100
                             }}
                         >
                             {
@@ -188,7 +189,7 @@ export const CustomSearchInput = (
                                             p: 1,
                                             borderRadius: 0,
                                             borderBottom: `1px solid ${ theme.palette.primary.main }`,
-                                            position: 'relative'
+                                            position: 'relative',
                                         }}
                                         elevation={0}
                                     >
@@ -206,9 +207,11 @@ export const CustomSearchInput = (
                                         </CardActionArea>
                                     </Card>
                                 )) : (
-                                    <Typography>
-                                        No se encontraron resultados para la búsqueda "{ querySearch }"
-                                    </Typography>
+                                    querySearch && iterableResults.length === 0 && (
+                                        <Typography>
+                                            No se encontraron resultados para la búsqueda "{ querySearch }"
+                                        </Typography>
+                                    )
                                 )
                             }
                             <IconButton
@@ -220,7 +223,7 @@ export const CustomSearchInput = (
                                 }}
                                 onClick={ () => {
                                     textInput.current.value = ""
-                                    setIterableResults(null);
+                                    setIterableResults([]);
                                     setQuerySearch( undefined );
                                 }}
                             >
