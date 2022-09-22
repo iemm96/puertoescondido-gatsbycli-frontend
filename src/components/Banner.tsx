@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import {styled} from "@mui/material";
+import {styled, useTheme} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 import Fade from 'react-reveal/Fade';
@@ -25,7 +25,6 @@ import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 import IconBluePrint from './../images/icons/blueprint.svg';
 
-import useTheme from "@mui/material/styles/useTheme";
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import ResidentialIcon from "./common/icons/ResidentialIcon"
 import CultivationIcon from "./common/icons/CultivationIcon"
@@ -37,7 +36,7 @@ import {graphql, navigate, useStaticQuery} from 'gatsby';
 import { CustomSearchInput, useCustomSearchInput } from "./common/CustomSearchInput";
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
-    background: "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
+    background: "linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%)",
     width: "100%",
     height: "100%"
 }));
@@ -82,7 +81,7 @@ const StyledTypesButton = styled(Button)(() => ({
 
 const Banner = () => {
     const { width } = useWindowDimensions();
-
+    const theme = useTheme();
     const { localSearchPages } = useStaticQuery(graphql`
         query PropiedadesQuery2 {
             localSearchPages {
@@ -93,9 +92,6 @@ const Banner = () => {
     `);
 
     const { querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults } = useCustomSearchInput( localSearchPages.index, localSearchPages.store, undefined )
-
-
-
 
     return (
         <>
@@ -112,7 +108,7 @@ const Banner = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={ 12 } md={8}>
                                 <StyledMainTitle variant="h3" color="white">
-                                    Somos la inmobiliaria en la que puedes confiar.
+                                    Somos la <span style={{ color: theme.palette.primary.light }}>inmobiliaria</span> en la que puedes <span style={{ color: theme.palette.secondary.light }}>confiar</span>.
                                 </StyledMainTitle>
                             </Grid>
                         </Grid>

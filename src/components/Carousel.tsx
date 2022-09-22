@@ -22,7 +22,7 @@ const dataSlider = [
     image: "banner-3.jpg",
   },
   {
-    image: "banner-5.jpg",
+    image: "banner-5.JPG",
   }
 ]
 const Carousel = ({ styles }:CarouselTypes) => {
