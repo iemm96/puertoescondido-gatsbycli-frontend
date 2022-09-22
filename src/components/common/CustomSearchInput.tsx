@@ -8,7 +8,7 @@ import {Close, FilterList} from '@mui/icons-material';
 import useTheme from "@mui/material/styles/useTheme";
 import { useFlexSearch } from 'react-use-flexsearch';
 import { navigate } from "gatsby";
-import {Box, CardActionArea, Typography} from "@mui/material";
+import {Box, CardActionArea, Grow, Typography} from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 
 function truncate(str, max) {
@@ -166,66 +166,69 @@ export const CustomSearchInput = (
                     <SearchIcon />
                 </IconButton>
             </Paper>
-            {
-                ( querySearch && iterableResults ) && (
-                    <Paper
-                        elevation={ 4 }
-                        sx={{
-                            p: 2,
-                            position: 'absolute',
-                            width: '100%',
-                            zIndex: 2
-                        }}
-                    >
-                        {
-                            iterableResults.length > 0 ? iterableResults.map((val:any, index:number) => (
-                                <Card
-                                    key={ index }
-                                    sx={{
-                                        p: 1,
-                                        borderRadius: 0,
-                                        borderBottom: `1px solid ${ theme.palette.primary.main }`,
-                                        position: 'relative'
-                                    }}
-                                    elevation={0}
-                                >
-                                    <CardActionArea
-                                        onClick={ () => navigate(`/propiedad/${ val.slug }` )}
-                                    >
-                                        <CardContent>
-                                            <Typography color="secondary" variant="h6">
-                                                { val.project.name }
-                                            </Typography>
-                                            <Typography>
-                                                { truncate( val.project.description , 80 ) }
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            )) : (
-                                <Typography>
-                                    No se encontraron resultados para la búsqueda "{ querySearch }"
-                                </Typography>
-                            )
-                        }
-                        <IconButton
+            <Grow
+                in={querySearch && iterableResults}
+                style={{ transformOrigin: '0 0 0' }}
+                {...(querySearch && iterableResults ? { timeout: 1000 } : {})}
+            >
+                        <Paper
+                            elevation={ 4 }
                             sx={{
+                                p: 1,
                                 position: 'absolute',
-                                top: 0,
-                                right: 0,
-                                zIndex: 3,
-                            }}
-                            onClick={ () => {
-                                textInput.current.value = ""
-                                setIterableResults(null);
-                                setQuerySearch( undefined );
+                                width: '100%',
+                                zIndex: 2
                             }}
                         >
-                            <Close/>
-                        </IconButton>
-                    </Paper>
-                )
-            }
+                            {
+                                ( iterableResults && iterableResults.length > 0 ) ? iterableResults.map((val:any, index:number) => (
+                                    <Card
+                                        key={ index }
+                                        sx={{
+                                            p: 1,
+                                            borderRadius: 0,
+                                            borderBottom: `1px solid ${ theme.palette.primary.main }`,
+                                            position: 'relative'
+                                        }}
+                                        elevation={0}
+                                    >
+                                        <CardActionArea
+                                            onClick={ () => navigate(`/propiedad/${ val.slug }` )}
+                                        >
+                                            <CardContent>
+                                                <Typography color="secondary" variant="h6">
+                                                    { val.project.name }
+                                                </Typography>
+                                                <Typography fontSize={ 14 }>
+                                                    { truncate( val.project.description , 80 ) }
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                )) : (
+                                    <Typography>
+                                        No se encontraron resultados para la búsqueda "{ querySearch }"
+                                    </Typography>
+                                )
+                            }
+                            <IconButton
+                                sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 0,
+                                    zIndex: 3,
+                                }}
+                                onClick={ () => {
+                                    textInput.current.value = ""
+                                    setIterableResults(null);
+                                    setQuerySearch( undefined );
+                                }}
+                            >
+                                <Close/>
+                            </IconButton>
+                        </Paper>
+            </Grow>
+
 
         </Box>
 
