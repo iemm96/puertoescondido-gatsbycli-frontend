@@ -6,10 +6,8 @@ import Layout from "../../components/layout"
 import Grid from "@mui/material/Grid"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Button from "@mui/material/Button"
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import { graphql, navigate, useStaticQuery } from "gatsby"
-import { useEffect, useState } from "react"
 import { fetchRecord } from "../../actions/fetchRecord"
 import CoverImage from "../../components/common/CoverImage"
 import Card from "@mui/material/Card";
@@ -20,6 +18,7 @@ import {Gallery} from "../../components/common/Gallery";
 import Header from "../../components/Header";
 import SplashScreen from "../../components/common/SplashScreen";
 import StyledButton from "../../styled/StyledButton";
+import {formatCurrency} from "../../helpers/formatCurrency";
 
 type marksType = {
     value: number;
@@ -27,19 +26,22 @@ type marksType = {
 }
 const EstimateDetails = ({  property, data }) => {
     const theme = useTheme();
-    const [ propertyData, setPropertyData ] = useState( null );
-    const [ monthlyPay, setMonthlyPay ] = useState<any | number>( null );
-    const [ currentValueSlider, setCurrentValueSlider ] = useState<number>( 12 );
-    const [ months, setMonths ] = useState<marksType[] | null>( null );
-    const [ galleryImages, setGalleryImages ] = useState<any[]>( [] );
-    const [ priceInterestAnnual, setPriceInterestAnual ] = useState<any>( null );
-    useEffect(() => {
+    const [ propertyData, setPropertyData ] = React.useState( null );
+    const [ monthlyPay, setMonthlyPay ] = React.useState<any | number>( null );
+    const [ currentValueSlider, setCurrentValueSlider ] = React.useState<number>( 12 );
+    const [ months, setMonths ] = React.useState<marksType[] | null>( null );
+    const [ galleryImages, setGalleryImages ] = React.useState<any[]>( [] );
+    const [ priceInterestAnnual, setPriceInterestAnual ] = React.useState<any>( null );
+    const [ firstPayment, setFirstPayment ] = React.useState<any>( null );
+
+    React.useEffect(() => {
         getProperty().then();
     },[  ]);
 
-    useEffect(() => {
+    React.useEffect(() => {
 
-        const totalPrice = propertyData?.price * propertyData?.area;
+        const propertyTotalPrice = propertyData?.price * propertyData?.area;
+
         let annualInterestTotal = null;
         if( priceInterestAnnual ) {
             annualInterestTotal = priceInterestAnnual * ( currentValueSlider/12 );
@@ -51,11 +53,25 @@ const EstimateDetails = ({  property, data }) => {
         if( propertyData?.price  ) {
 
             if( currentValueSlider === 0 ) {
-                setMonthlyPay( totalPrice )
+                setMonthlyPay( propertyTotalPrice )
             }else {
-                setMonthlyPay( ( totalPrice + annualInterestTotal ) / currentValueSlider );
+                setMonthlyPay( ( propertyTotalPrice + annualInterestTotal ) / currentValueSlider );
             }
         }
+
+        console.log('annualInterestTotal ', annualInterestTotal)
+        let firstPaymentPercentage = 10;
+        let a = (((propertyTotalPrice + annualInterestTotal ) * firstPaymentPercentage ) / 100)
+        console.log(a);
+
+        if( annualInterestTotal ) {
+            setFirstPayment(
+                ((propertyTotalPrice + annualInterestTotal) - a) / currentValueSlider
+            )
+        }else {
+            setFirstPayment( null )
+        }
+
         //setMonthlyPay(  currentValueSlider ? propertyData.price/currentValueSlider : propertyData?.price );
     }, [ propertyData, currentValueSlider ]);
 
@@ -107,8 +123,6 @@ const EstimateDetails = ({  property, data }) => {
         setCurrentValueSlider( newValue );
     }
 
-
-
     return(
         <>
             <SplashScreen duration={4}/>
@@ -127,7 +141,7 @@ const EstimateDetails = ({  property, data }) => {
                                 features: propertyData?.features
                             }}/>
                             <Container sx={{ mt: 2 }} maxWidth="xl">
-                                <Typography variant="subtitle1">Paso 2 de 2</Typography>
+                                <Typography variant="subtitle1">Simulador</Typography>
                                 <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige las mensualidades...</Typography>
                                 <Grid justifyContent="center" container>
                                     <Grid item xs={ 12 } md={ 10 }>
@@ -169,24 +183,24 @@ const EstimateDetails = ({  property, data }) => {
                                                     fontWeight: 700
                                                 }}
                                             >
-                                                ${ new Intl.NumberFormat().format( monthlyPay ) }
+                                                ${ formatCurrency( monthlyPay ) }
                                             </Typography>
                                             <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
                                                 <Typography color="text.secondary">
                                                     Precio por metro cuadrado:
                                                 </Typography>
                                                 <Typography>
-                                                    { `$ ${ propertyData?.price } ${ propertyData?.currency }` }
+                                                    { `$ ${ formatCurrency( propertyData?.price ) } ${ propertyData?.currency }` }
                                                 </Typography>
                                             </Stack>
                                             {
-                                                propertyData?.first_payment_mount && (
+                                                firstPayment && (
                                                     <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
                                                         <Typography color="text.secondary">
                                                             Enganche:
                                                         </Typography>
                                                         <Typography>
-                                                            { `$ ${ propertyData?.first_payment_mount } ${ propertyData?.currency }` }
+                                                            { `$ ${ formatCurrency( firstPayment ) } ${ propertyData?.currency }` }
                                                         </Typography>
                                                     </Stack>
                                                 )
@@ -242,7 +256,6 @@ const EstimateDetails = ({  property, data }) => {
                         </>
                     )
                 }
-
             </Layout>
         </>
     )
