@@ -187,15 +187,6 @@ const Banner = () => {
                             </Grid>
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
-                                    onClick={ () => navigate(`/propiedades?categoria=Ranchos`) }
-                                    startIcon={<CultivationIcon  width={24}/>}
-                                    variant="contained"
-                                >
-                                    Ranchos
-                                </StyledTypesButtonMobile>
-                            </Grid>
-                            <Grid xs={6} item>
-                                <StyledTypesButtonMobile
                                     onClick={ () => navigate(`/propiedades?categoria=Terreno`) }
                                     startIcon={<ClimateIcon  width={24}/>}
                                     variant="contained"
@@ -233,17 +224,6 @@ const Banner = () => {
                     variant="contained"
                 >
                     Fraccionamientos
-                </StyledTypesButton>
-                <StyledTypesButton
-                    onClick={ () => navigate(`/propiedades?categoria=Ranchos`) }
-                    sx={{
-                        borderRight: '1px solid white'
-                    }}
-                    startIcon={<IconCultivation width={40}/>}
-                    color="primary"
-                    variant="contained"
-                >
-                    Ranchos
                 </StyledTypesButton>
                 <StyledTypesButton
                     onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
