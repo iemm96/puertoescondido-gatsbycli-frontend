@@ -230,6 +230,27 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
       })
     })
 
+    //Fetch offers
+    const fetchOffers = async () =>
+        await axios.get(`${GATSBY_API_HOST}offers`)
+    const resOffers = await fetchOffers()
+
+    node_type = "Offer"
+
+    resOffers.data.offers.map(async (offer, i) => {
+      createNode({
+        ...offer,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify(offer),
+          contentDigest: createContentDigest(offer),
+        },
+      })
+    })
+
     const fetchTestimonials = async () =>
       await axios.get(`${GATSBY_API_HOST}testimonials`)
     const resTestimonials = await fetchTestimonials()
@@ -252,8 +273,6 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
   } catch (e) {
     console.log(e)
   }
-
-  return
 }
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
@@ -316,6 +335,24 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           },
         }
       }),
+    "type Offer implements Node",
+    schema.buildObjectType({
+      name: 'Offer',
+      fields: {
+        property: { type: "Property" },
+        name: { type: "String!" },
+        isActive: {type: "Boolean!"},
+        file: {
+          type: "File",
+          resolve: ( source, args, context ) => {
+            return context.nodeModel.getNodeById({
+              id: `${source.uid}-image`,
+              type: "File",
+            })
+          },
+        },
+      }
+    }),
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,
@@ -366,9 +403,9 @@ exports.onCreateNode = async ({
   getCache,
 }) => {
   try {
-    if (node.internal.type === "Property" && node.coverImage.url !== null) {
+    if (node.internal.type === "Property" && node?.coverImage?.url !== null) {
       const fileNode = await createRemoteFileNode({
-        url: node.coverImage.url, // string that points to the URL of the image
+        url: node?.coverImage?.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
         createNodeId: id => `${node.uid}-image`,
@@ -413,6 +450,20 @@ exports.onCreateNode = async ({
     if (node.internal.type === "Testimonial" && node.avatar.url !== null) {
       const fileNode = await createRemoteFileNode({
         url: node.avatar.url, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode, // helper function in gatsby-node to generate the node
+        createNodeId: id => `${node.uid}-image`,
+        getCache,
+      })
+      // if the file was created, extend the node with "localFile"
+      if (fileNode) {
+        createNodeField({ node, name: "localFile", value: fileNode.id })
+      }
+    }
+
+    if (node.internal.type === "Offer" && node.file.url !== null) {
+      const fileNode = await createRemoteFileNode({
+        url: node.file.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
         createNodeId: id => `${node.uid}-image`,

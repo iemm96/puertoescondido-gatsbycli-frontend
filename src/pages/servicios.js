@@ -5,53 +5,15 @@ import { Box, Stack, Typography } from "@mui/material"
 import Layout from "../components/layout"
 import Grid from "@mui/material/Grid"
 
-import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { StaticImage } from "gatsby-plugin-image"
-import Button from "@mui/material/Button"
-import ChevronLeft from "@mui/icons-material/ChevronLeft"
-import { graphql, navigate, useStaticQuery } from "gatsby"
-import { Gallery } from "../components/common/Gallery"
+import { navigate } from "gatsby"
 import { Home } from "@mui/icons-material"
 import StyledButton from "../styled/StyledButton"
-
-const settings = {
-  dots: true,
-  slidesToShow: 5,
-  slidesToScroll: 1,
-  arrows: true,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        centerMode: true,
-        centerPadding: "15%",
-        slidesToShow: 1,
-        infinite: false,
-      },
-    },
-  ],
-}
+import GalleryDrone from "../components/galleries/GalleryDrone";
+import GalleryTopography from "../components/galleries/GalleryTopography";
 
 const Servicios = () => {
-  const { allFile } = useStaticQuery(graphql`
-    query AllTopographyPhotos {
-      allFile(
-        filter: {
-          extension: { regex: "/(jpg)/" }
-          relativeDirectory: { eq: "services/topography" }
-        }
-      ) {
-        nodes {
-          childImageSharp {
-            gatsbyImageData
-          }
-          relativePath
-        }
-      }
-    }
-  `)
 
   return (
     <>
@@ -68,7 +30,7 @@ const Servicios = () => {
               Servicios
             </Typography>
             <Typography align="center" sx={{ mt: 18 }} variant="subtitle1">
-              Somos más que una Inmobiliaria, ¡Conoce todas las soluciones que
+              ¡Conoce todas las soluciones que
               tenemos para ti!
             </Typography>
           </Stack>
@@ -82,7 +44,7 @@ const Servicios = () => {
               sx={{ justifyContent: "center", display: "flex" }}
               item
             >
-              <Gallery data={allFile.nodes} preview={false} />
+              <GalleryTopography/>
             </Grid>
             <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
               <Stack
@@ -105,6 +67,42 @@ const Servicios = () => {
                 sx={{
                   mt: 4,
                 }}
+              >
+                Agendar cita
+              </StyledButton>
+            </Grid>
+          </Grid>
+          <Grid sx={{ mt: 4 }} spacing={4} container>
+            <Grid
+                xs={12}
+                md={6}
+                order={{ xs: 2, md: 1 }}
+                sx={{ justifyContent: "center", display: "flex" }}
+                item
+            >
+              <GalleryDrone/>
+            </Grid>
+            <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
+              <Stack
+                  sx={{
+                    display: "flex",
+                    justifyContent: "left",
+                  }}
+                  direction="column"
+              >
+                <Typography variant="h5">Fotografía con Drone</Typography>
+                <Typography sx={{ mt: 2 }} variant="body2">
+                  Contamos con los mejores Drones y tecnología especializada para
+                  captura de imágenes áreas.
+                </Typography>
+              </Stack>
+              <StyledButton
+                  onClick={() => navigate("/contacto")}
+                  color="primary"
+                  variant="contained"
+                  sx={{
+                    mt: 4,
+                  }}
               >
                 Agendar cita
               </StyledButton>

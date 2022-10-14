@@ -67,7 +67,7 @@ const FeaturedProperties = ({ attached }:{ attached?:boolean }) => {
                         subtitle={ subtitle }
                         data={ properties }
                         viewMoreButtonRedirectPath="propiedades"
-                        viewMoreButtonText="Ver más propiedades"
+                        viewMoreButtonText="Ver todas las propiedades"
                         viewMoreButton
                     />
                 )
