@@ -3,8 +3,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-import { Pagination } from 'swiper';
+import { Pagination, Autoplay, Navigation } from 'swiper';
 
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -27,14 +28,15 @@ interface FunctionalComponentPropsType {
 }
 
 type SliderComponentType = {
-    title: string;
-    subtitle: string;
+    title?: string;
+    subtitle?: string;
     settings?: any;
     data?: any;
     viewMoreButton?: boolean;
     viewMoreButtonText?: string;
     viewMoreButtonRedirectPath?: string;
     attached?: boolean;
+    fullScreen?: boolean;
     Component?: FC<FunctionalComponentPropsType>
 }
 
@@ -45,7 +47,7 @@ const boxStyles = {
     width: '100%',
 }
 
-const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached }:SliderComponentType) => {
+const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached, fullScreen = false }:SliderComponentType) => {
     const theme = useTheme();
     const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ swiperState, setSwiperState ] = React.useState<any>( {
@@ -60,24 +62,32 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
     return(
         <>
-            <Container maxWidth="xl" sx={{pl: 2, p: attached ? '0 !important' : 2}}>
+            <Container maxWidth="xl" sx={{
+                pl: 2,
+                p: attached || fullScreen  ? '0 !important' : 2,
+            }}>
                 {
-                    !attached && (
+                    !attached || !fullScreen && (
                         <Typography variant="subtitle1">{title}</Typography>
                     )
                 }
                 <Grid
                     sx={{
                         mb:{
-                            xs: 2
+                            xs: fullScreen ? 0 : 2
                         }
                     }}
                     container
                     justifyContent="space-between"
                 >
-                    <Grid item>
-                        <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
-                    </Grid>
+                    {
+                        !attached || !fullScreen && (
+                            <Grid item>
+                                <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
+                            </Grid>
+                        )
+                    }
+
                     <Grid sx={{
                         display: {
                             xs: 'none',
@@ -123,17 +133,21 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                     style={{
                         // @ts-ignore
                         "--swiper-pagination-color": theme.palette.primary.main,
-                        paddingBottom: '2rem',
+                        paddingBottom: fullScreen ? 0 : '2rem',
                     }}
                     observeParents={  true }
                     observer={  true }
                     pagination={{
                         dynamicBullets: true,
                     }}
-                    modules={[ Pagination ]}
+                    navigation={ fullScreen }
+                    modules={[ Pagination, Autoplay, Navigation ]}
                     slidesPerView="auto"
                     spaceBetween={ 10 }
                     centeredSlides={ false }
+                    autoplay={{
+                        delay: 2500,
+                    }}
                     onSlideChange={() => {
                         setSwiperState( {
                             isEnd: swiperDef.isEnd,
@@ -169,13 +183,13 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                 >
                     {( data && data.length > 0 ) && data.map( (item, index ) => (
                         <SwiperSlide>
-                            <Fade duration={ 1500 } right>
+                            <Fade duration={ 1500 } right={ !fullScreen }>
                                 <Box key={index} sx={boxStyles}>
                                     {
                                         Component ? (
                                             <Component key={ index } data={ item.node }/>
                                         ) : (
-                                            <PropertyCard key={ index } data={ item.node } attached={ attached }/>
+                                            <PropertyCard key={ index } data={ item.node } attached={ attached } fullScreen={ fullScreen }/>
                                         )
                                     }
                                 </Box>

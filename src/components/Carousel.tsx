@@ -54,7 +54,6 @@ const Carousel = ({ styles }:CarouselTypes) => {
         }
       </div>
     </>
-
   )
 }
 

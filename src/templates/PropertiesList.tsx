@@ -67,28 +67,10 @@ const PropertiesList = (
     return(
         <>
             <Seo title="Propiedades"/>
-            <Layout scrollTrigger persistentHeader={true}>
+            <Layout scrollTrigger persistentHeader={false}>
+                <FeaturedProperties fullScreen/>
                 <Container maxWidth="xl">
-                    <Box
-                        sx={{
-                            justifyContent: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Stack spacing={2} direction="column" justifyContent="center">
-                            <Typography align="center" sx={{ mt: 18 }} variant="h5">Propiedades disponibles</Typography>
-                            <CustomSearchInput
-                                querySearch={ querySearch }
-                                setQuerySearch={ setQuerySearch }
-                                handleSearch={ handleSearch }
-                                iterableResults={ iterableResults }
-                                setIterableResults={ setIterableResults }
-                                openSidebar={  openSidebar }
-                                setOpenSidebar={ setOpenSidebar }
-                            />
-                        </Stack>
-                    </Box>
-                    <Grid sx={{ mt: 7 }} spacing={4} container>
+                    <Grid spacing={4} container>
                         <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
                             <FiltersBox
                                 defaultCategory={ category }
@@ -103,7 +85,6 @@ const PropertiesList = (
                         </Grid>
                         <Grid xs={12} lg={9} item>
                             <Grid container>
-                                <FeaturedProperties attached/>
                             </Grid>
                             <Grid spacing={2} container>
                                 {

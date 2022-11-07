@@ -6,7 +6,7 @@ import { graphql, useStaticQuery } from "gatsby";
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
-const FeaturedProperties = ({ attached }:{ attached?:boolean }) => {
+const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
@@ -55,21 +55,32 @@ const FeaturedProperties = ({ attached }:{ attached?:boolean }) => {
                 setProperties( data.allProject.edges.concat( data.allProperty.edges ) )
             }
         }
-    },[ data ])
+    },[ data ]);
+
+    const fullScreenStyles:React.CSSProperties = {
+        width: '100%',
+        overflow:'hidden',
+        position:'relative',
+        height: '100%',
+        top:0
+    }
 
     return(
         <>
             {
                 properties.length > 0 && (
-                    <SliderComponent
-                        title={ title }
-                        attached={ attached }
-                        subtitle={ subtitle }
-                        data={ properties }
-                        viewMoreButtonRedirectPath="propiedades"
-                        viewMoreButtonText="Ver todas las propiedades"
-                        viewMoreButton
-                    />
+                    <div style={
+                        fullScreen ? fullScreenStyles : {}
+                    }>
+                        <SliderComponent
+                            title={ title }
+                            fullScreen={ fullScreen }
+                            attached={ attached }
+                            subtitle={ subtitle }
+                            data={ properties }
+                            viewMoreButtonRedirectPath="propiedades"
+                        />
+                    </div>
                 )
             }
         </>
