@@ -33,7 +33,7 @@ const IndexPage = ({ data }) => {
     <>
       <Seo title="Inicio" />
       <Layout scrollTrigger={true}>
-        {data?.allOffer && (
+        {data?.allOffer?.nodes[0]?.file && (
           <ModalOffers
             {...modalOffersProps}
             image={ getImage(data.allOffer.nodes[0].file) }
