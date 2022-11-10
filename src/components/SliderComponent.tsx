@@ -62,7 +62,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
     return(
         <>
-            <Container maxWidth="xl" sx={{
+            <Container maxWidth={ !fullScreen ? 'xl' : false } sx={{
                 pl: 2,
                 p: attached || fullScreen  ? '0 !important' : 2,
             }}>
@@ -96,7 +96,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                     }} item
                     >
                         {
-                            ( viewMoreButton && !attached ) && (
+                            ( viewMoreButton && (!attached && !fullScreen) ) && (
                                 <Button
                                     sx={{ textTransform: 'none' }}
                                     color="primary"
@@ -108,25 +108,30 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                             )
                         }
 
-                        <Box>
-                            <IconButton
-                                sx={ arrowButtonStyles }
-                                disabled={ swiperState.isBeginning }
-                                onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
-                            >
-                                <ChevronLeft/>
-                            </IconButton>
-                            <IconButton
-                                sx={{
-                                    borderRadius: 2,
-                                    height: 40
-                                }}
-                                disabled={ swiperState.isEnd }
-                                onClick={() => swiperDef ? swiperDef.slideNext() : ''}
-                            >
-                                <ChevronRight/>
-                            </IconButton>
-                        </Box>
+                        {
+                            !fullScreen && (
+                                <Box>
+                                    <IconButton
+                                        sx={ arrowButtonStyles }
+                                        disabled={ swiperState.isBeginning }
+                                        onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
+                                    >
+                                        <ChevronLeft/>
+                                    </IconButton>
+                                    <IconButton
+                                        sx={{
+                                            borderRadius: 2,
+                                            height: 40
+                                        }}
+                                        disabled={ swiperState.isEnd }
+                                        onClick={() => swiperDef ? swiperDef.slideNext() : ''}
+                                    >
+                                        <ChevronRight/>
+                                    </IconButton>
+                                </Box>
+                            )
+                        }
+
                     </Grid>
                 </Grid>
                 <Swiper
@@ -175,7 +180,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                             "spaceBetween": 10
                         },
                         "1280": {
-                            "slidesPerView": attached ? 3 : 4,
+                            "slidesPerView": fullScreen ? 1 : attached ? 3 : 4,
                             "spaceBetween": 10
                         }
                     }}

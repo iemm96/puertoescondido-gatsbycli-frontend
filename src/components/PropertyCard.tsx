@@ -206,7 +206,7 @@ const PropertyCard = ({
       sx={{
         maxWidth: {
           xs: "100%",
-          md: 414,
+          md: fullScreen ? '100%' : 414,
         },
         borderRadius: fullScreen ? 0 : showAsList ? 3 : 4,
         borderBottom: {

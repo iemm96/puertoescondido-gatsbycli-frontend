@@ -69,7 +69,9 @@ const PropertiesList = (
             <Seo title="Propiedades"/>
             <Layout scrollTrigger persistentHeader={false}>
                 <FeaturedProperties fullScreen/>
-                <Container maxWidth="xl">
+                <Container maxWidth="xl" sx={{ pt:{
+                    xl: 2
+                }}}>
                     <Grid spacing={4} container>
                         <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
                             <FiltersBox
