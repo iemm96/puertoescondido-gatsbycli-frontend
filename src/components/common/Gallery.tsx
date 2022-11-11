@@ -50,9 +50,9 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
     return(
         <Box sx={{
             width: {
-                xs: 375,
+                xs: 350,
                 md: 450,
-                lg: 600
+                lg: '100%'
             },
             position: 'relative'
         }}>
@@ -93,14 +93,17 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     data && data.map((val:any, index:number) => (
                         <SwiperSlide key={ index }>
                             <Box key={ index } sx={{
-                                height: 250,
+                                height: {
+                                    xs: 250,
+                                    xl: 400,
+                                },
                                 ...boxStyles
                             }}>
                                     <GatsbyImage
                                         onClick={ () => handleSelectImage( val ) }
                                         alt={"img-1"}
                                         style={{
-                                            maxWidth: 300,
+                                            width: '100%',
                                             cursor: 'pointer',
                                             borderRadius: 16,
                                             objectFit: 'cover'

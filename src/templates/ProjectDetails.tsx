@@ -19,6 +19,22 @@ import withTheme from "../components/theme";
 const ProjectDetails = ({ data }) => {
     const { name, price, location, description, features, images, width, length, coverImage, brochureFile, bluePrintFile } = data.project;
     const coverImageObject = getImage( coverImage );
+    const descriptionComponent = () => (
+        <>
+            <Box
+                sx={{ mb: 1, mt: 2 }}
+            >
+                <Typography variant="caption">
+                    Descripción:
+                </Typography>
+            </Box>
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: description
+                }}
+            />
+        </>
+    )
 
     return(
         <>
@@ -34,19 +50,45 @@ const ProjectDetails = ({ data }) => {
                                 lat: location?.lat,
                                 lng: location?.lng,
                                 features: features,
-                                description: description
                             }}
                             gatsbyImage={ coverImageObject }
                         />
                         <Container maxWidth="xl">
                             <Grid
-                                sx={{ mt: 4 }}
-                                spacing={4}
+                                sx={{ mt: { xs: 0, md: 4} }}
+                                spacing={ 4 }
                                 justifyContent="center"
                                 container
                             >
                                 <Grid md={ 6 } item order={{ xs: 2, md: 1 }}>
+                                    <Box sx={{
+                                        display: {
+                                            xs: 'inline',
+                                            md: 'none'
+                                        }
+                                    }}>
+                                        { descriptionComponent() }
+                                    </Box>
                                     <Gallery data={ images } preview={ true }/>
+                                    <StyledButton
+                                        color="primary"
+                                        variant="contained"
+                                        onClick={ () => navigate('/contacto')}
+                                        sx={{
+                                            mt: 3,
+                                            px: 4,
+                                            py: 2,
+                                            width: {
+                                                xs: '100%',
+                                            },
+                                            display: {
+                                                xs: 'inline',
+                                                md: 'none'
+                                            }
+                                        }}
+                                    >
+                                        Agendar cita
+                                    </StyledButton>
                                 </Grid>
                                 <Grid
                                     sx={{
@@ -125,12 +167,18 @@ const ProjectDetails = ({ data }) => {
                                                 )
                                             }
                                         </Stack>
-                                        <Typography
-                                            sx={{ mt: 2 }}
-                                            variant="body2"
+                                        <Box
+                                            sx={{ mb: 1, mt: 2 }}
                                         >
-                                            { description }
-                                        </Typography>
+                                            <Typography variant="caption">
+                                                Descripción:
+                                            </Typography>
+                                        </Box>
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: description
+                                            }}
+                                       />
                                     </Stack>
                                     <Stack sx={{ mt: 2 }} spacing={ 2 } direction="row" flexWrap="wrap">
                                         {
@@ -143,9 +191,10 @@ const ProjectDetails = ({ data }) => {
                                     <StyledButton
                                         color="primary"
                                         variant="contained"
+                                        onClick={ () => navigate('/contacto')}
                                         sx={{
                                             mt: 3,
-                                            px: 4
+                                            px: 4,
                                         }}
                                     >
                                         Agendar cita
