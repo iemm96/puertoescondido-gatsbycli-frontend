@@ -70,7 +70,7 @@ const PropertiesList = (
             <Layout scrollTrigger persistentHeader={false}>
                 <FeaturedProperties fullScreen/>
                 <Container maxWidth="xl" sx={{ pt:{
-                    xl: 2
+                    md: 2
                 }}}>
                     <Grid spacing={4} container>
                         <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
