@@ -17,6 +17,7 @@ import { BgImage } from "gbimage-bridge"
 import useTheme from "@mui/material/styles/useTheme"
 import Box from "@mui/material/Box"
 import useWindowDimensions from "../hooks/useWindowDimensions"
+import Container from "@mui/material/Container";
 
 const PropertyCard = ({
   data,
@@ -234,7 +235,13 @@ const PropertyCard = ({
               zIndex: 0,
             }}
           />
-          {ProjectCard(data)}
+          {
+            fullScreen ?
+                <Container sx={{ height: '100%' }} maxWidth="xl">
+                  {ProjectCard(data)}
+                </Container> :
+                  ProjectCard(data)
+          }
         </BgImage>
       ) : (
         CardInnerContent(data)

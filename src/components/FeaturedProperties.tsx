@@ -2,7 +2,7 @@ import * as React from "react";
 import SliderComponent from "./SliderComponent"
 import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby";
-
+import Container from "@mui/material/Container"
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
@@ -31,7 +31,7 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
                     node {
                         coverImage {
                             childImageSharp {
-                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                                gatsbyImageData(width: 1280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
                             }
                         }
                         name
