@@ -184,7 +184,9 @@ const ProjectDetails = ({ data }) => {
                                         {
                                             features &&
                                             features.map( (feature, index) => (
-                                                <Chip size="small" key={index} label={ feature.name }/>
+                                                <Chip icon={
+                                                    <div style={{ width: '10px', marginRight: '8px' }}  dangerouslySetInnerHTML={{ __html: feature?.icon }}/>
+                                                } size="small" key={index} label={ feature.name }/>
                                             ) )
                                         }
                                     </Stack>
@@ -248,6 +250,7 @@ export const query = graphql`
             }
             features {
                 name
+                icon
             }
             coverImage {
                 childImageSharp {

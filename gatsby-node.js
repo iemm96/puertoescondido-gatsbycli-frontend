@@ -364,6 +364,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Feature`,
       fields: {
         name: { type: "String!" },
+        icon: { type: "String" },
       },
     }),
     "type ExternalFile implements Node",
