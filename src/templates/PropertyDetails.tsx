@@ -3,7 +3,7 @@ import {graphql, navigate} from "gatsby";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {Box, Chip, Stack, Typography} from "@mui/material";
-import {FmdGood} from "@mui/icons-material";
+import {FmdGood, WhatsApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import Seo from "../components/seo";
@@ -88,17 +88,19 @@ const PropertyDetails = ({ data }) => {
                             <Button
                                 color="primary"
                                 variant="contained"
+                                onClick={ () => 
+                                    window.open(`https://api.whatsapp.com/send/?phone=529541084925&text=Hola+visité+su+sitio+web+y+me+interesa+más+información+sobre+${ name.replace(' ','+') }`)}
+                                startIcon={ <WhatsApp/> }
                                 sx={{
                                     mt: 4,
                                     textTransform: 'none'
                                 }}
                             >
-                                Agendar cita
+                                Solicitar más información
                             </Button>
                         </Grid>
                     </Grid>
                 </Container>
-
                 <Box
                     sx={{
                         display: 'flex',

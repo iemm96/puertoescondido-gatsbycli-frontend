@@ -85,7 +85,7 @@ const PropertyCard = ({
       {!attached && (
         <CardActions>
           <Button
-            onClick={() => navigate(`/${data.uid}`)}
+            onClick={() => navigate(`/${data.slug}`)}
             variant="text"
             sx={{ textTransform: "none" }}
             size="small"
@@ -186,7 +186,7 @@ const PropertyCard = ({
           }}
         >
           <Button
-            onClick={() => navigate(`/${data.uid}`)}
+            onClick={() => navigate(`/${data.slug}`)}
             variant="text"
             sx={{
               textTransform: "none",
