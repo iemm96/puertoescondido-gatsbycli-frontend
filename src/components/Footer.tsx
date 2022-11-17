@@ -209,12 +209,7 @@ const Footer = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item>
-              <a href="https://nucleodev.com">
-                <NucleoLogo />
-              </a>
-            </Grid>
+          <Grid container justifyContent="center">
             <Grid item>
               <Typography
                 color={theme.palette.text.primary}
