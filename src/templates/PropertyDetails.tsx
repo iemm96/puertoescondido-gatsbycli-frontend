@@ -21,7 +21,6 @@ const PropertyDetails = ({ data }) => {
             <Layout scrollTrigger>
                 <CoverImage
                     data={{
-                        price: price,
                         name: name,
                         location: location?.name,
                         lat: location?.lat,

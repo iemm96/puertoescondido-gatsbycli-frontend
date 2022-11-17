@@ -175,6 +175,7 @@ const ProjectDetails = ({ data }) => {
                                             </Typography>
                                         </Box>
                                         <div
+                                            style={{ textAlign: 'justify' }}
                                             dangerouslySetInnerHTML={{
                                                 __html: description
                                             }}
