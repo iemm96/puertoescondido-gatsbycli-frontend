@@ -5,16 +5,14 @@ import Grid from "@mui/material/Grid"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Image from "../components/common/Image"
-import { Tiktok } from "@styled-icons/boxicons-logos/Tiktok"
 import { FmdGood, Phone } from "@mui/icons-material"
 import useTheme from "@mui/material/styles/useTheme"
-import { Facebook, Instagram, YouTube } from "@mui/icons-material"
-import { Stack } from "@mui/material"
 import { Link } from "gatsby"
 // @ts-ignore
 import NucleoLogo from "../images/logo-nucleo-2022.svg"
 // @ts-ignore
 import Waves from "./../images/waves.svg"
+import SocialNetworksIcons from "./common/SocialNetworksIcons";
 
 const Footer = () => {
   const theme = useTheme()
@@ -68,35 +66,7 @@ const Footer = () => {
               }}
               item
             >
-              <Stack spacing={4} direction="row">
-                <a
-                  href="https://www.facebook.com/TerrenosenPuertoEscondido/?_rdc=1&_rdr"
-                  target="_blank"
-                >
-                  <Facebook sx={{ color: theme.palette.text.primary }} />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@inmpuertoescondido"
-                  target="_blank"
-                >
-                  <Tiktok
-                    size={24}
-                    style={{ color: theme.palette.text.primary }}
-                  />
-                </a>
-                <a
-                  href="https://www.instagram.com/inmobiliariapuertoescondido/?igshid=qbodrxzdlg5m"
-                  target="_blank"
-                >
-                  <Instagram sx={{ color: theme.palette.text.primary }} />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCFUKXzIphheZd_tHWW1yB4w"
-                  target="_blank"
-                >
-                  <YouTube sx={{ color: theme.palette.text.primary }} />
-                </a>
-              </Stack>
+              <SocialNetworksIcons/>
             </Grid>
           </Grid>
           <Grid

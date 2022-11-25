@@ -4,8 +4,8 @@ import Layout from "../components/layout"
 import GradientBox from "../components/GradientBox"
 import { Paper, Typography, Box, Container, Grid, Stack, TextField, Button } from "@mui/material"
 import { Controller, useForm } from 'react-hook-form';
-import { ChevronLeft, Facebook, Instagram, Phone, PinDrop, WhatsApp, YouTube } from "@mui/icons-material"
-import Divider from '@mui/material/Divider';
+import { ChevronLeft, Phone, PinDrop } from "@mui/icons-material"
+import SocialNetworksIcons from "../components/common/SocialNetworksIcons";
 
 const inputStyles = {
   '& .MuiFilledInput-input': {
@@ -152,12 +152,7 @@ const Contacto = () => {
                       </Typography>
                     </Grid>
                     <Grid xs={ 12 } md={ 6 } item>
-                      <Stack spacing={ 3 } direction="row">
-                        <YouTube width={24}/>
-                        <Facebook width={24}/>
-                        <Instagram width={24}/>
-                        <WhatsApp width={24}/>
-                      </Stack>
+                      <SocialNetworksIcons/>
                     </Grid>
                   </Grid>
 
