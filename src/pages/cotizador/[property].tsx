@@ -49,7 +49,6 @@ const EstimateDetails = ({  property, data }) => {
             annualInterestTotal = ( currentValueSlider/12 );
         }
 
-        
         if( propertyData?.price  ) {
 
             if( currentValueSlider === 0 ) {
@@ -72,7 +71,6 @@ const EstimateDetails = ({  property, data }) => {
             setFirstPayment( null )
         }
 
-        //setMonthlyPay(  currentValueSlider ? propertyData.price/currentValueSlider : propertyData?.price );
     }, [ propertyData, currentValueSlider ]);
 
     const getProperty = async () => {
