@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import useTheme from "@mui/material/styles/useTheme";
 import {FC} from "react";
 import { Fade } from 'react-reveal';
+import { AutoplayOptions } from "swiper/types";
 
 interface FunctionalComponentPropsType {
     key?: number;
@@ -37,6 +38,7 @@ type SliderComponentType = {
     viewMoreButtonRedirectPath?: string;
     attached?: boolean;
     fullScreen?: boolean;
+    autoplayDelay?: number | undefined;
     Component?: FC<FunctionalComponentPropsType>
 }
 
@@ -47,7 +49,7 @@ const boxStyles = {
     width: '100%',
 }
 
-const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached, fullScreen = false }:SliderComponentType) => {
+const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached, autoplayDelay, fullScreen = false }:SliderComponentType) => {
     const theme = useTheme();
     const [ swiperDef, setSwiperDef ] = React.useState<any>( [] );
     const [ swiperState, setSwiperState ] = React.useState<any>( {
@@ -150,9 +152,7 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
                     slidesPerView="auto"
                     spaceBetween={ 10 }
                     centeredSlides={ false }
-                    autoplay={{
-                        delay: 2500,
-                    }}
+                    autoplay={ autoplayDelay ? { delay: autoplayDelay } : false }
                     onSlideChange={() => {
                         setSwiperState( {
                             isEnd: swiperDef.isEnd,
