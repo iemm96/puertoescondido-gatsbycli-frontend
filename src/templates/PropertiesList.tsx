@@ -2,7 +2,6 @@ import * as React from 'react';
 import Seo from "../components/seo"
 import Layout from "../components/layout"
 import {
-    Box,
     Container,
     Grid,
     Stack,
@@ -12,7 +11,7 @@ import {ChevronLeft, ChevronRight, Home} from "@mui/icons-material"
 import PropertyCard from "../components/PropertyCard";
 import StyledButton from "../styled/StyledButton";
 import {graphql, navigate} from "gatsby";
-import {CustomSearchInput, useCustomSearchInput} from "../components/common/CustomSearchInput";
+import { useCustomSearchInput} from "../components/common/CustomSearchInput";
 import {FiltersBox, useFiltersBox} from "../components/common/FiltersBox";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import FeaturedProperties from "../components/FeaturedProperties";
@@ -25,8 +24,11 @@ const PropertiesList = (
                 index,
                 store
             },
+            allProject: {
+                nodes: projects,
+            },
             allProperty: {
-                nodes,
+                nodes: properties,
             },
             allCategory: {
                 nodes: categories
@@ -36,15 +38,14 @@ const PropertiesList = (
     }
 ) => {
     const { limit, numPages, currentPage, totalResults } = pageContext;
-    const properties = nodes;
 
     const {
         filters,
         setFilters,
         handleChange,
-        filteredResults
+        filteredResults,
     } = useFiltersBox(
-        properties
+        projects.concat( properties )
     );
 
     const params = new URLSearchParams(location.search);
@@ -52,14 +53,8 @@ const PropertiesList = (
     const category = params.get("categoria");
 
     const {
-        querySearch,
-        setQuerySearch,
-        handleSearch,
-        iterableResults,
-        setIterableResults,
         openSidebar,
         setOpenSidebar,
-
     } = useCustomSearchInput( index, store, search );
 
     const { width } = useWindowDimensions();
@@ -217,6 +212,34 @@ export const query = graphql`
         allCategory {
             nodes {
                 name
+            }
+        }
+        allProject (
+            limit: $limit
+            skip: $skip,
+            filter: {
+                isVisible: { eq: true }
+            }
+        ) {
+            nodes {
+                name
+                slug
+                description
+                price
+                category {
+                    name
+                }
+                features {
+                    name
+                }
+                location {
+                    name
+                }
+                coverImage {
+                    childImageSharp {
+                        gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                    }
+                }
             }
         }
         allProperty(
