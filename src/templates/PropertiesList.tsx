@@ -64,6 +64,7 @@ const PropertiesList = (
 
     const { width } = useWindowDimensions();
 
+
     return(
         <>
             <Seo title="Propiedades"/>
