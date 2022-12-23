@@ -35,37 +35,6 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `)
 
-    const dataProjects = await graphql(`
-      query Projects {
-        allProject {
-          nodes {
-            name
-            uid
-            measures_unit
-            isFeatured
-            slug
-            location {
-              name
-            }
-            coverImage {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 280
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-            images {
-              childrenImageSharp {
-                gatsbyImageData(formats: AUTO)
-              }
-            }
-          }
-        }
-      }
-    `)
-
     const dataPosts = await graphql(`
       query AllPost {
         allSanityPost {
@@ -87,14 +56,6 @@ exports.createPages = async ({ graphql, actions }) => {
         path: `/post/${node.slug.current}`,
         component: require.resolve("./src/templates/Post.tsx"),
         context: { slug: node.slug.current },
-      })
-    })
-
-    dataProjects.data.allProject.nodes.forEach(node => {
-      createPage({
-        path: `/proyecto/${node.slug}`,
-        component: require.resolve("./src/templates/ProjectDetails.tsx"),
-        context: { slug: node.slug },
       })
     })
 
@@ -190,26 +151,6 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
       })
     })
 
-    const fetchProjects = async () =>
-      await axios.get(`${GATSBY_API_HOST}projects`)
-    const resProjects = await fetchProjects()
-
-    node_type = "Project"
-
-    resProjects.data.projects.map(async (project, i) => {
-      createNode({
-        ...project,
-        id: `${node_type}-${i}`,
-        parent: null,
-        children: [],
-        internal: {
-          type: node_type, // name of the graphQL query --> allRandomUser {}
-          content: JSON.stringify(project),
-          contentDigest: createContentDigest(project),
-        },
-      })
-    })
-
     const fetchProperties = async () =>
       await axios.get(`${GATSBY_API_HOST}properties`)
     const resProperties = await fetchProperties()
@@ -290,7 +231,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     features: { type: "[Feature!]" },
     isProject: { type: "Boolean!" },
     isVisible: { type: "Boolean" },
+    category: { type: "Category" },
     location: { type: "Location" },
+    brochureFile: { type: "ExternalFile" },
+    bluePrintFile: { type: "ExternalFile" },
     total_financing_months: { type: "Int" },
     selectable_financing_months: { type: "[Int]" },
     // Single Node
@@ -367,6 +311,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         icon: { type: "String" },
       },
     }),
+    "type Category implements Node",
+    schema.buildObjectType({
+      name: `Category`,
+      fields: {
+        name: { type: "String!" },
+      },
+    }),
     "type ExternalFile implements Node",
     schema.buildObjectType({
       name: `ExternalFile`,
@@ -381,15 +332,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         name: { type: "String!" },
         lat: { type: "String" },
         lng: { type: "String" },
-      },
-    }),
-    "type Project implements Node",
-    schema.buildObjectType({
-      name: `Project`,
-      fields: {
-        ...fields,
-        brochureFile: { type: "ExternalFile" },
-        bluePrintFile: { type: "ExternalFile" },
       },
     }),
   ]
@@ -434,20 +376,6 @@ exports.onCreateNode = async ({
       })
     }
 
-    if (node.internal.type === "Project" && node.coverImage.url !== null) {
-      const fileNode = await createRemoteFileNode({
-        url: node.coverImage.url, // string that points to the URL of the image
-        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
-        createNode, // helper function in gatsby-node to generate the node
-        createNodeId: id => `${node.uid}-image`,
-        getCache,
-      })
-      // if the file was created, extend the node with "localFile"
-      if (fileNode) {
-        createNodeField({ node, name: "localFile", value: fileNode.id })
-      }
-    }
-
     if (node.internal.type === "Testimonial" && node.avatar.url !== null) {
       const fileNode = await createRemoteFileNode({
         url: node.avatar.url, // string that points to the URL of the image
@@ -476,21 +404,6 @@ exports.onCreateNode = async ({
       }
     }
 
-    if (node.internal.type === "Project" && node.images !== null) {
-      node.images.map(async (image, index) => {
-        const fileNode = await createRemoteFileNode({
-          url: image.url, // string that points to the URL of the image
-          parentNodeId: node.id,
-          createNode, // helper function in gatsby-node to generate the node
-          createNodeId: id => `${node.uid}-images-${index}`,
-          getCache,
-        })
-        // if the file was created, extend the node with "localFile"
-        if (fileNode) {
-          createNodeField({ node, name: "localFile", value: fileNode.id })
-        }
-      })
-    }
   } catch (e) {
     console.log("error creating node ", e)
   }
