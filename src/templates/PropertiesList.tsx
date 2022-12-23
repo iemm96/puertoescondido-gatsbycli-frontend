@@ -24,9 +24,6 @@ const PropertiesList = (
                 index,
                 store
             },
-            allProject: {
-                nodes: projects,
-            },
             allProperty: {
                 nodes: properties,
             },
@@ -45,7 +42,7 @@ const PropertiesList = (
         handleChange,
         filteredResults,
     } = useFiltersBox(
-        projects.concat( properties )
+        properties
     );
 
     const params = new URLSearchParams(location.search);
@@ -212,34 +209,6 @@ export const query = graphql`
         allCategory {
             nodes {
                 name
-            }
-        }
-        allProject (
-            limit: $limit
-            skip: $skip,
-            filter: {
-                isVisible: { eq: true }
-            }
-        ) {
-            nodes {
-                name
-                slug
-                description
-                price
-                category {
-                    name
-                }
-                features {
-                    name
-                }
-                location {
-                    name
-                }
-                coverImage {
-                    childImageSharp {
-                        gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                    }
-                }
             }
         }
         allProperty(
