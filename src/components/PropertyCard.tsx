@@ -101,7 +101,7 @@ const PropertyCard = ({
   const ProjectCard = data => (
     <CardActionArea
       sx={{ height: "100%" }}
-      onClick={() => navigate(`/proyecto/${data.slug}`)}
+      onClick={() => navigate(`/propiedad/${data.slug}`)}
     >
       {!data?.isProject && image && (
         <GatsbyImage
