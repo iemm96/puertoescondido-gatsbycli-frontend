@@ -20,8 +20,11 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
                         }
                         name
                         uid
+                        slug
+                        price
                         measures_unit
                         isFeatured
+                        isProject
                     }
                 }
             }
