@@ -195,7 +195,7 @@ const ProjectDetails = ({ data }) => {
                                         color="primary"
                                         variant="contained"
                                         onClick={ () => 
-                                            window.open(`https://api.whatsapp.com/send/?phone=529541084925&text=Hola+visité+su+sitio+web+y+me+interesa+más+información+sobre+${ name.replace(' ','+') }`)}
+                                            window.open(`https://api.whatsapp.com/send/?phone=522226623751&text=Hola+visité+su+sitio+web+y+me+interesa+más+información+sobre+${ name.replace(' ','+') }`)}
                                         sx={{
                                             mt: 3,
                                             px: 4,
