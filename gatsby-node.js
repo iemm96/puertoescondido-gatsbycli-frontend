@@ -282,6 +282,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: { type: "String!" },
     area: { type: "String!" },
     description: { type: "String" },
+    category: { type: "Category" },
     price: { type: "String" },
     uid: { type: "String!" },
     measures_unit: { type: "String!" },
@@ -351,6 +352,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
             })
           },
         },
+      }
+    }),
+    "type Category implements Node",
+    schema.buildObjectType({
+      name: 'Category',
+      fields: {
+        name: { type: "String!" },
       }
     }),
     "type Property implements Node",
