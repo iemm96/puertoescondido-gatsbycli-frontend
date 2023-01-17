@@ -223,7 +223,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: { type: "String!" },
     area: { type: "String!" },
     description: { type: "String" },
-    category: { type: "Category" },
     price: { type: "String" },
     uid: { type: "String!" },
     measures_unit: { type: "String!" },
