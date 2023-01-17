@@ -60,7 +60,7 @@ const PropertiesList = (
         <>
             <Seo title="Propiedades"/>
             <Layout scrollTrigger persistentHeader={false}>
-                <FeaturedProperties fullScreen autoplayDelay={ 2500 }/>
+                <FeaturedProperties fullScreen/>
                 <Container maxWidth="xl" sx={{ pt:{
                     md: 2
                 }}}>
@@ -147,7 +147,9 @@ const PropertiesList = (
                                                 </StyledButton>
                                             )
                                         }
+
                                     </Stack>
+
                                 </Grid>
                                 <Grid
                                     order={{
@@ -165,6 +167,7 @@ const PropertiesList = (
                                     <Typography variant="body2">
                                         Página { currentPage } de { Math.round( totalResults / limit ) === 0 ? 1 :  Math.round( totalResults / limit ) }
                                     </Typography>
+
                                 </Grid>
                             </Grid>
                             <Grid

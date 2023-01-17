@@ -297,13 +297,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       }
     }),
-    "type Category implements Node",
-    schema.buildObjectType({
-      name: 'Category',
-      fields: {
-        name: { type: "String!" },
-      }
-    }),
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,

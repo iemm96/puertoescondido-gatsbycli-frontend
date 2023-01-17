@@ -236,7 +236,7 @@ const FloatingContactButton = () => {
                     </Typography>
                     <Button variant="outlined" fullWidth
                         startIcon={<Whatsapp size={20} color={'white'}/>}
-                        onClick={() => handleClick('https://api.whatsapp.com/send/?phone=522226623751&text=Hola+los+contacto+desde+su+web')}>
+                        onClick={() => handleClick('https://api.whatsapp.com/send/?phone=529541084925&text=Hola+los+contacto+desde+su+web')}>
                          WhatsApp
                     </Button>
                     <Button variant="outlined" fullWidth
@@ -257,7 +257,7 @@ const FloatingContactButton = () => {
                         startIcon={
                             <PhoneCall size={20} color={'white'}/>
                         }
-                        onClick={() => handleClick('tel:+522226623751')}>
+                        onClick={() => handleClick('tel:+529541084925')}>
                         Llámame
                     </Button>
                 </Stack>
