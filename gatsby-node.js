@@ -300,7 +300,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,
-      fields: { ...fields, price: { type: "String!" } },
+      fields: { ...fields, price: { type: "String" } },
       interfaces: ["Node"],
     }),
     "type Feature implements Node",
