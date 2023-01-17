@@ -167,7 +167,7 @@ const Contacto = () => {
                     </Typography>
                   </Stack>
                   <Typography>
-                    +52 (954) 108 49 25<br/>
+                    +52 (222) 662 3751<br/>
                     +52 (951) 171 48 29
                   </Typography>
                   <Stack mt={ 2 } direction="row" sx={{ alignItems: 'center' }} spacing={1}>
