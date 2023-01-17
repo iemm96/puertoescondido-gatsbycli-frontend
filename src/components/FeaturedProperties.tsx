@@ -2,10 +2,12 @@ import * as React from "react";
 import SliderComponent from "./SliderComponent"
 import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby";
+import Container from "@mui/material/Container"
+import { AutoplayOptions } from "swiper/types";
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
-const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
+const FeaturedProperties = ({ attached, fullScreen, autoplayDelay }:{ attached?:boolean, fullScreen?:boolean, autoplayDelay?: number | undefined }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
@@ -59,6 +61,7 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
                             attached={ attached }
                             subtitle={ subtitle }
                             data={ properties }
+                            autoplayDelay={ autoplayDelay }
                             viewMoreButtonRedirectPath="propiedades"
                         />
                     </div>
