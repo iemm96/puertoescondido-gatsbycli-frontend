@@ -132,15 +132,6 @@ const Footer = () => {
                   </Typography>
                 </Grid>
                 <Grid sx={{ alignItems: "center", display: "flex" }} item>
-                  <Phone sx={{ fontSize: 14, color: "white", mr: 1 }} />
-                  <Typography
-                    onClick={() => window.open("tel:+529511714829")}
-                    style={typographyStyles}
-                  >
-                    +52 (951) 171 48 29
-                  </Typography>
-                </Grid>
-                <Grid sx={{ alignItems: "center", display: "flex" }} item>
                   <FmdGood sx={{ fontSize: 14, color: "white", mr: 1 }} />
                   <Typography
                     sx={{
