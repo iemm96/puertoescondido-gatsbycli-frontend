@@ -105,7 +105,7 @@ const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
                             <Button
                                 onClick={ () => window.open('https://api.whatsapp.com/send/?phone=522226623751&text=Hola+los+contacto+desde+su+web', '_blank') }
                                 color={ scrollTrigger ? 'primary' : 'inherit' } startIcon={<WhatsApp/>} variant="text">
-                                (+52)954 108 4925
+                                (+52)222 662 3751
                             </Button>
                             <Link to={'/contacto'}>
                                 <StyledButton sx={{ml:2}} variant="contained" color="secondary">
