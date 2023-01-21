@@ -58,10 +58,8 @@ const EstimateDetails = ({  property, data }) => {
             }
         }
 
-        console.log('annualInterestTotal ', annualInterestTotal)
         let firstPaymentPercentage = 10;
         let a = (((propertyTotalPrice + annualInterestTotal ) * firstPaymentPercentage ) / 100)
-        console.log(a);
 
         if( annualInterestTotal ) {
             setFirstPayment(
@@ -86,10 +84,10 @@ const EstimateDetails = ({  property, data }) => {
                 setPriceInterestAnual( propertyResult?.property?.price_annual_interest );
             }
 
-            propertyResult?.property?.selectable_financing_months.map(( month:number ) => (
+            propertyResult?.property?.selectable_financing_months.map(( item:any ) => (
                 arrMonths.push({
-                    value: month,
-                    label: `${ month } meses`,
+                    value: item?.elegibleMonths,
+                    label: `${ item?.elegibleMonths } meses`,
                 })
             ));
 
