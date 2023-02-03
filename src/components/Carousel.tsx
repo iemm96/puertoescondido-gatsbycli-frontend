@@ -16,7 +16,7 @@ const StyledSlideDiv = styled.div`
 
 const dataSlider = [
   {
-    image: "banner-1.jpg",
+    image: "banner-7.jpg",
   },
   {
     image: "banner-3.jpg",
