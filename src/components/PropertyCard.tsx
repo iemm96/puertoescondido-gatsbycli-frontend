@@ -223,7 +223,7 @@ const PropertyCard = ({
           xs: showAsList && `1px solid ${theme.palette.primary.main}`,
           md: "none",
         },
-        height: autoHeight ? (showAsList ? "auto" : attached ? 100 : 400) : 'auto',
+        height: autoHeight ?  'auto' : (showAsList ? "auto" : attached ? 100 : 400),
       }}
       elevation={width < 400 ? 0 : 1}
       key={key}

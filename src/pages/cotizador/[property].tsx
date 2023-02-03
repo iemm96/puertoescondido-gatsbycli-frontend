@@ -191,6 +191,7 @@ const EstimateDetails = ({  property, data }) => {
                                                                             modalEstimatesProps.handleModalEstimates()
                                                                         } }
                                                                         showEstimate
+                                                                        autoHeight
                                                                     />
                                                                 </Grid>
                                                             )
