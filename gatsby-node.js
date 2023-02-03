@@ -221,11 +221,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 
   const fields = {
     name: { type: "String!" },
-    area: { type: "String!" },
+    area: { type: "String" },
     description: { type: "String" },
     price: { type: "String" },
     uid: { type: "String!" },
-    measures_unit: { type: "String!" },
+    measures_unit: { type: "String" },
     isFeatured: { type: "Boolean!" },
     slug: { type: "String" },
     features: { type: "[Feature!]" },
