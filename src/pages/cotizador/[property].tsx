@@ -1,24 +1,21 @@
 import * as React from "react";
 import Seo from "../../components/seo";
 import Container from "@mui/material/Container"
-import { Box, Chip, Stack, Typography, Slider, useTheme } from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import Layout from "../../components/layout"
 import Grid from "@mui/material/Grid"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
-import { graphql, navigate, useStaticQuery } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { fetchRecord } from "../../actions/fetchRecord"
 import CoverImage from "../../components/common/CoverImage"
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import withTheme from "../../components/theme";
 import StyledGradientSection from "../../styled/StyledGradientSection";
 import {Gallery} from "../../components/common/Gallery";
 import Header from "../../components/Header";
 import SplashScreen from "../../components/common/SplashScreen";
 import StyledButton from "../../styled/StyledButton";
-import {formatCurrency} from "../../helpers/formatCurrency";
 import PropertyCard from "../../components/PropertyCard";
 import {ModalEstimates, useModalEstimates} from "../../components/common/ModalEstimates";
 
