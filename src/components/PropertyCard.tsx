@@ -19,25 +19,32 @@ import Box from "@mui/material/Box"
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import Container from "@mui/material/Container";
 
+type PropertyCardType = {
+    data?: any,
+    key: number | string,
+    showAsList?: boolean,
+    attached?: boolean,
+    fullScreen?: boolean,
+    showEstimate: boolean,
+    customOnClick?: () => void;
+    autoHeight?: boolean;
+}
 const PropertyCard = ({
-  data,
-  key,
-  showAsList,
-  attached,
-  fullScreen,
-}: {
-  data?: any
-  key: number
-  showAsList?: boolean
-  attached?: boolean
-  fullScreen?: boolean
-}) => {
+    data,
+    key,
+    showAsList,
+    attached,
+    fullScreen,
+    showEstimate = false,
+    customOnClick,
+    autoHeight
+}:PropertyCardType ) => {
   const theme = useTheme()
   const image = getImage(data?.coverImage)
   const { width } = useWindowDimensions()
 
   const CardInnerContent = (data: any) => (
-    <CardActionArea onClick={() => navigate(`/propiedad/${data.slug}`)}>
+    <CardActionArea onClick={ customOnClick ? customOnClick : () => navigate(`/propiedad/${data.slug}`)}>
       {!data?.isProject && image && (
         <GatsbyImage
           image={image}
@@ -51,26 +58,24 @@ const PropertyCard = ({
         />
       )}
       <CardContent>
-        {!data?.isProject && (
-          <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
-            $ {data?.price && new Intl.NumberFormat().format(data?.price)} mxn{" "}
-            {data?.width &&
-              data?.length &&
-              `· ${calculateArea(
-                parseInt(data.width),
-                parseInt(data.length),
-                data?.measures_unit
-              )}`}
-          </Typography>
-        )}
-
         <Typography
-          /* @ts-ignore */
-          variant={data?.isProject ? "h5" : "cardTitle"}
-          color={data?.isProject && theme.palette.primary.light}
+            /* @ts-ignore */
+            variant={data?.isProject ? "h5" : "cardTitle"}
+            color={data?.isProject && theme.palette.primary.light}
         >
           {data?.name}
         </Typography>
+        {!data?.isProject && (
+          <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
+            {
+              data?.price && (
+                    `$ ${data?.price && new Intl.NumberFormat().format(data?.price)} mxn` + ' '
+                )
+            }
+            {data?.area &&
+              `${ data.area } m²`}
+          </Typography>
+        )}
         <Typography variant="body2" color="text.secondary">
           {data?.location && data.location.name}
         </Typography>
@@ -91,7 +96,9 @@ const PropertyCard = ({
             size="small"
             startIcon={<ArrowForwardOutlined />}
           >
-            Ver detalles
+            {
+              showEstimate ? 'Ver mensualidades' : 'Ver detalles'
+            }
           </Button>
         </CardActions>
       )}
@@ -195,7 +202,9 @@ const PropertyCard = ({
             size="small"
             startIcon={<ArrowCircleRightOutlined />}
           >
-            Ver detalles
+            {
+              showEstimate ? 'Ver mensualidades' : 'Ver detalles'
+            }
           </Button>
         </CardActions>
       )}
@@ -214,7 +223,7 @@ const PropertyCard = ({
           xs: showAsList && `1px solid ${theme.palette.primary.main}`,
           md: "none",
         },
-        height: showAsList ? "auto" : attached ? 100 : 400,
+        height: autoHeight ? (showAsList ? "auto" : attached ? 100 : 400) : 'auto',
       }}
       elevation={width < 400 ? 0 : 1}
       key={key}

@@ -19,6 +19,8 @@ import Header from "../../components/Header";
 import SplashScreen from "../../components/common/SplashScreen";
 import StyledButton from "../../styled/StyledButton";
 import {formatCurrency} from "../../helpers/formatCurrency";
+import PropertyCard from "../../components/PropertyCard";
+import {ModalEstimates, useModalEstimates} from "../../components/common/ModalEstimates";
 
 type marksType = {
     value: number;
@@ -33,16 +35,38 @@ const EstimateDetails = ({  property, data }) => {
     const [ galleryImages, setGalleryImages ] = React.useState<any[]>( [] );
     const [ priceInterestAnnual, setPriceInterestAnual ] = React.useState<any>( null );
     const [ firstPayment, setFirstPayment ] = React.useState<any>( null );
+    const [ pricePerSquareMeter, setPricePerSquareMeter ] = React.useState<any>( null );
+    const [ zones, setZones ] = React.useState<any>([]);
+    const [ selectedChildProperty, setSelectedChildProperty ] = React.useState<any>( null );
+
+    const modalEstimatesProps = useModalEstimates();
 
     React.useEffect(() => {
         getProperty().then();
     },[  ]);
 
+    const getPricePerSquareMeter = ( selectable_financing_months:any, currentSelectedMonths:any ) => {
+        if( !selectable_financing_months ) return;
+        const result = selectable_financing_months.find(({ elegibleMonths }) => elegibleMonths === currentSelectedMonths);
+
+        return result?.price_per_square_meter;
+    }
+
     React.useEffect(() => {
 
-        const propertyTotalPrice = propertyData?.price * propertyData?.area;
+        const resultPpsm = getPricePerSquareMeter( propertyData?.selectable_financing_months, currentValueSlider );
 
-        let annualInterestTotal = null;
+        let propertyTotalPrice:number;
+        if( resultPpsm ) {
+            setPricePerSquareMeter( resultPpsm );
+            propertyTotalPrice = resultPpsm * propertyData?.area;
+        }else{
+            propertyTotalPrice = propertyData?.price * propertyData?.area;
+            setPricePerSquareMeter(  propertyData?.price );
+        }
+
+        let annualInterestTotal:number;
+
         if( priceInterestAnnual ) {
             annualInterestTotal = priceInterestAnnual * ( currentValueSlider/12 );
         } else {
@@ -91,6 +115,10 @@ const EstimateDetails = ({  property, data }) => {
                 })
             ));
 
+            if(propertyResult?.property?.zones ) {
+                setZones( propertyResult.property.zones );
+            }
+
             setMonths( arrMonths );
         }
 
@@ -128,6 +156,10 @@ const EstimateDetails = ({  property, data }) => {
                 {
                     propertyData && (
                         <>
+                            <ModalEstimates
+                                { ...modalEstimatesProps }
+                                property={ selectedChildProperty }
+                            />
                             <CoverImage data={{
                                 image: propertyData?.coverImage?.url,
                                 price: propertyData?.price,
@@ -138,83 +170,37 @@ const EstimateDetails = ({  property, data }) => {
                             }}/>
                             <Container sx={{ mt: 2 }} maxWidth="xl">
                                 <Typography variant="subtitle1">Simulador</Typography>
-                                <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige las mensualidades...</Typography>
-                                <Grid justifyContent="center" container>
-                                    <Grid item xs={ 12 } md={ 10 }>
-                                        {
-                                            months && (
-                                                <Box>
-                                                    <Slider
-                                                        onChange={ handleMonthsChange }
-                                                        aria-label="Mensualidades"
-                                                        defaultValue={ currentValueSlider }
-                                                        max={ propertyData?.total_financing_months }
-                                                        getAriaValueText={valuetext}
-                                                        step={ null }
-                                                        valueLabelDisplay="auto"
-                                                        marks={ months }
-                                                    />
-                                                </Box>
-                                            )
-                                        }
-                                    </Grid>
-                                </Grid>
-                                <Container maxWidth="md">
-                                    <Card sx={{ mt: 2 }}>
-                                        <CardContent>
-                                            <Typography
-                                                sx={{
-                                                    color: theme.palette.primary.main
-                                                }}
-                                                align="center"
-                                            >
-                                                { currentValueSlider === 0 ? `Precio de contado:` : `${currentValueSlider} mensualidades de:` }
-                                            </Typography>
-                                            <Typography
-                                                variant="h4"
-                                                align="center"
-                                                sx={{
-                                                    mt: 2,
-                                                    color: theme.palette.primary.main,
-                                                    fontWeight: 700
-                                                }}
-                                            >
-                                                ${ formatCurrency( monthlyPay ) }
-                                            </Typography>
-                                            <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
-                                                <Typography color="text.secondary">
-                                                    Precio por metro cuadrado:
+                                <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">Elige una propiedad...</Typography>
+                                {
+                                    zones.map((zone:any, index:number) => {
+                                        return (
+                                            <Container key={`container-${index}`}>
+                                                <Typography variant="subtitle1">
+                                                    { zone.name }
                                                 </Typography>
-                                                <Typography>
-                                                    { `$ ${ formatCurrency( propertyData?.price ) } ${ propertyData?.currency }` }
-                                                </Typography>
-                                            </Stack>
-                                            {
-                                                firstPayment && (
-                                                    <Stack sx={{ mt: 2 }} direction="row" justifyContent="space-between">
-                                                        <Typography color="text.secondary">
-                                                            Enganche:
-                                                        </Typography>
-                                                        <Typography>
-                                                            { `$ ${ formatCurrency( firstPayment ) } ${ propertyData?.currency }` }
-                                                        </Typography>
-                                                    </Stack>
-                                                )
-                                            }
-                                            <StyledButton
-                                                sx={{
-                                                    mt: 2,
-                                                    textTransform: 'none'
-                                                }}
-                                                variant="contained"
-                                                color="secondary"
-                                                fullWidth
-                                            >
-                                                Solicitar Crédito
-                                            </StyledButton>
-                                        </CardContent>
-                                    </Card>
-                                </Container>
+                                                <Grid spacing={ 2 } container>
+                                                    {
+                                                        zone?.child_properties && zone.child_properties.map((property:any, indexProperties:number) => {
+                                                            return(
+                                                                <Grid item>
+                                                                    <PropertyCard
+                                                                        key={ `property-${indexProperties}` }
+                                                                        data={ property }
+                                                                        customOnClick={ () => {
+                                                                            setSelectedChildProperty( property )
+                                                                            modalEstimatesProps.handleModalEstimates()
+                                                                        } }
+                                                                        showEstimate
+                                                                    />
+                                                                </Grid>
+                                                            )
+                                                        })
+                                                    }
+                                                </Grid>
+                                            </Container>
+                                        )
+                                    })
+                                }
                             </Container>
                             <StyledGradientSection sx={{
                                 mt: 4,
