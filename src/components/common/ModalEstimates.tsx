@@ -39,6 +39,8 @@ export const useModalEstimates = () => {
     const estimatesProps = useEstimates();
 
     const handleModalEstimates = () => {
+        estimatesProps.setCurrentAmount(0)
+        estimatesProps.setCurrentMonths(0)
         setOpenModalOffer(!openModalEstimates);
     }
 
