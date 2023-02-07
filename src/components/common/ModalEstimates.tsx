@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal"
 import IconButton from "@mui/material/IconButton"
 import {Close} from "@mui/icons-material"
 import StyledButton from "../../styled/StyledButton"
-import {Fade, Stack} from "@mui/material";
+import {Fade, Stack, Typography} from "@mui/material";
 import {GatsbyImage} from "gatsby-plugin-image";
 import Backdrop from '@mui/material/Backdrop';
 import {navigate} from "gatsby";
@@ -81,6 +81,9 @@ export const ModalEstimates = ({
                             <Close/>
                         </IconButton>
                         <Box sx={{ width: '100%', height: '100%', px: 4, py: 8 }}>
+                            <Typography align="center" variant="h6" color="secondary">
+                                { property?.name }
+                            </Typography>
                             <Estimates
                                 months={ property?.monthly_payments }
                                 { ...estimatesProps }

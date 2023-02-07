@@ -136,14 +136,6 @@ const EstimateDetails = ({  property, data }) => {
         setPropertyData( propertyResult.property );
     }
 
-    function valuetext(value: number) {
-        return `${value}`;
-    }
-
-    const handleMonthsChange = (e: Event, newValue:number | number[]) => {
-        setCurrentValueSlider( newValue );
-    }
-
     return(
         <>
             <SplashScreen duration={4}/>
@@ -172,14 +164,14 @@ const EstimateDetails = ({  property, data }) => {
                                     zones.map((zone:any, index:number) => {
                                         return (
                                             <Container key={`container-${index}`}>
-                                                <Typography variant="subtitle1">
+                                                <Typography variant="subtitle1" sx={{ mt: 4, mb: 1 }}>
                                                     { zone.name }
                                                 </Typography>
                                                 <Grid spacing={ 2 } container>
                                                     {
                                                         zone?.child_properties && zone.child_properties.map((property:any, indexProperties:number) => {
                                                             return(
-                                                                <Grid item>
+                                                                <Grid item xs={ 12 } md={ 6 } lg={ 3 }>
                                                                     <PropertyCard
                                                                         key={ `property-${indexProperties}` }
                                                                         data={ property }
@@ -212,7 +204,6 @@ const EstimateDetails = ({  property, data }) => {
                                             <Gallery data={ data.property.images } preview={ true }/>
                                         }
                                     </Grid>
-
                                 </Container>
                             </StyledGradientSection>
                             <Box
