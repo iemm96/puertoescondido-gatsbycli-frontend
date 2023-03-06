@@ -166,9 +166,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                     ))
                 }
             </Swiper>
-
         </Box>
-
     )
 }
 

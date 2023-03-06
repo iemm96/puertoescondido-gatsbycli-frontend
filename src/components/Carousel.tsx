@@ -1,9 +1,14 @@
 import * as React from "react";
 import BackgroundImage from "./common/BackgroundImage";
 import styled from "styled-components";
+import { BgImage } from "gbimage-bridge";
+import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import {graphql, useStaticQuery} from "gatsby";
 
 type CarouselTypes = {
   styles?: React.CSSProperties;
+  images?: any,
+  data?:any
 }
 
 const StyledSlideDiv = styled.div`
@@ -26,6 +31,25 @@ const dataSlider = [
   }
 ]
 const Carousel = ({ styles }:CarouselTypes) => {
+  const [ images, setImages ] = React.useState<[]>();
+  const { allBanner } = useStaticQuery(graphql`
+    query BannerQuery {
+      allBanner {
+        nodes {
+          image {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  React.useEffect(() => {
+    setImages(allBanner?.nodes)
+    console.log('allBanner?.nodes ', allBanner?.nodes)
+  },[allBanner])
 
   const [slideIndex, setSlideIndex] = React.useState(1);
 
@@ -46,9 +70,18 @@ const Carousel = ({ styles }:CarouselTypes) => {
     <>
       <div style={styles ? styles : {}}>
         {
-          dataSlider.map((obj,index) => (
+          images && images.map((image:any,index) => (
             <StyledSlideDiv animation={slideIndex === index + 1}>
-              <BackgroundImage key={index} filename={obj.image}/>
+              {/*@ts-ignore */}
+              <GatsbyImage
+                  image={ getImage( image?.image ) }
+                  style={{
+                    width: '100%',
+                    height: 800,
+                    objectPosition: 'cover',
+                  }}
+                  alt={ 'data.title' }
+              />
             </StyledSlideDiv>
           ))
         }

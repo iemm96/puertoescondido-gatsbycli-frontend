@@ -151,6 +151,27 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
       })
     })
 
+    //Fetch locations
+    const fetchBanners = async () =>
+        await axios.get(`${GATSBY_API_HOST}banners`)
+    const resultBanner = await fetchBanners()
+
+    node_type = "Banner"
+
+    resultBanner.data.banners.map(async (banner, i) => {
+      createNode({
+        ...banner,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify(banner),
+          contentDigest: createContentDigest(banner),
+        },
+      })
+    })
+
     const fetchProperties = async () =>
       await axios.get(`${GATSBY_API_HOST}properties`)
     const resProperties = await fetchProperties()
@@ -297,6 +318,23 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       }
     }),
+    "type Banner implements Node",
+    schema.buildObjectType({
+      name: 'Banner',
+      fields: {
+        name: { type: "String!" },
+        isActive: {type: "Boolean!"},
+        image: {
+          type: "File",
+          resolve: ( source, args, context ) => {
+            return context.nodeModel.getNodeById({
+              id: `${source.uid}-image`,
+              type: "File",
+            })
+          },
+        },
+      }
+    }),
     "type Property implements Node",
     schema.buildObjectType({
       name: `Property`,
@@ -379,6 +417,20 @@ exports.onCreateNode = async ({
     if (node.internal.type === "Testimonial" && node.avatar.url !== null) {
       const fileNode = await createRemoteFileNode({
         url: node.avatar.url, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode, // helper function in gatsby-node to generate the node
+        createNodeId: id => `${node.uid}-image`,
+        getCache,
+      })
+      // if the file was created, extend the node with "localFile"
+      if (fileNode) {
+        createNodeField({ node, name: "localFile", value: fileNode.id })
+      }
+    }
+
+    if (node.internal.type === "Banner" && node.image.url !== null) {
+      const fileNode = await createRemoteFileNode({
+        url: node.image.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode, // helper function in gatsby-node to generate the node
         createNodeId: id => `${node.uid}-image`,
