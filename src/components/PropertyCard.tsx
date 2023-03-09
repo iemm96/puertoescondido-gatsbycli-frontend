@@ -25,7 +25,7 @@ type PropertyCardType = {
     showAsList?: boolean,
     attached?: boolean,
     fullScreen?: boolean,
-    showEstimate: boolean,
+    showEstimate?: boolean,
     customOnClick?: () => void;
     autoHeight?: boolean;
 }

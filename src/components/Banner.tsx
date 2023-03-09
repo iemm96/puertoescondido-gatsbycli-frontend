@@ -194,15 +194,6 @@ const Banner = () => {
                                     Terrenos
                                 </StyledTypesButtonMobile>
                             </Grid>
-                            <Grid xs={6} item>
-                                <StyledTypesButtonMobile
-                                    onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
-                                    startIcon={<BluePrintIcon  width={24}/>}
-                                    variant="contained"
-                                >
-                                    Lotificaciones
-                                </StyledTypesButtonMobile>
-                            </Grid>
                         </Grid>
                     </Box>
                     :
@@ -235,14 +226,6 @@ const Banner = () => {
                     variant="contained"
                 >
                     Terrenos
-                </StyledTypesButton>
-                <StyledTypesButton
-                    onClick={ () => navigate(`/propiedades?categoria=Lotificación`) }
-                    startIcon={<IconBluePrint width={40}/>}
-                    color="primary"
-                    variant="contained"
-                >
-                    Lotificaciones
                 </StyledTypesButton>
             </Box>
             <Carousel styles={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}/>

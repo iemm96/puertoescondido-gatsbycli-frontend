@@ -34,6 +34,7 @@ const PropertiesList = (
         pageContext
     }
 ) => {
+    console.log('pageContext ', pageContext)
     const { limit, numPages, currentPage, totalResults } = pageContext;
 
     const {
@@ -65,7 +66,9 @@ const PropertiesList = (
                     md: 2
                 }}}>
                     <Grid spacing={4} container>
-                        <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
+                        {
+                            /*
+                                                    <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
                             <FiltersBox
                                 defaultCategory={ category }
                                 categories={ categories }
@@ -77,18 +80,23 @@ const PropertiesList = (
                                 responsiveMode={ width < 1200 }
                             />
                         </Grid>
-                        <Grid xs={12} lg={9} item>
+
+                            */
+                        }
+                        <Grid xs={12} lg={12} item>
                             <Grid container>
                             </Grid>
                             <Grid spacing={2} container>
                                 {
                                     filteredResults && filteredResults.map(( val:any, index:number) => (
                                         <Grid sx={{ justifyContent: 'center' }} xs={ 12 } sm={ 6 } md={ 4 } item key={ index }>
-                                            <PropertyCard key={ index } data={val} showAsList/>
+                                            <PropertyCard key={ index } data={val} showAsList showEstimate={ false }/>
                                         </Grid>
                                     ))
                                 }
                             </Grid>
+                            {
+                                /*
                             <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                                 <Grid
                                     order={{
@@ -170,6 +178,8 @@ const PropertiesList = (
 
                                 </Grid>
                             </Grid>
+                                */
+                            }
                             <Grid
                                 sx={{
                                     mt: {

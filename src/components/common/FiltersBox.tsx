@@ -22,6 +22,7 @@ type FilterType = {
   categories?: any
 }
 export const useFiltersBox = (results: any) => {
+  console.log(results)
   const [filteredResults, setFilteredResults] = React.useState(results)
   const [filters, setFilters] = React.useState<FilterType | null>({
     enabledFilters: false,
@@ -32,6 +33,7 @@ export const useFiltersBox = (results: any) => {
   });
 
   React.useEffect(() => {
+    /*
     let enabledFilters = filters.enabledFilters
     enabledFilters = validateFilters()
 
@@ -39,7 +41,7 @@ export const useFiltersBox = (results: any) => {
       handleFilter()
     } else {
       setFilteredResults(results)
-    }
+    }*/
   }, [filters])
 
   const validateFilters = () => {
