@@ -252,7 +252,6 @@ export const query = graphql`
             }
             features {
                 name
-                icon
             }
             coverImage {
                 childImageSharp {
