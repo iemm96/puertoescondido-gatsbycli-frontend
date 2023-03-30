@@ -10,7 +10,7 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
 
     const data = useStaticQuery(graphql`
         query FeaturedItems {
-            allProperty(filter: {isFeatured: {eq: true}}) {
+            allProperty(filter: {isFeatured: {eq: true}, isVisible: {eq: true}}) {
                 edges {
                     node {
                         coverImage {
