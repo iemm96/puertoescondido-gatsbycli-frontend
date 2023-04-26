@@ -34,7 +34,7 @@ const Carousel = ({ styles }:CarouselTypes) => {
   const [ images, setImages ] = React.useState<[]>();
   const { allBanner } = useStaticQuery(graphql`
     query BannerQuery {
-      allBanner {
+      allBanner(filter: {isActive: {eq: true}}) {
         nodes {
           image {
             childImageSharp {
