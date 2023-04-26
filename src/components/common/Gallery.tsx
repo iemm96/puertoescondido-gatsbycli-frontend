@@ -100,13 +100,13 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                 ...boxStyles
                             }}>
                                     <GatsbyImage
+                                        objectFit="contain"
                                         onClick={ () => handleSelectImage( val ) }
-                                        alt={"img-1"}
+                                        alt={`image-${index}`}
                                         style={{
                                             width: '100%',
                                             cursor: 'pointer',
                                             borderRadius: 16,
-                                            objectFit: 'contain'
                                         }}
                                         image={getImage( val )}
                                     />
@@ -156,7 +156,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                             maxWidth: 300,
                                             cursor: 'pointer',
                                             borderRadius: 8,
-                                            objectFit: 'cover'
+                                            objectFit: 'contain'
                                         }}
                                         image={getImage( val )}
                                     />
