@@ -27,9 +27,7 @@ import IconBluePrint from './../images/icons/blueprint.svg';
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import ResidentialIcon from "./common/icons/ResidentialIcon"
-import CultivationIcon from "./common/icons/CultivationIcon"
 import ClimateIcon from "./common/icons/ClimateIcon"
-import BluePrintIcon from "./common/icons/BluePrintIcon"
 import Carousel from "./Carousel"
 import Header from "./Header"
 import {graphql, navigate, useStaticQuery} from 'gatsby';
