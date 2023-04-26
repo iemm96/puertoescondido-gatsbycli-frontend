@@ -164,6 +164,7 @@ const CoverImage = ({
                       variant="outlined"
                       sx={{
                         color: theme.palette.primary.contrastText,
+                        mr: 1
                       }}
                       label={item.name}
                     />

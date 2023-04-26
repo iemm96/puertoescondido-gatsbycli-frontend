@@ -185,9 +185,12 @@ const PropertyDetails = ({ data }) => {
                                         {
                                             features &&
                                             features.map( (feature, index) => (
-                                                <Chip icon={
-                                                    <div style={{ width: '10px', marginRight: '8px' }}  dangerouslySetInnerHTML={{ __html: feature?.icon }}/>
-                                                } size="small" key={index} label={ feature.name }/>
+                                                <Chip
+                                                    sx={{ mb: 1 }}
+                                                    size="small"
+                                                    key={index}
+                                                    label={ feature.name }
+                                                />
                                             ) )
                                         }
                                     </Stack>
