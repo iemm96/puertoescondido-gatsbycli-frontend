@@ -110,17 +110,6 @@ const PropertyCard = ({
       sx={{ height: "100%" }}
       onClick={() => navigate(`/propiedad/${data.slug}`)}
     >
-      {!data?.isProject && image && (
-        <GatsbyImage
-          image={image}
-          style={{
-            width: "100%",
-            zIndex: 0,
-            height: data?.isProject ? "100%" : "auto",
-          }}
-          alt={data.name}
-        />
-      )}
       <CardContent>
         {/* @ts-ignore */}
         <Typography
@@ -133,42 +122,40 @@ const PropertyCard = ({
         >
           {data?.name}
         </Typography>
-        {data?.isFeatured && (
           <>
-            <Typography variant="body2" color="white">
-              Proyecto estrella
-            </Typography>
-            {!attached && (
-              <Stack direction="row" spacing={0}>
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-              </Stack>
-            )}
+              <Typography variant="body2" color="white">
+                  Proyecto estrella
+              </Typography>
+              {!attached && (
+                  <Stack direction="row" spacing={0}>
+                      <StarRounded
+                          sx={{
+                              color: "#FFE70E",
+                          }}
+                      />
+                      <StarRounded
+                          sx={{
+                              color: "#FFE70E",
+                          }}
+                      />
+                      <StarRounded
+                          sx={{
+                              color: "#FFE70E",
+                          }}
+                      />
+                      <StarRounded
+                          sx={{
+                              color: "#FFE70E",
+                          }}
+                      />
+                      <StarRounded
+                          sx={{
+                              color: "#FFE70E",
+                          }}
+                      />
+                  </Stack>
+              )}
           </>
-        )}
         <Typography
           variant="body2"
           sx={{
@@ -228,7 +215,7 @@ const PropertyCard = ({
       elevation={width < 400 ? 0 : 1}
       key={key}
     >
-      {data?.isProject ? (
+      {data?.isFeatured ? (
         <BgImage
           // @ts-ignore
           style={{ height: "100%" }}
