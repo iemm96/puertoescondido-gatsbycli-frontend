@@ -106,7 +106,7 @@ export const Gallery = ({ data, preview }:{ data:any, preview:boolean }) => {
                                             width: '100%',
                                             cursor: 'pointer',
                                             borderRadius: 16,
-                                            objectFit: 'cover'
+                                            objectFit: 'contain'
                                         }}
                                         image={getImage( val )}
                                     />
