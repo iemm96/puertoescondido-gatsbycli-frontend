@@ -25,7 +25,6 @@ const Contacto = () => {
   const { handleSubmit, control, formState: {errors}, } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
 
     let templateParams = {
       to_name: 'Inmobiliaria Puerto Escondido',
@@ -34,7 +33,7 @@ const Contacto = () => {
       from_email: data.email,
       message: data.message
     };
-    emailjs.send('service_pawvng8','template_7zxmlxc', templateParams, 'tEniiu9sEjJXMjH3Z')
+    emailjs.send('service_0qwl5w1','template_5h9q29a', templateParams, '48lk8aWBEFV4hdNux')
         .then(function(response) {
           handleModalSuccess()
           console.log('SUCCESS!', response.status, response.text);
@@ -203,16 +202,6 @@ const Contacto = () => {
                   <Typography>
                     Calle 2a Norte, #306, Sector Reforma B, Centro, Puerto Escondido, Oax, México.
                   </Typography>
-                  <Box sx={{
-                    borderRadius: 4,
-                    border: {
-                      xs: 'none',
-                      md: '1px solid #00A2A6',
-                    },
-                    width: 300,
-                    height: 300
-                  }}
-                  />
                 </Stack>
               </Grid>
             </Grid>
