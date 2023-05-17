@@ -6,6 +6,9 @@ import { Paper, Typography, Box, Container, Grid, Stack, TextField, Button } fro
 import { Controller, useForm } from 'react-hook-form';
 import { ChevronLeft, Phone, PinDrop } from "@mui/icons-material"
 import SocialNetworksIcons from "../components/common/SocialNetworksIcons";
+import emailjs from '@emailjs/browser';
+import { StyledButton } from "../styled";
+import {ModalSuccess, useModalSuccess} from "../components/common/ModalSuccess";
 
 const inputStyles = {
   '& .MuiFilledInput-input': {
@@ -18,15 +21,31 @@ const inputStyles = {
 }
 
 const Contacto = () => {
+  const { handleModalSuccess, openModalSuccess } = useModalSuccess();
   const { handleSubmit, control, formState: {errors}, } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+
+    let templateParams = {
+      to_name: 'Inmobiliaria Puerto Escondido',
+      from_name: data.name,
+      from_number: data.phone,
+      from_email: data.email,
+      message: data.message
+    };
+    emailjs.send('service_0qwl5w1','template_5h9q29a', templateParams, '48lk8aWBEFV4hdNux')
+        .then(function(response) {
+          handleModalSuccess()
+          console.log('SUCCESS!', response.status, response.text);
+        }, function(err) {
+          console.log('FAILED...', err);
+        });
   };
 
   return(
     <>
       <Seo title="Contacto"/>
+      <ModalSuccess openModalSuccess={ openModalSuccess } handleModalSuccess={ handleModalSuccess } />
       <Layout persistentHeader={ true }>
         <GradientBox height={400} position="absolute"/>
         <Box sx={{
@@ -49,7 +68,12 @@ const Contacto = () => {
             elevation={ 2 }
           >
             <Grid container spacing={ 2 }>
-              <Grid sx={{ borderRight: '1px solid #C4C4C4', pr: 2 }} xs={ 12 } md={ 7 } item>
+              <Grid sx={{
+                borderRight: {
+                  xs: 'none',
+                  md: '1px solid #C4C4C4'
+                },
+                     pr: 2 }} xs={ 12 } md={ 7 } item>
                 <Stack direction="column">
                   <Typography variant="subtitle1">
                     Escríbenos
@@ -138,13 +162,13 @@ const Contacto = () => {
                       </Grid>
                     </Grid>
                   </form>
-                  <Button
+                  <StyledButton
                     variant="contained"
                     color="secondary"
                     onClick={handleSubmit(onSubmit)}
                   >
                     Enviar mensaje
-                  </Button>
+                  </StyledButton>
                   <Grid container mt={ 5 }>
                     <Grid xs={ 12 } md={ 6 } item>
                       <Typography>
@@ -155,7 +179,6 @@ const Contacto = () => {
                       <SocialNetworksIcons/>
                     </Grid>
                   </Grid>
-
                 </Stack>
               </Grid>
               <Grid xs={ 12 } md={ 5 } item>
@@ -179,13 +202,6 @@ const Contacto = () => {
                   <Typography>
                     Calle 2a Norte, #306, Sector Reforma B, Centro, Puerto Escondido, Oax, México.
                   </Typography>
-                  <Box sx={{
-                    borderRadius: 4,
-                    border: '1px solid #00A2A6',
-                    width: 300,
-                    height: 300
-                  }}
-                  />
                 </Stack>
               </Grid>
             </Grid>
