@@ -15,7 +15,12 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
                     node {
                         coverImage {
                             childImageSharp {
-                                gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                                gatsbyImageData(
+                                    width: 280,
+                                    placeholder: BLURRED,
+                                    quality: 80,
+                                    formats: [ WEBP, AVIF]
+                                )
                             }
                         }
                         name
@@ -32,7 +37,6 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
     `);
 
     React.useEffect(() => {
-        console.log( 'data ', data )
         if( data?.allProperty?.edges ) {
             setProperties( data.allProperty.edges )
         }

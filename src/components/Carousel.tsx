@@ -38,7 +38,11 @@ const Carousel = ({ styles }:CarouselTypes) => {
         nodes {
           image {
             childImageSharp {
-              gatsbyImageData
+              gatsbyImageData(
+                breakpoints: [750, 1080, 1366, 1920],
+                quality: 50,
+                formats: [ WEBP, AVIF]
+              )
             }
           }
         }
