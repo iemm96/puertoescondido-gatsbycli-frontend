@@ -236,7 +236,9 @@ export const query = graphql`
             gatsbyImageData(
               placeholder: BLURRED
               quality: 50
-              formats: [ WEBP, AVIF ]
+              formats: [ WEBP, AVIF ],
+              width: 360,
+              height: 640
             )
           }
         }

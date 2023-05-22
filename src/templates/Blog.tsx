@@ -181,7 +181,13 @@ export const query = graphql`
                 title
                 mainImage {
                     asset {
-                        gatsbyImageData(fit: FILLMAX, placeholder: BLURRED)
+                        gatsbyImageData(
+                            fit: FILLMAX,
+                            placeholder: BLURRED,
+                            width: 364,
+                            height: 200,
+                            formats: [AVIF, WEBP]
+                        )
                     }
                 }
                 slug {
