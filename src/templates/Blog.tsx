@@ -184,7 +184,7 @@ export const query = graphql`
                         gatsbyImageData(
                             fit: FILLMAX,
                             placeholder: BLURRED,
-                            width: 364,
+                            breakpoints: [750, 1080, 1366, 1920],
                             height: 200,
                             formats: [AVIF, WEBP]
                         )
