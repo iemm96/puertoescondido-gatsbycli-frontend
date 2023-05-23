@@ -12,6 +12,17 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
+    "gatsby-plugin-loadable-components-ssr",
+    // OR
+    {
+      resolve: `gatsby-plugin-loadable-components-ssr`,
+      options: {
+        // Whether replaceHydrateFunction should call ReactDOM.hydrate or ReactDOM.render
+        // Defaults to ReactDOM.render on develop and ReactDOM.hydrate on build
+        useHydrate: true,
+        preloadTags: false
+      },
+    },
     {
       resolve: `gatsby-theme-material-ui`,
       options: {
@@ -42,14 +53,6 @@ module.exports = {
         dataset: `production`,
         token: process.env.GATSBY_SANITY_TOKEN,
       },
-    },
-    {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Poppins']
-        }
-      }
     },
     {
       resolve: `gatsby-plugin-scroll-reveal`,

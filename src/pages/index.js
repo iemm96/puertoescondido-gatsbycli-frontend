@@ -14,6 +14,8 @@ import { getImage, StaticImage } from "gatsby-plugin-image"
 import { graphql, navigate } from "gatsby"
 import { Fade, Zoom } from "react-reveal"
 
+import FeaturedProperties from "../components/FeaturedProperties"
+
 // @ts-ignore
 import IconGastronomy from "./../images/icons/gastronomy.svg"
 import IconBeach from "./../images/icons/Beach.svg"
@@ -22,7 +24,6 @@ import IconTurtle from "../images/icons/turtle.svg"
 import IconFolclore from "./../images/icons/Folklore.svg"
 import Eco from "./../images/icons/eco.svg"
 import LatestPosts from "../components/LatestPosts"
-import FeaturedProperties from "../components/FeaturedProperties"
 import Testimonials from "../components/Testimonials"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 
@@ -236,7 +237,7 @@ export const query = graphql`
             gatsbyImageData(
               placeholder: BLURRED
               quality: 50
-              formats: [ WEBP, AVIF ],
+              formats: [ AVIF ],
               width: 360,
               height: 640
             )

@@ -177,7 +177,6 @@ const Banner = () => {
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
                                     onClick={ () => navigate(`/propiedades?categoria=Fraccionamiento`) }
-                                    startIcon={<ResidentialIcon  width={24}/>}
                                     variant="contained"
                                 >
                                     Fraccionamientos
@@ -186,7 +185,6 @@ const Banner = () => {
                             <Grid xs={6} item>
                                 <StyledTypesButtonMobile
                                     onClick={ () => navigate(`/propiedades?categoria=Terreno`) }
-                                    startIcon={<ClimateIcon  width={24}/>}
                                     variant="contained"
                                 >
                                     Terrenos
