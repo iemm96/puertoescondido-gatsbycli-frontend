@@ -16,9 +16,9 @@ import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
 import Slide from '@mui/material/Slide';
 // @ts-ignore
-import LogoColor from '../images/logo_color.svg';
 import Typography from '@mui/material/Typography';
 import {Stack} from "@mui/material";
+import {StaticImage} from "gatsby-plugin-image";
 
 type HeaderPropsType = {
     scrollTrigger?: boolean;
@@ -61,7 +61,15 @@ const ScrollHeader = ({ scrollTrigger, persistentHeader}:HeaderPropsType) => {
                             }
                         }}
                     >
-                        <LogoColor src={ LogoColor } width={ 100 } height={ 40 }  alt="Inmobiliaria Puerto Escondido"/> :
+                        <StaticImage
+                            src="../images/logo_color.png"
+                            formats={['auto', 'webp', 'avif']}
+                            quality={80}
+                            width={ 100 }
+                            height={ 40 }
+                            alt="Logotipo Puerto escondido"
+
+                        />
                     </Box>
                     <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                         <IconButton

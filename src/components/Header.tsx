@@ -14,9 +14,9 @@ import WhatsApp from "@mui/icons-material/WhatsApp"
 import Sidebar from "./Sidebar"
 import { pages } from "./../constants";
 // @ts-ignore
-import LogoWhite from '../images/logo_white.svg';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
+import {StaticImage} from "gatsby-plugin-image";
 
 type HeaderPropsType = {
     scrollTrigger?: boolean;
@@ -47,12 +47,13 @@ const Header = ({ scrollTrigger }:HeaderPropsType) => {
 
                             }}
                         >
-                            <LogoWhite
-                                onClick={ () => navigate('/') }
-                                style={{
-                                    cursor: 'pointer'
-                                }}
-                                src={ LogoWhite } width={ 175 }  alt="Inmobiliaria Puerto Escondido"/>
+                            <StaticImage
+                                src="../images/logo_white.png"
+                                formats={['auto', 'webp', 'avif']}
+                                quality={80}
+                                width={ 175 }
+                                alt="Logotipo Puerto escondido"
+                            />
                         </Box>
                         <Box sx={{flexGrow: 0,display: {xs: 'flex', md: 'none'}}}>
                             <IconButton
