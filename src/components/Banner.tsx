@@ -19,15 +19,11 @@ import IconSupportHouse from './../images/icons/icon-support-house.svg';
 // @ts-ignore
 import IconResidential from './../images/icons/residential.svg';
 // @ts-ignore
-import IconCultivation from './../images/icons/cultivation.svg';
 // @ts-ignore
 import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
-import IconBluePrint from './../images/icons/blueprint.svg';
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
-import ResidentialIcon from "./common/icons/ResidentialIcon"
-import ClimateIcon from "./common/icons/ClimateIcon"
 import Carousel from "./Carousel"
 import Header from "./Header"
 import {graphql, navigate, useStaticQuery} from 'gatsby';

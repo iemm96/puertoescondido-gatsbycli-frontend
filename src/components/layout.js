@@ -16,7 +16,6 @@ import { ThemeProvider } from "@mui/material/styles"
 import { defaultTheme, defaultThemeDark } from "../theme/Theme"
 import ScrollHeader from "./ScrollHeader";
 import FloatingContactButton from "./common/FloatingContactButton";
-import SplashScreen from "./common/SplashScreen";
 
 const Layout = ({ children, scrollTrigger, persistentHeader = false }) => {
   const data = useStaticQuery(graphql`

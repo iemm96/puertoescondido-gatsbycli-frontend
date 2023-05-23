@@ -22,7 +22,7 @@ const inputStyles = {
 
 const Contacto = () => {
   const { handleModalSuccess, openModalSuccess } = useModalSuccess();
-  const { handleSubmit, control, formState: {errors}, } = useForm();
+  const { handleSubmit, control } = useForm();
 
   const onSubmit = (data) => {
 
