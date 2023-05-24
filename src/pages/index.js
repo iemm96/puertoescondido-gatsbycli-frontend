@@ -14,9 +14,8 @@ import { graphql } from "gatsby"
 
 
 
-import { useModalOffers } from "../components/common/ModalOffers"
+import {ModalOffers, useModalOffers} from "../components/common/ModalOffers"
 
-const ModalOffers = loadable(() => import("../components/common/ModalOffers"))
 const Banner = loadable(() => import( "../components/Banner"))
 const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
 const LatestPosts = loadable(() => import( "../components/LatestPosts"))
