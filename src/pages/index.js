@@ -16,10 +16,6 @@ import { graphql } from "gatsby"
 
 import {ModalOffers, useModalOffers} from "../components/common/ModalOffers"
 
-const Banner = loadable(() => import( "../components/Banner"))
-//const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
-const LatestPosts = loadable(() => import( "../components/LatestPosts"))
-const Testimonials = loadable(() => import( "../components/Testimonials"))
 const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
 const IndexPage = ({ data }) => {
   const modalOffersProps = useModalOffers()
@@ -35,7 +31,6 @@ const IndexPage = ({ data }) => {
             property={ data?.allOffer.nodes[0].property }
           />
         )}
-        <Banner />
         <Box
           sx={{
             background:
@@ -50,7 +45,6 @@ const IndexPage = ({ data }) => {
         >
         </Box>
         <MainInfoContent/>
-        <LatestPosts />
         <Container maxWidth="xl">
         </Container>
         <Typography
