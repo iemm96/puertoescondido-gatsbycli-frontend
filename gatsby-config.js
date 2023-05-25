@@ -12,8 +12,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
-    "gatsby-plugin-loadable-components-ssr",
-    // OR
     {
       resolve: `gatsby-plugin-loadable-components-ssr`,
       options: {
