@@ -1,7 +1,5 @@
 import * as React from "react";
-import BackgroundImage from "./common/BackgroundImage";
 import styled from "styled-components";
-import { BgImage } from "gbimage-bridge";
 import {GatsbyImage, getImage} from "gatsby-plugin-image";
 import {graphql, useStaticQuery} from "gatsby";
 
