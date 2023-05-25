@@ -1,7 +1,5 @@
 import * as React from "react"
-import Layout from "../components/layout"
 import Seo from "../components/seo"
-
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
@@ -16,6 +14,7 @@ import { graphql } from "gatsby"
 
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 
+const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))
 const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
 const LatestPosts = loadable(() => import( "../components/LatestPosts"))

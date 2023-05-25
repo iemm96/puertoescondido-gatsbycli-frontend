@@ -10,8 +10,9 @@ import {
   ArrowForwardOutlined,
   StarRounded,
 } from "@mui/icons-material"
-import { CardActionArea, Chip, Stack } from "@mui/material"
-import { calculateArea } from "../helpers/calculateArea"
+import CardActionArea from "@mui/material/CardActionArea"
+import Chip from "@mui/material/Chip"
+import Stack from "@mui/material/Stack"
 import { navigate } from "gatsby"
 import { BgImage } from "gbimage-bridge"
 import useTheme from "@mui/material/styles/useTheme"
