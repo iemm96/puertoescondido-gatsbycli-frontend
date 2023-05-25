@@ -17,7 +17,7 @@ import { graphql } from "gatsby"
 import {ModalOffers, useModalOffers} from "../components/common/ModalOffers"
 
 const Banner = loadable(() => import( "../components/Banner"))
-const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
+//const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
 const LatestPosts = loadable(() => import( "../components/LatestPosts"))
 const Testimonials = loadable(() => import( "../components/Testimonials"))
 const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
@@ -48,12 +48,10 @@ const IndexPage = ({ data }) => {
             pb: 2,
           }}
         >
-          <FeaturedProperties />
         </Box>
         <MainInfoContent/>
         <LatestPosts />
         <Container maxWidth="xl">
-          <Testimonials />
         </Container>
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
