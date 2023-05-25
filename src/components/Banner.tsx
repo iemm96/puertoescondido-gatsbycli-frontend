@@ -24,7 +24,6 @@ import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
-import Carousel from "./Carousel"
 import Header from "./Header"
 import {graphql, navigate, useStaticQuery} from 'gatsby';
 import { CustomSearchInput, useCustomSearchInput } from "./common/CustomSearchInput";
@@ -220,7 +219,6 @@ const Banner = () => {
                     Terrenos
                 </StyledTypesButton>
             </Box>
-            <Carousel styles={{overflow:'hidden', position:'absolute', zIndex:-1, height: '100%', width: '100%', top:0}}/>
         </>
     )
 };
