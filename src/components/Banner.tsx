@@ -1,15 +1,11 @@
 import * as React from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import InputLabel from "@mui/material/InputLabel";
 import {styled, useTheme} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-import Fade from 'react-reveal/Fade';
 // @ts-ignore
 import IconHouseConst from './../images/icons/icon-house-cost.svg';
 // @ts-ignore
@@ -24,9 +20,7 @@ import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
-import Header from "./Header"
-import {graphql, navigate, useStaticQuery} from 'gatsby';
-import { CustomSearchInput, useCustomSearchInput } from "./common/CustomSearchInput";
+import { navigate } from 'gatsby';
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
     background: "linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%)",
@@ -75,20 +69,9 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
     const { width } = useWindowDimensions();
     const theme = useTheme();
-    const { localSearchPages } = useStaticQuery(graphql`
-        query PropiedadesQuery2 {
-            localSearchPages {
-                index
-                store
-            }
-        }
-    `);
-
-    const { querySearch, setQuerySearch, handleSearch, iterableResults, setIterableResults } = useCustomSearchInput( localSearchPages.index, localSearchPages.store, undefined )
 
     return (
         <>
-            <Header scrollTrigger={ false }/>
             <StyledLinearBackgroundDiv>
                 <Container
                     sx={{
@@ -97,15 +80,13 @@ const Banner = () => {
                     }}
                     maxWidth="xl"
                 >
-                    <Fade bottom>
-                        <Grid container spacing={1}>
-                            <Grid item xs={ 12 } md={8}>
-                                <StyledMainTitle variant="h3" color="white">
-                                    Somos la <span style={{ color: theme.palette.primary.light }}>inmobiliaria</span> en la que puedes <span style={{ color: theme.palette.secondary.light }}>confiar</span>.
-                                </StyledMainTitle>
-                            </Grid>
+                    <Grid container spacing={1}>
+                        <Grid item xs={ 12 } md={8}>
+                            <StyledMainTitle variant="h3" color="white">
+                                Somos la <span style={{ color: theme.palette.primary.light }}>inmobiliaria</span> en la que puedes <span style={{ color: theme.palette.secondary.light }}>confiar</span>.
+                            </StyledMainTitle>
                         </Grid>
-                    </Fade>
+                    </Grid>
                     <Grid
                         sx={{
                             display: {
@@ -141,21 +122,6 @@ const Banner = () => {
                                     Asesoría durante todo el proceso
                                 </Typography>
                             </StyledIconTypographyDiv>
-                        </Grid>
-                    </Grid>
-                    <Grid container mt={2}>
-                        <Grid item xs={12} md={4}>
-                            <InputLabel sx={{ color: 'white' }} shrink htmlFor="search-property-input">
-                                ¿Qué tipo de propiedad estás buscando?
-                            </InputLabel>
-                            <CustomSearchInput
-                                querySearch={ querySearch }
-                                setQuerySearch={ setQuerySearch }
-                                handleSearch={ handleSearch }
-                                iterableResults={ iterableResults }
-                                setIterableResults={ setIterableResults }
-                                hideFiltersButton={ true }
-                            />
                         </Grid>
                     </Grid>
                 </Container>
