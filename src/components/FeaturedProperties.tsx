@@ -1,5 +1,5 @@
 import * as React from "react";
-import SliderComponent from "./SliderComponent"
+import SliderContainer from "./SliderContainer"
 import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby";
 const title:string = "¡Tu mejor opción!";
@@ -57,7 +57,7 @@ const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullSc
                     <div style={
                         fullScreen ? fullScreenStyles : {}
                     }>
-                        <SliderComponent
+                        <SliderContainer
                             title={ title }
                             fullScreen={ fullScreen }
                             attached={ attached }

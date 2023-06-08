@@ -1,5 +1,5 @@
 import * as React from "react";
-import SliderComponent from "./SliderComponent"
+import SliderContainer from "./SliderContainer"
 import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby";
 import TestimonialCard from "./TestimonialCard";
@@ -46,7 +46,7 @@ const Testimonials = () => {
         <>
             {
                 testimonials.length > 0 && (
-                    <SliderComponent
+                    <SliderContainer
                         title={title}
                         subtitle={subtitle}
                         data={ testimonials }
