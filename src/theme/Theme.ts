@@ -49,11 +49,11 @@ export const defaultTheme = responsiveFontSizes(createTheme({
       color: '#898F99'
     },
     subtitle1: {
-      color: '#CD7D1E',
+      color: '#7C4D13',
       fontWeight: 500
     },
     h5: {
-      color: '#00A2A6',
+      color: '#005052',
     },
   },
   palette: {
@@ -68,7 +68,7 @@ export const defaultTheme = responsiveFontSizes(createTheme({
     },
     secondary: {
       light: '#E5A150',
-      main: '#CD7D1E',
+      main: '#A46418',
       dark: '#A46418'
     },
   },
