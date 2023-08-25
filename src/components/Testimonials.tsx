@@ -14,7 +14,6 @@ const Testimonials = () => {
         query Testimonials {
             allTestimonial {
                 edges {
-                    
                     node {
                         name
                         comment

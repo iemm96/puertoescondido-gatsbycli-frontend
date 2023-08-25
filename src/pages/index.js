@@ -9,9 +9,6 @@ import loadable from '@loadable/component'
 
 import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
-
-
-
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 
 const Layout = loadable(() => import( "../components/layout"))
