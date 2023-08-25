@@ -52,41 +52,105 @@ const SliderContainer = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
     return(
         <>
-            <Container maxWidth={ !fullScreen ? 'xl' : false } sx={{
-                pl: 2,
-                p: attached || fullScreen  ? '0 !important' : 2,
-            }}>
-                {
-                    !attached || !fullScreen && (
-                        <Typography variant="subtitle1">{title}</Typography>
-                    )
-                }
-                <Grid
-                    sx={{
-                        mb:{
-                            xs: fullScreen ? 0 : 2
-                        }
-                    }}
-                    container
-                    justifyContent="space-between"
-                >
+            {
+                SwiperComponent ? <Container maxWidth={ !fullScreen ? 'xl' : false } sx={{
+                    pl: 2,
+                    p: attached || fullScreen  ? '0 !important' : 2,
+                }}>
                     {
                         !attached || !fullScreen && (
-                            <Grid item>
-                                <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
-                            </Grid>
+                            <Typography variant="subtitle1">{title}</Typography>
                         )
                     }
-
-                    <Grid sx={{
-                        display: {
-                            xs: 'none',
-                            md: 'flex'
-                        },
-                    }} item
+                    <Grid
+                        sx={{
+                            mb:{
+                                xs: fullScreen ? 0 : 2
+                            }
+                        }}
+                        container
+                        justifyContent="space-between"
                     >
                         {
-                            ( viewMoreButton && (!attached && !fullScreen) ) && (
+                            !attached || !fullScreen && (
+                                <Grid item>
+                                    <Typography sx={{fontWeight: 600, mb: 1}} variant="h5">{subtitle}</Typography>
+                                </Grid>
+                            )
+                        }
+
+                        <Grid sx={{
+                            display: {
+                                xs: 'none',
+                                md: 'flex'
+                            },
+                        }} item
+                        >
+                            {
+                                ( viewMoreButton && (!attached && !fullScreen) ) && (
+                                    <Button
+                                        sx={{ textTransform: 'none' }}
+                                        color="primary"
+                                        onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
+                                        variant="contained"
+                                    >
+                                        { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
+                                    </Button>
+                                )
+                            }
+
+                            {
+                                !fullScreen && (
+                                    <Box>
+                                        <IconButton
+                                            sx={ arrowButtonStyles }
+                                            disabled={ swiperState.isBeginning }
+                                            onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
+                                        >
+                                            <ChevronLeft/>
+                                        </IconButton>
+                                        <IconButton
+                                            sx={{
+                                                borderRadius: 2,
+                                                height: 40
+                                            }}
+                                            disabled={ swiperState.isEnd }
+                                            onClick={() => swiperDef ? swiperDef.slideNext() : ''}
+                                        >
+                                            <ChevronRight/>
+                                        </IconButton>
+                                    </Box>
+                                )
+                            }
+
+                        </Grid>
+                    </Grid>
+                    {
+                        <SwiperComponent
+                            setSwiperState={setSwiperState}
+                            setSwiperDef={setSwiperDef}
+                            fullScreen={fullScreen}
+                            attached={attached}
+                            Component={Component}
+                            PropertyCard={PropertyCard}
+                            data={data}
+                            theme={theme}
+                            swiperDef={swiperDef}
+                        />
+                    }
+
+                    <Box
+                        sx={{
+                            mt: 4,
+                            display: {
+                                xs: 'flex',
+                                md: 'none'
+                            },
+                            justifyContent: 'center'
+                        }}
+                    >
+                        {
+                            (viewMoreButton && !attached ) && (
                                 <Button
                                     sx={{ textTransform: 'none' }}
                                     color="primary"
@@ -98,71 +162,10 @@ const SliderContainer = ({ title, subtitle, data, Component, viewMoreButtonRedir
                             )
                         }
 
-                        {
-                            !fullScreen && (
-                                <Box>
-                                    <IconButton
-                                        sx={ arrowButtonStyles }
-                                        disabled={ swiperState.isBeginning }
-                                        onClick={ () => swiperDef ? swiperDef.slidePrev() : '' }
-                                    >
-                                        <ChevronLeft/>
-                                    </IconButton>
-                                    <IconButton
-                                        sx={{
-                                            borderRadius: 2,
-                                            height: 40
-                                        }}
-                                        disabled={ swiperState.isEnd }
-                                        onClick={() => swiperDef ? swiperDef.slideNext() : ''}
-                                    >
-                                        <ChevronRight/>
-                                    </IconButton>
-                                </Box>
-                            )
-                        }
+                    </Box>
+                </Container> : <></>
+            }
 
-                    </Grid>
-                </Grid>
-                {
-                    <SwiperComponent
-                        setSwiperState={setSwiperState}
-                        setSwiperDef={setSwiperDef}
-                        fullScreen={fullScreen}
-                        attached={attached}
-                        Component={Component}
-                        PropertyCard={PropertyCard}
-                        data={data}
-                        theme={theme}
-                        swiperDef={swiperDef}
-                    />
-                }
-
-                <Box
-                    sx={{
-                        mt: 4,
-                        display: {
-                            xs: 'flex',
-                            md: 'none'
-                        },
-                        justifyContent: 'center'
-                    }}
-                >
-                    {
-                        (viewMoreButton && !attached ) && (
-                            <Button
-                                sx={{ textTransform: 'none' }}
-                                color="primary"
-                                onClick={ () => navigate( viewMoreButtonRedirectPath ? `/${viewMoreButtonRedirectPath}` : '/' ) }
-                                variant="contained"
-                            >
-                                { viewMoreButtonText ? viewMoreButtonText : 'Ver más' }
-                            </Button>
-                        )
-                    }
-
-                </Box>
-            </Container>
         </>
     )
 }
