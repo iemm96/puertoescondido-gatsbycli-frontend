@@ -1,26 +1,25 @@
 import * as React from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-import { Pagination, Autoplay, Navigation } from 'swiper';
 
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import PropertyCard from "./PropertyCard";
 import Box from "@mui/material/Box";
-import "./../styles/slick.css";
 import Container from "@mui/material/Container"
-import {navigate} from "gatsby";
+import { navigate } from "gatsby";
 import Button from "@mui/material/Button";
 import useTheme from "@mui/material/styles/useTheme";
-import {FC} from "react";
+import { FC } from "react";
 import { Fade } from 'react-reveal';
+import loadable from '@loadable/component'
+
+const {  Pagination, Autoplay, Navigation } = loadable.lib(() => import('swiper'))
+const { SwiperSlide, Swiper } = loadable.lib(() => import('swiper/react'))
 
 interface FunctionalComponentPropsType {
     key?: number;
@@ -46,6 +45,8 @@ const boxStyles = {
     },
     width: '100%',
 }
+
+const PropertyCard = loadable(() => import("./PropertyCard"))
 
 const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedirectPath, viewMoreButton, viewMoreButtonText, attached, fullScreen = false }:SliderComponentType) => {
     const theme = useTheme();
@@ -134,74 +135,79 @@ const SliderComponent = ({ title, subtitle, data, Component, viewMoreButtonRedir
 
                     </Grid>
                 </Grid>
-                <Swiper
-                    style={{
-                        // @ts-ignore
-                        "--swiper-pagination-color": theme.palette.primary.main,
-                        paddingBottom: fullScreen ? 0 : '2rem',
-                    }}
-                    observeParents={  true }
-                    observer={  true }
-                    pagination={{
-                        dynamicBullets: true,
-                    }}
-                    navigation={ fullScreen }
-                    modules={[ Pagination, Autoplay, Navigation ]}
-                    slidesPerView="auto"
-                    spaceBetween={ 10 }
-                    centeredSlides={ false }
-                    autoplay={{
-                        delay: 2500,
-                    }}
-                    onSlideChange={() => {
-                        setSwiperState( {
-                            isEnd: swiperDef.isEnd,
-                            isBeginning: swiperDef.isBeginning
-                        } );
-                    }}
-                    onSwiper={(swiper) => {
-                        setSwiperDef( swiper );
-                        setSwiperState( {
-                            isEnd: false,
-                            isBeginning: true
-                        });
-                    }}
-                    breakpoints={{
-                        "640": {
-                            "slidesPerView": 2,
-                            "spaceBetween": 10
-                        },
-                        "768": {
-                            "slidesPerView": 2,
-                            "spaceBetween": 40
-                        },
-                        "1024": {
-                            "slidesPerView": 3,
-                            "spaceBetween": 10
-                        },
-                        "1280": {
-                            "slidesPerView": fullScreen ? 1 : attached ? 3 : 4,
-                            "spaceBetween": 10
-                        }
-                    }}
-                    freeMode={true}
-                >
-                    {( data && data.length > 0 ) && data.map( (item, index ) => (
-                        <SwiperSlide>
-                            <Fade duration={ 1500 } right={ !fullScreen }>
-                                <Box key={index} sx={boxStyles}>
-                                    {
-                                        Component ? (
-                                            <Component key={ index } data={ item.node }/>
-                                        ) : (
-                                            <PropertyCard key={ index } data={ item.node } attached={ attached } fullScreen={ fullScreen }/>
-                                        )
-                                    }
-                                </Box>
-                            </Fade>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                {
+                    Swiper && (
+                        <Swiper
+                            style={{
+                                // @ts-ignore
+                                "--swiper-pagination-color": theme.palette.primary.main,
+                                paddingBottom: fullScreen ? 0 : '2rem',
+                            }}
+                            observeParents={  true }
+                            observer={  true }
+                            pagination={{
+                                dynamicBullets: true,
+                            }}
+                            navigation={ fullScreen }
+                            modules={[ Pagination, Autoplay, Navigation ]}
+                            slidesPerView="auto"
+                            spaceBetween={ 10 }
+                            centeredSlides={ false }
+                            autoplay={{
+                                delay: 2500,
+                            }}
+                            onSlideChange={() => {
+                                setSwiperState( {
+                                    isEnd: swiperDef.isEnd,
+                                    isBeginning: swiperDef.isBeginning
+                                } );
+                            }}
+                            onSwiper={(swiper) => {
+                                setSwiperDef( swiper );
+                                setSwiperState( {
+                                    isEnd: false,
+                                    isBeginning: true
+                                });
+                            }}
+                            breakpoints={{
+                                "640": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 10
+                                },
+                                "768": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 40
+                                },
+                                "1024": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 10
+                                },
+                                "1280": {
+                                    "slidesPerView": fullScreen ? 1 : attached ? 3 : 4,
+                                    "spaceBetween": 10
+                                }
+                            }}
+                            freeMode={true}
+                        >
+                            {( data && data.length > 0 && SwiperSlide && Swiper ) && data.map( (item, index ) => (
+                                <SwiperSlide>
+                                    <Fade duration={ 1500 } right={ !fullScreen }>
+                                        <Box key={index} sx={boxStyles}>
+                                            {
+                                                Component ? (
+                                                    <Component key={ index } data={ item.node }/>
+                                                ) : (
+                                                    <PropertyCard key={ index } data={ item.node } attached={ attached } fullScreen={ fullScreen }/>
+                                                )
+                                            }
+                                        </Box>
+                                    </Fade>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    )
+                }
+
                 <Box
                     sx={{
                         mt: 4,
