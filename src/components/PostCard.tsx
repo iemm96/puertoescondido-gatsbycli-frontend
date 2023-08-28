@@ -7,10 +7,10 @@ import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 import { navigate } from "gatsby"
 
-const PostCard = ({ data }:{ data?:any }) => {
+const PostCard = ({ data, key }:{ data?:any, key:number }) => {
     const image = getImage( data?.mainImage?.asset )
     return(
-        <StyledCard>
+        <StyledCard key={key}>
             <CardActionArea
                 onClick={ () => navigate( `/post/${ data?.slug.current}` ) }
             >

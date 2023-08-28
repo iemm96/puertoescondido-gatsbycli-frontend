@@ -122,7 +122,6 @@ const SliderContainer = ({ title, subtitle, data, Component, viewMoreButtonRedir
                                     </Box>
                                 )
                             }
-
                         </Grid>
                     </Grid>
                     {

@@ -1,7 +1,12 @@
 import * as React from "react";
 import SliderContainer from "./SliderContainer"
 import { useState } from "react"
-import { graphql, useStaticQuery } from "gatsby";
+import {graphql, navigate, useStaticQuery} from "gatsby";
+import Container from "@mui/material/Container";
+import PropertyCard from "./PropertyCard";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import {ArrowCircleRightOutlined} from "@mui/icons-material";
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 

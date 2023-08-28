@@ -2,45 +2,39 @@ import * as React from "react";
 import SliderContainer from "./SliderContainer"
 import { useState } from "react"
 import {graphql, navigate, useStaticQuery} from "gatsby";
-import PostCard from "./PostCard";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import PropertyCard from "./PropertyCard";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import {ArrowCircleRightOutlined} from "@mui/icons-material";
+const title:string = "¡Tu mejor opción!";
+const subtitle:string = "Propiedades destacadas";
 
-const title:string = "Últimas entradas";
-const subtitle:string = "De nuestro blog";
-
-const LatestPosts = () => {
-    const [ posts, setPosts ] = useState<any>([]);
+const TopProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
+    const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
-        query LatestPosts {
-            allSanityPost(limit: 4) {
+        query FeaturedItemsQuery {
+            allProperty(filter: {isFeatured: {eq: true}, isVisible: {eq: true}}, limit: 4) {
                 edges {
                     node {
-                        title
-                        slug {
-                            current
-                        }
-                        categories {
-                            title
-                        }
-                        author {
-                            name
-                        }
-                        mainImage {
-                            asset {
+                        coverImage {
+                            childImageSharp {
                                 gatsbyImageData(
-                                    fit: FILLMAX,
+                                    width: 280,
                                     placeholder: BLURRED,
-                                    breakpoints: [750, 1080, 1366, 1920],
-                                    height: 200,
-                                    formats: [AVIF, WEBP]
+                                    quality: 80,
+                                    formats: [ WEBP, AVIF]
                                 )
                             }
                         }
+                        name
+                        uid
+                        slug
+                        price
+                        measures_unit
+                        isFeatured
+                        isProject
                     }
                 }
             }
@@ -48,15 +42,23 @@ const LatestPosts = () => {
     `);
 
     React.useEffect(() => {
-        if( data ) {
-            setPosts( data.allSanityPost.edges )
+        if( data?.allProperty?.edges ) {
+            setProperties( data.allProperty.edges )
         }
-    },[ data ])
+    },[ data ]);
+
+    const fullScreenStyles:React.CSSProperties = {
+        width: '100%',
+        overflow:'hidden',
+        position:'relative',
+        height: '100%',
+        top:0
+    }
 
     return(
         <>
             {
-                posts.length > 0 && (
+                properties.length > 0 && (
                     <div style={
                         fullScreen ? fullScreenStyles : {}
                     }>
@@ -75,20 +77,26 @@ const LatestPosts = () => {
 
                         <Container sx={{
                             pl: 2,
+                            p: attached || fullScreen  ? '0 !important' : 2,
                         }}
                                    maxWidth="xl"
                         >
 
                             <Grid
+                                sx={{
+                                    mb:{
+                                        xs: fullScreen ? 0 : 2
+                                    }
+                                }}
                                 container
                                 justifyContent="space-between"
                                 spacing={ 1 }
                             >
                                 {
-                                    posts.map((post:any, index:number) => (
+                                    properties.map((property:any, index:number) => (
                                         <Grid item xs={ 12 }
                                               md={ 3 } >
-                                            <PostCard data={post.node} key={index}/>
+                                            <PropertyCard key={index} data={property.node}/>
                                         </Grid>
                                     ))
                                 }
@@ -99,10 +107,10 @@ const LatestPosts = () => {
                                         startIcon={ <ArrowCircleRightOutlined/> }
                                         sx={{ textTransform: 'none' }}
                                         color="primary"
-                                        onClick={ () => navigate('/blog')  }
+                                        onClick={ () => navigate('/propiedades')  }
                                         variant="contained"
                                     >
-                                        { 'Explorar blog' }
+                                        { 'Ver todas las propiedades' }
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -115,4 +123,4 @@ const LatestPosts = () => {
 }
 
 
-export default LatestPosts;
+export default TopProperties;
