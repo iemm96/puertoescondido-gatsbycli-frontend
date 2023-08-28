@@ -5,8 +5,6 @@ import { Box, Stack, Typography } from "@mui/material"
 import Layout from "../components/layout"
 import Grid from "@mui/material/Grid"
 
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
 import { navigate } from "gatsby"
 import { Home } from "@mui/icons-material"
 import StyledButton from "../styled/StyledButton"

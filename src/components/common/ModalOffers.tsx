@@ -78,6 +78,8 @@ export const ModalOffers = ({
                 <Fade in={ openModalOffer }>
                     <Box sx={style}>
                         <IconButton
+                            role="button"
+                            aria-label="Cerrar"
                             onClick={handleModalOffer}
                             sx={iconButtonStyle}
                         >

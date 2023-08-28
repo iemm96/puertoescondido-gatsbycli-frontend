@@ -15,7 +15,6 @@ import IconSupportHouse from './../images/icons/icon-support-house.svg';
 // @ts-ignore
 import IconResidential from './../images/icons/residential.svg';
 // @ts-ignore
-// @ts-ignore
 import IconClimate from './../images/icons/climate.svg';
 // @ts-ignore
 

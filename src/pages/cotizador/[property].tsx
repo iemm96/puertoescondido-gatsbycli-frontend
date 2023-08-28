@@ -4,8 +4,6 @@ import Container from "@mui/material/Container"
 import { Box, Typography, useTheme } from "@mui/material"
 import Layout from "../../components/layout"
 import Grid from "@mui/material/Grid"
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import ChevronLeft from "@mui/icons-material/ChevronLeft"
 import { graphql, navigate } from "gatsby"
 import { fetchRecord } from "../../actions/fetchRecord"

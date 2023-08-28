@@ -1,5 +1,5 @@
 import * as React from "react";
-import SliderComponent from "./SliderComponent"
+import SliderContainer from "./SliderContainer"
 import { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby";
 import PostCard from "./PostCard";
@@ -52,7 +52,7 @@ const LatestPosts = () => {
         <>
             {
                 posts.length > 0 && (
-                    <SliderComponent
+                    <SliderContainer
                         viewMoreButtonRedirectPath="blog"
                         viewMoreButtonText="Ver más entradas"
                         title={title}
