@@ -14,7 +14,7 @@ import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))
 const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
-const LatestPosts = loadable(() => import( "../components/LatestPosts"))
+//const LatestPosts = loadable(() => import( "../components/LatestPosts"))
 const Testimonials = loadable(() => import( "../components/Testimonials"))
 const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
 const IndexPage = ({ data }) => {
@@ -47,7 +47,11 @@ const IndexPage = ({ data }) => {
           <FeaturedProperties />
         </Box>
         <MainInfoContent/>
-        <LatestPosts />
+          {
+              /*
+              <LatestPosts />
+              */
+          }
         <Container maxWidth="xl">
           <Testimonials />
         </Container>
