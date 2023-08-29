@@ -14,7 +14,6 @@ import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))
 const TopProjects = loadable(() => import( "../components/TopProjects"))
-const Testimonials = loadable(() => import( "../components/Testimonials"))
 const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
 const IndexPage = ({ data }) => {
   const modalOffersProps = useModalOffers()
@@ -46,9 +45,7 @@ const IndexPage = ({ data }) => {
           <TopProjects />
         </Box>
         <MainInfoContent/>
-        <Container maxWidth="xl">
-          <Testimonials />
-        </Container>
+        
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"

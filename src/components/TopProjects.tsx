@@ -9,7 +9,7 @@ import loadable from '@loadable/component'
 
 const ProjectCard = loadable(() => import( "./ProjectCard" ))
 
-const TopProjects = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
+const TopProjects = ({ fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
@@ -58,28 +58,11 @@ const TopProjects = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:b
         <>
             {
                 properties.length > 0 && (
-                    <div style={
-                        fullScreen ? fullScreenStyles : {}
-                    }>
-                        {
-                            /*
-                            <SliderContainer
-                            title={ title }
-                            fullScreen={ fullScreen }
-                            attached={ attached }
-                            subtitle={ subtitle }
-                            data={ properties }
-                            viewMoreButtonRedirectPath="propiedades"
-                        />
-                             */
-                        }
-
+                    <>
                         <Container sx={{
                             pl: 2,
-                            p: attached || fullScreen  ? '0 !important' : 2,
-                        }}
-                                   maxWidth="xl"
-                        >
+                            p: '0 !important',
+                        }} maxWidth="xl">
 
                             <Grid
                                 sx={{
@@ -118,7 +101,7 @@ const TopProjects = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:b
                                 </Grid>
                             </Grid>
                         </Container>
-                    </div>
+                    </>
                 )
             }
         </>
