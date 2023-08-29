@@ -1,16 +1,15 @@
 import * as React from "react";
-import SliderContainer from "./SliderContainer"
 import { useState } from "react"
-import {graphql, navigate, useStaticQuery} from "gatsby";
+import { graphql, navigate, useStaticQuery } from "gatsby";
 import Container from "@mui/material/Container";
-import PropertyCard from "./PropertyCard";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import {ArrowCircleRightOutlined} from "@mui/icons-material";
-const title:string = "¡Tu mejor opción!";
-const subtitle:string = "Propiedades destacadas";
+import loadable from '@loadable/component'
 
-const TopProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
+const ProjectCard = loadable(() => import( "./ProjectCard" ))
+
+const TopProjects = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
@@ -96,7 +95,11 @@ const TopProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?
                                     properties.map((property:any, index:number) => (
                                         <Grid item xs={ 12 }
                                               md={ 3 } >
-                                            <PropertyCard key={index} data={property.node}/>
+                                            {
+                                                ProjectCard && (
+                                                    <ProjectCard key={index} data={property.node}/>
+                                                )
+                                            }
                                         </Grid>
                                     ))
                                 }
@@ -123,4 +126,4 @@ const TopProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?
 }
 
 
-export default TopProperties;
+export default TopProjects;
