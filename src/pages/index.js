@@ -46,7 +46,6 @@ const IndexPage = ({ data }) => {
           <TopProjects />
         </Box>
         <MainInfoContent/>
-        <LatestPosts/>
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"
