@@ -2,15 +2,11 @@ import * as React from "react"
 import Seo from "../components/seo"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-
-import Container from "@mui/material/Container"
-
 import loadable from '@loadable/component'
 
 import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
-import LatestPosts from "../components/LatestPosts";
 
 const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))

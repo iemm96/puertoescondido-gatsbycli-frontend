@@ -30,11 +30,6 @@ type ProjectCardType = {
 const ProjectCard = ({
     data,
     key,
-    showAsList,
-    attached,
-    fullScreen,
-    showEstimate = false,
-    autoHeight
 }:ProjectCardType ) => {
   const theme = useTheme()
   const image = getImage(data?.coverImage)
@@ -44,14 +39,13 @@ const ProjectCard = ({
       sx={{
         maxWidth: {
           xs: "100%",
-          md: fullScreen ? '100%' : 414,
+          md: 414,
         },
-        borderRadius: fullScreen ? 0 : showAsList ? 3 : 4,
+        borderRadius: 4,
         borderBottom: {
-          xs: showAsList && `1px solid ${theme.palette.primary.main}`,
           md: "none",
         },
-        height: autoHeight ?  'auto' : (showAsList ? "auto" : attached ? 100 : 400),
+        height: 400,
       }}
       elevation={ 0 }
       key={key}
@@ -81,8 +75,8 @@ const ProjectCard = ({
                         variant="h5"
                         color={theme.palette.primary.light}
                         sx={{
-                            fontSize: attached ? "16px !important" : "inherit",
-                            fontWeight: attached ? 500 : 900,
+                            fontSize: "inherit",
+                            fontWeight: 900,
                         }}
                     >
                         {data?.name}
@@ -91,7 +85,6 @@ const ProjectCard = ({
                         <Typography variant="body2" color="white">
                             Proyecto estrella
                         </Typography>
-                        {!attached && (
                             <Stack direction="row" spacing={0}>
                                 <StarRounded
                                     sx={{
@@ -119,7 +112,6 @@ const ProjectCard = ({
                                     }}
                                 />
                             </Stack>
-                        )}
                     </>
                     <Typography
                         variant="body2"
@@ -153,9 +145,7 @@ const ProjectCard = ({
                         size="small"
                         startIcon={<ArrowCircleRightOutlined />}
                     >
-                        {
-                            showEstimate ? 'Ver mensualidades' : 'Ver detalles'
-                        }
+                        Ver detalles
                     </Button>
                 </CardActions>
             </CardActionArea>
