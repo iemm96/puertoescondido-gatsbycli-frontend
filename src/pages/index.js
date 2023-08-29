@@ -39,7 +39,6 @@ const IndexPage = ({ data }) => {
             pb: 2,
           }}
         >
-          <TopProjects />
         </Box>
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
