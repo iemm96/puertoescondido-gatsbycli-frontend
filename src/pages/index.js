@@ -10,6 +10,7 @@ import loadable from '@loadable/component'
 import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
+import LatestPosts from "../components/LatestPosts";
 
 const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))
@@ -45,7 +46,7 @@ const IndexPage = ({ data }) => {
           <TopProjects />
         </Box>
         <MainInfoContent/>
-        
+        <LatestPosts/>
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"
