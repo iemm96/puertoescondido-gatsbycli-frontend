@@ -4,18 +4,27 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import { getImage } from "gatsby-plugin-image"
-import { StyledCard } from "../styled/"
 import {
   ArrowCircleRightOutlined,
   StarRounded,
 } from "@mui/icons-material"
 import CardActionArea from "@mui/material/CardActionArea"
-import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
 import { navigate } from "gatsby"
 import { BgImage } from "gbimage-bridge"
 import useTheme from "@mui/material/styles/useTheme"
 import Box from "@mui/material/Box"
+import {styled} from "@mui/material";
+import Card from "@mui/material/Card";
+
+export const StyledCard = styled(Card)(() => ({
+    position: 'relative',
+    width: 'auto',
+    maxWidth: 414,
+    minWidth: 280,
+    borderRadius: 10,
+    boxShadow: 'rgba(0, 0, 0, 0.09) 0px 3px 12px'
+}));
 
 type ProjectCardType = {
     data?: any,
@@ -122,12 +131,6 @@ const ProjectCard = ({
                     >
                         {data?.description}
                     </Typography>
-                    <Stack sx={{ mt: 2 }} spacing={1} direction="row">
-                        {data?.features &&
-                            data.features.map((feature, index) => (
-                                <Chip size="small" key={index} label={feature.name} />
-                            ))}
-                    </Stack>
                 </CardContent>
                 <CardActions
                     sx={{
