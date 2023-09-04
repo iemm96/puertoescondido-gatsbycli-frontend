@@ -246,6 +246,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     description: { type: "String" },
     price: { type: "String" },
     uid: { type: "String!" },
+    timeFromDowntown: { type: "String" },
+    nearToBeaches: { type: "String" },
     measures_unit: { type: "String" },
     isFeatured: { type: "Boolean!" },
     slug: { type: "String" },

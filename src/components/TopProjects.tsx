@@ -28,6 +28,8 @@ const TopProjects = ({ fullScreen }:{ attached?:boolean, fullScreen?:boolean }) 
                             }
                         }
                         name
+                        timeFromDowntown
+                        nearToBeaches
                         uid
                         slug
                         price
