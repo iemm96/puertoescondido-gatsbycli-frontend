@@ -1,18 +1,20 @@
 import * as React from "react";
-import SliderContainer from "./SliderContainer"
 import { useState } from "react"
-import { graphql, useStaticQuery } from "gatsby";
-import PostCard from "./PostCard";
+import {graphql, navigate, useStaticQuery} from "gatsby";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import {ArrowCircleRightOutlined} from "@mui/icons-material";
+import loadable from '@loadable/component'
 
-const title:string = "Últimas entradas";
-const subtitle:string = "De nuestro blog";
+const PostCard = loadable(() => import( "./PostCard" ))
 
 const LatestPosts = () => {
     const [ posts, setPosts ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
         query LatestPosts {
-            allSanityPost {
+            allSanityPost(limit: 4) {
                 edges {
                     node {
                         title
@@ -52,15 +54,39 @@ const LatestPosts = () => {
         <>
             {
                 posts.length > 0 && (
-                    <SliderContainer
-                        viewMoreButtonRedirectPath="blog"
-                        viewMoreButtonText="Ver más entradas"
-                        title={title}
-                        subtitle={subtitle}
-                        data={ posts }
-                        Component={ PostCard }
-                        viewMoreButton
-                    />
+                    <Container sx={{
+                        pl: 2,
+                    }} maxWidth="xl">
+                        <Grid
+                            container
+                            justifyContent="space-between"
+                            spacing={ 1 }
+                        >
+                            {
+                                posts.map((post:any, index:number) => (
+                                    <Grid item xs={ 12 }
+                                          md={ 3 } >
+                                        {
+                                            PostCard && <PostCard data={post.node} key={index}/>
+                                        }
+                                    </Grid>
+                                ))
+                            }
+                        </Grid>
+                        <Grid container justifyContent="right" display="flex">
+                            <Grid item>
+                                <Button
+                                    startIcon={ <ArrowCircleRightOutlined/> }
+                                    sx={{ textTransform: 'none' }}
+                                    color="primary"
+                                    onClick={ () => navigate('/blog')  }
+                                    variant="contained"
+                                >
+                                    { 'Explorar blog' }
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Container>
                 )
             }
         </>

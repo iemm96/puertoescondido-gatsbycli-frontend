@@ -50,7 +50,6 @@ const Carousel = ({ styles }:CarouselTypes) => {
 
   React.useEffect(() => {
     setImages(allBanner?.nodes)
-    console.log('allBanner?.nodes ', allBanner?.nodes)
   },[allBanner])
 
   const [slideIndex, setSlideIndex] = React.useState(1);

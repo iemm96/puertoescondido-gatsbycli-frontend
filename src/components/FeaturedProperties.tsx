@@ -1,18 +1,17 @@
 import * as React from "react";
 import SliderContainer from "./SliderContainer"
 import { useState } from "react"
-import { graphql, useStaticQuery } from "gatsby";
-import PropertyCard from "./PropertyCard";
-import Grid from "@mui/material/Grid";
+import {graphql, useStaticQuery} from "gatsby";
+
 const title:string = "¡Tu mejor opción!";
 const subtitle:string = "Propiedades destacadas";
 
-const FeaturedProperties = ({ attached, fullScreen, enableSlider = false}:{ attached?:boolean, fullScreen?:boolean, enableSlider?: boolean }) => {
+const FeaturedProperties = ({ attached, fullScreen }:{ attached?:boolean, fullScreen?:boolean }) => {
     const [ properties, setProperties ] = useState<any>([]);
 
     const data = useStaticQuery(graphql`
         query FeaturedItems {
-            allProperty(filter: {isFeatured: {eq: true}, isVisible: {eq: true}}, limit: 4) {
+            allProperty(filter: {isFeatured: {eq: true}, isVisible: {eq: true}}) {
                 edges {
                     node {
                         coverImage {
@@ -57,31 +56,16 @@ const FeaturedProperties = ({ attached, fullScreen, enableSlider = false}:{ atta
             {
                 properties.length > 0 && (
                     <div style={
-                        fullScreen && enableSlider ? fullScreenStyles : {}
+                        fullScreen ? fullScreenStyles : {}
                     }>
-                        {
-                            enableSlider ? (
-                                <SliderContainer
-                                    title={ title }
-                                    fullScreen={ fullScreen }
-                                    attached={ attached }
-                                    subtitle={ subtitle }
-                                    data={ properties }
-                                    viewMoreButtonRedirectPath="propiedades"
-                                />
-                            ) : (
-                                <Grid alignContent="center" spacing={ 2 } direction="row" container>
-                                    {
-                                        properties.map((property, index) => (
-                                            <Grid xs={ 12 } md={ 3 }  item>
-                                                <PropertyCard key={index} data={property.node}/>
-                                            </Grid>
-                                        ))
-                                    }
-                                </Grid>
-                            )
-                        }
-
+                        <SliderContainer
+                            title={ title }
+                            fullScreen={ fullScreen }
+                            attached={ attached }
+                            subtitle={ subtitle }
+                            data={ properties }
+                            viewMoreButtonRedirectPath="propiedades"
+                        />
                     </div>
                 )
             }

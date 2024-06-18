@@ -2,9 +2,6 @@ import * as React from "react"
 import Seo from "../components/seo"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-
-import Container from "@mui/material/Container"
-
 import loadable from '@loadable/component'
 
 import { getImage } from "gatsby-plugin-image"
@@ -13,9 +10,7 @@ import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 
 const Layout = loadable(() => import( "../components/layout"))
 const Banner = loadable(() => import( "../components/Banner"))
-const FeaturedProperties = loadable(() => import( "../components/FeaturedProperties"))
-//const LatestPosts = loadable(() => import( "../components/LatestPosts"))
-const Testimonials = loadable(() => import( "../components/Testimonials"))
+const TopProjects = loadable(() => import( "../components/TopProjects"))
 const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
 const IndexPage = ({ data }) => {
   const modalOffersProps = useModalOffers()
@@ -44,15 +39,9 @@ const IndexPage = ({ data }) => {
             pb: 2,
           }}
         >
+          <TopProjects />
         </Box>
         <MainInfoContent/>
-          {
-              /*
-              <LatestPosts />
-              */
-          }
-        <Container maxWidth="xl">
-        </Container>
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"

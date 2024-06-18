@@ -15,7 +15,7 @@ import StyledButton from "../styled/StyledButton";
 import withTheme from "../components/theme";
 
 const PropertyDetails = ({ data }) => {
-    const { name, price, location, description, features, images, width, length, coverImage, brochureFile, bluePrintFile } = data.property;
+    const { name, price, location, description, features, images, width, length, coverImage, brochureFile, bluePrintFile, timeFromDowntown, nearToBeaches } = data.property;
     const coverImageObject = getImage( coverImage );
     const descriptionComponent = () => (
         <>
@@ -178,6 +178,28 @@ const PropertyDetails = ({ data }) => {
                                                 __html: description
                                             }}
                                        />
+                                        { timeFromDowntown && (
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    fontWeight: 300,
+                                                }}
+                                                color="white"
+                                            >
+                                                A {data?.timeFromDowntown} de puerto escondido
+                                            </Typography>
+                                        )}
+                                        { nearToBeaches && (
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    fontWeight: 300,
+                                                }}
+                                                color="white"
+                                            >
+                                                Playas cercanas: {data?.nearToBeaches}
+                                            </Typography>
+                                        )}
                                     </Stack>
                                     <Stack sx={{ mt: 2 }} spacing={ 2 } direction="row" flexWrap="wrap">
                                         {
@@ -240,6 +262,8 @@ export const query = graphql`
             name
             uid
             description
+            nearToBeaches
+            timeFromDowntown
             bluePrintFile {
                 url
             }

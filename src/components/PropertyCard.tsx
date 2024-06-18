@@ -18,34 +18,40 @@ import { BgImage } from "gbimage-bridge"
 import useTheme from "@mui/material/styles/useTheme"
 import Box from "@mui/material/Box"
 import useWindowDimensions from "../hooks/useWindowDimensions"
-import Container from "@mui/material/Container";
+import Container from "@mui/material/Container"
 
 type PropertyCardType = {
-    data?: any,
-    key: number | string,
-    showAsList?: boolean,
-    attached?: boolean,
-    fullScreen?: boolean,
-    showEstimate?: boolean,
-    customOnClick?: () => void;
-    autoHeight?: boolean;
+  data?: any
+  key: number | string
+  showAsList?: boolean
+  attached?: boolean
+  fullScreen?: boolean
+  showEstimate?: boolean
+  customOnClick?: () => void
+  autoHeight?: boolean
 }
 const PropertyCard = ({
-    data,
-    key,
-    showAsList,
-    attached,
-    fullScreen,
-    showEstimate = false,
-    customOnClick,
-    autoHeight
-}:PropertyCardType ) => {
+  data,
+  key,
+  showAsList,
+  attached,
+  fullScreen,
+  showEstimate = false,
+  customOnClick,
+  autoHeight,
+}: PropertyCardType) => {
   const theme = useTheme()
   const image = getImage(data?.coverImage)
   const { width } = useWindowDimensions()
 
   const CardInnerContent = (data: any) => (
-    <CardActionArea onClick={ customOnClick ? customOnClick : () => navigate(`/propiedad/${data.slug}`)}>
+    <CardActionArea
+      onClick={
+        customOnClick
+          ? customOnClick
+          : () => navigate(`/propiedad/${data.slug}`)
+      }
+    >
       {!data?.isProject && image && (
         <GatsbyImage
           image={image}
@@ -60,21 +66,19 @@ const PropertyCard = ({
       )}
       <CardContent>
         <Typography
-            /* @ts-ignore */
-            variant={data?.isProject ? "h5" : "cardTitle"}
-            color={data?.isProject && theme.palette.primary.light}
+          /* @ts-ignore */
+          variant={data?.isProject ? "h5" : "cardTitle"}
+          color={data?.isProject && theme.palette.primary.light}
         >
           {data?.name}
         </Typography>
         {!data?.isProject && (
           <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
-            {
-              data?.price && (
-                    `$ ${data?.price && new Intl.NumberFormat().format(data?.price)} mxn` + ' '
-                )
-            }
-            {data?.area &&
-              `${ data.area } m²`}
+            {data?.price &&
+              `$ ${
+                data?.price && new Intl.NumberFormat().format(data?.price)
+              } mxn` + " "}
+            {data?.area && `${data.area} m²`}
           </Typography>
         )}
         <Typography variant="body2" color="text.secondary">
@@ -97,9 +101,7 @@ const PropertyCard = ({
             size="small"
             startIcon={<ArrowForwardOutlined />}
           >
-            {
-              showEstimate ? 'Ver mensualidades' : 'Ver detalles'
-            }
+            {showEstimate ? "Ver mensualidades" : "Ver detalles"}
           </Button>
         </CardActions>
       )}
@@ -123,40 +125,40 @@ const PropertyCard = ({
         >
           {data?.name}
         </Typography>
-          <>
-              <Typography variant="body2" color="white">
-                  Proyecto estrella
-              </Typography>
-              {!attached && (
-                  <Stack direction="row" spacing={0}>
-                      <StarRounded
-                          sx={{
-                              color: "#FFE70E",
-                          }}
-                      />
-                      <StarRounded
-                          sx={{
-                              color: "#FFE70E",
-                          }}
-                      />
-                      <StarRounded
-                          sx={{
-                              color: "#FFE70E",
-                          }}
-                      />
-                      <StarRounded
-                          sx={{
-                              color: "#FFE70E",
-                          }}
-                      />
-                      <StarRounded
-                          sx={{
-                              color: "#FFE70E",
-                          }}
-                      />
-                  </Stack>
-              )}
-          </>
+        <>
+          <Typography variant="body2" color="white">
+            Proyecto estrella
+          </Typography>
+          {!attached && (
+            <Stack direction="row" spacing={0}>
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+            </Stack>
+          )}
+        </>
         <Typography
           variant="body2"
           sx={{
@@ -165,6 +167,24 @@ const PropertyCard = ({
           color="white"
         >
           {data?.description}
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: 300,
+          }}
+          color="white"
+        >
+          A {data?.timeFromDowntown} de puerto escondido
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: 300,
+          }}
+          color="white"
+        >
+          Playas cercanas: {data?.nearToBeaches}
         </Typography>
         <Stack sx={{ mt: 2 }} spacing={1} direction="row">
           {data?.features &&
@@ -190,9 +210,7 @@ const PropertyCard = ({
             size="small"
             startIcon={<ArrowCircleRightOutlined />}
           >
-            {
-              showEstimate ? 'Ver mensualidades' : 'Ver detalles'
-            }
+            {showEstimate ? "Ver mensualidades" : "Ver detalles"}
           </Button>
         </CardActions>
       )}
@@ -204,14 +222,20 @@ const PropertyCard = ({
       sx={{
         maxWidth: {
           xs: "100%",
-          md: fullScreen ? '100%' : 414,
+          md: fullScreen ? "100%" : 414,
         },
         borderRadius: fullScreen ? 0 : showAsList ? 3 : 4,
         borderBottom: {
           xs: showAsList && `1px solid ${theme.palette.primary.main}`,
           md: "none",
         },
-        height: autoHeight ?  'auto' : (showAsList ? "auto" : attached ? 100 : 400),
+        height: autoHeight
+          ? "auto"
+          : showAsList
+          ? "auto"
+          : attached
+          ? 100
+          : 400,
       }}
       elevation={width < 400 ? 0 : 1}
       key={key}
@@ -232,13 +256,13 @@ const PropertyCard = ({
               zIndex: 0,
             }}
           />
-          {
-            fullScreen ?
-                <Container sx={{ height: '100%' }} maxWidth="xl">
-                  {ProjectCard(data)}
-                </Container> :
-                  ProjectCard(data)
-          }
+          {fullScreen ? (
+            <Container sx={{ height: "100%" }} maxWidth="xl">
+              {ProjectCard(data)}
+            </Container>
+          ) : (
+            ProjectCard(data)
+          )}
         </BgImage>
       ) : (
         CardInnerContent(data)

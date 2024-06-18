@@ -2,15 +2,16 @@ import * as React from 'react';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import {Button, CardActionArea, Chip, Stack} from "@mui/material"
-import {GatsbyImage, getImage, StaticImage} from "gatsby-plugin-image";
+import {GatsbyImage, getImage } from "gatsby-plugin-image";
 import { StyledCard } from "../styled/";
 import { ArrowForwardOutlined } from '@mui/icons-material';
 import { navigate } from "gatsby"
 
-const PostCard = ({ data }:{ data?:any }) => {
-    const image = getImage( data?.mainImage?.asset )
+const PostCard = ({ data, key }:{ data?:any, key:number }) => {
+    const image = getImage( data?.mainImage?.asset );
+
     return(
-        <StyledCard>
+        <StyledCard key={key}>
             <CardActionArea
                 onClick={ () => navigate( `/post/${ data?.slug.current}` ) }
             >
