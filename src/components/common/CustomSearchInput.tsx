@@ -277,7 +277,10 @@ export const CustomSearchInput = ({
             }}
             onClick={() => {
               textInput.current.value = ""
-              setIterableResults([])
+              if (!useAsSelect) {
+                setIterableResults([])
+              }
+              handleItemsList()
               setQuerySearch(undefined)
             }}
           >
