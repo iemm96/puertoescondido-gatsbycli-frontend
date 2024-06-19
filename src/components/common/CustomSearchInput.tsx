@@ -35,20 +35,25 @@ export const useCustomSearchInput = (
   const [querySearch, setQuerySearch] = React.useState<string | undefined>(
     query
   )
-  const [iterableResults, setIterableResults] = React.useState<any>(items || [])
+  const [iterableResults, setIterableResults] = React.useState<any>([])
   const [openSidebar, setOpenSidebar] = React.useState<boolean>(false)
   const [itemList, setItemList] = React.useState<boolean>(false)
 
-  let results: any = null
+  let results: any = items ? items : null
 
   if (index && store) {
-    results = unFlattenResults(useFlexSearch(querySearch, index, store))
+    if (items && querySearch) {
+      results = items.filter(s => s.toLowerCase().includes(querySearch))
+    } else {
+      if (querySearch) {
+        results = unFlattenResults(useFlexSearch(querySearch, index, store))
+      }
+    }
+    console.log("results ", results)
   }
 
   const handleSearch = () => {
-    if (!items) {
-      setIterableResults(results)
-    }
+    setIterableResults(results)
   }
 
   React.useEffect(() => {
@@ -56,7 +61,6 @@ export const useCustomSearchInput = (
   }, [querySearch, query])
 
   const handleItemsList = () => {
-    console.log("here!")
     if (items) {
       setItemList(!itemList)
     } else {
@@ -176,13 +180,17 @@ export const CustomSearchInput = ({
               zIndex: 3,
             }}
             onClick={() => {
+              textInput.current.value = ""
+              setIterableResults([])
+              setQuerySearch(undefined)
+              if (useAsSelect) {
+                handleItemsList()
+                return
+              }
               if (redirectTo) {
                 navigate(`${redirectTo}?search=${querySearch}`)
                 return
               }
-              textInput.current.value = ""
-              setIterableResults([])
-              setQuerySearch(undefined)
             }}
           >
             <Close />
