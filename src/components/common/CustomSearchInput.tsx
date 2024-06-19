@@ -4,7 +4,12 @@ import Card from "@mui/material/Card"
 import InputBase from "@mui/material/InputBase"
 import IconButton from "@mui/material/IconButton"
 import SearchIcon from "@mui/icons-material/Search"
-import { Close, FilterList } from "@mui/icons-material"
+import {
+  ArrowDropDown,
+  ArrowDropDownCircleSharp,
+  Close,
+  FilterList,
+} from "@mui/icons-material"
 import useTheme from "@mui/material/styles/useTheme"
 import { useFlexSearch } from "react-use-flexsearch"
 import { navigate } from "gatsby"
@@ -24,13 +29,15 @@ export const unFlattenResults = results =>
 export const useCustomSearchInput = (
   index: any | null,
   store: any | null,
-  query: string | undefined
+  query: string | undefined,
+  items?: any
 ) => {
   const [querySearch, setQuerySearch] = React.useState<string | undefined>(
     query
   )
-  const [iterableResults, setIterableResults] = React.useState<any>([])
+  const [iterableResults, setIterableResults] = React.useState<any>(items || [])
   const [openSidebar, setOpenSidebar] = React.useState<boolean>(false)
+  const [itemList, setItemList] = React.useState<boolean>(false)
 
   let results: any = null
 
@@ -39,12 +46,25 @@ export const useCustomSearchInput = (
   }
 
   const handleSearch = () => {
-    setIterableResults(results)
+    if (!items) {
+      setIterableResults(results)
+    }
   }
 
   React.useEffect(() => {
     handleSearch()
   }, [querySearch, query])
+
+  const handleItemsList = () => {
+    console.log("here!")
+    if (items) {
+      setItemList(!itemList)
+    } else {
+      if (querySearch && iterableResults.length > 0) {
+        setItemList(!itemList)
+      }
+    }
+  }
 
   return {
     querySearch,
@@ -54,6 +74,8 @@ export const useCustomSearchInput = (
     setIterableResults,
     openSidebar,
     setOpenSidebar,
+    handleItemsList,
+    itemList,
   }
 }
 
@@ -67,6 +89,9 @@ export const CustomSearchInput = ({
   setOpenSidebar,
   redirectTo,
   hideFiltersButton,
+  useAsSelect,
+  handleItemsList,
+  itemList,
 }: {
   querySearch: string | undefined
   setQuerySearch: any
@@ -77,10 +102,14 @@ export const CustomSearchInput = ({
   setOpenSidebar?: any
   redirectTo?: string | undefined
   hideFiltersButton?: boolean
+  useAsSelect?: boolean
+  handleItemsList?: any
+  itemList: boolean
 }) => {
   const textInput = React.useRef(null)
-
   const theme = useTheme()
+
+  console.log("itemList ", itemList)
   return (
     <Box>
       <Paper
@@ -127,6 +156,7 @@ export const CustomSearchInput = ({
             }
           }}
           onChange={e => setQuerySearch(e.target.value)}
+          onClick={handleItemsList}
           defaultValue={querySearch ? querySearch : undefined}
           sx={{
             pl: {
@@ -168,13 +198,13 @@ export const CustomSearchInput = ({
           }}
           aria-label="buscar"
         >
-          <SearchIcon />
+          {useAsSelect ? <ArrowDropDown /> : <SearchIcon />}
         </IconButton>
       </Paper>
       <Grow
-        in={querySearch && iterableResults.length > 0}
+        in={itemList}
         style={{ transformOrigin: "0 0 0" }}
-        {...(querySearch && iterableResults ? { timeout: 1000 } : {})}
+        {...(itemList ? { timeout: 1000 } : {})}
       >
         <Paper
           elevation={4}
@@ -204,20 +234,22 @@ export const CustomSearchInput = ({
                   >
                     <CardContent>
                       <Typography color="secondary" variant="h6">
-                        {val.project.name}
+                        {val?.project?.name ? val.project.name : val}
                       </Typography>
-                      <Collapse
-                        in={true}
-                        collapsedSize={20}
-                        timeout="auto"
-                        unmountOnExit
-                      >
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: val.project.description,
-                          }}
-                        />
-                      </Collapse>
+                      {val?.project?.description && (
+                        <Collapse
+                          in={true}
+                          collapsedSize={20}
+                          timeout="auto"
+                          unmountOnExit
+                        >
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: val.project.description,
+                            }}
+                          />
+                        </Collapse>
+                      )}
                     </CardContent>
                   </CardActionArea>
                 </Card>
