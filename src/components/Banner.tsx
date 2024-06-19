@@ -192,68 +192,6 @@ const Banner = () => {
           </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
-      {width < 480 ? (
-        <Box
-          sx={{
-            backgroundColor: "#F7F6F4",
-            p: 2,
-          }}
-        >
-          <Grid container spacing={1}>
-            <Grid xs={6} item>
-              <StyledTypesButtonMobile
-                onClick={() =>
-                  navigate(`/propiedades?categoria=Fraccionamiento`)
-                }
-                variant="contained"
-              >
-                Fraccionamientos
-              </StyledTypesButtonMobile>
-            </Grid>
-            <Grid xs={6} item>
-              <StyledTypesButtonMobile
-                onClick={() => navigate(`/propiedades?categoria=Terreno`)}
-                variant="contained"
-              >
-                Terrenos
-              </StyledTypesButtonMobile>
-            </Grid>
-          </Grid>
-        </Box>
-      ) : (
-        <></>
-      )}
-      <Box
-        sx={{
-          display: {
-            xs: "none",
-            md: "flex",
-          },
-        }}
-      >
-        <StyledTypesButton
-          onClick={() => navigate(`/propiedades?categoria=Fraccionamiento`)}
-          sx={{
-            borderRight: "1px solid white",
-          }}
-          startIcon={<IconResidential width={40} />}
-          color="primary"
-          variant="contained"
-        >
-          Fraccionamientos
-        </StyledTypesButton>
-        <StyledTypesButton
-          onClick={() => navigate(`/propiedades?categoria=Lotificación`)}
-          sx={{
-            borderRight: "1px solid white",
-          }}
-          startIcon={<IconClimate width={40} />}
-          color="primary"
-          variant="contained"
-        >
-          Terrenos
-        </StyledTypesButton>
-      </Box>
       <Carousel
         styles={{
           overflow: "hidden",
