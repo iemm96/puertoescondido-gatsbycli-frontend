@@ -1,18 +1,10 @@
 import * as React from "react"
+import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import InputLabel from "@mui/material/InputLabel"
-import {
-  FormControl,
-  IconButton,
-  InputBase,
-  MenuItem,
-  Paper,
-  Select,
-  styled,
-  useTheme,
-} from "@mui/material"
+import { styled, useTheme } from "@mui/material"
 import Typography from "@mui/material/Typography"
 
 import Fade from "react-reveal/Fade"
@@ -22,39 +14,20 @@ import IconHouseConst from "./../images/icons/icon-house-cost.svg"
 import IconFindHouse from "./../images/icons/icon-find-house.svg"
 // @ts-ignore
 import IconSupportHouse from "./../images/icons/icon-support-house.svg"
+// @ts-ignore
+import IconResidential from "./../images/icons/residential.svg"
+// @ts-ignore
+import IconClimate from "./../images/icons/climate.svg"
+// @ts-ignore
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import Carousel from "./Carousel"
-
-const CustomImput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 4,
-    position: "relative",
-    fontSize: 16,
-    padding: "24px 26px 10px 12px",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      borderRadius: 4,
-      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
-    },
-  },
-}))
+import Header from "./Header"
+import { graphql, navigate, useStaticQuery } from "gatsby"
+import {
+  CustomSearchInput,
+  useCustomSearchInput,
+} from "./common/CustomSearchInput"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%)",
@@ -103,6 +76,34 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
   const { width } = useWindowDimensions()
   const theme = useTheme()
+  const { localSearchPages } = useStaticQuery(graphql`
+    query PropiedadesQuery2 {
+      localSearchPages {
+        index
+        store
+      }
+    }
+  `)
+
+  const {
+    querySearch,
+    setQuerySearch,
+    handleSearch,
+    iterableResults,
+    setIterableResults,
+    itemList,
+    handleItemsList,
+  } = useCustomSearchInput(
+    localSearchPages.index,
+    localSearchPages.store,
+    undefined,
+    [
+      "Proyectos de playa",
+      "Proyectos de inversión",
+      "Proyectos campestres",
+      "Proyectos comerciales u otros",
+    ]
+  )
 
   return (
     <>
@@ -169,48 +170,90 @@ const Banner = () => {
           </Grid>
           <Grid container mt={2}>
             <Grid item xs={12} md={4}>
-              <FormControl fullWidth>
-                <InputLabel sx={{ pt: 2 }} id="search-property-input-label">
-                  ¿Qué tipo de propiedad estás buscando?
-                </InputLabel>
-
-                <Paper
-                  component="form"
-                  sx={{
-                    borderRadius: 4,
-                    backgroundColor: "#EBF2FF",
-                    p: 0,
-                    display: "flex",
-                    position: "relative",
-                    alignItems: "center",
-
-                    width: {
-                      xs: 320,
-                      md: 420,
-                    },
-                  }}
-                >
-                  <Select
-                    fullWidth
-                    labelId="search-property-input-label"
-                    id="search-property-input"
-                    value={1}
-                    label="¿Qué tipo de propiedad estás buscando?"
-                    onChange={() => console.log("change")}
-                    input={<CustomImput />}
-                    inputProps={{ MenuProps: { disableScrollLock: true } }}
-                  >
-                    <MenuItem value={1}>Proyectos de playa</MenuItem>
-                    <MenuItem value={2}>Proyectos de inversión</MenuItem>
-                    <MenuItem value={3}>Proyectos campestres</MenuItem>
-                    <MenuItem value={4}>Proyectos comerciales u otros</MenuItem>
-                  </Select>
-                </Paper>
-              </FormControl>
+              <InputLabel
+                sx={{ color: "white" }}
+                shrink
+                htmlFor="search-property-input"
+              >
+                ¿Qué tipo de propiedad estás buscando?
+              </InputLabel>
+              <CustomSearchInput
+                querySearch={querySearch}
+                setQuerySearch={setQuerySearch}
+                handleSearch={handleSearch}
+                iterableResults={iterableResults}
+                setIterableResults={setIterableResults}
+                handleItemsList={handleItemsList}
+                hideFiltersButton={true}
+                itemList={itemList}
+                useAsSelect
+              />
             </Grid>
           </Grid>
         </Container>
       </StyledLinearBackgroundDiv>
+      {width < 480 ? (
+        <Box
+          sx={{
+            backgroundColor: "#F7F6F4",
+            p: 2,
+          }}
+        >
+          <Grid container spacing={1}>
+            <Grid xs={6} item>
+              <StyledTypesButtonMobile
+                onClick={() =>
+                  navigate(`/propiedades?categoria=Fraccionamiento`)
+                }
+                variant="contained"
+              >
+                Fraccionamientos
+              </StyledTypesButtonMobile>
+            </Grid>
+            <Grid xs={6} item>
+              <StyledTypesButtonMobile
+                onClick={() => navigate(`/propiedades?categoria=Terreno`)}
+                variant="contained"
+              >
+                Terrenos
+              </StyledTypesButtonMobile>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        <></>
+      )}
+      <Box
+        sx={{
+          display: {
+            xs: "none",
+            md: "flex",
+          },
+        }}
+      >
+        <StyledTypesButton
+          onClick={() => navigate(`/propiedades?categoria=Fraccionamiento`)}
+          sx={{
+            borderRight: "1px solid white",
+          }}
+          startIcon={<IconResidential width={40} />}
+          color="primary"
+          variant="contained"
+        >
+          Fraccionamientos
+        </StyledTypesButton>
+        <StyledTypesButton
+          onClick={() => navigate(`/propiedades?categoria=Lotificación`)}
+          sx={{
+            borderRight: "1px solid white",
+          }}
+          startIcon={<IconClimate width={40} />}
+          color="primary"
+          variant="contained"
+        >
+          Terrenos
+        </StyledTypesButton>
+      </Box>
       <Carousel
         styles={{
           overflow: "hidden",
