@@ -30,6 +30,9 @@ exports.createPages = async ({ graphql, actions }) => {
             features {
               name
             }
+            category {
+              name
+            }
           }
         }
       }
