@@ -1,14 +1,11 @@
 import * as React from "react"
 import SliderContainer from "./SliderContainer"
 import { useState } from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { Typography } from "@mui/material"
 import { Element } from "react-scroll"
 import { useBeachProjects } from "../hooks/useBeachProjects"
-const title: string = "¡Tu mejor opción!"
 const subtitle: string = "Propiedades destacadas"
 
-const PropertiesContainer = ({
+const BeachProjects = ({
   attached,
   fullScreen,
 }: {
@@ -17,8 +14,6 @@ const PropertiesContainer = ({
 }) => {
   const [properties, setProperties] = useState<any>([])
   const data = useBeachProjects()
-
-  console.log("data ", data)
 
   React.useEffect(() => {
     if (data?.allProperty?.edges) {
@@ -35,7 +30,7 @@ const PropertiesContainer = ({
   }
 
   return (
-    <Element name="test1">
+    <Element name="beachProjects">
       {properties.length > 0 && (
         <div style={fullScreen ? fullScreenStyles : {}}>
           <SliderContainer
@@ -52,4 +47,4 @@ const PropertiesContainer = ({
   )
 }
 
-export default PropertiesContainer
+export default BeachProjects
