@@ -4,17 +4,20 @@ import Card from "@mui/material/Card"
 import InputBase from "@mui/material/InputBase"
 import IconButton from "@mui/material/IconButton"
 import SearchIcon from "@mui/icons-material/Search"
-import {
-  ArrowDropDown,
-  ArrowDropDownCircleSharp,
-  Close,
-  FilterList,
-} from "@mui/icons-material"
+import { ArrowDropDown, Close, FilterList } from "@mui/icons-material"
 import useTheme from "@mui/material/styles/useTheme"
 import { useFlexSearch } from "react-use-flexsearch"
 import { navigate } from "gatsby"
 import { Box, CardActionArea, Collapse, Grow, Typography } from "@mui/material"
 import CardContent from "@mui/material/CardContent"
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll"
 
 function truncate(str, max) {
   return str.length > max ? str.substr(0, max - 1) + "…" : str
@@ -49,7 +52,6 @@ export const useCustomSearchInput = (
         results = unFlattenResults(useFlexSearch(querySearch, index, store))
       }
     }
-    console.log("results ", results)
   }
 
   const handleSearch = () => {
@@ -69,6 +71,27 @@ export const useCustomSearchInput = (
       }
     }
   }
+
+  React.useEffect(() => {
+    // Registering the 'begin' event and logging it to the console when triggered.
+    Events.scrollEvent.register("begin", (to, element) => {
+      console.log("begin", to, element)
+    })
+
+    // Registering the 'end' event and logging it to the console when triggered.
+    Events.scrollEvent.register("end", (to, element) => {
+      console.log("end", to, element)
+    })
+
+    // Updating scrollSpy when the component mounts.
+    scrollSpy.update()
+
+    // Returning a cleanup function to remove the registered events when the component unmounts.
+    return () => {
+      Events.scrollEvent.remove("begin")
+      Events.scrollEvent.remove("end")
+    }
+  }, [])
 
   return {
     querySearch,
@@ -113,7 +136,15 @@ export const CustomSearchInput = ({
   const textInput = React.useRef(null)
   const theme = useTheme()
 
-  console.log("itemList ", itemList)
+  const handleScroll = item => {
+    scroller.scrollTo("test1", {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      offset: 50, // Scrolls to element + 50 pixels down the page
+      // ... other options
+    })
+  }
   return (
     <Box>
       <Paper
@@ -238,7 +269,11 @@ export const CustomSearchInput = ({
                   elevation={0}
                 >
                   <CardActionArea
-                    onClick={() => navigate(`/propiedad/${val.slug}`)}
+                    onClick={() =>
+                      useAsSelect
+                        ? handleScroll(val)
+                        : navigate(`/propiedad/${val.slug}`)
+                    }
                   >
                     <CardContent>
                       <Typography color="secondary" variant="h6">
