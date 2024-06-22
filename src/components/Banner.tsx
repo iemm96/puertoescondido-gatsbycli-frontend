@@ -98,10 +98,22 @@ const Banner = () => {
     localSearchPages.store,
     undefined,
     [
-      "Proyectos de playa",
-      "Proyectos de inversión",
-      "Proyectos campestres",
-      "Proyectos comerciales u otros",
+      {
+        label: "Proyectos de playa",
+        value: "beachProjects",
+      },
+      {
+        label: "Proyectos de inversión",
+        value: "investmentProjects",
+      },
+      {
+        label: "Proyectos campestres",
+        value: "ruralProjects",
+      },
+      {
+        label: "Proyectos comerciales u otros",
+        value: "commercialProjects",
+      },
     ]
   )
 
