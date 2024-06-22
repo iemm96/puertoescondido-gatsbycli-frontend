@@ -7,7 +7,10 @@ import loadable from "@loadable/component"
 import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
-import PropertiesContainer from "../components/PropertiesContainer"
+import BeachProjects from "../components/BeachProjects"
+import InvestmentProjects from "../components/InvestmentProjects"
+import RuralProjects from "../components/RuralProjects"
+import CommercialProjects from "../components/CommercialProjects"
 
 const Layout = loadable(() => import("../components/layout"))
 const Banner = loadable(() => import("../components/Banner"))
@@ -43,7 +46,10 @@ const IndexPage = ({ data }) => {
           <TopProjects />
         </Box>
         <MainInfoContent />
-        <PropertiesContainer attached={false} fullScreen={false} />
+        <BeachProjects attached={false} fullScreen={false} />
+        <InvestmentProjects attached={false} fullScreen={false} />
+        <RuralProjects attached={false} fullScreen={false} />
+        <CommercialProjects attached={false} fullScreen={false} />
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"
