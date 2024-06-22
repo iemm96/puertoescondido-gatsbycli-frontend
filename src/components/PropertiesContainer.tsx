@@ -19,7 +19,11 @@ const PropertiesContainer = ({
   const data = useStaticQuery(graphql`
     query PropertiesContainer {
       allProperty(
-        filter: { isFeatured: { eq: false }, isVisible: { eq: true } }
+        filter: {
+          isFeatured: { eq: false }
+          isVisible: { eq: true }
+          category: { name: { eq: "Proyecto de playa" } }
+        }
       ) {
         edges {
           node {
