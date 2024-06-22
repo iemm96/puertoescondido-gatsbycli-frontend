@@ -7,7 +7,7 @@ import { Element } from "react-scroll"
 const title: string = "¡Tu mejor opción!"
 const subtitle: string = "Propiedades destacadas"
 
-const PropertiesContainer = ({
+const BeachProjects = ({
   attached,
   fullScreen,
 }: {
@@ -17,7 +17,7 @@ const PropertiesContainer = ({
   const [properties, setProperties] = useState<any>([])
 
   const data = useStaticQuery(graphql`
-    query PropertiesContainer {
+    query BeachProjects {
       allProperty(
         filter: {
           isFeatured: { eq: false }
@@ -82,4 +82,4 @@ const PropertiesContainer = ({
   )
 }
 
-export default PropertiesContainer
+export default BeachProjects
