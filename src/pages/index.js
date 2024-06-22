@@ -2,16 +2,17 @@ import * as React from "react"
 import Seo from "../components/seo"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-import loadable from '@loadable/component'
+import loadable from "@loadable/component"
 
 import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
+import PropertiesContainer from "../components/PropertiesContainer"
 
-const Layout = loadable(() => import( "../components/layout"))
-const Banner = loadable(() => import( "../components/Banner"))
-const TopProjects = loadable(() => import( "../components/TopProjects"))
-const MainInfoContent = loadable(() => import( "../components/MainInfoContent"))
+const Layout = loadable(() => import("../components/layout"))
+const Banner = loadable(() => import("../components/Banner"))
+const TopProjects = loadable(() => import("../components/TopProjects"))
+const MainInfoContent = loadable(() => import("../components/MainInfoContent"))
 const IndexPage = ({ data }) => {
   const modalOffersProps = useModalOffers()
 
@@ -22,8 +23,8 @@ const IndexPage = ({ data }) => {
         {data?.allOffer?.nodes[0]?.file && (
           <ModalOffers
             {...modalOffersProps}
-            image={ getImage(data.allOffer.nodes[0].file) }
-            property={ data?.allOffer.nodes[0].property }
+            image={getImage(data.allOffer.nodes[0].file)}
+            property={data?.allOffer.nodes[0].property}
           />
         )}
         <Banner />
@@ -41,7 +42,8 @@ const IndexPage = ({ data }) => {
         >
           <TopProjects />
         </Box>
-        <MainInfoContent/>
+        <MainInfoContent />
+        <PropertiesContainer attached={false} fullScreen={false} />
         <Typography
           sx={{ my: 6, fontWeight: 700 }}
           align="center"
@@ -69,8 +71,8 @@ export const query = graphql`
             gatsbyImageData(
               placeholder: BLURRED
               quality: 50
-              formats: [ AVIF ],
-              width: 360,
+              formats: [AVIF]
+              width: 360
               height: 640
             )
           }
@@ -79,4 +81,3 @@ export const query = graphql`
     }
   }
 `
-
