@@ -15,7 +15,6 @@ const FeaturedCategories = ({
   const [categories, setcategories] = useState<any>([])
   const data = useVisibleCategories()
 
-  console.log("data ", data)
   React.useEffect(() => {
     if (data?.allCategory?.nodes) {
       setcategories(data.allCategory.nodes)
