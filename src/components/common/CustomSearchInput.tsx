@@ -46,7 +46,7 @@ export const useCustomSearchInput = (
 
   if (index && store) {
     if (items && querySearch) {
-      results = items.filter(s => s.label.toLowerCase().includes(querySearch))
+      results = items.filter(s => s.name.toLowerCase().includes(querySearch))
     } else {
       if (querySearch) {
         results = unFlattenResults(useFlexSearch(querySearch, index, store))
@@ -271,13 +271,13 @@ export const CustomSearchInput = ({
                   <CardActionArea
                     onClick={() =>
                       useAsSelect
-                        ? handleScroll(val.value)
+                        ? handleScroll(val.name)
                         : navigate(`/propiedad/${val.slug}`)
                     }
                   >
                     <CardContent>
                       <Typography color="secondary" variant="h6">
-                        {val?.project?.name ? val.project.name : val.label}
+                        {val?.project?.name ? val.project.name : val.name}
                       </Typography>
                       {val?.project?.description && (
                         <Collapse

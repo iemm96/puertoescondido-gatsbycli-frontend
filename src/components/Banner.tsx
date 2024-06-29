@@ -28,6 +28,7 @@ import {
   CustomSearchInput,
   useCustomSearchInput,
 } from "./common/CustomSearchInput"
+import { useVisibleCategories } from "../hooks/useVisibleCategories"
 
 const StyledLinearBackgroundDiv = styled("div")(() => ({
   background: "linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%)",
@@ -76,6 +77,7 @@ const StyledTypesButton = styled(Button)(() => ({
 const Banner = () => {
   const { width } = useWindowDimensions()
   const theme = useTheme()
+  const { allCategory } = useVisibleCategories()
   const { localSearchPages } = useStaticQuery(graphql`
     query PropiedadesQuery2 {
       localSearchPages {
@@ -97,24 +99,7 @@ const Banner = () => {
     localSearchPages.index,
     localSearchPages.store,
     undefined,
-    [
-      {
-        label: "Proyectos de playa",
-        value: "beachProjects",
-      },
-      {
-        label: "Proyectos de inversión",
-        value: "investmentProjects",
-      },
-      {
-        label: "Proyectos campestres",
-        value: "ruralProjects",
-      },
-      {
-        label: "Proyectos comerciales u otros",
-        value: "commercialProjects",
-      },
-    ]
+    allCategory.nodes
   )
 
   return (

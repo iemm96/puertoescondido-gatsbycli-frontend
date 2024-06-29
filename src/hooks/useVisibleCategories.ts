@@ -8,7 +8,16 @@ export const useVisibleCategories = () => {
           child_properties {
             name
             description
-            coverImage
+            coverImage {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 280
+                  placeholder: BLURRED
+                  quality: 80
+                  formats: [WEBP, AVIF]
+                )
+              }
+            }
           }
           name
         }

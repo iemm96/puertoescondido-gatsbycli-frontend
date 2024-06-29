@@ -30,22 +30,24 @@ const FeaturedCategories = ({
   }
 
   return (
-    <Element name="FeaturedCategories">
+    <>
       {categories.length > 0 && (
         <div style={fullScreen ? fullScreenStyles : {}}>
           {categories.map(category => (
-            <SliderContainer
-              title={category.name}
-              fullScreen={fullScreen}
-              attached={attached}
-              subtitle={subtitle}
-              data={category.child_properties}
-              viewMoreButtonRedirectPath="propiedades"
-            />
+            <Element name={category.name}>
+              <SliderContainer
+                title={category.name}
+                fullScreen={fullScreen}
+                attached={attached}
+                subtitle={subtitle}
+                data={category.child_properties}
+                viewMoreButtonRedirectPath="propiedades"
+              />
+            </Element>
           ))}
         </div>
       )}
-    </Element>
+    </>
   )
 }
 
