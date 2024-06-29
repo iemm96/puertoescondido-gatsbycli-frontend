@@ -357,6 +357,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Category`,
       fields: {
         name: { type: "String!" },
+        isVisible: { type: "Boolean" },
         child_properties: { type: "[Property]" },
       },
     }),
