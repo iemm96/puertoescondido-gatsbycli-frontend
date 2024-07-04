@@ -72,7 +72,6 @@ const SliderContainer = ({
             p: attached || fullScreen ? "0 !important" : 2,
           }}
         >
-          {<Typography variant="subtitle1">{title}</Typography>}
           <Grid
             sx={{
               mb: {
@@ -97,6 +96,7 @@ const SliderContainer = ({
                   xs: "none",
                   md: "flex",
                 },
+                width: "100%",
               }}
               item
             >
@@ -118,24 +118,31 @@ const SliderContainer = ({
               )}
 
               {!fullScreen && (
-                <Box>
-                  <IconButton
-                    sx={arrowButtonStyles}
-                    disabled={swiperState.isBeginning}
-                    onClick={() => (swiperDef ? swiperDef.slidePrev() : "")}
-                  >
-                    <ChevronLeft />
-                  </IconButton>
-                  <IconButton
-                    sx={{
-                      borderRadius: 2,
-                      height: 40,
-                    }}
-                    disabled={swiperState.isEnd}
-                    onClick={() => (swiperDef ? swiperDef.slideNext() : "")}
-                  >
-                    <ChevronRight />
-                  </IconButton>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  sx={{ width: "100%" }}
+                >
+                  <Typography variant="subtitle1">{title}</Typography>
+                  <Box>
+                    <IconButton
+                      sx={arrowButtonStyles}
+                      disabled={swiperState.isBeginning}
+                      onClick={() => (swiperDef ? swiperDef.slidePrev() : "")}
+                    >
+                      <ChevronLeft />
+                    </IconButton>
+                    <IconButton
+                      sx={{
+                        borderRadius: 2,
+                        height: 40,
+                      }}
+                      disabled={swiperState.isEnd}
+                      onClick={() => (swiperDef ? swiperDef.slideNext() : "")}
+                    >
+                      <ChevronRight />
+                    </IconButton>
+                  </Box>
                 </Box>
               )}
             </Grid>
