@@ -18,7 +18,7 @@ module.exports = {
         // Whether replaceHydrateFunction should call ReactDOM.hydrate or ReactDOM.render
         // Defaults to ReactDOM.render on develop and ReactDOM.hydrate on build
         useHydrate: true,
-        preloadTags: false
+        preloadTags: false,
       },
     },
     {
@@ -40,9 +40,9 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /images/ // See below to configure properly
-        }
-      }
+          include: /images/, // See below to configure properly
+        },
+      },
     },
     {
       resolve: `gatsby-source-sanity`,
@@ -53,6 +53,23 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-favicons",
+      options: {
+        logo: "./src/images/logo_color.svg",
+        appName: "Inmobiliaria Puerto Escondido",
+        background: "#fff",
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          yandex: false,
+          windows: false,
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-scroll-reveal`,
       options: {
         threshold: 1, // Percentage of an element's area that needs to be visible to launch animation
@@ -60,13 +77,13 @@ module.exports = {
         disable: false, // Flag for disabling animations
 
         // Advanced Options
-        selector: '[data-sal]', // Selector of the elements to be animated
-        animateClassName: 'sal-animate', // Class name which triggers animation
-        disabledClassName: 'sal-disabled', // Class name which defines the disabled state
-        rootMargin: '0% 50%', // Corresponds to root's bounding box margin
-        enterEventName: 'sal:in', // Enter event name
-        exitEventName: 'sal:out', // Exit event name
-      }
+        selector: "[data-sal]", // Selector of the elements to be animated
+        animateClassName: "sal-animate", // Class name which triggers animation
+        disabledClassName: "sal-disabled", // Class name which defines the disabled state
+        rootMargin: "0% 50%", // Corresponds to root's bounding box margin
+        enterEventName: "sal:in", // Enter event name
+        exitEventName: "sal:out", // Exit event name
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -85,22 +102,22 @@ module.exports = {
     },
     `gatsby-plugin-sass`,
     {
-      resolve: 'gatsby-plugin-local-search',
+      resolve: "gatsby-plugin-local-search",
       options: {
         // A unique name for the search index. This should be descriptive of
         // what the index contains. This is required.
-        name: 'pages',
+        name: "pages",
 
         // Set the search engine to create the index. This is required.
         // The following engines are supported: flexsearch, lunr
-        engine: 'flexsearch',
+        engine: "flexsearch",
 
         // Provide options to the engine. This is optional and only recommended
         // for advanced users.
         //
         // Note: Only the flexsearch engine supports options.
         engineOptions: {
-          tokenize: 'forward'
+          tokenize: "forward",
         },
         // GraphQL query used to fetch all data for the search index. This is
         // required.
@@ -120,29 +137,29 @@ module.exports = {
 
         // Field used as the reference value for each document.
         // Default: 'id'.
-        ref: 'uid',
+        ref: "uid",
 
         // List of keys to index. The values of the keys are taken from the
         // normalizer function below.
         // Default: all fields
-        index: ['name', 'description'],
+        index: ["name", "description"],
 
         // List of keys to store and make available in your UI. The values of
         // the keys are taken from the normalizer function below.
         // Default: all fields
-        store: ['name', 'description', 'slug'],
+        store: ["name", "description", "slug"],
 
         // Function used to map the result from the GraphQL query. This should
         // return an array of items to index in the form of flat objects
         // containing properties to index. The objects must contain the `ref`
         // field above (default: 'id'). This is required.
         normalizer: ({ data }) =>
-            data.allProperty.nodes.map((node) => ({
-              uid: node.uid,
-              slug: node.slug,
-              name: node.name,
-              description: node.description,
-            })),
+          data.allProperty.nodes.map(node => ({
+            uid: node.uid,
+            slug: node.slug,
+            name: node.name,
+            description: node.description,
+          })),
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
