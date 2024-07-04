@@ -158,6 +158,7 @@ const SliderContainer = ({
               data={data}
               theme={theme}
               swiperDef={swiperDef}
+              disableAutoPlay={true}
             />
           }
 
