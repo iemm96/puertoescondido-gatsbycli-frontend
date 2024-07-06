@@ -53,20 +53,9 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-favicons",
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        logo: "./src/images/logo_color.svg",
-        appName: "Inmobiliaria Puerto Escondido",
-        background: "#fff",
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          coast: false,
-          favicons: true,
-          yandex: false,
-          windows: false,
-        },
+        icon: `src/images/favicon-32x32.png`, // This path is relative to the root of the site.
       },
     },
     {
