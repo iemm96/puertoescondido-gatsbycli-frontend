@@ -119,6 +119,7 @@ export const CustomSearchInput = ({
   useAsSelect,
   handleItemsList,
   itemList,
+  placeholder,
 }: {
   querySearch: string | undefined
   setQuerySearch: any
@@ -132,6 +133,7 @@ export const CustomSearchInput = ({
   useAsSelect?: boolean
   handleItemsList?: any
   itemList: boolean
+  placeholder: string
 }) => {
   const textInput = React.useRef(null)
   const theme = useTheme()
@@ -201,7 +203,7 @@ export const CustomSearchInput = ({
             ml: 1,
             flex: 1,
           }}
-          placeholder="Cerca de la playa, terreno, etc..."
+          placeholder={placeholder}
           inputProps={{ "aria-label": "buscar" }}
           value={querySearch}
         />

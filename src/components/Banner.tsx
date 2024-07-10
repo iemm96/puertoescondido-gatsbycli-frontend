@@ -172,7 +172,7 @@ const Banner = () => {
                 shrink
                 htmlFor="search-property-input"
               >
-                ¿Qué tipo de propiedad estás buscando?
+                Selecciona una propiedad:
               </InputLabel>
               <CustomSearchInput
                 querySearch={querySearch}
@@ -183,6 +183,7 @@ const Banner = () => {
                 handleItemsList={handleItemsList}
                 hideFiltersButton={true}
                 itemList={itemList}
+                placeholder="Proyectos de desarrollo, inversión, playa..."
                 useAsSelect
               />
             </Grid>
