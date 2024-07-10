@@ -20,6 +20,7 @@ export const useVisibleCategories = () => {
             }
           }
           name
+          description
         }
       }
     }

@@ -3,7 +3,6 @@ import SliderContainer from "./SliderContainer"
 import { useState } from "react"
 import { Element } from "react-scroll"
 import { useVisibleCategories } from "../hooks/useVisibleCategories"
-const subtitle: string = "Propiedades destacadas"
 
 const FeaturedCategories = ({
   attached,
@@ -39,7 +38,7 @@ const FeaturedCategories = ({
                 title={category.name}
                 fullScreen={fullScreen}
                 attached={attached}
-                subtitle={subtitle}
+                subtitle={category?.description}
                 data={category.child_properties}
                 viewMoreButtonRedirectPath="propiedades"
               />
