@@ -357,6 +357,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Category`,
       fields: {
         name: { type: "String!" },
+        description: { type: "String" },
         isVisible: { type: "Boolean" },
         child_properties: { type: "[Property]" },
       },
@@ -474,9 +475,7 @@ exports.onCreateNode = async ({
     if (node.internal.type === "Category") {
       if (node?.child_properties.length > 0) {
         node.child_properties.map(async property => {
-          console.log("property!!! ", property?.coverImage)
           if (property?.coverImage?.url) {
-            console.log("property?.coverImage?.url ", property?.coverImage?.url)
             const fileNode = await createRemoteFileNode({
               url: property?.coverImage?.url, // string that points to the URL of the image
               parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
