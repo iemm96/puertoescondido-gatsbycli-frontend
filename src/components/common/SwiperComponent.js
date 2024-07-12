@@ -3,7 +3,7 @@ import * as React from "react"
 import { Fade } from "react-reveal"
 
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Pagination, Autoplay, Navigation } from "swiper"
+import { Pagination, Autoplay, Navigation } from "swiper/modules"
 const boxStyles = {
   p: {
     xs: "0 1rem 0 0",
