@@ -71,7 +71,7 @@ export const Gallery = ({ data, preview }: { data: any; preview: boolean }) => {
               cursor: "pointer",
               objectFit: "contain",
             }}
-            image={getImage(selectedImage)}
+            image={selectedImage && getImage(selectedImage)}
           />
         </Box>
       </Modal>
@@ -111,7 +111,7 @@ export const Gallery = ({ data, preview }: { data: any; preview: boolean }) => {
                     cursor: "pointer",
                     borderRadius: 16,
                   }}
-                  image={getImage(val)}
+                  image={val && getImage(val)}
                 />
               </Box>
             </SwiperSlide>
@@ -163,7 +163,7 @@ export const Gallery = ({ data, preview }: { data: any; preview: boolean }) => {
                     borderRadius: 8,
                     objectFit: "contain",
                   }}
-                  image={getImage(val)}
+                  image={val && getImage(val)}
                 />
               </Box>
             </SwiperSlide>
