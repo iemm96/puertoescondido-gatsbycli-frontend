@@ -155,7 +155,7 @@ const ProjectCard = ({ data, key }: ProjectCardType) => {
             }}
           >
             <Button
-              onClick={() => navigate(`/${data.slug}`)}
+              onClick={() => navigate(`/propiedad/${data.slug}`)}
               variant="text"
               sx={{
                 textTransform: "none",
