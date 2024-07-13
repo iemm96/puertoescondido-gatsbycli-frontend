@@ -8,13 +8,14 @@ export const useVisibleCategories = () => {
           child_properties {
             name
             description
+            slug
             coverImage {
               childImageSharp {
                 gatsbyImageData(
                   width: 280
                   placeholder: BLURRED
                   quality: 80
-                  formats: [WEBP, AVIF]
+                  formats: [AUTO, WEBP, AVIF]
                 )
               }
             }
