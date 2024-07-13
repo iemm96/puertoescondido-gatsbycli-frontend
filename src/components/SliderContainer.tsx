@@ -81,7 +81,7 @@ const SliderContainer = ({
             container
             justifyContent="space-between"
           >
-            {(!attached || !fullScreen) && (
+            {!attached && !fullScreen && (
               <Grid item>
                 <Typography sx={{ fontWeight: 600, mb: 1 }} variant="h5">
                   {subtitle}
