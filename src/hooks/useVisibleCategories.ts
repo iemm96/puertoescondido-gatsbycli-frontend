@@ -7,6 +7,7 @@ export const useVisibleCategories = () => {
         nodes {
           child_properties {
             name
+            _id
             description
             slug
             coverImage {
@@ -20,6 +21,15 @@ export const useVisibleCategories = () => {
               }
             }
           }
+          coverImages {
+            childImageSharp {
+              gatsbyImageData(formats: AUTO)
+              parent {
+                id
+              }
+            }
+          }
+
           name
           description
         }

@@ -44,7 +44,6 @@ const PropertyCard = ({
   const image = getImage(data?.coverImage)
   const { width } = useWindowDimensions()
 
-  console.log("data-property-card ", data)
   const CardInnerContent = (data: any) => (
     <CardActionArea
       onClick={
