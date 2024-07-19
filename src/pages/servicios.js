@@ -8,28 +8,27 @@ import Grid from "@mui/material/Grid"
 import { navigate } from "gatsby"
 import { Home } from "@mui/icons-material"
 import StyledButton from "../styled/StyledButton"
-import GalleryDrone from "../components/galleries/GalleryDrone";
-import GalleryTopography from "../components/galleries/GalleryTopography";
+import GalleryDrone from "../components/galleries/GalleryDrone"
+import GalleryTopography from "../components/galleries/GalleryTopography"
 
 const Servicios = () => {
-
   return (
     <>
       <Seo title="Servicios" />
-      <Layout persistentHeader={true}>
+      <Layout scrollTrigger persistentHeader={true}>
         <Box
           sx={{
+            mt: 14,
             justifyContent: "center",
             display: "flex",
           }}
         >
           <Stack spacing={2} direction="column">
-            <Typography align="center" sx={{ mt: 18 }} variant="h4">
+            <Typography align="center" sx={{ mt: 20 }} variant="h4">
               Servicios
             </Typography>
             <Typography align="center" sx={{ mt: 18 }} variant="subtitle1">
-              ¡Conoce todas las soluciones que
-              tenemos para ti!
+              ¡Conoce todas las soluciones que tenemos para ti!
             </Typography>
           </Stack>
         </Box>
@@ -42,7 +41,7 @@ const Servicios = () => {
               sx={{ justifyContent: "center", display: "flex" }}
               item
             >
-              <GalleryTopography/>
+              <GalleryTopography />
             </Grid>
             <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
               <Stack
@@ -72,35 +71,35 @@ const Servicios = () => {
           </Grid>
           <Grid sx={{ mt: 4 }} spacing={4} container>
             <Grid
-                xs={12}
-                md={6}
-                order={{ xs: 2, md: 1 }}
-                sx={{ justifyContent: "center", display: "flex" }}
-                item
+              xs={12}
+              md={6}
+              order={{ xs: 2, md: 1 }}
+              sx={{ justifyContent: "center", display: "flex" }}
+              item
             >
-              <GalleryDrone/>
+              <GalleryDrone />
             </Grid>
             <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
               <Stack
-                  sx={{
-                    display: "flex",
-                    justifyContent: "left",
-                  }}
-                  direction="column"
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                }}
+                direction="column"
               >
                 <Typography variant="h5">Fotografía con Drone</Typography>
                 <Typography sx={{ mt: 2 }} variant="body2">
-                  Contamos con los mejores Drones y tecnología especializada para
-                  captura de imágenes áreas.
+                  Contamos con los mejores Drones y tecnología especializada
+                  para captura de imágenes áreas.
                 </Typography>
               </Stack>
               <StyledButton
-                  onClick={() => navigate("/contacto")}
-                  color="primary"
-                  variant="contained"
-                  sx={{
-                    mt: 4,
-                  }}
+                onClick={() => navigate("/contacto")}
+                color="primary"
+                variant="contained"
+                sx={{
+                  mt: 4,
+                }}
               >
                 Agendar cita
               </StyledButton>
