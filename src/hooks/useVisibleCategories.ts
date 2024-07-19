@@ -8,8 +8,10 @@ export const useVisibleCategories = () => {
           child_properties {
             name
             _id
+            nearToBeaches
             description
             slug
+            timeFromDowntown
             coverImage {
               childImageSharp {
                 gatsbyImageData(
@@ -29,7 +31,6 @@ export const useVisibleCategories = () => {
               }
             }
           }
-
           name
           description
         }
