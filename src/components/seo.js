@@ -9,7 +9,6 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import { useLocation } from "@reach/router"
 
 function Seo({ description, lang, meta, title, props }) {
   const { site, featuredImage } = useStaticQuery(
@@ -81,7 +80,7 @@ function Seo({ description, lang, meta, title, props }) {
         },
         {
           name: "og:image",
-          content: `${site?.siteMetadata?.siteUrl}${ogImage?.images?.fallback?.src}`,
+          content: `https://res.cloudinary.com/inmobiliaria-puerto-escondido/image/upload/v1721458463/og_image_py23fi.png`,
         },
         {
           name: "og:image:width",
