@@ -36,7 +36,8 @@ function Seo({ description, lang, meta, title, props }) {
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
-  const ogImage = props?.featuredImage ?? featuredImage?.childImageSharp
+  const ogImage =
+    props?.featuredImage ?? featuredImage?.childImageSharp?.gatsbyImageData
 
   return (
     <Helmet
