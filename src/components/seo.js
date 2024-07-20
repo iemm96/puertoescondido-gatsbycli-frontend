@@ -81,7 +81,7 @@ function Seo({ description, lang, meta, title, props }) {
         },
         {
           name: "og:image",
-          content: ogImage?.images?.fallback?.src,
+          content: `${site?.siteMetadata?.siteUrl}${ogImage?.images?.fallback?.src}`,
         },
         {
           name: "og:image:width",
