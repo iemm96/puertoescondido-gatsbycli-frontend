@@ -9,9 +9,10 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { useLocation } from "@reach/router"
 
-function Seo({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
+function Seo({ description, lang, meta, title, props }) {
+  const { site, featuredImage } = useStaticQuery(
     graphql`
       query {
         site {
@@ -21,13 +22,23 @@ function Seo({ description, lang, meta, title }) {
             author
           }
         }
+        featuredImage: file(
+          absolutePath: { glob: "**/src/images/og_image.png" }
+        ) {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 1200)
+          }
+        }
       }
     `
   )
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const ogImage = props?.featuredImage ?? featuredImage?.childImageSharp
+  const location = useLocation()
 
+  console.log("ogImage ", ogImage)
   return (
     <Helmet
       htmlAttributes={{
@@ -67,6 +78,27 @@ function Seo({ description, lang, meta, title }) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: "og:image",
+          content: ogImage?.images?.fallback?.src,
+        },
+        {
+          name: "og:image:width",
+          content: `${ogImage?.width}`,
+        },
+
+        {
+          name: "og:image:height",
+          content: `${ogImage?.height}`,
+        },
+        {
+          name: "og:site_name",
+          content: site?.siteMetadata?.og?.siteName,
+        },
+        {
+          name: "og:url",
+          content: `${site?.siteMetadata?.siteUrl}${location.pathname}`,
         },
       ].concat(meta)}
     />

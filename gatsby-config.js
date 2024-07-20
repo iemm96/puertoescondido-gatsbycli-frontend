@@ -7,7 +7,10 @@ module.exports = {
     title: `Inmobiliaria Puerto Escondido`,
     description: `Somos una empresa 100% Mexicana originaria de la ciudad de Puerto Escondido, que se dedica a la intermediación en la compra - venta de inmuebles, terrenos, ranchos y fraccionamientos a buen precio, en Puerto Escondido y sus zonas aledañas.`,
     author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://inmobiliariapuertoescondido.com`,
+    og: {
+      siteName: "Inmobiliaria Puerto Escondido",
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
