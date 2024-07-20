@@ -20,6 +20,7 @@ function Seo({ description, lang, meta, title, props }) {
             title
             description
             author
+            siteUrl
           }
         }
         featuredImage: file(
@@ -36,9 +37,7 @@ function Seo({ description, lang, meta, title, props }) {
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
   const ogImage = props?.featuredImage ?? featuredImage?.childImageSharp
-  const location = useLocation()
 
-  console.log("ogImage ", ogImage)
   return (
     <Helmet
       htmlAttributes={{
@@ -98,7 +97,7 @@ function Seo({ description, lang, meta, title, props }) {
         },
         {
           name: "og:url",
-          content: `${site?.siteMetadata?.siteUrl}${location.pathname}`,
+          content: `${site?.siteMetadata?.siteUrl}`,
         },
       ].concat(meta)}
     />
