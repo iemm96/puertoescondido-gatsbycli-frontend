@@ -60,16 +60,31 @@ const Carousel = ({ styles }: CarouselTypes) => {
         {images &&
           images.map((image: any, index) => (
             <StyledSlideDiv animation={slideIndex === index + 1}>
-              {/*@ts-ignore */}
-              <GatsbyImage
-                image={getImage(image?.image)}
+              <video
+                autoPlay
+                muted
+                loop
+                style={{
+                  width: "100%",
+                  height: 800,
+                  objectFit: "cover",
+                }}
+              >
+                <source
+                  src="https://res.cloudinary.com/inmobiliaria-puerto-escondido/video/upload/v1721460456/0720_qd8vss.mov"
+                  type="video/mp4"
+                />
+                Your browser does not support HTML5 video.
+              </video>
+              {/*<GatsbyImage
+                image={image?.image && getImage(image.image)}
                 style={{
                   width: "100%",
                   height: 800,
                   objectPosition: "cover",
                 }}
                 alt={"data.title"}
-              />
+              />*/}
             </StyledSlideDiv>
           ))}
       </div>
