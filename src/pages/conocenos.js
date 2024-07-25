@@ -14,6 +14,7 @@ import IconValues from "./../images/icons/values.svg"
 import { StaticImage } from "gatsby-plugin-image"
 import { Home } from "@mui/icons-material"
 import StyledButton from "../styled/StyledButton"
+import Zoom from "react-reveal/Fade"
 
 const ConocenosPage = () => {
   const data = useStaticQuery(graphql`
@@ -84,16 +85,19 @@ const ConocenosPage = () => {
                 xs={12}
                 md={6}
               >
-                <StaticImage
-                  src="../images/img-conocenos.jpg"
-                  formats={["auto", "webp", "avif"]}
-                  style={{
-                    borderRadius: 16,
-                  }}
-                  quality={100}
-                  fixed={data.file.childImageSharp.fixed}
-                  alt="Puerto escondido"
-                />
+                <Zoom>
+                  <StaticImage
+                    src="../images/conocenos.jpeg"
+                    formats={["auto", "webp", "avif"]}
+                    style={{
+                      borderRadius: 16,
+                    }}
+                    quality={100}
+                    height={640}
+                    fixed={data.file.childImageSharp.fixed}
+                    alt="Puerto escondido"
+                  />
+                </Zoom>
               </Grid>
             </Grid>
           </Paper>
