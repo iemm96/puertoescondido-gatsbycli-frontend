@@ -69,6 +69,8 @@ const FeaturedCategories = ({
                 attached={attached}
                 subtitle={category?.description}
                 data={category.child_properties}
+                viewMoreButtonText="Ver más propiedades de"
+                viewMoreButton={category.child_properties.length > 3}
                 viewMoreButtonRedirectPath="propiedades"
               />
             </Element>
