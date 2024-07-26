@@ -99,24 +99,7 @@ const SliderContainer = ({
               }}
               item
             >
-              {viewMoreButton && !attached && !fullScreen && (
-                <Button
-                  sx={{ textTransform: "none" }}
-                  color="primary"
-                  onClick={() =>
-                    navigate(
-                      viewMoreButtonRedirectPath
-                        ? `/${viewMoreButtonRedirectPath}`
-                        : "/"
-                    )
-                  }
-                  variant="contained"
-                >
-                  {viewMoreButtonText ? viewMoreButtonText : "Ver más"}
-                </Button>
-              )}
-
-              {!fullScreen && (
+              {!fullScreen && viewMoreButton && (
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -166,9 +149,8 @@ const SliderContainer = ({
               mt: 4,
               display: {
                 xs: "flex",
-                md: "none",
               },
-              justifyContent: "center",
+              justifyContent: "end",
             }}
           >
             {viewMoreButton && !attached && (
@@ -184,7 +166,9 @@ const SliderContainer = ({
                 }
                 variant="contained"
               >
-                {viewMoreButtonText ? viewMoreButtonText : "Ver más"}
+                {viewMoreButtonText
+                  ? `${viewMoreButtonText} ${title}`
+                  : "Ver más"}
               </Button>
             )}
           </Box>
