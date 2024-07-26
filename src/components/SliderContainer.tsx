@@ -166,9 +166,7 @@ const SliderContainer = ({
                 }
                 variant="contained"
               >
-                {viewMoreButtonText
-                  ? `${viewMoreButtonText} ${title}`
-                  : "Ver más"}
+                {viewMoreButtonText ? viewMoreButtonText : "Ver más"}
               </Button>
             )}
           </Box>
