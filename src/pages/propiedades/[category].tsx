@@ -10,6 +10,8 @@ import { useCustomSearchInput } from "../../components/common/CustomSearchInput"
 import { FiltersBox, useFiltersBox } from "../../components/common/FiltersBox"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
 import FeaturedProperties from "../../components/FeaturedProperties"
+import axios from "axios"
+const { GATSBY_API_HOST } = process.env
 
 const Propiedades = ({ category, data }) => {
   const params = new URLSearchParams(location.search)
@@ -19,7 +21,16 @@ const Propiedades = ({ category, data }) => {
 
   console.log("category ", category)
 
-  React.useEffect(() => {}, [])
+  React.useEffect(() => {
+    getPropertiesByCategory().then()
+  }, [])
+
+  const getPropertiesByCategory = async () => {
+    const properties = await axios.get(
+      `${GATSBY_API_HOST}properties/byCategory/`
+    )
+  }
+
   return (
     <>
       <Seo title="Propiedades" />
