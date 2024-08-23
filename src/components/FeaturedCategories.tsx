@@ -24,10 +24,6 @@ const FeaturedCategories = ({
             category.child_properties.map(childProperty => {
               if (category.coverImages) {
                 const result = category.coverImages.find(ci => {
-                  console.log(
-                    "ci?.childImageSharp?.parent?.id ",
-                    childProperty?._id
-                  )
                   if (ci?.childImageSharp?.parent?.id) {
                     return (
                       ci.childImageSharp.parent.id ===
@@ -70,9 +66,7 @@ const FeaturedCategories = ({
                 subtitle={category?.description}
                 data={category.child_properties}
                 viewMoreButtonText={`Ver más propiedades de ${category.name}`}
-                viewMoreButton={
-                  category.child_properties.length > 3 && category?.slug
-                }
+                viewMoreButton={category.child_properties.length > 3}
                 viewMoreButtonRedirectPath={`propiedades/${category?.slug}`}
               />
             </Element>
