@@ -32,6 +32,7 @@ export const useVisibleCategories = () => {
             }
           }
           name
+          slug
           description
         }
       }
