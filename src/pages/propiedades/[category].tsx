@@ -11,11 +11,12 @@ import { FiltersBox, useFiltersBox } from "../../components/common/FiltersBox"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
 import FeaturedProperties from "../../components/FeaturedProperties"
 import axios from "axios"
-const { GATSBY_API_HOST } = process.env
+import { fetchRecords } from "../../actions/fetchRecords"
+import { fetchRecord } from "../../actions/fetchRecord"
 
 const Propiedades = ({ category, data }) => {
   const params = new URLSearchParams(location.search)
-  const search = params.get("search")
+  const [properties, setProperties] = React.useState([])
   const filteredResults = []
   const { width } = useWindowDimensions()
 
@@ -26,9 +27,10 @@ const Propiedades = ({ category, data }) => {
   }, [])
 
   const getPropertiesByCategory = async () => {
-    const properties = await axios.get(
-      `${GATSBY_API_HOST}properties/byCategory/`
-    )
+    const categoryResult = await fetchRecord(`categories/bySlug`, category)
+    if (categoryResult?.category?.child_properties) {
+      setProperties(categoryResult.category.child_properties)
+    }
   }
 
   return (
@@ -63,8 +65,8 @@ const Propiedades = ({ category, data }) => {
             <Grid xs={12} lg={12} item>
               <Grid container></Grid>
               <Grid spacing={2} container>
-                {filteredResults &&
-                  filteredResults.map((val: any, index: number) => (
+                {properties &&
+                  properties.map((val: any, index: number) => (
                     <Grid
                       sx={{ justifyContent: "center" }}
                       xs={12}

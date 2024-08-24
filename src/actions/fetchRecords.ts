@@ -1,38 +1,35 @@
-import axios, {AxiosRequestConfig, AxiosRequestHeaders} from "axios";
+import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios"
 
-const { GATSBY_API_HOST } = process.env;
+export const fetchRecords = async (resource: string) => {
+  const url = `${resource}`
+  console.log("url ", url)
+  const authToken = localStorage.getItem("access_token")
 
-export const fetchRecords = async (resource:string) => {
+  const headers: AxiosRequestHeaders = {
+    "Content-Type": "application/json",
+    "x-token": "",
+  }
 
-    const authToken = localStorage.getItem('access_token');
+  if (authToken) {
+    headers["x-token"] = `Bearer ${authToken}`
+  }
 
-    const headers:AxiosRequestHeaders = {
-        "Content-Type": "application/json",
-        "x-token": ""
-    };
+  const options: AxiosRequestConfig<any> = {
+    url: `${process.env.GATSBY_API_HOST}${resource}`,
+    method: "GET",
+    headers: headers,
+  }
 
-    if(authToken) {
-        headers["x-token"] = `Bearer ${ authToken }`;
+  try {
+    const response = await axios(options)
+
+    if (response) {
+      return response.data
     }
-
-    const options:AxiosRequestConfig<any> = {
-        url:`${ GATSBY_API_HOST }${resource}`,
-        method: 'GET',
-        headers: headers,
-    };
-
-    try {
-        const response = await axios(options);
-
-        if(response) {
-            return response.data;
-        }
-
-    }catch (error) {
-        return {
-            success: false,
-            error
-        }
+  } catch (error) {
+    return {
+      success: false,
+      error,
     }
-
-};
+  }
+}
