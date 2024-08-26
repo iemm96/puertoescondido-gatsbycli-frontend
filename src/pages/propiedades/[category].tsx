@@ -1,31 +1,61 @@
 import * as React from "react"
 import Seo from "../../components/seo"
 import Layout from "../../components/layout"
-import { Container, Grid, Stack, Typography } from "@mui/material"
-import { ChevronLeft, ChevronRight, Home } from "@mui/icons-material"
+import { Container, Grid } from "@mui/material"
+import { Home } from "@mui/icons-material"
 import PropertyCard from "../../components/PropertyCard"
 import StyledButton from "../../styled/StyledButton"
 import { graphql, navigate } from "gatsby"
-import { useCustomSearchInput } from "../../components/common/CustomSearchInput"
-import { FiltersBox, useFiltersBox } from "../../components/common/FiltersBox"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
 import FeaturedProperties from "../../components/FeaturedProperties"
-import axios from "axios"
-import { fetchRecords } from "../../actions/fetchRecords"
 import { fetchRecord } from "../../actions/fetchRecord"
+import SliderContainer from "../../components/SliderContainer"
+import { useVisibleCategories } from "../../hooks/useVisibleCategories"
 
-const Propiedades = ({ category, data }) => {
-  const params = new URLSearchParams(location.search)
+const Propiedades = ({ category }) => {
   const [properties, setProperties] = React.useState([])
-  const filteredResults = []
-  const { width } = useWindowDimensions()
-
-  console.log("category ", category)
+  const [randomCategory, setRandomCategory] = React.useState<any>()
+  const data = useVisibleCategories()
 
   React.useEffect(() => {
     getPropertiesByCategory().then()
   }, [])
 
+  React.useEffect(() => {
+    if (data?.allCategory?.nodes) {
+      let categoriesArray = data.allCategory.nodes
+      let newCategoriesArray = []
+      if (categoriesArray) {
+        newCategoriesArray = categoriesArray.map(category => {
+          if (category.child_properties) {
+            category.child_properties.map(childProperty => {
+              if (category.coverImages) {
+                const result = category.coverImages.find(ci => {
+                  if (ci?.childImageSharp?.parent?.id) {
+                    return (
+                      ci.childImageSharp.parent.id ===
+                      `${childProperty._id}-cover-image`
+                    )
+                  }
+                })
+                childProperty.coverImage = result
+              }
+              return childProperty
+            })
+          }
+          return category
+        })
+        setRandomCategory(
+          newCategoriesArray[
+            Math.floor(Math.random() * newCategoriesArray.length)
+          ]
+        )
+      } else {
+        setRandomCategory({})
+      }
+    }
+  }, [data])
+
+  console.log("randomCategory ", randomCategory)
   const getPropertiesByCategory = async () => {
     const categoryResult = await fetchRecord(`categories/bySlug`, category)
     if (categoryResult?.category?.child_properties) {
@@ -167,6 +197,18 @@ const Propiedades = ({ category, data }) => {
                                 </Grid>
                             </Grid>
                                 */}
+              <Grid item xs={12} sx={{ mt: 10 }}>
+                <SliderContainer
+                  title={randomCategory?.name}
+                  fullScreen={false}
+                  attached={false}
+                  subtitle={"Explorar propiedades de otra categoría:"}
+                  data={randomCategory?.child_properties}
+                  viewMoreButtonText={`Ver más propiedades de ${randomCategory?.name}`}
+                  viewMoreButton={randomCategory?.child_properties.length > 3}
+                  viewMoreButtonRedirectPath={`propiedades/${category?.slug}`}
+                />
+              </Grid>
               <Grid
                 sx={{
                   mt: {
