@@ -44,9 +44,9 @@ const PropertyCard = ({
   const image = getImage(data?.coverImage)
   const { width } = useWindowDimensions()
 
-  console.log("data-property-card ", data)
   const CardInnerContent = (data: any) => (
     <CardActionArea
+      sx={{ height: "100%" }}
       onClick={
         customOnClick
           ? customOnClick
@@ -58,6 +58,7 @@ const PropertyCard = ({
           image={image}
           style={{
             width: "100%",
+            marginTop: "-20px",
             zIndex: 0,
             //position: data.isProject ? 'absolute' : 'relative',
             height: data?.isProject ? "100%" : "auto",
@@ -73,6 +74,26 @@ const PropertyCard = ({
         >
           {data?.name}
         </Typography>
+        {data?.timeFromDowntown && (
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 300,
+            }}
+          >
+            A {data?.timeFromDowntown} de puerto escondido
+          </Typography>
+        )}
+        {data?.nearToBeaches && (
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 300,
+            }}
+          >
+            Playas cercanas: {data?.nearToBeaches}
+          </Typography>
+        )}
         {!data?.isProject && (
           <Typography sx={{ mb: 1 }} variant="body2" color="text.secondary">
             {data?.price &&
@@ -96,7 +117,7 @@ const PropertyCard = ({
       {!attached && (
         <CardActions>
           <Button
-            onClick={() => navigate(`/${data.slug}`)}
+            onClick={() => navigate(`/propiedad/${data.slug}`)}
             variant="text"
             sx={{ textTransform: "none" }}
             size="small"
@@ -202,7 +223,7 @@ const PropertyCard = ({
           }}
         >
           <Button
-            onClick={() => navigate(`/${data.slug}`)}
+            onClick={() => navigate(`/propiedad/${data.slug}`)}
             variant="text"
             sx={{
               textTransform: "none",
@@ -266,7 +287,7 @@ const PropertyCard = ({
           )}
         </BgImage>
       ) : (
-        CardInnerContent(data)
+        <Box sx={{ height: "100%" }}>{CardInnerContent(data)}</Box>
       )}
     </StyledCard>
   )

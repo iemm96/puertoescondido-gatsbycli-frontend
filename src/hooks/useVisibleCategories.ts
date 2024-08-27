@@ -7,19 +7,32 @@ export const useVisibleCategories = () => {
         nodes {
           child_properties {
             name
+            _id
+            nearToBeaches
             description
+            slug
+            timeFromDowntown
             coverImage {
               childImageSharp {
                 gatsbyImageData(
                   width: 280
                   placeholder: BLURRED
                   quality: 80
-                  formats: [WEBP, AVIF]
+                  formats: [AUTO, WEBP, AVIF]
                 )
               }
             }
           }
+          coverImages {
+            childImageSharp {
+              gatsbyImageData(formats: AUTO)
+              parent {
+                id
+              }
+            }
+          }
           name
+          slug
           description
         }
       }

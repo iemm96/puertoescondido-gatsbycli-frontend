@@ -1,6 +1,7 @@
 const axios = require("axios")
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 const { GATSBY_API_HOST } = process.env
+const propertyFileNodes = []
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -244,6 +245,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const fields = {
     name: { type: "String!" },
     area: { type: "String" },
+    _id: { type: "String" },
     description: { type: "String" },
     price: { type: "String" },
     uid: { type: "String!" },
@@ -357,9 +359,42 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Category`,
       fields: {
         name: { type: "String!" },
+        slug: { type: "String" },
         description: { type: "String" },
         isVisible: { type: "Boolean" },
-        child_properties: { type: "[Property]" },
+        coverImages: {
+          type: "[File]",
+          resolve: (source, args, context) => {
+            const images = source.child_properties.map(prop =>
+              context.nodeModel.getNodeById({
+                id: `${prop._id}-cover-image`,
+                type: "File",
+              })
+            )
+
+            console.log("images ", images)
+            return images
+          },
+        },
+        child_properties: {
+          type: "[Property]",
+          resolve: (source, args, context) => {
+            const newPropertyArray = []
+            source.child_properties.map((property, index) => {
+              const prop = { ...property }
+              if (prop.coverImage) {
+                prop.coverImage = context.nodeModel.getNodeById({
+                  id: `${prop._id}-cover-image`,
+                  type: "File",
+                })
+              }
+              newPropertyArray.push(prop)
+            })
+
+            //console.log("mySource!!!!! ", newPropertyArray)
+            return newPropertyArray
+          },
+        },
       },
     }),
     "type ExternalFile implements Node",
@@ -478,9 +513,9 @@ exports.onCreateNode = async ({
           if (property?.coverImage?.url) {
             const fileNode = await createRemoteFileNode({
               url: property?.coverImage?.url, // string that points to the URL of the image
-              parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+              parentNodeId: property._id, // id of the parent node of the fileNode you are going to create
               createNode, // helper function in gatsby-node to generate the node
-              createNodeId: id => `${node.uid}-image`,
+              createNodeId: id => `${property._id}-cover-image`,
               getCache,
             })
             if (fileNode) {

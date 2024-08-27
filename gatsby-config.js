@@ -7,7 +7,10 @@ module.exports = {
     title: `Inmobiliaria Puerto Escondido`,
     description: `Somos una empresa 100% Mexicana originaria de la ciudad de Puerto Escondido, que se dedica a la intermediación en la compra - venta de inmuebles, terrenos, ranchos y fraccionamientos a buen precio, en Puerto Escondido y sus zonas aledañas.`,
     author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://inmobiliariapuertoescondido.com`,
+    og: {
+      siteName: "Inmobiliaria Puerto Escondido",
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -89,6 +92,7 @@ module.exports = {
         path: `${__dirname}/src/images/`,
       },
     },
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-sass`,
     {
       resolve: "gatsby-plugin-local-search",
@@ -149,6 +153,17 @@ module.exports = {
             name: node.name,
             description: node.description,
           })),
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-GSVP051DFF", // Google Analytics / GA
+          //"AW-CONVERSION_ID", // Google Ads / Adwords / AW
+          //"DC-FLOODIGHT_ID", // Marketing Platform advertising products (Display & Video 360, Search Ads 360, and Campaign Manager)
+        ],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

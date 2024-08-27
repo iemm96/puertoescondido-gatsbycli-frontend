@@ -81,7 +81,7 @@ const SliderContainer = ({
             container
             justifyContent="space-between"
           >
-            {(!attached || !fullScreen) && (
+            {!attached && !fullScreen && (
               <Grid item>
                 <Typography sx={{ fontWeight: 600, mb: 1 }} variant="h5">
                   {subtitle}
@@ -99,23 +99,6 @@ const SliderContainer = ({
               }}
               item
             >
-              {viewMoreButton && !attached && !fullScreen && (
-                <Button
-                  sx={{ textTransform: "none" }}
-                  color="primary"
-                  onClick={() =>
-                    navigate(
-                      viewMoreButtonRedirectPath
-                        ? `/${viewMoreButtonRedirectPath}`
-                        : "/"
-                    )
-                  }
-                  variant="contained"
-                >
-                  {viewMoreButtonText ? viewMoreButtonText : "Ver más"}
-                </Button>
-              )}
-
               {!fullScreen && (
                 <Box
                   display="flex"
@@ -124,23 +107,31 @@ const SliderContainer = ({
                 >
                   <Typography variant="subtitle1">{title}</Typography>
                   <Box>
-                    <IconButton
-                      sx={arrowButtonStyles}
-                      disabled={swiperState.isBeginning}
-                      onClick={() => (swiperDef ? swiperDef.slidePrev() : "")}
-                    >
-                      <ChevronLeft />
-                    </IconButton>
-                    <IconButton
-                      sx={{
-                        borderRadius: 2,
-                        height: 40,
-                      }}
-                      disabled={swiperState.isEnd}
-                      onClick={() => (swiperDef ? swiperDef.slideNext() : "")}
-                    >
-                      <ChevronRight />
-                    </IconButton>
+                    {viewMoreButton && (
+                      <>
+                        <IconButton
+                          sx={arrowButtonStyles}
+                          disabled={swiperState.isBeginning}
+                          onClick={() =>
+                            swiperDef ? swiperDef.slidePrev() : ""
+                          }
+                        >
+                          <ChevronLeft />
+                        </IconButton>
+                        <IconButton
+                          sx={{
+                            borderRadius: 2,
+                            height: 40,
+                          }}
+                          disabled={swiperState.isEnd}
+                          onClick={() =>
+                            swiperDef ? swiperDef.slideNext() : ""
+                          }
+                        >
+                          <ChevronRight />
+                        </IconButton>
+                      </>
+                    )}
                   </Box>
                 </Box>
               )}
@@ -166,9 +157,8 @@ const SliderContainer = ({
               mt: 4,
               display: {
                 xs: "flex",
-                md: "none",
               },
-              justifyContent: "center",
+              justifyContent: "end",
             }}
           >
             {viewMoreButton && !attached && (

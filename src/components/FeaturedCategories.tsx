@@ -16,7 +16,32 @@ const FeaturedCategories = ({
 
   React.useEffect(() => {
     if (data?.allCategory?.nodes) {
-      setcategories(data.allCategory.nodes)
+      let categoriesArray = data.allCategory.nodes
+      let newCategoriesArray = []
+      if (categoriesArray) {
+        newCategoriesArray = categoriesArray.map(category => {
+          if (category.child_properties) {
+            category.child_properties.map(childProperty => {
+              if (category.coverImages) {
+                const result = category.coverImages.find(ci => {
+                  if (ci?.childImageSharp?.parent?.id) {
+                    return (
+                      ci.childImageSharp.parent.id ===
+                      `${childProperty._id}-cover-image`
+                    )
+                  }
+                })
+                childProperty.coverImage = result
+              }
+              return childProperty
+            })
+          }
+          return category
+        })
+        setcategories(newCategoriesArray)
+      } else {
+        setcategories([])
+      }
     }
   }, [data])
 
@@ -40,7 +65,9 @@ const FeaturedCategories = ({
                 attached={attached}
                 subtitle={category?.description}
                 data={category.child_properties}
-                viewMoreButtonRedirectPath="propiedades"
+                viewMoreButtonText={`Ver más propiedades de ${category.name}`}
+                viewMoreButton={category.child_properties.length > 3}
+                viewMoreButtonRedirectPath={`propiedades/${category?.slug}`}
               />
             </Element>
           ))}
