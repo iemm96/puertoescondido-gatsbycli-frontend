@@ -245,6 +245,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const fields = {
     name: { type: "String!" },
     area: { type: "String" },
+    _id: { type: "String" },
     description: { type: "String" },
     price: { type: "String" },
     uid: { type: "String!" },
@@ -358,6 +359,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: `Category`,
       fields: {
         name: { type: "String!" },
+        slug: { type: "String" },
         description: { type: "String" },
         isVisible: { type: "Boolean" },
         coverImages: {
