@@ -99,7 +99,7 @@ const SliderContainer = ({
               }}
               item
             >
-              {!fullScreen && viewMoreButton && (
+              {!fullScreen && (
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -107,23 +107,31 @@ const SliderContainer = ({
                 >
                   <Typography variant="subtitle1">{title}</Typography>
                   <Box>
-                    <IconButton
-                      sx={arrowButtonStyles}
-                      disabled={swiperState.isBeginning}
-                      onClick={() => (swiperDef ? swiperDef.slidePrev() : "")}
-                    >
-                      <ChevronLeft />
-                    </IconButton>
-                    <IconButton
-                      sx={{
-                        borderRadius: 2,
-                        height: 40,
-                      }}
-                      disabled={swiperState.isEnd}
-                      onClick={() => (swiperDef ? swiperDef.slideNext() : "")}
-                    >
-                      <ChevronRight />
-                    </IconButton>
+                    {viewMoreButton && (
+                      <>
+                        <IconButton
+                          sx={arrowButtonStyles}
+                          disabled={swiperState.isBeginning}
+                          onClick={() =>
+                            swiperDef ? swiperDef.slidePrev() : ""
+                          }
+                        >
+                          <ChevronLeft />
+                        </IconButton>
+                        <IconButton
+                          sx={{
+                            borderRadius: 2,
+                            height: 40,
+                          }}
+                          disabled={swiperState.isEnd}
+                          onClick={() =>
+                            swiperDef ? swiperDef.slideNext() : ""
+                          }
+                        >
+                          <ChevronRight />
+                        </IconButton>
+                      </>
+                    )}
                   </Box>
                 </Box>
               )}
