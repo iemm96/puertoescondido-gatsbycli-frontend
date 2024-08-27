@@ -1,0 +1,4 @@
+[[redirects]] 
+  from = "/propiedad/*"
+  to = "/propiedad"
+  status = 200

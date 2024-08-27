@@ -92,6 +92,7 @@ module.exports = {
         path: `${__dirname}/src/images/`,
       },
     },
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-sass`,
     {
       resolve: "gatsby-plugin-local-search",
@@ -152,6 +153,17 @@ module.exports = {
             name: node.name,
             description: node.description,
           })),
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-GSVP051DFF", // Google Analytics / GA
+          //"AW-CONVERSION_ID", // Google Ads / Adwords / AW
+          //"DC-FLOODIGHT_ID", // Marketing Platform advertising products (Display & Video 360, Search Ads 360, and Campaign Manager)
+        ],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
