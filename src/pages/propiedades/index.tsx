@@ -12,31 +12,11 @@ import useWindowDimensions from "../../hooks/useWindowDimensions"
 import FeaturedProperties from "../../components/FeaturedProperties"
 
 const Propiedades = ({
-  location,
   data: {
-    localSearchPages: { index, store },
     allProperty: { nodes: properties },
-    allCategory: { nodes: categories },
   },
-  pageContext,
 }) => {
-  console.log("pageContext ", pageContext)
-  const { limit, numPages, currentPage, totalResults } = pageContext
-
-  const { filters, setFilters, handleChange, filteredResults } =
-    useFiltersBox(properties)
-
-  const params = new URLSearchParams(location.search)
-  const search = params.get("search")
-  const category = params.get("categoria")
-
-  const { openSidebar, setOpenSidebar } = useCustomSearchInput(
-    index,
-    store,
-    search
-  )
-
-  const { width } = useWindowDimensions()
+  const { filteredResults } = useFiltersBox(properties)
 
   return (
     <>
@@ -203,7 +183,7 @@ const Propiedades = ({
 export default Propiedades
 
 export const query = graphql`
-  query PropiedadesQuery($skip: Int!, $limit: Int!) {
+  query PropiedadesQuery {
     localSearchPages {
       index
       store
@@ -213,11 +193,7 @@ export const query = graphql`
         name
       }
     }
-    allProperty(
-      limit: $limit
-      skip: $skip
-      filter: { isVisible: { eq: true } }
-    ) {
+    allProperty(filter: { isVisible: { eq: true } }) {
       nodes {
         name
         slug
