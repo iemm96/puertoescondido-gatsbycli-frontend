@@ -17,7 +17,7 @@ import "../styles/mapbox.css"
 
 import mapboxgl from "mapbox-gl" // eslint-disable-line import/no-webpack-loader-syntax
 
-mapboxgl.accessToken = process.env.MAPBOX_GL || ""
+mapboxgl.accessToken = process.env.GATSBY_MAPBOX_GL || ""
 
 const PropertyDetails = ({ data }) => {
   const {
@@ -51,7 +51,7 @@ const PropertyDetails = ({ data }) => {
       center: [lng, lat],
       zoom: zoom,
     })
-  })
+  }, [])
 
   const descriptionComponent = () => (
     <>
