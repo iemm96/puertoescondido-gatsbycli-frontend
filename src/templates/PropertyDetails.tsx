@@ -45,6 +45,7 @@ const PropertyDetails = ({ data }) => {
   React.useEffect(() => {
     if (map.current) return // initialize map only once
 
+    console.log("coverImageObject ", coverImageObject)
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v12",
@@ -69,7 +70,7 @@ const PropertyDetails = ({ data }) => {
   return (
     <>
       <Seo title="Detalles propiedad" />
-      <Layout scrollTrigger>
+      <Layout scrollTrigger persistentHeader={coverImageObject === undefined}>
         {
           <>
             <CoverImage
@@ -85,7 +86,7 @@ const PropertyDetails = ({ data }) => {
             />
             <Container maxWidth="xl">
               <Grid
-                sx={{ mt: { xs: 0, md: 4 } }}
+                sx={{ mt: { xs: 0, md: coverImageObject ? 4 : 10 } }}
                 spacing={4}
                 justifyContent="center"
                 container
