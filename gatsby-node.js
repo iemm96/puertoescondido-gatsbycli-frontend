@@ -215,6 +215,27 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
       })
     })
 
+    //Fetch services
+    const fetchServices = async () =>
+      await axios.get(`${GATSBY_API_HOST}services`)
+    const resultServices = await fetchServices()
+
+    node_type = "Service"
+
+    resultServices.data.services.map(async (service, i) => {
+      createNode({
+        ...service,
+        id: `${node_type}-${i}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: node_type, // name of the graphQL query --> allRandomUser {}
+          content: JSON.stringify(service),
+          contentDigest: createContentDigest(service),
+        },
+      })
+    })
+
     const fetchTestimonials = async () =>
       await axios.get(`${GATSBY_API_HOST}testimonials`)
     const resTestimonials = await fetchTestimonials()
@@ -336,6 +357,27 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
               id: `${source.uid}-image`,
               type: "File",
             })
+          },
+        },
+      },
+    }),
+    "type Service implements Node",
+    schema.buildObjectType({
+      name: "Service",
+      fields: {
+        name: { type: "String!" },
+        description: { type: "String" },
+        isVisible: { type: "Boolean!" },
+        images: {
+          type: "[File]",
+          resolve: (source, args, context) => {
+            const images = source.images.map((img, index) =>
+              context.nodeModel.getNodeById({
+                id: `${source.uid}-images-${index}`,
+                type: "File",
+              })
+            )
+            return images
           },
         },
       },
@@ -505,6 +547,24 @@ exports.onCreateNode = async ({
           createNodeField({ node, name: "localFile", value: fileNode.id })
         }
       }
+    }
+
+    if (node.internal.type === "Service" && node.images !== null) {
+      node.images.map(async (image, index) => {
+        if (image?.url) {
+          const fileNode = await createRemoteFileNode({
+            url: image.url, // string that points to the URL of the image
+            parentNodeId: node.id,
+            createNode, // helper function in gatsby-node to generate the node
+            createNodeId: id => `${node.uid}-images-${index}`,
+            getCache,
+          })
+          // if the file was created, extend the node with "localFile"
+          if (fileNode) {
+            createNodeField({ node, name: "localFile", value: fileNode.id })
+          }
+        }
+      })
     }
 
     if (node.internal.type === "Category") {

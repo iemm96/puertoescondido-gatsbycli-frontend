@@ -11,7 +11,13 @@ import StyledButton from "../styled/StyledButton"
 import GalleryDrone from "../components/galleries/GalleryDrone"
 import GalleryTopography from "../components/galleries/GalleryTopography"
 
-const Servicios = () => {
+import { graphql } from "gatsby"
+import { Gallery } from "../components/common/Gallery"
+
+const Servicios = ({ data }) => {
+  const { allService } = data
+
+  console.log(allService)
   return (
     <>
       <Seo title="Servicios" />
@@ -33,78 +39,46 @@ const Servicios = () => {
           </Stack>
         </Box>
         <Container maxWidth="xl">
-          <Grid sx={{ mt: 4 }} spacing={4} container>
-            <Grid
-              xs={12}
-              md={6}
-              order={{ xs: 2, md: 1 }}
-              sx={{ justifyContent: "center", display: "flex" }}
-              item
-            >
-              <GalleryTopography />
-            </Grid>
-            <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
-              <Stack
-                sx={{
-                  display: "flex",
-                  justifyContent: "left",
-                }}
-                direction="column"
+          {allService.nodes.map(service => (
+            <Grid sx={{ mt: 4 }} spacing={4} container>
+              <Grid
+                xs={12}
+                md={6}
+                order={{ xs: 2, md: 1 }}
+                sx={{ justifyContent: "center", display: "flex" }}
+                item
               >
-                <Typography variant="h5">Topografía</Typography>
-                <Typography sx={{ mt: 2 }} variant="body2">
-                  Empleo de equipo especializado para la MEDICIÓN exacta de
-                  áreas, alturas, relieve de un TERRENO.
-                </Typography>
-              </Stack>
-              <StyledButton
-                onClick={() => navigate("/contacto")}
-                color="primary"
-                variant="contained"
-                sx={{
-                  mt: 4,
-                }}
-              >
-                Agendar cita
-              </StyledButton>
+                {service.images && (
+                  <Gallery data={service.images} preview={true} />
+                )}
+              </Grid>
+              <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
+                <Stack
+                  sx={{
+                    display: "flex",
+                    justifyContent: "left",
+                  }}
+                  direction="column"
+                >
+                  <Typography variant="h5">{service.name}</Typography>
+                  <Typography sx={{ mt: 2 }} variant="body2">
+                    Empleo de equipo especializado para la MEDICIÓN exacta de
+                    áreas, alturas, relieve de un TERRENO.
+                  </Typography>
+                </Stack>
+                <StyledButton
+                  onClick={() => navigate("/contacto")}
+                  color="primary"
+                  variant="contained"
+                  sx={{
+                    mt: 4,
+                  }}
+                >
+                  Agendar cita
+                </StyledButton>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid sx={{ mt: 4 }} spacing={4} container>
-            <Grid
-              xs={12}
-              md={6}
-              order={{ xs: 2, md: 1 }}
-              sx={{ justifyContent: "center", display: "flex" }}
-              item
-            >
-              <GalleryDrone />
-            </Grid>
-            <Grid xs={12} md={6} order={{ xs: 1, md: 2 }} item>
-              <Stack
-                sx={{
-                  display: "flex",
-                  justifyContent: "left",
-                }}
-                direction="column"
-              >
-                <Typography variant="h5">Fotografía con Drone</Typography>
-                <Typography sx={{ mt: 2 }} variant="body2">
-                  Contamos con los mejores Drones y tecnología especializada
-                  para captura de imágenes áreas.
-                </Typography>
-              </Stack>
-              <StyledButton
-                onClick={() => navigate("/contacto")}
-                color="primary"
-                variant="contained"
-                sx={{
-                  mt: 4,
-                }}
-              >
-                Agendar cita
-              </StyledButton>
-            </Grid>
-          </Grid>
+          ))}
         </Container>
         <Box
           sx={{
@@ -123,3 +97,23 @@ const Servicios = () => {
 }
 
 export default Servicios
+
+export const query = graphql`
+  query ServicesQuery {
+    allService(filter: { isVisible: { eq: true } }) {
+      nodes {
+        name
+        description
+        images {
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              layout: CONSTRAINED
+            )
+          }
+        }
+      }
+    }
+  }
+`
