@@ -4,8 +4,9 @@ import { graphql, navigate, useStaticQuery } from "gatsby"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Button from "@mui/material/Button"
-import { ArrowCircleRightOutlined } from "@mui/icons-material"
+import ArrowCircleRightOutlined from "@mui/icons-material/ArrowCircleRightOutlined"
 import loadable from "@loadable/component"
+import Box from "@mui/material/Box"
 
 const ProjectCard = loadable(() => import("./ProjectCard"))
 
@@ -56,18 +57,21 @@ const TopProjects = ({
     }
   }, [data])
 
-  const fullScreenStyles: React.CSSProperties = {
-    width: "100%",
-    overflow: "hidden",
-    position: "relative",
-    height: "100%",
-    top: 0,
-  }
-
   return (
     <>
       {properties.length > 0 && (
-        <>
+        <Box
+          sx={{
+            background:
+              "linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)",
+            height: {
+              xs: "auto",
+            },
+            width: "100%",
+            pt: 4,
+            pb: 2,
+          }}
+        >
           <Container
             sx={{
               pl: 2,
@@ -107,7 +111,7 @@ const TopProjects = ({
               </Grid>
             </Grid>
           </Container>
-        </>
+        </Box>
       )}
     </>
   )
