@@ -1,6 +1,4 @@
 import * as React from "react"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import InputLabel from "@mui/material/InputLabel"
@@ -14,16 +12,10 @@ import IconHouseConst from "./../images/icons/icon-house-cost.svg"
 import IconFindHouse from "./../images/icons/icon-find-house.svg"
 // @ts-ignore
 import IconSupportHouse from "./../images/icons/icon-support-house.svg"
-// @ts-ignore
-import IconResidential from "./../images/icons/residential.svg"
-// @ts-ignore
-import IconClimate from "./../images/icons/climate.svg"
-// @ts-ignore
 
 import useWindowDimensions from "../hooks/useWindowDimensions"
 import Carousel from "./Carousel"
-import Header from "./Header"
-import { graphql, navigate, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import {
   CustomSearchInput,
   useCustomSearchInput,
@@ -56,22 +48,6 @@ const StyledMainTitle = styled(Typography)(({ theme }) => ({
     position: "relative",
     display: "inherit",
   },
-}))
-
-const StyledTypesButtonMobile = styled(Button)(({ theme }) => ({
-  borderRadius: 6,
-  width: "100%",
-  textTransform: "none",
-  boxShadow: "none",
-  flex: 1,
-  backgroundColor: theme.palette.primary.main,
-  color: "white",
-}))
-
-const StyledTypesButton = styled(Button)(() => ({
-  borderRadius: 0,
-  boxShadow: "none",
-  flex: 1,
 }))
 
 const Banner = () => {
@@ -165,29 +141,31 @@ const Banner = () => {
               </StyledIconTypographyDiv>
             </Grid>
           </Grid>
-          <Grid container mt={2}>
-            <Grid item xs={12} md={4}>
-              <InputLabel
-                sx={{ color: "white" }}
-                shrink
-                htmlFor="search-property-input"
-              >
-                Selecciona una propiedad:
-              </InputLabel>
-              <CustomSearchInput
-                querySearch={querySearch}
-                setQuerySearch={setQuerySearch}
-                handleSearch={handleSearch}
-                iterableResults={iterableResults}
-                setIterableResults={setIterableResults}
-                handleItemsList={handleItemsList}
-                hideFiltersButton={true}
-                itemList={itemList}
-                placeholder="Proyectos de desarrollo, inversión, playa..."
-                useAsSelect
-              />
+          {iterableResults && iterableResults.length > 0 && (
+            <Grid container mt={2}>
+              <Grid item xs={12} md={4}>
+                <InputLabel
+                  sx={{ color: "white" }}
+                  shrink
+                  htmlFor="search-property-input"
+                >
+                  Explora nuestras categorías:
+                </InputLabel>
+                <CustomSearchInput
+                  querySearch={querySearch}
+                  setQuerySearch={setQuerySearch}
+                  handleSearch={handleSearch}
+                  iterableResults={iterableResults}
+                  setIterableResults={setIterableResults}
+                  handleItemsList={handleItemsList}
+                  hideFiltersButton={true}
+                  itemList={itemList}
+                  placeholder="Proyectos de desarrollo, inversión, playa..."
+                  useAsSelect
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Container>
       </StyledLinearBackgroundDiv>
       <Carousel
