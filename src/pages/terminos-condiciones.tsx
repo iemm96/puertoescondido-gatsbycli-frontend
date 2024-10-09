@@ -21,11 +21,24 @@ const Privacy = () => {
             Términos y Condiciones
           </Typography>
           <Typography color="text.primary">
-              A los Usuarios, les informamos que los siguientes Términos y Condiciones les son aplicables por el simple uso o acceso a cualquiera de las páginas, aplicaciones web y móviles, softwares y, aplicaciones en general, que integran el Portal de www.inmobiliariapuertoescondido.com (en adelante y, conjunta e indistintamente, el "Portal"), por lo que entenderemos que los acepta y acuerda en obligarse a su cumplimiento. En el caso de que no esté de acuerdo con los Términos y Condiciones deberá abstenerse de acceder o utilizar el Portal.
+            A los Usuarios, les informamos que los siguientes Términos y
+            Condiciones les son aplicables por el simple uso o acceso a
+            cualquiera de las páginas, aplicaciones web y móviles, softwares y,
+            aplicaciones en general, que integran el Portal de
+            www.inmobiliariapuertoescondido.com (en adelante y, conjunta e
+            indistintamente, el "Portal"), por lo que entenderemos que los
+            acepta y acuerda en obligarse a su cumplimiento. En el caso de que
+            no esté de acuerdo con los Términos y Condiciones deberá abstenerse
+            de acceder o utilizar el Portal.
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-              Inmobiliaria Puerto Escondido y/o sus subsidiarias, controladoras, partes relacionadas y afiliadas (en a d e la n t e y , c o n ju n t a e in d is t in t a m e n t e , la “ E m p r e s a ” ) s e r e s e r v a n e l d e r e c h o d e m o d if ic a r discrecionalmente el contenido del Portal en cualquier momento, sin necesidad de previo aviso.
+            Inmobiliaria Puerto Escondido y/o sus subsidiarias, controladoras,
+            partes relacionadas y afiliadas (en a d e la n t e y , c o n ju n t
+            a e in d is t in t a m e n t e , la “ E m p r e s a ” ) s e r e s e
+            r v a n e l d e r e c h o d e m o d if ic a r discrecionalmente el
+            contenido del Portal en cualquier momento, sin necesidad de previo
+            aviso.
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
@@ -40,11 +53,31 @@ const Privacy = () => {
             1. USO Y RESTRICCIONES.
           </Typography>
           <Typography sx={{ mt: 2 }}>
-              El acceso o utilización del Portal expresan la adhesión plena y sin reservas del Usuario a los presentes Términos y Condiciones. A través del Portal, el Usuario se servirá, contratará y/o utilizará diversos servicios y contenidos (los "Servicios y Contenidos"), puestos a disposición por la Empresa. La Empresa tendrá el derecho a negar, restringir o condicionar al Usuario el acceso al Portal, total o parcialmente, a su entera discreción, así como a modificar los Servicios y Contenidos del Portal en cualquier momento y sin necesidad de previo aviso.
+            El acceso o utilización del Portal expresan la adhesión plena y sin
+            reservas del Usuario a los presentes Términos y Condiciones. A
+            través del Portal, el Usuario se servirá, contratará y/o utilizará
+            diversos servicios y contenidos (los "Servicios y Contenidos"),
+            puestos a disposición por la Empresa. La Empresa tendrá el derecho a
+            negar, restringir o condicionar al Usuario el acceso al Portal,
+            total o parcialmente, a su entera discreción, así como a modificar
+            los Servicios y Contenidos del Portal en cualquier momento y sin
+            necesidad de previo aviso.
           </Typography>
 
           <Typography>
-              El Usuario reconoce que no todos los Servicios y Contenidos están disponibles en todas las áreas geográficas y que algunos Servicios y Contenidos pueden ser utilizados solamente con posterioridad a su contratación, activación o registro previo por el Usuario y/o mediante el pago de estos. La Empresa no garantiza la disponibilidad y continuidad de la operación del Portal y de los Servicios y Contenidos, ni la utilidad del P ortal o los S ervicios y C ontenidos en relación con cualquier actividad específ ica, independientemente del medio de acceso que utilice el Usuario. La Empresa no será responsable por daño o pérdida alguna de cualquier naturaleza que pueda ser causado debido a la falta de disponibilidad o continuidad de operación del Portal y/o de los Servicios y Contenidos.
+            El Usuario reconoce que no todos los Servicios y Contenidos están
+            disponibles en todas las áreas geográficas y que algunos Servicios y
+            Contenidos pueden ser utilizados solamente con posterioridad a su
+            contratación, activación o registro previo por el Usuario y/o
+            mediante el pago de estos. La Empresa no garantiza la disponibilidad
+            y continuidad de la operación del Portal y de los Servicios y
+            Contenidos, ni la utilidad del P ortal o los S ervicios y C
+            ontenidos en relación con cualquier actividad específ ica,
+            independientemente del medio de acceso que utilice el Usuario. La
+            Empresa no será responsable por daño o pérdida alguna de cualquier
+            naturaleza que pueda ser causado debido a la falta de disponibilidad
+            o continuidad de operación del Portal y/o de los Servicios y
+            Contenidos.
           </Typography>
 
           <Typography>
@@ -218,8 +251,11 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-            La Empresa se obliga a mantener confidencial la información que reciba del
-            Usuario que tenga dicho carácter conforme a las disposiciones legales aplicables en los Estados Unidos Mexicanos; la Empresa no asume ninguna obligación de mantener confidencial cualquier otra información que el Usuario le proporcione.
+            La Empresa se obliga a mantener confidencial la información que
+            reciba del Usuario que tenga dicho carácter conforme a las
+            disposiciones legales aplicables en los Estados Unidos Mexicanos; la
+            Empresa no asume ninguna obligación de mantener confidencial
+            cualquier otra información que el Usuario le proporcione.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -288,7 +324,9 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2, fontWeight: 700 }}>
-            En todo momento, el Usuario es el responsable único y final de mantener en secreto las claves de acceso que pudiera tener y con las cuales tuviera acceso a ciertos Servicios y C ontenidos del P ortal.
+            En todo momento, el Usuario es el responsable único y final de
+            mantener en secreto las claves de acceso que pudiera tener y con las
+            cuales tuviera acceso a ciertos Servicios y C ontenidos del P ortal.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -296,7 +334,17 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2, fontWeight: 500 }}>
-            La Empresa tendrá el derecho de modificar, en cualquier momento, los Términos y Condiciones, sin previo aviso y/o consentimiento del Usuario. En consecuencia, el Usuario debe leer atentamente los Términos y Condiciones cada vez que pretenda utilizar el Portal. Ciertos Servicios y Contenidos ofrecidos a los Usuarios en y/o a través del Portal están sujetos a condiciones particulares p r o p i a s q u e s u s t i t u y e n , c o m p l e t a n y / o m o d i f i c a n l o s p r e s e n t e s Té r m i n o s y C o n d i c i o n e s . C onsiguientemente, el U suario también debe leer atentamente las correspondientes condiciones particulares antes de acceder a cualquiera de los Servicios y Contenidos.
+            La Empresa tendrá el derecho de modificar, en cualquier momento, los
+            Términos y Condiciones, sin previo aviso y/o consentimiento del
+            Usuario. En consecuencia, el Usuario debe leer atentamente los
+            Términos y Condiciones cada vez que pretenda utilizar el Portal.
+            Ciertos Servicios y Contenidos ofrecidos a los Usuarios en y/o a
+            través del Portal están sujetos a condiciones particulares p r o p i
+            a s q u e s u s t i t u y e n , c o m p l e t a n y / o m o d i f i
+            c a n l o s p r e s e n t e s Té r m i n o s y C o n d i c i o n e s
+            . C onsiguientemente, el U suario también debe leer atentamente las
+            correspondientes condiciones particulares antes de acceder a
+            cualquiera de los Servicios y Contenidos.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -304,8 +352,13 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-            Para la interpretación, cumplimiento y ejecución de los presentes Términos y Condiciones, el Usuario está de acuerdo en que serán aplicables las leyes Federales
-            de los Estados Unidos Mexicanos y competentes los tribunales de San Pedro Mixtepec -Dto. 22 - Oaxaca, renunciando expresamente a cualquier otro fuero o jurisdicción que pudiera corresponderles debido a sus domicilios presentes o futuros o por cualquier otra causa.
+            Para la interpretación, cumplimiento y ejecución de los presentes
+            Términos y Condiciones, el Usuario está de acuerdo en que serán
+            aplicables las leyes Federales de los Estados Unidos Mexicanos y
+            competentes los tribunales de San Pedro Mixtepec -Dto. 22 - Oaxaca,
+            renunciando expresamente a cualquier otro fuero o jurisdicción que
+            pudiera corresponderles debido a sus domicilios presentes o futuros
+            o por cualquier otra causa.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -313,7 +366,11 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-              El Usuario puede contactar, en todo momento, al personal de la Empresa para cualquier aclaración, comentario, duda y/o sugerencia relacionada con los Servicios y Contenidos, con el P ortal y/o con los presentes Términos y C ondiciones en Inmobiliariapuertoescondido@ gmail.com.
+            El Usuario puede contactar, en todo momento, al personal de la
+            Empresa para cualquier aclaración, comentario, duda y/o sugerencia
+            relacionada con los Servicios y Contenidos, con el P ortal y/o con
+            los presentes Términos y C ondiciones en
+            Inmobiliariapuertoescondido@ gmail.com.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>

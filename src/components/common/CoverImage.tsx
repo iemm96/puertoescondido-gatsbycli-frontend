@@ -86,7 +86,9 @@ const CoverImage = ({
                         color: theme.palette.primary.light,
                       }}
                     >
-                      {data?.price && new Intl.NumberFormat().format( data.price )} el metro cuadrado
+                      {data?.price &&
+                        new Intl.NumberFormat().format(data.price)}{" "}
+                      el metro cuadrado
                     </Typography>
                     <Typography
                       sx={{
@@ -164,7 +166,7 @@ const CoverImage = ({
                       variant="outlined"
                       sx={{
                         color: theme.palette.primary.contrastText,
-                        mr: 1
+                        mr: 1,
                       }}
                       label={item.name}
                     />

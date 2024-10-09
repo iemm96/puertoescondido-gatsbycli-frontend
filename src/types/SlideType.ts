@@ -1,6 +1,6 @@
 type SlideType = {
-  child?: any,
-  imageName:string
+  child?: any
+  imageName: string
 }
 
-export default SlideType;
+export default SlideType

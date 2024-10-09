@@ -19,4 +19,4 @@ export const pages = [
     label: "Blog",
     href: "/blog",
   },
-];
+]

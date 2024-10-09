@@ -1,15 +1,11 @@
-import * as React from 'react';
+import * as React from "react"
 
 type SlideType = {
-  child: React.ReactElement;
+  child: React.ReactElement
 }
 
-const Slide = ({child}:SlideType) => {
-  return(
-    <>
-      {child}
-    </>
-  )
+const Slide = ({ child }: SlideType) => {
+  return <>{child}</>
 }
 
-export default Slide;
+export default Slide

@@ -1,74 +1,58 @@
-import * as React from 'react';
+import * as React from "react"
 import Seo from "../components/seo"
 import Layout from "../components/layout"
-import {
-    Container,
-    Grid,
-    Stack,
-    Typography,
-} from "@mui/material"
-import {ChevronLeft, ChevronRight, Home} from "@mui/icons-material"
-import PropertyCard from "../components/PropertyCard";
-import StyledButton from "../styled/StyledButton";
-import {graphql, navigate} from "gatsby";
-import { useCustomSearchInput} from "../components/common/CustomSearchInput";
-import {FiltersBox, useFiltersBox} from "../components/common/FiltersBox";
-import useWindowDimensions from "../hooks/useWindowDimensions";
-import FeaturedProperties from "../components/FeaturedProperties";
+import { Container, Grid, Stack, Typography } from "@mui/material"
+import { ChevronLeft, ChevronRight, Home } from "@mui/icons-material"
+import PropertyCard from "../components/PropertyCard"
+import StyledButton from "../styled/StyledButton"
+import { graphql, navigate } from "gatsby"
+import { useCustomSearchInput } from "../components/common/CustomSearchInput"
+import { FiltersBox, useFiltersBox } from "../components/common/FiltersBox"
+import useWindowDimensions from "../hooks/useWindowDimensions"
+import FeaturedProperties from "../components/FeaturedProperties"
 
-const PropertiesList = (
-    {
-        location,
-        data: {
-            localSearchPages: {
-                index,
-                store
+const PropertiesList = ({
+  location,
+  data: {
+    localSearchPages: { index, store },
+    allProperty: { nodes: properties },
+    allCategory: { nodes: categories },
+  },
+  pageContext,
+}) => {
+  console.log("pageContext ", pageContext)
+  const { limit, numPages, currentPage, totalResults } = pageContext
+
+  const { filters, setFilters, handleChange, filteredResults } =
+    useFiltersBox(properties)
+
+  const params = new URLSearchParams(location.search)
+  const search = params.get("search")
+  const category = params.get("categoria")
+
+  const { openSidebar, setOpenSidebar } = useCustomSearchInput(
+    index,
+    store,
+    search
+  )
+
+  const { width } = useWindowDimensions()
+
+  return (
+    <>
+      <Seo title="Propiedades" />
+      <Layout scrollTrigger persistentHeader={false}>
+        <FeaturedProperties fullScreen />
+        <Container
+          maxWidth="xl"
+          sx={{
+            pt: {
+              md: 2,
             },
-            allProperty: {
-                nodes: properties,
-            },
-            allCategory: {
-                nodes: categories
-            },
-        },
-        pageContext
-    }
-) => {
-    console.log('pageContext ', pageContext)
-    const { limit, numPages, currentPage, totalResults } = pageContext;
-
-    const {
-        filters,
-        setFilters,
-        handleChange,
-        filteredResults,
-    } = useFiltersBox(
-        properties
-    );
-
-    const params = new URLSearchParams(location.search);
-    const search = params.get("search");
-    const category = params.get("categoria");
-
-    const {
-        openSidebar,
-        setOpenSidebar,
-    } = useCustomSearchInput( index, store, search );
-
-    const { width } = useWindowDimensions();
-
-
-    return(
-        <>
-            <Seo title="Propiedades"/>
-            <Layout scrollTrigger persistentHeader={false}>
-                <FeaturedProperties fullScreen/>
-                <Container maxWidth="xl" sx={{ pt:{
-                    md: 2
-                }}}>
-                    <Grid spacing={4} container>
-                        {
-                            /*
+          }}
+        >
+          <Grid spacing={4} container>
+            {/*
                                                     <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
                             <FiltersBox
                                 defaultCategory={ category }
@@ -82,22 +66,30 @@ const PropertiesList = (
                             />
                         </Grid>
 
-                            */
-                        }
-                        <Grid xs={12} lg={12} item>
-                            <Grid container>
-                            </Grid>
-                            <Grid spacing={2} container>
-                                {
-                                    filteredResults && filteredResults.map(( val:any, index:number) => (
-                                        <Grid sx={{ justifyContent: 'center' }} xs={ 12 } sm={ 6 } md={ 4 } item key={ index }>
-                                            <PropertyCard key={ index } data={val} showAsList showEstimate={ false }/>
-                                        </Grid>
-                                    ))
-                                }
-                            </Grid>
-                            {
-                                /*
+                            */}
+            <Grid xs={12} lg={12} item>
+              <Grid container></Grid>
+              <Grid spacing={2} container>
+                {filteredResults &&
+                  filteredResults.map((val: any, index: number) => (
+                    <Grid
+                      sx={{ justifyContent: "center" }}
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      item
+                      key={index}
+                    >
+                      <PropertyCard
+                        key={index}
+                        data={val}
+                        showAsList
+                        showEstimate={false}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+              {/*
                             <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
                                 <Grid
                                     order={{
@@ -179,76 +171,77 @@ const PropertiesList = (
 
                                 </Grid>
                             </Grid>
-                                */
-                            }
-                            <Grid
-                                sx={{
-                                    mt: {
-                                        xs: 6,
-                                        md: 12
-                                    },
-                                    mb: 2
-                                }}
-                                container
-                                justifyContent="center"
-                            >
-                                <Grid item>
-                                    <StyledButton
-                                        onClick={ () => navigate( '/' ) }
-                                        startIcon={<Home/>}
-                                    >
-                                        Volver al inicio
-                                    </StyledButton>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Layout>
-        </>
-    )
+                                */}
+              <Grid
+                sx={{
+                  mt: {
+                    xs: 6,
+                    md: 12,
+                  },
+                  mb: 2,
+                }}
+                container
+                justifyContent="center"
+              >
+                <Grid item>
+                  <StyledButton
+                    onClick={() => navigate("/")}
+                    startIcon={<Home />}
+                  >
+                    Volver al inicio
+                  </StyledButton>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Container>
+      </Layout>
+    </>
+  )
 }
 
-export default PropertiesList;
+export default PropertiesList
 
 export const query = graphql`
-    query PropiedadesQuery($skip: Int!, $limit: Int!) {
-        localSearchPages {
-            index
-            store
-        }
-        allCategory {
-            nodes {
-                name
-            }
-        }
-        allProperty(
-            limit: $limit
-            skip: $skip,
-            filter: {
-                isVisible: { eq: true }
-            }
-        ) {
-            nodes {
-                name
-                slug
-                description
-                price
-                category {
-                    name
-                }
-                features {
-                    name
-                }
-                location {
-                    name
-                }
-                coverImage {
-                    childImageSharp {
-                        gatsbyImageData(width: 280, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                    }
-                }
-            }
-        }
+  query PropiedadesQuery($skip: Int!, $limit: Int!) {
+    localSearchPages {
+      index
+      store
     }
+    allCategory {
+      nodes {
+        name
+      }
+    }
+    allProperty(
+      limit: $limit
+      skip: $skip
+      filter: { isVisible: { eq: true } }
+    ) {
+      nodes {
+        name
+        slug
+        description
+        price
+        category {
+          name
+        }
+        features {
+          name
+        }
+        location {
+          name
+        }
+        coverImage {
+          childImageSharp {
+            gatsbyImageData(
+              width: 280
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
+        }
+      }
+    }
+  }
 `

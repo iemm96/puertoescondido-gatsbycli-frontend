@@ -12,7 +12,7 @@ import { Link } from "gatsby"
 import NucleoLogo from "../images/logo-nucleo-2022.svg"
 // @ts-ignore
 import Waves from "./../images/waves.svg"
-import SocialNetworksIcons from "./common/SocialNetworksIcons";
+import SocialNetworksIcons from "./common/SocialNetworksIcons"
 
 const Footer = () => {
   const theme = useTheme()
@@ -66,7 +66,7 @@ const Footer = () => {
               }}
               item
             >
-              <SocialNetworksIcons/>
+              <SocialNetworksIcons />
             </Grid>
           </Grid>
           <Grid
@@ -162,10 +162,14 @@ const Footer = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link to={'/terminos-condiciones'} style={typographyStyles}>Términos y condiciones</Link>
+                  <Link to={"/terminos-condiciones"} style={typographyStyles}>
+                    Términos y condiciones
+                  </Link>
                 </Grid>
                 <Grid item>
-                  <Link to={'/aviso-privacidad'} style={typographyStyles}>Políticas de privacidad</Link>
+                  <Link to={"/aviso-privacidad"} style={typographyStyles}>
+                    Políticas de privacidad
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>

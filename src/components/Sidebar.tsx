@@ -30,11 +30,7 @@ const Sidebar = React.forwardRef((props: any, ref: any) => {
 
   return (
     <Drawer anchor="right" open={open} onClose={toggle()}>
-      <Box
-        role="presentation"
-        onClick={toggle()}
-        onKeyDown={toggle()}
-      >
+      <Box role="presentation" onClick={toggle()} onKeyDown={toggle()}>
         <List>
           {pages.map((item, index) => (
             <ListItem onClick={() => navigate(item.href)} button key={index}>

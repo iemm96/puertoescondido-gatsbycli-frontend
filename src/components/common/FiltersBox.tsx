@@ -30,7 +30,7 @@ export const useFiltersBox = (results: any) => {
     squareMetersRange: [0, 0],
     onlyFeaturedProperties: false,
     categories: [],
-  });
+  })
 
   React.useEffect(() => {
     /*
@@ -93,30 +93,27 @@ export const FiltersBox = ({
   setOpenSidebar,
   responsiveMode,
   categories,
-    defaultCategory
+  defaultCategory,
 }: {
-  filters: FilterType,
-  setFilters: any,
-  handleChange: any,
-  openSidebar: boolean,
-  setOpenSidebar: any,
-  responsiveMode?: boolean,
-  categories?: any,
-    defaultCategory?: any,
+  filters: FilterType
+  setFilters: any
+  handleChange: any
+  openSidebar: boolean
+  setOpenSidebar: any
+  responsiveMode?: boolean
+  categories?: any
+  defaultCategory?: any
 }) => {
-    React.useEffect(() => {
-        if( defaultCategory ) {
-            setFilters((prev:any) => ({
-                ...prev,
-                categories: [
-                    ...prev.categories,
-                    defaultCategory
-                ]
-            }))
-        }
-    },[ defaultCategory ]);
+  React.useEffect(() => {
+    if (defaultCategory) {
+      setFilters((prev: any) => ({
+        ...prev,
+        categories: [...prev.categories, defaultCategory],
+      }))
+    }
+  }, [defaultCategory])
 
-    const filterBoxFragment = () => (
+  const filterBoxFragment = () => (
     <Paper
       sx={{
         p: 2,
@@ -241,8 +238,13 @@ export const FiltersBox = ({
                       categories: currentCategories,
                     }))
                   }}
-                  control={<Checkbox                   defaultChecked={ category.name === defaultCategory }
-                                                       size="small" name={category.name} />}
+                  control={
+                    <Checkbox
+                      defaultChecked={category.name === defaultCategory}
+                      size="small"
+                      name={category.name}
+                    />
+                  }
                   label={category.name}
                 />
               </FormControl>

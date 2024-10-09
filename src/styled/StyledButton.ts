@@ -1,8 +1,8 @@
-import {Button, styled} from "@mui/material";
+import { Button, styled } from "@mui/material"
 
 const StyledButton = styled(Button)(() => ({
-    textTransform:'none',
-    borderRadius: 14
-}));
+  textTransform: "none",
+  borderRadius: 14,
+}))
 
-export default StyledButton;
+export default StyledButton

@@ -1,13 +1,13 @@
 .thumbs-slider .swiper-slide-thumb-active {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 .thumbs-slider .swiper-slide {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
 .swiper {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }

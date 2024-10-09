@@ -1,6 +1,6 @@
 type IconsType = {
-  fill?: string,
-  width?: number,
+  fill?: string
+  width?: number
 }
 
-export default IconsType;
+export default IconsType

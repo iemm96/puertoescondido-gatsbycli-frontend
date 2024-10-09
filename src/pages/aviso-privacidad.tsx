@@ -47,7 +47,11 @@ const Privacy = () => {
             RESPONSABLE DEL TRATAMIENTO DE SUS DATOS PERSONALES.
           </Typography>
           <Typography>
-            Para Inmobiliaria Puerto Escondido (en adelante la “Empresa”) la seguridad de los Usuarios es nuestra prioridad, por lo que protegemos sus datos personales mediante el uso, aplicación y mantenimiento de altas medidas de seguridad técnicas, físicas y administrativas.
+            Para Inmobiliaria Puerto Escondido (en adelante la “Empresa”) la
+            seguridad de los Usuarios es nuestra prioridad, por lo que
+            protegemos sus datos personales mediante el uso, aplicación y
+            mantenimiento de altas medidas de seguridad técnicas, físicas y
+            administrativas.
           </Typography>
 
           <Typography>
@@ -60,7 +64,10 @@ const Privacy = () => {
             subsidiarias, asociadas, sociedades controladoras y afiliadas.
           </Typography>
           <Typography sx={{ mt: 2 }}>
-            DOMICILIO DEL RESPONSABLE. Para efectos del presente aviso de privacidad, la Empresa señala, individualmente, como su domicilio, el ubicado en Segunda norte 306, Sector Reforma B, San Pedro Mixtepec -Dto. 22 -, Oaxaca, C. P. 71980
+            DOMICILIO DEL RESPONSABLE. Para efectos del presente aviso de
+            privacidad, la Empresa señala, individualmente, como su domicilio,
+            el ubicado en Segunda norte 306, Sector Reforma B, San Pedro
+            Mixtepec -Dto. 22 -, Oaxaca, C. P. 71980
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -104,7 +111,14 @@ const Privacy = () => {
             OPCIONES Y MEDIOS PARA LIMITAR EL USO O DIVULGACIÓN DE LOS DATOS.
           </Typography>
           <Typography>
-            La Empresa tiene implementadas medidas de seguridad administrativas, técnicas y físicas para proteger sus datos personales, mismas que igualmente exigimos sean cumplidas por los proveedores de servicios que contratamos. Usted podrá limitar el uso o divulgación de sus datos personales enviando un correo electrónico a inmobiliariapuertoescondido@gmail.com indicándonos en el cuerpo del correo su nombre completo y que dato desea que no sea divulgado, de proceder su solicitud, se le registrará en el listado de exclusión.
+            La Empresa tiene implementadas medidas de seguridad administrativas,
+            técnicas y físicas para proteger sus datos personales, mismas que
+            igualmente exigimos sean cumplidas por los proveedores de servicios
+            que contratamos. Usted podrá limitar el uso o divulgación de sus
+            datos personales enviando un correo electrónico a
+            inmobiliariapuertoescondido@gmail.com indicándonos en el cuerpo del
+            correo su nombre completo y que dato desea que no sea divulgado, de
+            proceder su solicitud, se le registrará en el listado de exclusión.
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2, mt: 4 }}>
@@ -112,7 +126,12 @@ const Privacy = () => {
             CANCELACIÓN U OPOSICIÓN (DERECHOS ARCO).
           </Typography>
           <Typography>
-            P uede enviar un correo electrónico a inmobiliariapuertoescondido@gmail.com, en cualquier momento, para ejercer sus Derechos de Acceso, Rectificación, Cancelación u Oposición (“Derechos ARCO”). Para ejercer los Derechos ARCO, usted (o su representante legal), deberá presentar la solicitud, identificándose con la siguiente documentación:
+            P uede enviar un correo electrónico a
+            inmobiliariapuertoescondido@gmail.com, en cualquier momento, para
+            ejercer sus Derechos de Acceso, Rectificación, Cancelación u
+            Oposición (“Derechos ARCO”). Para ejercer los Derechos ARCO, usted
+            (o su representante legal), deberá presentar la solicitud,
+            identificándose con la siguiente documentación:
           </Typography>
 
           <Typography sx={{ mb: 2, mt: 4 }}>

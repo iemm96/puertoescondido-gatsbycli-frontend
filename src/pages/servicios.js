@@ -62,8 +62,7 @@ const Servicios = ({ data }) => {
                 >
                   <Typography variant="h5">{service.name}</Typography>
                   <Typography sx={{ mt: 2 }} variant="body2">
-                    Empleo de equipo especializado para la MEDICIÓN exacta de
-                    áreas, alturas, relieve de un TERRENO.
+                    {service?.description}
                   </Typography>
                 </Stack>
                 <StyledButton
