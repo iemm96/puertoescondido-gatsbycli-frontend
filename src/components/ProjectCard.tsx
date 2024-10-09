@@ -37,6 +37,120 @@ const ProjectCard = ({ data, key }: ProjectCardType) => {
   const theme = useTheme()
   const image = getImage(data?.coverImage)
 
+  const cardInnerContent = (
+    <>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 100%)",
+          position: "absolute",
+          zIndex: 0,
+        }}
+      />
+      <CardActionArea
+        sx={{ height: "100%" }}
+        onClick={() => navigate(`/propiedad/${data.slug}`)}
+      >
+        <CardContent>
+          {/* @ts-ignore */}
+          <Typography
+            variant="h5"
+            color={theme.palette.primary.light}
+            sx={{
+              fontSize: "inherit",
+              fontWeight: 900,
+            }}
+          >
+            {data?.name}
+          </Typography>
+          <>
+            <Typography variant="body2" color="white">
+              Proyecto estrella
+            </Typography>
+            <Stack direction="row" spacing={0}>
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+              <StarRounded
+                sx={{
+                  color: "#FFE70E",
+                }}
+              />
+            </Stack>
+          </>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 300,
+            }}
+            color="white"
+          >
+            {data?.description}
+          </Typography>
+          {data?.timeFromDowntown && (
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 300,
+              }}
+              color="white"
+            >
+              A {data?.timeFromDowntown} de puerto escondido
+            </Typography>
+          )}
+          {data?.nearToBeaches && (
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 300,
+              }}
+              color="white"
+            >
+              Playas cercanas: {data?.nearToBeaches}
+            </Typography>
+          )}
+        </CardContent>
+        <CardActions
+          sx={{
+            position: "absolute",
+            bottom: 8,
+          }}
+        >
+          <Button
+            onClick={() => navigate(`/propiedad/${data.slug}`)}
+            variant="text"
+            sx={{
+              textTransform: "none",
+              color: theme.palette.primary.light,
+            }}
+            size="small"
+            startIcon={<ArrowCircleRightOutlined />}
+          >
+            Ver detalles
+          </Button>
+        </CardActions>
+      </CardActionArea>
+    </>
+  )
   return (
     <StyledCard
       sx={{
@@ -53,122 +167,19 @@ const ProjectCard = ({ data, key }: ProjectCardType) => {
       elevation={0}
       key={key}
     >
-      <BgImage
-        // @ts-ignore
-        style={{ height: "100%" }}
-        image={image}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 100%)",
-            position: "absolute",
-            zIndex: 0,
-          }}
-        />
-        <CardActionArea
-          sx={{ height: "100%" }}
-          onClick={() => navigate(`/propiedad/${data.slug}`)}
-        >
-          <CardContent>
-            {/* @ts-ignore */}
-            <Typography
-              variant="h5"
-              color={theme.palette.primary.light}
-              sx={{
-                fontSize: "inherit",
-                fontWeight: 900,
-              }}
-            >
-              {data?.name}
-            </Typography>
-            <>
-              <Typography variant="body2" color="white">
-                Proyecto estrella
-              </Typography>
-              <Stack direction="row" spacing={0}>
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-                <StarRounded
-                  sx={{
-                    color: "#FFE70E",
-                  }}
-                />
-              </Stack>
-            </>
-            <Typography
-              variant="body2"
-              sx={{
-                fontWeight: 300,
-              }}
-              color="white"
-            >
-              {data?.description}
-            </Typography>
-            {data?.timeFromDowntown && (
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 300,
-                }}
-                color="white"
-              >
-                A {data?.timeFromDowntown} de puerto escondido
-              </Typography>
-            )}
-            {data?.nearToBeaches && (
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 300,
-                }}
-                color="white"
-              >
-                Playas cercanas: {data?.nearToBeaches}
-              </Typography>
-            )}
-          </CardContent>
-          <CardActions
-            sx={{
-              position: "absolute",
-              bottom: 8,
-            }}
+      <Box sx={{ height: "100%" }}>
+        {image ? (
+          <BgImage
+            // @ts-ignore
+            style={{ height: "100%" }}
+            image={image}
           >
-            <Button
-              onClick={() => navigate(`/propiedad/${data.slug}`)}
-              variant="text"
-              sx={{
-                textTransform: "none",
-                color: theme.palette.primary.light,
-              }}
-              size="small"
-              startIcon={<ArrowCircleRightOutlined />}
-            >
-              Ver detalles
-            </Button>
-          </CardActions>
-        </CardActionArea>
-      </BgImage>
+            {cardInnerContent}
+          </BgImage>
+        ) : (
+          cardInnerContent
+        )}
+      </Box>
     </StyledCard>
   )
 }
