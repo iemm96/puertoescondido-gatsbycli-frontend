@@ -1,6 +1,5 @@
 import * as React from "react"
 import Seo from "../components/seo"
-import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import loadable from "@loadable/component"
 
@@ -31,20 +30,7 @@ const IndexPage = ({ data }) => {
           />
         )}
         <Banner />
-        <Box
-          sx={{
-            background:
-              "linear-gradient(0deg, rgba(234,227,217,1) 0%, rgba(255,255,255,1) 100%)",
-            height: {
-              xs: "auto",
-            },
-            width: "100%",
-            pt: 4,
-            pb: 2,
-          }}
-        >
-          <TopProjects />
-        </Box>
+        <TopProjects />
         <MainInfoContent />
         <FeaturedCategories attached={false} fullScreen={false} />
         <Typography
