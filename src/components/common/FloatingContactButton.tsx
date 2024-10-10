@@ -260,7 +260,7 @@ const FloatingContactButton = () => {
               startIcon={<Whatsapp size={20} color={"white"} />}
               onClick={() =>
                 handleClick(
-                  "https://api.whatsapp.com/send/?phone=522226623751&text=Hola+los+contacto+desde+su+web"
+                  "https://api.whatsapp.com/send/?phone=529541084925&text=Hola+los+contacto+desde+su+web"
                 )
               }
             >
