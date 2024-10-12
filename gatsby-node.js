@@ -288,10 +288,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     coverImage: {
       type: "File",
       resolve: (source, args, context) => {
-        return context.nodeModel.getNodeById({
-          id: `${source.uid}-image`,
+        const src = context.nodeModel.getNodeById({
+          id: `${source.uid}-cover-image`,
           type: "File",
         })
+        if (source.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
+          console.log("retrieving source ", src)
+          console.log("source!!!!! ", source.uid)
+        }
+        return src
       },
     },
     // Array
@@ -413,8 +418,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
                 type: "File",
               })
             )
-
-            console.log("images ", images)
             return images
           },
         },
@@ -468,14 +471,20 @@ exports.onCreateNode = async ({
 }) => {
   try {
     if (node.internal.type === "Property" && node?.coverImage?.url !== null) {
+      if (node?.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
+        console.log("node ", node?.coverImage?.url)
+      }
       if (node?.coverImage?.url) {
         const fileNode = await createRemoteFileNode({
           url: node?.coverImage?.url, // string that points to the URL of the image
           parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
           createNode, // helper function in gatsby-node to generate the node
-          createNodeId: id => `${node.uid}-image`,
+          createNodeId: id => `${node.uid}-cover-image`,
           getCache,
         })
+        if (node?.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
+          console.log("fileNode ", fileNode)
+        }
         // if the file was created, extend the node with "localFile"
         if (fileNode) {
           createNodeField({ node, name: "localFile", value: fileNode.id })
