@@ -7,7 +7,6 @@ import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
 import { pages } from "./../constants"
 import { navigate } from "gatsby"
-import StyledButton from "../styled/StyledButton"
 
 const Sidebar = React.forwardRef((props: any, ref: any) => {
   const [open, setOpen] = React.useState(false)

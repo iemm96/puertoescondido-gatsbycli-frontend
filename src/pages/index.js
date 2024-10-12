@@ -7,9 +7,6 @@ import { getImage } from "gatsby-plugin-image"
 import { graphql } from "gatsby"
 import { ModalOffers, useModalOffers } from "../components/common/ModalOffers"
 import FeaturedCategories from "../components/FeaturedCategories"
-import InvestmentProjects from "../components/InvestmentProjects"
-import RuralProjects from "../components/RuralProjects"
-import CommercialProjects from "../components/CommercialProjects"
 
 const Layout = loadable(() => import("../components/layout"))
 const Banner = loadable(() => import("../components/Banner"))
