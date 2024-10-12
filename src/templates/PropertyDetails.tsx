@@ -272,7 +272,9 @@ const PropertyDetails = ({ data }) => {
                   </StyledButton>
                 </Grid>
                 <Grid xs={12} item order={3}>
+                  {/*
                   <div ref={mapContainer} className="map-container" />
+                    */}
                 </Grid>
               </Grid>
             </Container>
