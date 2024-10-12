@@ -128,7 +128,7 @@ const Footer = () => {
                     onClick={() => window.open("tel:+5219541084925")}
                     style={typographyStyles}
                   >
-                    +52 1 954 108 4925
+                    +52 954 108 4925
                   </Typography>
                 </Grid>
                 <Grid sx={{ alignItems: "center", display: "flex" }} item>

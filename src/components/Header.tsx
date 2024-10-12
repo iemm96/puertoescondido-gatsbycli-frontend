@@ -109,7 +109,7 @@ const Header = ({ scrollTrigger }: HeaderPropsType) => {
                   startIcon={<WhatsApp />}
                   variant="text"
                 >
-                  (+52) 1 954 108 4925
+                  (+52) 954 108 4925
                 </Button>
                 <StyledButton
                   onClick={() => navigate("/contacto")}

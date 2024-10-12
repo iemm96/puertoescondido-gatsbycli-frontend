@@ -215,10 +215,8 @@ const Contacto = () => {
                     <Phone />
                     <Typography variant="h6">Teléfonos</Typography>
                   </Stack>
-                  <Typography>
-                    +52 (222) 662 3751
-                    <br />
-                    +52 (951) 171 48 29
+                  <Typography onClick={() => window.open("tel:+5219541084925")}>
+                    +52 954 108 4925
                   </Typography>
                   <Stack
                     mt={2}
