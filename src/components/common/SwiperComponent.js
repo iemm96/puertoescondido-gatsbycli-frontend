@@ -23,6 +23,7 @@ const mySwiperComponent = (
   swiperDef,
   disableAutoPlay
 ) => {
+  console.log("fullScreen ", fullScreen)
   const autoplay = disableAutoPlay
     ? {
         autoplay: {
@@ -63,15 +64,15 @@ const mySwiperComponent = (
       }}
       breakpoints={{
         640: {
-          slidesPerView: 2,
+          slidesPerView: fullScreen ? 1 : 2,
           spaceBetween: 10,
         },
         768: {
-          slidesPerView: 2,
+          slidesPerView: fullScreen ? 1 : 2,
           spaceBetween: 40,
         },
         1024: {
-          slidesPerView: 3,
+          slidesPerView: fullScreen ? 1 : 3,
           spaceBetween: 10,
         },
         1280: {
