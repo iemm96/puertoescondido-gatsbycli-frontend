@@ -116,15 +116,19 @@ const PropertyCard = ({
       </CardContent>
       {!attached && (
         <CardActions>
-          <Button
+          <div
             onClick={() => navigate(`/propiedad/${data.slug}`)}
-            variant="text"
-            sx={{ textTransform: "none" }}
-            size="small"
-            startIcon={<ArrowForwardOutlined />}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            {showEstimate ? "Ver mensualidades" : "Ver detalles"}
-          </Button>
+            <ArrowForwardOutlined sx={{ fontSize: 12 }} />
+            <Typography variant="body2">
+              {showEstimate ? "Ver mensualidades" : "Ver detalles"}
+            </Typography>
+          </div>
         </CardActions>
       )}
     </CardActionArea>
