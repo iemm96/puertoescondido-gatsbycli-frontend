@@ -20,21 +20,10 @@ const PropertiesList = ({
   },
   pageContext,
 }) => {
-  console.log("pageContext ", pageContext)
   const { limit, numPages, currentPage, totalResults } = pageContext
 
   const { filters, setFilters, handleChange, filteredResults } =
     useFiltersBox(properties)
-
-  const params = new URLSearchParams(location.search)
-  const search = params.get("search")
-  const category = params.get("categoria")
-
-  const { openSidebar, setOpenSidebar } = useCustomSearchInput(
-    index,
-    store,
-    search
-  )
 
   const { width } = useWindowDimensions()
 
@@ -52,23 +41,7 @@ const PropertiesList = ({
           }}
         >
           <Grid spacing={4} container>
-            {/*
-                                                    <Grid sx={{ display: { xs: 'none', lg: 'inline' } }} xs={3} item>
-                            <FiltersBox
-                                defaultCategory={ category }
-                                categories={ categories }
-                                filters={ filters }
-                                setFilters={ setFilters }
-                                handleChange={ handleChange }
-                                openSidebar={ openSidebar }
-                                setOpenSidebar={ setOpenSidebar }
-                                responsiveMode={ width < 1200 }
-                            />
-                        </Grid>
-
-                            */}
             <Grid xs={12} lg={12} item>
-              <Grid container></Grid>
               <Grid spacing={2} container>
                 {filteredResults &&
                   filteredResults.map((val: any, index: number) => (
@@ -89,89 +62,84 @@ const PropertiesList = ({
                     </Grid>
                   ))}
               </Grid>
-              {/*
-                            <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
-                                <Grid
-                                    order={{
-                                        xs: 1
-                                    }}
-                                    xs={ 6 }
-                                    md={ 4 }
-                                    item
-                                >
-                                    <Typography
-                                        variant="body2">
-                                        Total de resultados: { totalResults }
-                                    </Typography>
-                                </Grid>
-                                <Grid
-                                    order={{
-                                        xs: 3,
-                                        md: 2
-                                    }}
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        mt: {
-                                            xs: 4,
-                                            md: 0
-                                        }
-                                    }}
-                                    xs={ 12 }
-                                    md={ 4 }
-                                    item
-                                >
-                                    <Stack direction="row" spacing={2}>
-                                        {
-                                            currentPage > 1 && (
-                                                <StyledButton
-                                                    onClick={
-                                                        ( currentPage - 1 ) === 1 ?
-                                                            () => navigate( '/propiedades' ) :
-                                                            () => navigate(`/propiedades/${ ( currentPage - 1 ) }`)
-                                                    }
-                                                    variant="outlined"
-                                                    startIcon={<ChevronLeft/>}
-                                                >
-                                                    Atrás
-                                                </StyledButton>
-                                            )
-                                        }
-                                        {
-                                            ( currentPage + 1 ) <= numPages && (
-                                                <StyledButton
-                                                    onClick={ () => navigate(`/propiedades/${ currentPage + 1 }`)}
-                                                    variant="contained"
-                                                    endIcon={<ChevronRight/>}
-                                                >
-                                                    Siguiente
-                                                </StyledButton>
-                                            )
-                                        }
-
-                                    </Stack>
-
-                                </Grid>
-                                <Grid
-                                    order={{
-                                        xs: 2,
-                                        md: 3
-                                    }}
-                                    xs={ 6 }
-                                    md={ 4 }
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent:'right'
-                                    }}
-                                    item
-                                >
-                                    <Typography variant="body2">
-                                        Página { currentPage } de { Math.round( totalResults / limit ) === 0 ? 1 :  Math.round( totalResults / limit ) }
-                                    </Typography>
-
-                                </Grid>
-                            </Grid>
-                                */}
+              <Grid sx={{ mt: 2 }} justifyContent="space-between" container>
+                <Grid
+                  order={{
+                    xs: 1,
+                  }}
+                  xs={6}
+                  md={4}
+                  item
+                >
+                  <Typography variant="body2">
+                    Total de resultados: {totalResults}
+                  </Typography>
+                </Grid>
+                <Grid
+                  order={{
+                    xs: 3,
+                    md: 2,
+                  }}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    mt: {
+                      xs: 4,
+                      md: 0,
+                    },
+                  }}
+                  xs={12}
+                  md={4}
+                  item
+                >
+                  <Stack direction="row" spacing={2}>
+                    {currentPage > 1 && (
+                      <StyledButton
+                        onClick={
+                          currentPage - 1 === 1
+                            ? () => navigate("/propiedades")
+                            : () => navigate(`/propiedades/${currentPage - 1}`)
+                        }
+                        variant="outlined"
+                        startIcon={<ChevronLeft />}
+                      >
+                        Atrás
+                      </StyledButton>
+                    )}
+                    {currentPage + 1 <= numPages && (
+                      <StyledButton
+                        onClick={() =>
+                          navigate(`/propiedades/${currentPage + 1}`)
+                        }
+                        variant="contained"
+                        endIcon={<ChevronRight />}
+                      >
+                        Siguiente
+                      </StyledButton>
+                    )}
+                  </Stack>
+                </Grid>
+                <Grid
+                  order={{
+                    xs: 2,
+                    md: 3,
+                  }}
+                  xs={6}
+                  md={4}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "right",
+                  }}
+                  item
+                >
+                  <Typography variant="body2">
+                    Página {currentPage} de{" "}
+                    {Math.round(totalResults / limit) === 0
+                      ? 1
+                      : Math.round(totalResults / limit)}
+                  </Typography>
+                </Grid>
+              </Grid>
               <Grid
                 sx={{
                   mt: {
