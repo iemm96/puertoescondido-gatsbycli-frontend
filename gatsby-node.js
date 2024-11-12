@@ -51,14 +51,16 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `)
 
+    console.log("dataPosts ", dataPosts)
     const postsPerPage = 6
     let numPages = 0
 
     dataPosts.data.allSanityPost.nodes.forEach(node => {
+      console.log("node !! ", node)
       createPage({
         path: `/post/${node.slug.current}`,
         component: require.resolve("./src/templates/Post.tsx"),
-        context: { slug: node.slug.current },
+        context: { slug: node?.slug?.current },
       })
     })
 
@@ -292,10 +294,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           id: `${source.uid}-cover-image`,
           type: "File",
         })
-        if (source.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
-          console.log("retrieving source ", src)
-          console.log("source!!!!! ", source.uid)
-        }
         return src
       },
     },
@@ -471,9 +469,6 @@ exports.onCreateNode = async ({
 }) => {
   try {
     if (node.internal.type === "Property" && node?.coverImage?.url !== null) {
-      if (node?.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
-        console.log("node ", node?.coverImage?.url)
-      }
       if (node?.coverImage?.url) {
         const fileNode = await createRemoteFileNode({
           url: node?.coverImage?.url, // string that points to the URL of the image
@@ -482,9 +477,6 @@ exports.onCreateNode = async ({
           createNodeId: id => `${node.uid}-cover-image`,
           getCache,
         })
-        if (node?.slug === "jardines-de-san-pedro-2-desde-2999-mensual") {
-          console.log("fileNode ", fileNode)
-        }
         // if the file was created, extend the node with "localFile"
         if (fileNode) {
           createNodeField({ node, name: "localFile", value: fileNode.id })
