@@ -4,12 +4,12 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Inmobiliaria Puerto Escondido`,
+    title: `Grupo Escondido PMX`,
     description: `Somos una empresa 100% Mexicana originaria de la ciudad de Puerto Escondido, que se dedica a la intermediación en la compra - venta de inmuebles, terrenos, ranchos y fraccionamientos a buen precio, en Puerto Escondido y sus zonas aledañas.`,
     author: `@gatsbyjs`,
     siteUrl: `https://inmobiliariapuertoescondido.com`,
     og: {
-      siteName: "Inmobiliaria Puerto Escondido",
+      siteName: "Grupo Escondido PMX",
     },
   },
   plugins: [

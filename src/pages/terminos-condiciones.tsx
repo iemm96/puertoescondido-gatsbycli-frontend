@@ -33,12 +33,11 @@ const Privacy = () => {
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-            Inmobiliaria Puerto Escondido y/o sus subsidiarias, controladoras,
-            partes relacionadas y afiliadas (en a d e la n t e y , c o n ju n t
-            a e in d is t in t a m e n t e , la “ E m p r e s a ” ) s e r e s e
-            r v a n e l d e r e c h o d e m o d if ic a r discrecionalmente el
-            contenido del Portal en cualquier momento, sin necesidad de previo
-            aviso.
+            Grupo Escondido PMX y/o sus subsidiarias, controladoras, partes
+            relacionadas y afiliadas (en a d e la n t e y , c o n ju n t a e in
+            d is t in t a m e n t e , la “ E m p r e s a ” ) s e r e s e r v a n
+            e l d e r e c h o d e m o d if ic a r discrecionalmente el contenido
+            del Portal en cualquier momento, sin necesidad de previo aviso.
           </Typography>
 
           <Typography sx={{ mt: 2 }}>

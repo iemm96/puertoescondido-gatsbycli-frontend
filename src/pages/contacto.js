@@ -38,7 +38,7 @@ const Contacto = () => {
 
   const onSubmit = data => {
     let templateParams = {
-      to_name: "Inmobiliaria Puerto Escondido",
+      to_name: "Grupo Escondido PMX",
       from_name: data.name,
       from_number: data.phone,
       from_email: data.email,

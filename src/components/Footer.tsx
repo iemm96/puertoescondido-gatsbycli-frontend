@@ -180,7 +180,7 @@ const Footer = () => {
                 color={theme.palette.text.primary}
                 sx={{ fontSize: 12 }}
               >
-                © {new Date().getFullYear()} · Inmobiliaria Puerto Escondido.{" "}
+                © {new Date().getFullYear()} · Grupo Escondido PMX.{" "}
               </Typography>
             </Grid>
           </Grid>

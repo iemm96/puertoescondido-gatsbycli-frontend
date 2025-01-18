@@ -66,7 +66,7 @@ const SplashScreen = ({ duration }: { duration: number }) => {
               <LogoColor
                 src={LogoColor}
                 width={175}
-                alt="Inmobiliaria Puerto Escondido"
+                alt="Grupo Escondido PMX"
               />
             </motion.div>
           </motion.div>

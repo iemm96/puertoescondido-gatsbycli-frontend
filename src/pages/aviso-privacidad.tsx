@@ -47,11 +47,10 @@ const Privacy = () => {
             RESPONSABLE DEL TRATAMIENTO DE SUS DATOS PERSONALES.
           </Typography>
           <Typography>
-            Para Inmobiliaria Puerto Escondido (en adelante la “Empresa”) la
-            seguridad de los Usuarios es nuestra prioridad, por lo que
-            protegemos sus datos personales mediante el uso, aplicación y
-            mantenimiento de altas medidas de seguridad técnicas, físicas y
-            administrativas.
+            Para Grupo Escondido PMX (en adelante la “Empresa”) la seguridad de
+            los Usuarios es nuestra prioridad, por lo que protegemos sus datos
+            personales mediante el uso, aplicación y mantenimiento de altas
+            medidas de seguridad técnicas, físicas y administrativas.
           </Typography>
 
           <Typography>
