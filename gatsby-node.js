@@ -51,12 +51,10 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `)
 
-    console.log("dataPosts ", dataPosts)
     const postsPerPage = 6
     let numPages = 0
 
     dataPosts.data.allSanityPost.nodes.forEach(node => {
-      console.log("node !! ", node)
       createPage({
         path: `/post/${node.slug.current}`,
         component: require.resolve("./src/templates/Post.tsx"),
