@@ -189,6 +189,7 @@ const Contacto = () => {
                     </Grid>
                   </form>
                   <StyledButton
+                    sx={{ mt: 2 }}
                     variant="contained"
                     color="secondary"
                     onClick={handleSubmit(onSubmit)}
