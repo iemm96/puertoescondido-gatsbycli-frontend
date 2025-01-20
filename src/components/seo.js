@@ -80,7 +80,7 @@ function Seo({ description, lang, meta, title, props }) {
         },
         {
           name: "og:image",
-          content: `https://res.cloudinary.com/inmobiliaria-puerto-escondido/image/upload/v1721458463/og_image_py23fi.png`,
+          content: `https://res.cloudinary.com/inmobiliaria-puerto-escondido/image/upload/v1737401569/seo/og_image.jpg`,
         },
         {
           name: "og:image:width",

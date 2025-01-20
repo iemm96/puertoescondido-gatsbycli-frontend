@@ -9,19 +9,13 @@ const SocialNetworksIcons = () => {
 
   return (
     <Stack spacing={4} direction="row">
-      <a
-        href="https://www.facebook.com/TerrenosenPuertoEscondido/?_rdc=1&_rdr"
-        target="_blank"
-      >
+      <a href="https://www.facebook.com/grupoescondidopxm" target="_blank">
         <Facebook sx={{ color: theme.palette.text.primary }} />
       </a>
-      <a href="https://www.tiktok.com/@inmpuertoescondido" target="_blank">
+      <a href="https://www.tiktok.com/@grupoescondidopxm" target="_blank">
         <Tiktok size={24} style={{ color: theme.palette.text.primary }} />
       </a>
-      <a
-        href="https://www.instagram.com/inmobiliariapuertoescondido/?igshid=qbodrxzdlg5m"
-        target="_blank"
-      >
+      <a href="https://www.instagram.com/grupoescondidopxm" target="_blank">
         <Instagram sx={{ color: theme.palette.text.primary }} />
       </a>
       <a
