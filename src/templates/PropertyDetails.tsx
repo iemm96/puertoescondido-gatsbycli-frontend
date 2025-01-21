@@ -45,13 +45,13 @@ const PropertyDetails = ({ data }) => {
   React.useEffect(() => {
     if (map.current) return // initialize map only once
 
-    console.log("coverImageObject ", coverImageObject)
+    /*
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v12",
       center: [lng, lat],
       zoom: zoom,
-    })
+    })*/
   }, [])
 
   const descriptionComponent = () => (
